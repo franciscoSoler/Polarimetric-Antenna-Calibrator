@@ -1,0 +1,396 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "title": "RFDN characterization",
+	"description": "a description of how the antenna is build",
+    "type": "object",
+    "properties": {
+		"vPolarization": {
+            "type": "object",
+            "$ref": "#/definitions/cable"
+		},
+		"hPolarization": {
+            "type": "object",
+            "$ref": "#/definitions/cable"
+		}
+    },
+	"required": [ "vPolarization", "hPolarization" ],
+	"additionalProperties": false,
+    "definitions": {
+        "sPattern": {
+            "type": "string",
+            "pattern": "^([+,-]?[0-9]+(.[0-9]+)?([j]?|[+,-]([0-9]+(.[0-9]+)?)?j)|[+,-]?[0-9]+(.[0-9]+)?[e,E][+,-]?([0-9]+(.[0-9]+)?)?j)$"
+        },
+        "2PortsComponent": {
+            "properties": {
+                "sParameters": {
+                    "type": "array",
+                    "minItems": 2,
+                    "maxItems": 2,
+                    "items": {
+                        "type": "array",
+                        "minItems": 2,
+                        "maxItems": 2,
+                        "items": { "$ref": "#/definitions/sPattern" }
+                    },
+                    "additionalItems": false
+                }
+            },
+            "required": [ "sParameters" ]
+        },
+        "3PortsComponent": {
+            "properties": {
+                "sParameters": {
+                    "type": "array",
+                    "minItems": 3,
+                    "maxItems": 3,
+                    "items": {
+                        "type": "array",
+                        "minItems": 3,
+                        "maxItems": 3,
+                        "items": { "$ref": "#/definitions/sPattern" }
+                    },
+                    "additionalItems": false
+                }
+            },
+            "required": [ "sParameters" ]
+        },
+        "4PortsComponent": {
+            "properties": {
+                "sParameters": {
+                    "type": "array",
+                    "minItems": 4,
+                    "maxItems": 4,
+                    "items": {
+                        "type": "array",
+                        "minItems": 4,
+                        "maxItems": 4,
+                        "items": { "$ref": "#/definitions/sPattern" }
+                    },
+                    "additionalItems": false
+                }
+            },
+            "required": [ "sParameters" ]
+        },
+        "5PortsComponent": {
+            "properties": {
+                "sParameters": {
+                    "type": "array",
+                    "minItems": 5,
+                    "maxItems": 5,
+                    "items": {
+                        "type": "array",
+                        "minItems": 5,
+                        "maxItems": 5,
+                        "items": { "$ref": "#/definitions/sPattern" }
+                    },
+                    "additionalItems": false
+                }
+            },
+            "required": [ "sParameters" ]
+        },
+        "6PortsComponent": {
+            "properties": {
+                "sParameters": {
+                    "type": "array",
+                    "minItems": 6,
+                    "maxItems": 6,
+                    "items": {
+                        "type": "array",
+                        "minItems": 6,
+                        "maxItems": 6,
+                        "items": { "$ref": "#/definitions/sPattern" }
+                    },
+                    "additionalItems": false
+                }
+            },
+            "required": [ "sParameters" ]
+        },
+        "7PortsComponent": {
+            "properties": {
+                "sParameters": {
+                    "type": "array",
+                    "minItems": 7,
+                    "maxItems": 7,
+                    "items": {
+                        "type": "array",
+                        "minItems": 7,
+                        "maxItems": 7,
+                        "items": { "$ref": "#/definitions/sPattern" }
+                    },
+                    "additionalItems": false
+                }
+            },
+            "required": [ "sParameters" ]
+        },
+        "8PortsComponent": {
+            "properties": {
+                "sParameters": {
+                    "type": "array",
+                    "minItems": 8,
+                    "maxItems": 8,
+                    "items": {
+                        "type": "array",
+                        "minItems": 8,
+                        "maxItems": 8,
+                        "items": { "$ref": "#/definitions/sPattern" }
+                    },
+                    "additionalItems": false
+                }
+            },
+            "required": [ "sParameters" ]
+        },
+        "13PortsComponent": {
+            "properties": {
+                "sParameters": {
+                    "type": "array",
+                    "minItems": 13,
+                    "maxItems": 13,
+                    "items": {
+                        "type": "array",
+                        "minItems": 13,
+                        "maxItems": 13,
+                        "items": { "$ref": "#/definitions/sPattern" }
+                    },
+                    "additionalItems": false
+                }
+            },
+            "required": [ "sParameters" ]
+        },
+        "cable": {
+            "properties": {
+                "cable": {
+                    "type": "object",
+                    "allOf": [
+                        { "$ref": "#/definitions/2PortsComponent" },
+                        { "properties": {
+                            "extremeAttached": { 
+                                "type": "object",
+                                "oneOf": [
+                                    { "$ref": "#/definitions/psc2" },
+                                    { "$ref": "#/definitions/psc3" },
+                                    { "$ref": "#/definitions/psc4" },
+                                    { "$ref": "#/definitions/psc5" },
+                                    { "$ref": "#/definitions/psc6" },
+                                    { "$ref": "#/definitions/psc7" },
+                                    { "$ref": "#/definitions/psc12" },
+                                    { "$ref": "#definitions/moduleTransRec" }
+                                ]
+                            }
+                          },
+                          "required": [ "extremeAttached" ]
+                        }
+                    ]
+                }
+            },
+            "required": [ "cable" ]
+        },
+        "moduleTransRec": {
+            "properties": {
+                "TRM": {
+                    "type": "object",
+                    "allOf": [
+                        { "$ref": "#/definitions/3PortsComponent" },
+                        { "properties": { 
+                            "extremeAttached": { 
+                                "type": "object",
+                                "$ref": "#/definitions/circulator"
+                            }
+                          },
+                          "required": [ "extremeAttached" ]
+                        }
+                    ]
+                }
+            },
+            "required": [ "TRM" ]
+        },
+        "circulator": {
+            "properties": {
+                "circulator": {
+                    "type": "object",
+                    "allOf": [
+                        { "$ref": "#/definitions/3PortsComponent" },
+                        { "properties": {
+                            "extremeAttached": {
+                                "type": "object",
+                                "$ref": "#/definitions/radiantModule"
+                            }
+                          },
+                          "required": [ "extremeAttached" ]
+                        }
+                    ]
+                }
+            },
+            "required": [ "circulator" ]
+        },
+        "radiantModule": {
+            "properties": {
+                "cable": { 
+                    "type": "object",
+                    "allOf": [
+                        { "$ref": "#/definitions/2PortsComponent" },
+                        { "properties": { 
+                            "extremeAttached": {
+                                "type": "string",
+                                "pattern": "^RM \([\d]+,[\d]+\)$"
+                            }
+                          },
+                          "required": [ "extremeAttached" ]
+                        }
+                    ]
+                }
+            },
+            "required": [ "cable" ]
+        },
+        "RM": {
+
+        },
+        "psc2": {
+            "properties": {
+                "PSC12": {
+                    "type": "object",
+                    "allOf": [
+                        { "$ref": "#/definitions/3PortsComponent" },
+                        { "properties": {
+                            "extremeAttached": {
+                                "type": "array",
+                                "minItems": 2,
+                                "maxItems": 2,
+                                "items": { "$ref": "#definitions/cable" }
+                            }
+                          },
+                          "required": [ "extremeAttached" ]
+                        }
+                    ]
+                }
+            },
+            "required": ["PSC12"]
+        },
+        "psc3": {
+            "properties": {
+                "PSC13": {
+                    "type": "object",
+                    "allOf": [
+                        { "$ref": "#/definitions/4PortsComponent" },
+                        { "properties": {
+                            "extremeAttached": {
+                                "type": "array",
+                                "minItems": 3,
+                                "maxItems": 3,
+                                "items": { "$ref": "#definitions/cable" }
+                            }
+                          },
+                          "required": [ "extremeAttached" ]
+                        }
+                    ]
+                }
+            },
+            "required": ["PSC13"]
+        },
+        "psc4": {
+            "properties": {
+                "PSC14": {
+                    "type": "object",
+                    "allOf": [
+                        { "$ref": "#/definitions/5PortsComponent" },
+                        { "properties": {
+                            "extremeAttached": {
+                                "type": "array",
+                                "minItems": 4,
+                                "maxItems": 4,
+                                "items": { "$ref": "#definitions/cable" }
+                            }
+                          },
+                          "required": [ "extremeAttached" ]
+                        }
+                    ]
+                }
+            },
+            "required": ["PSC14"]
+        },
+        "psc5": {
+            "properties": {
+                "PSC15": {
+                    "type": "object",
+                    "allOf": [
+                        { "$ref": "#/definitions/6PortsComponent" },
+                        { "properties": {
+                            "extremeAttached": {
+                                "type": "array",
+                                "minItems": 5,
+                                "maxItems": 5,
+                                "items": { "$ref": "#definitions/cable" }
+                            }
+                          },
+                          "required": [ "extremeAttached" ]
+                        }
+                    ]
+                }
+            },
+            "required": ["PSC15"]
+        },
+        "psc6": {
+            "properties": {
+                "PSC16": {
+                    "type": "object",
+                    "allOf": [
+                        { "$ref": "#/definitions/7PortsComponent" },
+                        { "properties": {
+                            "extremeAttached": {
+                                "type": "array",
+                                "minItems": 6,
+                                "maxItems": 6,
+                                "items": { "$ref": "#definitions/cable" }
+                            }
+                          },
+                          "required": [ "extremeAttached" ]
+                        }
+                    ]
+                }
+            },
+            "required": ["PSC16"]
+        },
+        "psc7": {
+            "properties": {
+                "PSC17": {
+                    "type": "object",
+                    "allOf": [
+                        { "$ref": "#/definitions/8PortsComponent" },
+                        { "properties": {
+                            "extremeAttached": {
+                                "type": "array",
+                                "minItems": 7,
+                                "maxItems": 7,
+                                "items": { "$ref": "#definitions/cable" }
+                            }
+                          },
+                          "required": [ "extremeAttached" ]
+                        }
+                    ]
+                }
+            },
+            "required": ["PSC17"]
+        },
+        "psc12": {
+            "properties": {
+                "PSC112": {
+                    "type": "object",
+                    "allOf": [
+                        { "$ref": "#/definitions/13PortsComponent" },
+                        { "properties": {
+                            "extremeAttached": {
+                                "type": "array",
+                                "minItems": 12,
+                                "maxItems": 12,
+                                "items": { "$ref": "#definitions/cable" }
+                            }
+                          },
+                          "required": [ "extremeAttached" ]
+                        }
+                    ]
+                }
+            },
+            "required": ["PSC112"]
+        }
+    }
+}
+ 

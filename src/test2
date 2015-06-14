@@ -1,0 +1,106 @@
+{
+    "hPolarization": {
+        "cable": {
+            "att": 1.9617343664464582,
+            "extremeAttached": {
+                "PSC12": {
+                    "att": 0.9480584260369944,
+                    "extremeAttached": [
+                        {
+                            "cable": {
+                                "att": 0.9719948716191326,
+                                "extremeAttached": {
+                                    "TRM": {
+                                        "att": 2.0948251407060328,
+                                        "extremeAttached": {
+                                            "cable": {
+                                                "att": 0.9919926577929044,
+                                                "extremeAttached": "RM",
+                                                "phShift": 1.9474611498893242
+                                            }
+                                        },
+                                        "phShift": 3.0290260991099203
+                                    }
+                                },
+                                "phShift": 1.0935404738998524
+                            }
+                        },
+                        {
+                            "cable": {
+                                "att": 0.9245940472401151,
+                                "extremeAttached": {
+                                    "TRM": {
+                                        "att": 2.01566377729077,
+                                        "extremeAttached": {
+                                            "cable": {
+                                                "att": 1.0714438994623205,
+                                                "extremeAttached": "RM",
+                                                "phShift": 1.9939752375496151
+                                            }
+                                        },
+                                        "phShift": 3.043332069264256
+                                    }
+                                },
+                                "phShift": 0.9108234465003622
+                            }
+                        }
+                    ],
+                    "phShift": 0.4933682680777549
+                }
+            },
+            "phShift": 1.9721127297157872
+        }
+    },
+    "vPolarization": {
+        "cable": {
+            "att": 1.961732492205776,
+            "extremeAttached": {
+                "PSC12": {
+                    "att": 0.9594481558610262,
+                    "extremeAttached": [
+                        {
+                            "cable": {
+                                "att": 0.9559340892971157,
+                                "extremeAttached": {
+                                    "TRM": {
+                                        "att": 1.919996787537097,
+                                        "extremeAttached": {
+                                            "cable": {
+                                                "att": 1.0848865679640611,
+                                                "extremeAttached": "RM",
+                                                "phShift": 1.9581566183650205
+                                            }
+                                        },
+                                        "phShift": 3.036109463563246
+                                    }
+                                },
+                                "phShift": 0.9579751834868558
+                            }
+                        },
+                        {
+                            "cable": {
+                                "att": 0.9631216756253523,
+                                "extremeAttached": {
+                                    "TRM": {
+                                        "att": 1.9561011606506729,
+                                        "extremeAttached": {
+                                            "cable": {
+                                                "att": 1.005053868951778,
+                                                "extremeAttached": "RM",
+                                                "phShift": 2.034283589408195
+                                            }
+                                        },
+                                        "phShift": 3.089454825615893
+                                    }
+                                },
+                                "phShift": 1.0240946499667243
+                            }
+                        }
+                    ],
+                    "phShift": 0.49630463237729255
+                }
+            },
+            "phShift": 1.993333673177312
+        }
+    }
+}

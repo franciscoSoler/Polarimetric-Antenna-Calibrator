@@ -1,0 +1,5 @@
+to run the simulator you must use the next sequence:
+	* calPaths = characterizeAntenna(power, qttyAntennas)
+	* differences = getSignalShift(calPaths) 
+	* correctedGainPhase = calibrateAntenna(differences)
+	* showCalibrationResults(correctedGainPhase)

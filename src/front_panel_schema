@@ -1,0 +1,60 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "title": "RFDN characterization",
+	"description": "a description of how the antenna is build",
+    "type": "array",
+    "minItems": 2,
+    "uniqueItems": True,
+    "items": [
+		{ "$ref": "#/definitions/RM" },
+		{
+		    "type": "object",
+		    "properties": {
+		        "coupling": {
+                    "type": "array"
+                    "items": {
+                        "type": "array"
+                        "minItems": 2,
+                        "uniqueItems": True,
+                        "items": [
+                            { "$ref": "#/definitions/RM" },
+                            { "$ref": "#/definitions/2PortsComponent" }
+                        ],
+                        "additionalItems": false
+                    },
+                    "additionalItems": false
+		        }
+		    }
+
+		}
+    ],
+    "additionalItems": false,
+
+    "definitions": {
+        "RM": {
+            "type": "string",
+            "pattern": "^RM \([\d]+,[\d]+\)$"
+        },
+        "sPattern": {
+            "type": "string",
+            "pattern": "^([+,-]?[0-9]+(.[0-9]+)?([j]?|[+,-]([0-9]+(.[0-9]+)?)?j)|[+,-]?[0-9]+(.[0-9]+)?[e,E][+,-]?([0-9]+(.[0-9]+)?)?j)$"
+        },
+        "2PortsComponent": {
+            "properties": {
+                "sParameters": {
+                    "type": "array",
+                    "minItems": 2,
+                    "maxItems": 2,
+                    "items": {
+                        "type": "array",
+                        "minItems": 2,
+                        "maxItems": 2,
+                        "items": { "$ref": "#/definitions/sPattern" }
+                    },
+                    "additionalItems": false
+                }
+            },
+            "required": [ "sParameters" ]
+        }
+    }
+}

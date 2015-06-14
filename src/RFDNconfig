@@ -1,0 +1,127 @@
+{
+	"orderPSC": {
+        "_ArrayType_": "integer",
+		"_ArraySize_": [3,1],
+		"_ArrayIsSparse_": 1,
+		"_ArrayData_": [
+		]
+	},
+	"antennaConfig": {
+		"rows": 20,
+		"panels": 7
+	},
+    "chirpData": {
+		"bw": 10e6,
+		"fc": 0,
+		"tp": 20.00e-6
+	},
+    "samplingWindow": {
+		"swst": 0e-6,
+		"fs": 120e6
+	},
+    "errors": {
+		"trmPhErrOn": false,
+		"chirpRepErrOn": false,
+        "phError": 5
+	},
+    "errorsICAL": {
+		"att": 0.2,
+		"phShift": -5
+	},
+    "attElementsDb": {
+        "_ArrayType_": "double",
+		"_ArraySize_": [140,1],
+		"_ArrayIsSparse_": 1,
+		"_ArrayData_": [
+			[1,0.5],
+            [2,0.5],
+            [3,0.5],
+            [4,0.5],
+            [5,0.5],
+            [6,0.5],
+            [7,0.5],
+            [8,0.5],
+            [9,0.5],
+            [10,0.5],
+            [11,0.5],
+            [12,0.5],
+            [13,0.5],
+            [14,0.5],
+            [15,0.5],
+            [16,0.5],
+            [17,0.5],
+            [18,0.5],
+            [19,0.5],
+            [20,0.5]
+		]
+    },
+    "steeringAngle": 5.625
+}
+
+tengo que armar una secuencia
+    primero elijo polarizacion (H y V, tengo que hacer 2 veces esto)
+    1° elemento es el cable, 
+        el cable tiene atenuacion, defasaje y terminación
+        si terminación es PSC, tengo que volver a definir 
+        el elemento cable por cada saliday repetir esto
+        hasta que terminación sea RM
+    
+puedo sacar algo de http://json-schema.org/exampl¡e2.html (ahi tengo un lindo ejemplo)
+http://spacetelescope.github.io/understanding-json-schema/reference/object.html
+http://spacetelescope.github.io/understanding-json-schema/reference/combining.html#combining
+http://spacetelescope.github.io/understanding-json-schema/structuring.html  
+
+preguntas a autocontestarme :
+
+* como hago para repetir un atributo del objeto? ejemplo "cable cable cable cable" todos hijos de un mismo elemento
+* aun no se si tratarlos con id o como, tengo que robar internet mañana para autocontestarme, de momento no creo poder hacer mucho mas :S
+
+
+       "psc_order": {
+            "type": "array",
+            "items": { 
+                "enum": [ "PSC17", "PSC16", "PSC15", "PSC14", "PSC13", "PSC12" ] 
+            },
+            "minItems": 1,
+            "uniqueItems": false
+        },
+        "title": "Product",
+        "type": "object",
+        "properties": {
+            "id": {
+                "description": "The unique identifier for a product",
+                "type": "number"
+            },
+            "name": {
+                "type": "string"
+            },
+            "price": {
+                "type": "number",
+                "minimum": 0,
+                "exclusiveMinimum": true
+            },
+            "tags": {
+                "type": "array",
+                "items": {
+                    "type": "string"
+                },
+                "minItems": 1,
+                "uniqueItems": true
+            },
+            "dimensions": {
+                "type": "object",
+                "properties": {
+                    "length": {"type": "number"},
+                    "width": {"type": "number"},
+                    "height": {"type": "number"}
+                },
+                "required": ["length", "width", "height"]
+            },
+            "warehouseLocation": {
+                "description": "Coordinates of the warehouse with the product",
+                "$ref": "http://json-schema.org/geo"
+            }
+        },
+        "required": ["id", "name", "price"]
+    }
+}

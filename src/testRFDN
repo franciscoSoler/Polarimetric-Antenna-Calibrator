@@ -1,0 +1,47 @@
+{
+	"vPolarization": {
+		"cable": {
+			"att": 2,
+			"phShift": 1.5,
+			"extremeAttached": {
+				"PSC12": {
+					"att": 2,
+					"phShift": 1.5,
+					"extremeAttached": [3, 2]
+				}
+			}
+		}
+	},
+	"hPolarization": {
+		"cable": {
+			"att": 2,
+			"phShift": 1.5,
+			"extremeAttached": {
+				"PSC13": {
+					"att": 2,
+					"phShift": 1.5,
+					"extremeAttached": [ 
+						{ "cable": {
+							"att": 2,
+						  	"phShift": 1.5,
+						 	"extremeAttached": { 
+						 		"TRM": {
+							 		"att": 2,
+									"phShift": 1.5,
+									"extremeAttached": {
+										"cable": {
+											"att": 0.7,
+											"phShift": 0.3,
+											"extremeAttached": "RM"		
+										}
+									}
+							  	}	
+							}
+						  }
+						}
+					]
+				}
+			}
+		}
+	}
+}	
