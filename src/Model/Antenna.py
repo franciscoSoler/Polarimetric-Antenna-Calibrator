@@ -83,10 +83,31 @@ class Antenna():
 
         # convert the S parameters of the component in complex values
         parameters = [list(map(complex, si)) for si in value[AntennaCommon.SParams]]
-        return [[rm_pos, AntennaCommon.s2t_parameters(AntennaCommon.get_s2p(component, parameters, mode,
-                                                                            f(rm_pos))) * child_param]
+        build_cascade = lambda x, y: x * y if mode == AntennaCommon.Transmission else y * x
+        return [[rm_pos, build_cascade(AntennaCommon.s2t_parameters(AntennaCommon.get_s2p(component, parameters, mode,
+                                                                                          f(rm_pos))), child_param)]
                 for rm_pos, child_param in children]
 
+    def get_gain_paths(self, pol_mode):
+        """
+        :keyword parameters:
+        pol_mode -- must be one of the available modes: TxH, TxV, RxH, RxV, TxH-RxV or TxV-RxH
+
+        :return:
+        att_path -- list of S parameter of every path of the antenna depending on the polarization required.
+        """
+        if not [mode for mode in Antenna.__AvailableModes if pol_mode == mode]:
+            raise Exception("polarization {0} is not a valid mode", pol_mode)
+
+        modes = AntennaCommon.parse_polarization_mode(pol_mode)
+
+        f = lambda x, y: [AntennaCommon.t2s_parameters(matrix[1]) for matrix in sorted(x, key=lambda z: z[0])]
+        format_list = lambda x: list(map(lambda y: x[self.__quantity_columns * y: self.__quantity_columns * (y+1)],
+                                         range(self.__quantity_rows)))
+        return [format_list(f(self.__get_attenuation_paths(self.__json_rfdn[mode[1]], mode[0]),
+                              mode[0])) for mode in modes]
+
+    '''
     def get_gain_paths(self, pol_mode):
         """
         :keyword parameters:
@@ -109,6 +130,7 @@ class Antenna():
                                          range(self.__quantity_rows)))
         return [format_list(f(self.__get_attenuation_paths(self.__json_rfdn[mode[1]], mode[0]),
                               mode[0])) for mode in modes]
+    '''
 
     def get_mutual_coupling_front_panel(self):
         """

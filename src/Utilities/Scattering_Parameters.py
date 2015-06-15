@@ -79,7 +79,7 @@ class CirculatorScatteringParameters(ScatteringParametersHandler):
 
     def _get_scattering_matrix(self, length):
         add_errors = lambda x: list(map(lambda y: self._add_error(y), x))
-        return [add_errors([0, 0, 1]), add_errors([1, 0, 1]), add_errors([0, 1, 0])]
+        return [add_errors([0, 0, 1]), add_errors([1, 0, 0]), add_errors([0, 1, 0])]
 
 
 class TrmScatteringParameters(ScatteringParametersHandler):
@@ -89,7 +89,7 @@ class TrmScatteringParameters(ScatteringParametersHandler):
 
     def _get_scattering_matrix(self, gain_shift):
         add_errors = lambda x: list(map(lambda y: self._add_error(y), x))
-        return [add_errors([0, 0, gain_shift]), add_errors([gain_shift, 0, 0]), add_errors([gain_shift, 0, 0])]
+        return [add_errors([0, 0, gain_shift]), add_errors([gain_shift, 0, 0]), add_errors([0, 0, 0])]
 
 
 class RmScatteringParameters(ScatteringParametersHandler):
