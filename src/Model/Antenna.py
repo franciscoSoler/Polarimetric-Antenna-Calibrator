@@ -107,31 +107,6 @@ class Antenna():
         return [format_list(f(self.__get_attenuation_paths(self.__json_rfdn[mode[1]], mode[0]),
                               mode[0])) for mode in modes]
 
-    '''
-    def get_gain_paths(self, pol_mode):
-        """
-        :keyword parameters:
-        pol_mode -- must be one of the available modes: TxH, TxV, RxH, RxV, TxH-RxV or TxV-RxH
-
-        :return:
-        att_path -- list of S parameter of every path of the antenna depending on the polarization required.
-        """
-        if not [mode for mode in Antenna.__AvailableModes if pol_mode == mode]:
-            raise Exception("polarization {0} is not a valid mode", pol_mode)
-
-        modes = AntennaCommon.parse_polarization_mode(pol_mode)
-
-        # this is to change the item position for reception mode
-        rows = np.array([[1, 1], [0, 0]])
-        columns = np.array([[1, 0], [1, 0]])
-        g = lambda x, y: x if y == AntennaCommon.Transmission else x[rows, columns]
-        f = lambda x, y: [g(AntennaCommon.t2s_parameters(matrix[1]), y) for matrix in sorted(x, key=lambda z: z[0])]
-        format_list = lambda x: list(map(lambda y: x[self.__quantity_columns * y: self.__quantity_columns * (y+1)],
-                                         range(self.__quantity_rows)))
-        return [format_list(f(self.__get_attenuation_paths(self.__json_rfdn[mode[1]], mode[0]),
-                              mode[0])) for mode in modes]
-    '''
-
     def get_mutual_coupling_front_panel(self):
         """
         calculates the s parameters between all RMs
@@ -158,8 +133,6 @@ class Antenna():
             if AntennaCommon.is_trm(component):
                 parameters = [list(map(complex, si)) for si in value["sParameters"]]
                 parameters[f[0]][f[1]] *= power_shifts.item(rm_position)
-                # print(AntennaCommon.db2v(power_shifts.item(rm_position)))
-                # parameters[f[0]][f[1]] *= AntennaCommon.db2v(power_shifts.item(rm_position))
                 value["sParameters"] = [list(map(str, si)) for si in parameters]
             return rm_position
 
