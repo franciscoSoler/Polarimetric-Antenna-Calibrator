@@ -273,7 +273,7 @@ class DoubleBuilder(MatrixCalibratorBuilder):
         return True if self._antenna.quantity_rows != 2 and self._antenna.quantity_columns != 2 else False
 
     def __add_file(self, first_rm, second_rm, first_int_rm=0, second_int_rm=0):
-        print("Double builder, rms", first_rm, second_rm)
+        # print("Double builder, rms", first_rm, second_rm)
         equation = [0] * self._antenna.quantity_columns * self._antenna.quantity_rows
         equation[first_rm] = 2
         equation[second_rm] = -2
@@ -294,7 +294,7 @@ class DoubleBuilder(MatrixCalibratorBuilder):
                                 self._equations[(first_rm, second_rm)], self._equations[(second_rm, second_rm)]))
 
         if first_int_rm != 0:
-            print("Double builder, int rms", first_int_rm, second_int_rm)
+            # print("Double builder, int rms", first_int_rm, second_int_rm)
 
             self._tx_a.append(equation)
             rx_equation = [0] * self._antenna.quantity_columns * self._antenna.quantity_rows

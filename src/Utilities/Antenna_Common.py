@@ -27,6 +27,9 @@ Psc = 'PSC'
 Ph_shifter = 'phase_shifter'
 Amplifier = 'amplifier'
 
+c = 299792458       # [m/seg]
+f = 1275000000      # [Hz]
+
 
 def is_cable(component):
     return re.match(Cable, component) if isinstance(component, str) else False
