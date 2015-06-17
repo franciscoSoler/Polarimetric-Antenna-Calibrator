@@ -21,7 +21,6 @@ class AntennaCreator():
         :param row_shift: is the shift of odd antenna rows (default False)
         :return:
         """
-        wavelength = 1
         self.__scattering_handler = ScatteringParameters.CableScatteringParameters()
         rm_handler = ScatteringParameters.RmScatteringParameters()
         trm_handler = ScatteringParameters.TrmScatteringParameters()
@@ -33,8 +32,18 @@ class AntennaCreator():
         trm_handler.set_successor(circulator_handler)
         circulator_handler.set_successor(rm_handler)
 
-        self.__scattering_handler.initialize(wavelength, 0.1, True)
-
+        self.__scattering_handler.initialize(delta=0, add_errors=False)
+        rm_handler.initialize(delta=0.1, add_errors=False)
+        trm_handler.initialize(delta=0.1, add_errors=True)
+        circulator_handler.initialize(delta=0.1, add_errors=False)
+        psc_handler.initialize(delta=0.1, add_errors=False)
+        """
+        self.__scattering_handler.initialize(delta=0, add_errors=False)
+        rm_handler.initialize(delta=0.1, add_errors=True)
+        trm_handler.initialize(delta=0.1, add_errors=True)
+        circulator_handler.initialize(delta=0.1, add_errors=True)
+        psc_handler.initialize(delta=0.1, add_errors=True)
+        """
         self.__row_length = row_length
         self.__column_length = 0
         self.__dist_rows = dist_rows
@@ -149,7 +158,7 @@ class AntennaCreator():
             self.__append_next_distance(j, j2+1, rm_used, matrix_distances, distances, pos_calculator, dist_calculator)
 
     def __build_rfdn_structure(self, sequence, delta, rm_iterator):
-
+        # [[component[0], self.__scattering_handler.get_scattering_matrix(component[0], component[1])]
         # el TRM se comporta igual que el cable, no tengo que distinguirlos realmente,
         # los diferentes son los PSC y los RM
         if AntennaCommon.is_rm(sequence[0][0]):
@@ -157,7 +166,9 @@ class AntennaCreator():
 
         [component, parameters] = sequence[0]
         structure = collections.OrderedDict()
-        structure["sParameters"] = [[str(sij * (1 + random.uniform(-delta, delta))) for sij in si] for si in parameters]
+        structure["sParameters"] = [list(map(str, si)) for si in self.__scattering_handler.get_scattering_matrix(component, parameters)]
+        # structure["sParameters"] = [[str(sij * (1 + random.uniform(-delta, delta))) for sij in si]
+        # for si in parameters]
 
         if AntennaCommon.is_psc(component):
             list_cables = []
@@ -184,15 +195,20 @@ class AntennaCreator():
         self.__column_length = int(quantity_rms / self.__row_length)
         network = self.__add_component_behaviour(sequence)
 
-        random.seed(None)
+        # random.seed(None)
         structure = collections.OrderedDict()
 
         g = lambda: [" " + str((col, row)) for row in range(self.__row_length) for col in range(self.__column_length)]
         rm_iterator = iter(g())
+        structure["vPolarization"] = self.__build_rfdn_structure(sequence, delta, rm_iterator)
+        rm_iterator = iter(g())
+        structure["hPolarization"] = self.__build_rfdn_structure(sequence, delta, rm_iterator)
+        """
+        rm_iterator = iter(g())
         structure["vPolarization"] = self.__build_rfdn_structure(network, delta, rm_iterator)
         rm_iterator = iter(g())
         structure["hPolarization"] = self.__build_rfdn_structure(network, delta, rm_iterator)
-
+        """
         with open(filename + "_rfdn", "w") as f:
             f.write(json.dumps(structure, sort_keys=False, indent=4, separators=(',', ': ')))
 

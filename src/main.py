@@ -46,8 +46,8 @@ def main():
     filename = "test"
     power = 20
     separation = 1
-    quantity_columns = 10
-    quantity_rows = 10
+    quantity_columns = 2
+    quantity_rows = 2
 
     desired_tx_power = 20
     desired_rx_power = 0
