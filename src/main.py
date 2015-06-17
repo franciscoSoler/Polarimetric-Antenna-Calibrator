@@ -9,6 +9,7 @@ import glob
 import os
 import src.Controllers.RFDNCreator as RFDNCreator
 import src.Controllers.Antenna_Calibrator as AntennaCalibrator
+import src.Utilities.Antenna_Common as AntennaCommon
 
 
 def generate_pattern():
@@ -45,7 +46,7 @@ def main():
     filename = "test"
     power = 20
     separation = 1
-    quantity_columns = 3
+    quantity_columns = 2
     quantity_rows = 2
 
     desired_tx_power = 20
@@ -58,8 +59,34 @@ def main():
     tx_signals = []
     rx_signals = []
 
+    att = 0.1           # [neper/m]
+    c = 299792458       # [m/seg]
+    f = 1275000000      # [Hz]
+    wavelenght = c/f    # [m]
+
+    length1 = 0.45      # [m]
+    length2 = 8         # [m]
+    length3 = 0.5       # [m]
+
+    trm_gain = 10       # []
+    trm_ph_shift = 10   # [deg]
+
+    psc_out_ports = quantity_columns * quantity_rows
+
+    cable1 = [AntennaCommon.Cable, [att, wavelenght, length1]]
+    psc = ["{0}1{1}".format(AntennaCommon.Psc, psc_out_ports), [psc_out_ports]]
+    cable2 = [AntennaCommon.Cable, [att, wavelenght, length2]]
+    trm = [AntennaCommon.Trm, [trm_gain, trm_ph_shift]]
+    circulator = [AntennaCommon.Circulator, []]
+    cable3 = [AntennaCommon.Cable, [att, wavelenght, length3]]
+    rm = [AntennaCommon.Rm, []]
+
+    sequence_items = [cable1, psc, cable2, trm, circulator, cable3, rm]
+
+    """
     rms = quantity_columns * quantity_rows
     sequence_items = ["cable", "PSC1{0}".format(rms), "cable", "TRM", "circulator", "cable", "RM"]
+    """
     creator = RFDNCreator.AntennaCreator(quantity_columns, separation, separation)
     creator.create_structure(filename, sequence_items, 0.1)
     """

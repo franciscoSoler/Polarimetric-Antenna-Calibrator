@@ -98,12 +98,12 @@ class VisualComparator:
         self.__set_plot_environment(title, "Attenuation [dB]", "RMs", [p1, p2, p3, p4], legends)
 
         plt.subplot(212)
-        print("reception shits", self.__rad2deg(phase))
-        p1, = plt.plot(antennas, self.__rad2deg(phase), "bo")
-        plt.plot(antennas, self.__rad2deg(phase), "b")
-        p2, = plt.plot(antennas, self.__rad2deg(cal_phase), "g^")
-        plt.plot(antennas, self.__rad2deg(cal_phase), "g")
-        p3, = plt.plot(antennas, self.__rad2deg(ideal_phase), "k")
+        print("reception shits", phase)
+        p1, = plt.plot(antennas, phase, "bo")
+        plt.plot(antennas, phase, "b")
+        p2, = plt.plot(antennas, cal_phase, "g^")
+        plt.plot(antennas, cal_phase, "g")
+        p3, = plt.plot(antennas, ideal_phase, "k")
         p4, = plt.plot(antennas, self.__upper_ph_limit, "r--")
         plt.plot(antennas, self.__lower_ph_limit, "r--")
         legends = ["non_cal_ph", "cal_ph", "ideal_ph", "upper_lower_limit"]

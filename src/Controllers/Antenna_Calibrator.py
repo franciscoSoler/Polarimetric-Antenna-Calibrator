@@ -96,17 +96,17 @@ class AntennaCalibrator:
                                                                                        self.__antenna.quantity_columns)
 
         a, tx_gain, tx_phase = self.__matrix_builder.get_tx_matrix()
-        print(a, tx_gain)
+        # print(a, tx_gain)
         self.__tx_power = least_squares(a, tx_gain)
         self.__tx_phase = least_squares(a, tx_phase)
-        print("Tx con 20log()", self.__tx_power)
-        print("Tx phase", self.__tx_phase)
+        # print("Tx con 20log()", self.__tx_power)
+        # print("Tx phase", self.__tx_phase)
 
         a, rx_gain, rx_phase = self.__matrix_builder.get_rx_matrix()
-        print(a, rx_gain)
+        # print(a, rx_gain)
         self.__rx_power = least_squares(a, rx_gain)
         self.__rx_phase = least_squares(a, rx_phase)
-        print("Rx con 20log()", self.__rx_power)
+        # print("Rx con 20log()", self.__rx_power)
 
         self.__fix_rx_power_and_phase()
 
@@ -126,13 +126,22 @@ class AntennaCalibrator:
         tx_shift = pol2rec(AntennaCommon.db2v(desired_tx_power - self.__tx_power), desired_tx_phase - self.__tx_phase)
         rx_shift = pol2rec(AntennaCommon.db2v(desired_rx_power - self.__rx_power), desired_rx_phase - self.__rx_phase)
 
-        print("Tx_power non-cal inside of calibrate_antenna", self.__antenna.get_gain_paths("TxH"))
-        print("rx_power non-cal inside of calibrate_antenna", self.__antenna.get_gain_paths("RxV"))
+        f = lambda x: [list(map(lambda z: AntennaCommon.v2db(abs(z.item(1, 0))), y)) for y in x]
+        g = lambda x: [list(map(lambda z: AntennaCommon.rad2deg(np.angle(z.item(1, 0))), y)) for y in x]
+
+        print("Tx_power non-cal inside of calibrate_antenna", f(self.__antenna.get_gain_paths("TxH")[0]))
+        print("Tx_phase non-cal inside of calibrate_antenna", g(self.__antenna.get_gain_paths("TxH")[0]))
+        print("rx_power non-cal inside of calibrate_antenna", f(self.__antenna.get_gain_paths("RxV")[0]))
+        print("rx_phase non-cal inside of calibrate_antenna", g(self.__antenna.get_gain_paths("RxV")[0]))
+
         modes = AntennaCommon.parse_polarization_mode(self.__pol_mode)
         self.__antenna.change_trm_tx_params(tx_shift, modes[0][1])
         self.__antenna.change_trm_rx_params(rx_shift, modes[1][1])
-        print("Tx_power cal inside of calibrate_antenna", self.__antenna.get_gain_paths("TxH"))
-        print("rx_power cal inside of calibrate_antenna", self.__antenna.get_gain_paths("RxV"))
+
+        print("Tx_power cal inside of calibrate_antenna", f(self.__antenna.get_gain_paths("TxH")[0]))
+        print("Tx_phase cal inside of calibrate_antenna", g(self.__antenna.get_gain_paths("TxH")[0]))
+        print("rx_power cal inside of calibrate_antenna", f(self.__antenna.get_gain_paths("RxV")[0]))
+        print("rx_phase cal inside of calibrate_antenna", g(self.__antenna.get_gain_paths("RxV")[0]))
         print("equations cal", self.generate_cal_paths(*self.__last_cal_paths))
 
     def get_reception_power(self):

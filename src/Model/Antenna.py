@@ -83,8 +83,9 @@ class Antenna():
 
         # convert the S parameters of the component in complex values
         parameters = [list(map(complex, si)) for si in value[AntennaCommon.SParams]]
-        return [[rm_pos, AntennaCommon.s2t_parameters(AntennaCommon.get_s2p(component, parameters, mode,
-                                                                            f(rm_pos))) * child_param]
+        build_cascade = lambda x, y: x * y if mode == AntennaCommon.Transmission else y * x
+        return [[rm_pos, build_cascade(AntennaCommon.s2t_parameters(AntennaCommon.get_s2p(component, parameters, mode,
+                                                                                          f(rm_pos))), child_param)]
                 for rm_pos, child_param in children]
 
     def get_gain_paths(self, pol_mode):
@@ -100,11 +101,7 @@ class Antenna():
 
         modes = AntennaCommon.parse_polarization_mode(pol_mode)
 
-        # this is to change the item position for reception mode
-        rows = np.array([[1, 1], [0, 0]])
-        columns = np.array([[1, 0], [1, 0]])
-        g = lambda x, y: x if y == AntennaCommon.Transmission else x[rows, columns]
-        f = lambda x, y: [g(AntennaCommon.t2s_parameters(matrix[1]), y) for matrix in sorted(x, key=lambda z: z[0])]
+        f = lambda x, y: [AntennaCommon.t2s_parameters(matrix[1]) for matrix in sorted(x, key=lambda z: z[0])]
         format_list = lambda x: list(map(lambda y: x[self.__quantity_columns * y: self.__quantity_columns * (y+1)],
                                          range(self.__quantity_rows)))
         return [format_list(f(self.__get_attenuation_paths(self.__json_rfdn[mode[1]], mode[0]),
@@ -136,8 +133,6 @@ class Antenna():
             if AntennaCommon.is_trm(component):
                 parameters = [list(map(complex, si)) for si in value["sParameters"]]
                 parameters[f[0]][f[1]] *= power_shifts.item(rm_position)
-                # print(AntennaCommon.db2v(power_shifts.item(rm_position)))
-                # parameters[f[0]][f[1]] *= AntennaCommon.db2v(power_shifts.item(rm_position))
                 value["sParameters"] = [list(map(str, si)) for si in parameters]
             return rm_position
 

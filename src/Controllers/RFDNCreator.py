@@ -21,7 +21,6 @@ class AntennaCreator:
         :param row_shift: is the shift of odd antenna rows (default False)
         :return:
         """
-        wavelength = 1
         self.__scattering_handler = ScatteringParameters.CableScatteringParameters()
         rm_handler = ScatteringParameters.RmScatteringParameters()
         trm_handler = ScatteringParameters.TrmScatteringParameters()
@@ -33,8 +32,18 @@ class AntennaCreator:
         trm_handler.set_successor(circulator_handler)
         circulator_handler.set_successor(rm_handler)
 
-        self.__scattering_handler.initialize(wavelength, 0.1, True)
-
+        self.__scattering_handler.initialize(delta=0, add_errors=False)
+        rm_handler.initialize(delta=0.1, add_errors=False)
+        trm_handler.initialize(delta=0.1, add_errors=True)
+        circulator_handler.initialize(delta=0.1, add_errors=False)
+        psc_handler.initialize(delta=0.1, add_errors=False)
+        """
+        self.__scattering_handler.initialize(delta=0, add_errors=False)
+        rm_handler.initialize(delta=0.1, add_errors=True)
+        trm_handler.initialize(delta=0.1, add_errors=True)
+        circulator_handler.initialize(delta=0.1, add_errors=True)
+        psc_handler.initialize(delta=0.1, add_errors=True)
+        """
         self.__row_length = row_length
         self.__column_length = 0
         self.__dist_rows = dist_rows
@@ -49,7 +58,14 @@ class AntennaCreator:
                                                                                       self.__row_shift)
         # (matrix_distances, distances) = self.__calculate_distances_between_rms()
         print(distances)
-        dispersion_params = self.__scattering_handler.get_scattering_matrix("cable", distances)
+
+        att = 0.1
+        wavelength = AntennaCommon.c / AntennaCommon.f
+
+        dispersion_params = list(map(lambda x: self.__scattering_handler.get_scattering_matrix("cable",
+                                                                                               [att, wavelength,
+                                                                                                x]), distances))
+        # dispersion_params = self.__scattering_handler.get_scattering_matrix("cable", distances)
         keys = [(row, col) for col in range(self.__row_length) for row in range(self.__column_length)]
 
         front_panel = []
@@ -60,7 +76,7 @@ class AntennaCreator:
             parameters = [[f(new_key), g(dispersion_params[matrix_distances[
                 tuple(map(lambda x, y: abs(x-y), key, new_key))]])] for new_key in keys]
             front_panel.append([f(key), parameters])
-        print(front_panel)
+        # print(front_panel)
         with open(filename + "_panel", "w") as f:
             f.write(json.dumps(front_panel, sort_keys=False, indent=4, separators=(',', ': ')))
 
@@ -142,7 +158,7 @@ class AntennaCreator:
             self.__append_next_distance(j, j2+1, rm_used, matrix_distances, distances, pos_calculator, dist_calculator)
 
     def __build_rfdn_structure(self, sequence, delta, rm_iterator):
-
+        # [[component[0], self.__scattering_handler.get_scattering_matrix(component[0], component[1])]
         # el TRM se comporta igual que el cable, no tengo que distinguirlos realmente,
         # los diferentes son los PSC y los RM
         if AntennaCommon.is_rm(sequence[0][0]):
@@ -150,7 +166,9 @@ class AntennaCreator:
 
         [component, parameters] = sequence[0]
         structure = collections.OrderedDict()
-        structure["sParameters"] = [[str(sij * (1 + random.uniform(-delta, delta))) for sij in si] for si in parameters]
+        structure["sParameters"] = [list(map(str, si)) for si in self.__scattering_handler.get_scattering_matrix(component, parameters)]
+        # structure["sParameters"] = [[str(sij * (1 + random.uniform(-delta, delta))) for sij in si]
+        # for si in parameters]
 
         if AntennaCommon.is_psc(component):
             list_cables = []
@@ -165,8 +183,10 @@ class AntennaCreator:
         return {component: structure}
 
     def create_structure(self, filename, sequence, delta):
-        quantity_signal_splitters = [AntennaCommon.get_qtty_output_ports(component) for component in sequence if
-                                     AntennaCommon.is_psc(component)]
+        quantity_signal_splitters = [AntennaCommon.get_qtty_output_ports(component[0]) for component in sequence if
+                                     AntennaCommon.is_psc(component[0])]
+
+        print(quantity_signal_splitters)
         quantity_rms = functools.reduce(lambda x, y: x*y, quantity_signal_splitters)
         if quantity_rms % self.__row_length != 0:
             print("quantity of rms:", quantity_rms, "is not multiple of row length:", self.__row_length)
@@ -175,15 +195,20 @@ class AntennaCreator:
         self.__column_length = int(quantity_rms / self.__row_length)
         network = self.__add_component_behaviour(sequence)
 
-        random.seed(None)
+        # random.seed(None)
         structure = collections.OrderedDict()
 
         g = lambda: [" " + str((col, row)) for row in range(self.__row_length) for col in range(self.__column_length)]
         rm_iterator = iter(g())
+        structure["vPolarization"] = self.__build_rfdn_structure(sequence, delta, rm_iterator)
+        rm_iterator = iter(g())
+        structure["hPolarization"] = self.__build_rfdn_structure(sequence, delta, rm_iterator)
+        """
+        rm_iterator = iter(g())
         structure["vPolarization"] = self.__build_rfdn_structure(network, delta, rm_iterator)
         rm_iterator = iter(g())
         structure["hPolarization"] = self.__build_rfdn_structure(network, delta, rm_iterator)
-
+        """
         with open(filename + "_rfdn", "w") as f:
             f.write(json.dumps(structure, sort_keys=False, indent=4, separators=(',', ': ')))
 
@@ -196,14 +221,16 @@ class AntennaCreator:
         return [[1 for _ in range(large)] for _ in range(large)]
 
     def __add_component_behaviour(self, sequence):
+        """
         f = lambda x: AntennaCommon.get_qtty_ports(x) if AntennaCommon.is_psc(x) else \
             AntennaCommon.Trm_gain_shift if AntennaCommon.is_trm(x) else \
             AntennaCommon.Cable_length if AntennaCommon.is_cable(x) else None
 
         return [[component, self.__scattering_handler.get_scattering_matrix(component, f(component))]
                 for component in sequence]
-        # return [[component, AntennaCreator.__create_parameters(AntennaCommon.get_qtty_ports(component))]
-        #         for component in sequence]
+        """
+        return [[component[0], self.__scattering_handler.get_scattering_matrix(component[0], component[1])]
+                for component in sequence]
 
 
 def main(argc, argv):
