@@ -20,7 +20,9 @@ class ScatteringParametersHandler(object):
         self.__errors = add_errors
 
     def _add_error(self, param):
-        return param * (1 + random.uniform(0, self._delta)) if self.__errors else param
+        module = abs(param) * (1 + random.uniform(0, self._delta))
+        angle = np.angle(param) * (1 + random.uniform(0, self._delta))
+        return module * np.exp(1j * angle) if self.__errors else param
 
     @abstractmethod
     def _get_scattering_matrix(self, attributes):

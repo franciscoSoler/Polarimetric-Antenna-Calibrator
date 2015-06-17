@@ -113,20 +113,23 @@ def main():
 
     append_signal_into_signals(tx_signals, tx_cal_power, tx_cal_phase)
     append_signal_into_signals(rx_signals, rx_cal_power, rx_cal_phase)
-
+    """
     print("Tx power         ", tx_power)
     print("Tx shift         ", tx_power_shift)
     print("Tx power + shift ", (np.array(tx_power) + np.array(tx_power_shift)).tolist())
     print("Tx cal power     ", tx_cal_power)
+    """
     print("Tx phase         ", tx_phase)
     print("Tx shift         ", tx_phase_shift)
     print("Tx phase + shift ", (np.array(tx_phase) + np.array(tx_phase_shift)).tolist())
     print("Tx cal phase     ", tx_cal_phase)
     print("")
+    """
     print("Rx power         ", rx_power)
     print("Rx shift         ", rx_power_shift)
     print("Rx power + shift ", (np.array(rx_power) + np.array(rx_power_shift)).tolist())
     print("Rx cal power     ", rx_cal_power)
+    """
     print("Rx phase         ", rx_phase)
     print("Rx shift         ", rx_phase_shift)
     print("Rx phase + shift ", (np.array(rx_phase) + np.array(rx_phase_shift)).tolist())

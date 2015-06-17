@@ -154,7 +154,7 @@ def calculate_distances_between_rms(column_length, row_length, dist_columns, dis
     :return dist: list containing only all the distances to every rm to the one positioned in the corner of the
     antenna. The position of each distance is the value of the matrix_distances dictionary
     """
-    f = lambda x: (x % 2)/2 if row_shift else 0
+    get_shift_length = lambda x: (x % 2)/2 if row_shift else 0
 
     if dist_columns <= dist_rows:
         d_min = dist_columns
@@ -162,7 +162,7 @@ def calculate_distances_between_rms(column_length, row_length, dist_columns, dis
         antennas_in_max_dir = column_length
         antennas_in_min_dir = row_length
 
-        distance_calculator = lambda x, y: math.sqrt(((f(y) + x)*d_min)**2 + (y*d_max)**2)
+        distance_calculator = lambda x, y: math.sqrt(((get_shift_length(y) + x)*d_min)**2 + (y*d_max)**2)
         position_calculator = lambda x, y: (y, x)
     else:
         d_min = dist_rows
@@ -170,7 +170,7 @@ def calculate_distances_between_rms(column_length, row_length, dist_columns, dis
         antennas_in_max_dir = row_length
         antennas_in_min_dir = column_length
 
-        distance_calculator = lambda x, y: math.sqrt((x*d_min)**2 + ((f(x) + y)*d_max)**2)
+        distance_calculator = lambda x, y: math.sqrt((x*d_min)**2 + ((get_shift_length(x) + y)*d_max)**2)
         position_calculator = lambda x, y: (x, y)
 
     rm_used = [0] * antennas_in_max_dir

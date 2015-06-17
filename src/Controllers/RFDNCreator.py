@@ -33,17 +33,11 @@ class AntennaCreator():
         circulator_handler.set_successor(rm_handler)
 
         self.__scattering_handler.initialize(delta=0, add_errors=False)
-        rm_handler.initialize(delta=0.1, add_errors=False)
-        trm_handler.initialize(delta=0.1, add_errors=True)
-        circulator_handler.initialize(delta=0.1, add_errors=False)
-        psc_handler.initialize(delta=0.1, add_errors=False)
-        """
-        self.__scattering_handler.initialize(delta=0, add_errors=False)
         rm_handler.initialize(delta=0.1, add_errors=True)
-        trm_handler.initialize(delta=0.1, add_errors=True)
-        circulator_handler.initialize(delta=0.1, add_errors=True)
-        psc_handler.initialize(delta=0.1, add_errors=True)
-        """
+        trm_handler.initialize(delta=1.9, add_errors=True)
+        circulator_handler.initialize(delta=0.5, add_errors=True)
+        psc_handler.initialize(delta=0.5, add_errors=True)
+
         self.__row_length = row_length
         self.__column_length = 0
         self.__dist_rows = dist_rows
