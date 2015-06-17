@@ -11,7 +11,7 @@ import src.Utilities.Antenna_Common as AntennaCommon
 import src.Utilities.Scattering_Parameters as ScatteringParameters
 
 
-class AntennaCreator():
+class AntennaCreator:
 
     def __init__(self, row_length, dist_rows, dist_columns, row_shift=False):
         """

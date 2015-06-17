@@ -24,7 +24,6 @@ class ScatteringParametersHandler(object):
     def _add_error(self, param):
         return param * (1 + random.uniform(0, self._delta)) if self.__errors else param
 
-
     @abstractmethod
     def _get_scattering_matrix(self, length):
         pass

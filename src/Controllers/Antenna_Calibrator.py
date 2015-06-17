@@ -6,7 +6,7 @@ import src.Controllers.Matrix_Calibrator_builder as MatrixBuilder
 import numpy as np
 
 
-class AntennaCalibrator():
+class AntennaCalibrator:
     Available_calibration_modes = ("TxH-RxV", "TxV-RxH")
     Available_power_modes = ("TxH", "TxV", "RxH", "RxV")
 
@@ -238,7 +238,9 @@ def strategy_3(antenna, tx_network, rm_coupling, rx_network):
 
     s2t = lambda x: AntennaCommon.s2t_parameters(x)
     t2s = lambda x: AntennaCommon.t2s_parameters(x)
-    g = lambda tx_row, tx_col, rx_row, rx_col: t2s(tx_network[tx_row][tx_col] * s2t(rm_coupling[tx_row, tx_col][rx_row, rx_col]) * rx_network[rx_row][rx_col])
+    g = lambda tx_row, tx_col, rx_row, rx_col: t2s(tx_network[tx_row][tx_col] *
+                                                   s2t(rm_coupling[tx_row, tx_col][rx_row, rx_col]) *
+                                                   rx_network[rx_row][rx_col])
     h = lambda x, y: x + y
     row_fix = lambda row: row + -2*int((row + 1)/len(rm_coupling)) + 1 if len(rm_coupling) > 1 else row
     col_fix = lambda col: col + -2*int((col + 1)/len(rm_coupling[0])) + 1 if len(rm_coupling[0]) > 1 else col

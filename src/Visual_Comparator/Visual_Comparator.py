@@ -13,7 +13,7 @@ def deg2rad(deg):
     return deg*cmath.pi/180
 
 
-class VisualComparator():
+class VisualComparator:
 
     def __init__(self):
         self.__figure_number = 0
