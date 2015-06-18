@@ -51,12 +51,7 @@ class AntennaCalibrator:
             self.__rx_power.item(0, 0)
         phase_shift = np.angle(self.__equations[(0, 0)], deg=True) - self.__tx_phase.item(0, 0) - \
             self.__rx_phase.item(0, 0)
-        """
-        power_shift = AntennaCommon.v2db(abs(self.__equations[(1, 1)])) - self.__tx_power.item(0, 1) - \
-            self.__rx_power.item(0, 1)
-        phase_shift = np.angle(self.__equations[(1, 1)], deg=True) - self.__tx_phase.item(0, 1) - \
-            self.__rx_phase.item(0, 1)
-        """
+
         self.__rx_power += power_shift
         self.__rx_phase += phase_shift
 
@@ -97,17 +92,12 @@ class AntennaCalibrator:
                                                                                        self.__antenna.quantity_columns)
 
         a, tx_gain, tx_phase = self.__matrix_builder.get_tx_matrix()
-        print(a, tx_phase)
         self.__tx_power = least_squares(a, tx_gain)
         self.__tx_phase = least_squares(a, format_phase(tx_phase))
-        # print("Tx con 20log()", self.__tx_power)
-        # print("Tx phase", self.__tx_phase)
 
         a, rx_gain, rx_phase = self.__matrix_builder.get_rx_matrix()
-        # print(a, rx_gain)
         self.__rx_power = least_squares(a, rx_gain)
         self.__rx_phase = least_squares(a, format_phase(rx_phase))
-        # print("Rx con 20log()", self.__rx_power)
 
         self.__fix_rx_power_and_phase()
 
@@ -143,7 +133,7 @@ class AntennaCalibrator:
         print("Tx_phase cal inside of calibrate_antenna", g(self.__antenna.get_gain_paths("TxH")[0]))
         # print("rx_power cal inside of calibrate_antenna", f(self.__antenna.get_gain_paths("RxV")[0]))
         print("rx_phase cal inside of calibrate_antenna", g(self.__antenna.get_gain_paths("RxV")[0]))
-        print("equations cal", self.generate_cal_paths(*self.__last_cal_paths))
+        self.generate_cal_paths(*self.__last_cal_paths)
 
     def get_reception_power(self):
         if not self.__power_calculated:
@@ -195,13 +185,6 @@ def every_one_to_one_path_strategy(antenna, tx_network, rm_coupling, rx_network)
             (antenna.row_col_to_index(tx_row, tx_col),
              antenna.row_col_to_index(rx_row, rx_col))] for rx_row in rows for rx_col in columns
            for tx_col in columns for tx_row in rows]
-    """
-    print("test", g(0, 1, 1, 1))
-    print("test", g(1, 0, 1, 1))
-    print("test tx", t2s(tx_network[0][0]))
-    print("test coup", rm_coupling[0, 0][0, 0])
-    print("test rx", t2s(rx_network[0][0]))
-    """
     unique_path = [[t2s(tx_network[0][0]), (antenna.row_col_to_index(0, 0), None)]]
     return list(zip(*(out + unique_path)))
 
@@ -229,7 +212,7 @@ def strategy_2(antenna, tx_network, rm_coupling, rx_network):
              antenna.get_index_from_rm_separation(abs(tx_row - rx_row), abs(tx_col - rx_col)),
              antenna.row_col_to_index(rx_row, rx_col))] for rx_row in rows for rx_col in columns
            for tx_col in columns for tx_row in rows]
-    print(out)
+
     return list(zip(*out))
 
 
@@ -266,5 +249,4 @@ def strategy_3(antenna, tx_network, rm_coupling, rx_network):
                     antenna.get_index_from_rm_separation(abs(row_fix(tx_row) - tx_row), 0),
                     antenna.row_col_to_index(row_fix(tx_row), tx_col))] for tx_col in columns for tx_row in rows]
 
-    print(out_simple + out_double)
     return list(zip(*(out_simple + out_double)))

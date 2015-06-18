@@ -88,13 +88,13 @@ def main():
     sequence_items = ["cable", "PSC1{0}".format(rms), "cable", "TRM", "circulator", "cable", "RM"]
     """
     creator = RFDNCreator.AntennaCreator(quantity_columns, separation, separation)
-    creator.create_structure(filename, sequence_items, 0.1)
+    creator.create_structure(filename, sequence_items)
     """
     create_antenna(filename)
     """
 
     calibrator = AntennaCalibrator.AntennaCalibrator(power, separation, separation, filename)
-    print("equations", calibrator.generate_cal_paths(AntennaCalibrator.every_one_to_one_path_strategy))
+    calibrator.generate_cal_paths(AntennaCalibrator.every_one_to_one_path_strategy)
 
     tx_power, tx_phase = calibrator.get_transmission_power()
     rx_power, rx_phase = calibrator.get_reception_power()

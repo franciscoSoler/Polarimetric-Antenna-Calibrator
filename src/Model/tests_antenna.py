@@ -76,7 +76,7 @@ class TestAntenna(unittest.TestCase):
         rms = quantity_columns * quantity_rows
         sequence_items = ["cable", "PSC1{0}".format(rms), "cable", "TRM", "circulator", "cable", "RM"]
         creator = RFDNCreator.AntennaCreator(quantity_columns, separation, separation)
-        creator.create_structure(self.filename, sequence_items, 0.)
+        creator.create_structure(self.filename, sequence_items)
         self.antenna.initialize(separation, separation, self.filename)
 
     def tearDown(self):

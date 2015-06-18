@@ -3,9 +3,6 @@ import numpy as np
 import math
 import cmath
 
-Trans = 'Tx'
-Rec = 'Rx'
-
 Transmission = 'T'
 Reception = 'R'
 H_pol = 'H'
@@ -112,7 +109,6 @@ def get_s2p(component, sxp_matrix, mode, idx):
 
 
 def db2v(decibel):
-    print("decibel", [decibel])
     return np.power(10, decibel/20)
 
 

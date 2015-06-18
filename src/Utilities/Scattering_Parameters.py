@@ -29,12 +29,6 @@ class ScatteringParametersHandler(object):
         pass
 
     def get_scattering_matrix(self, component, attributes=None):
-        """
-
-        :param component:
-        :return:
-            the scattering parameters matrix
-        """
         if self.__check_component(component):
             return self._get_scattering_matrix(attributes)
         elif self._successor is not None:
@@ -52,13 +46,6 @@ class CableScatteringParameters(ScatteringParametersHandler):
         super(CableScatteringParameters, self).__init__(AntennaCommon.is_cable)
 
     def __get_scattering_matrix(self, attenuation, wavelength, length):
-        """
-        alpha = self._add_error(self._delta)
-        sij = lambda x: np.exp((alpha + 2j*np.pi/self._wavelength) * x)
-        s_parameters = lambda x: [[0, sij(x)], [sij(x), 0]]
-        return [s_parameters(len_i) for len_i in attributes] if isinstance(attributes, list) else s_parameters(
-        attributes)
-        """
         sij = np.exp((attenuation + 2j*np.pi/wavelength) * length)
         return [[0, self._add_error(sij)], [self._add_error(sij), 0]]
 
@@ -99,13 +86,9 @@ class TrmScatteringParameters(ScatteringParametersHandler):
         super(TrmScatteringParameters, self).__init__(AntennaCommon.is_trm)
 
     def __get_scattering_matrix(self, gain, phase_shift):
-        # add_errors = lambda x: list(map(self._add_error, x))
-        # return [add_errors([0, 0, gain_shift]), add_errors([gain_shift, 0, 0]), add_errors([0, 0, 0])]
         sij = gain * np.exp(1j*AntennaCommon.deg2rad(phase_shift))
         add_errors = lambda x: list(map(self._add_error, x))
-        param = [add_errors([0, 0, sij]), add_errors([sij, 0, 0]), add_errors([0, 0, 0])]
-        print("param", param)
-        return param
+        return [add_errors([0, 0, sij]), add_errors([sij, 0, 0]), add_errors([0, 0, 0])]
 
     def _get_scattering_matrix(self, attributes):
         return self.__get_scattering_matrix(*attributes)
