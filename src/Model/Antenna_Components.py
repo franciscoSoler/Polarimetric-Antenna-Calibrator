@@ -157,7 +157,7 @@ class Circulator(ExternalComponent):
 class RadiantModule(ExternalComponent):
 
     def __init__(self, row, col, delta=0, add_errors=False):
-        super(RadiantModule, self).__init__(AntennaCommon.Rm, [[0]], delta, add_errors)
+        super(RadiantModule, self).__init__(AntennaCommon.Rm, [[0, 1], [1, 0]], delta, add_errors)
         self.__row = row
         self.__col = col
 

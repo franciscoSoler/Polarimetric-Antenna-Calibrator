@@ -2,11 +2,11 @@ __author__ = 'fsoler'
 import json
 import numpy as np
 import re
-import cmath
 import src.Utilities.Antenna_Common as AntennaCommon
+import src.Model.Antenna_Components as Components
 
 
-class Antenna():
+class Antenna:
     __AvailableModes = ["TxH", "TxV", "RxH", "RxV", "TxH-RxV", "TxV-RxH"]
     __Polarizations = [AntennaCommon.Rfdn_h_pol, AntennaCommon.Rfdn_v_pol]
 
