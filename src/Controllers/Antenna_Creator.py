@@ -32,17 +32,46 @@ class AntennaCreator:
         trm_handler.set_successor(circulator_handler)
         circulator_handler.set_successor(rm_handler)
 
-        self.__scattering_handler.initialize(delta=0, add_errors=False)
+        self.__scattering_handler.initialize()
+        rm_handler.initialize()
+        trm_handler.initialize()
+        circulator_handler.initialize()
+        psc_handler.initialize()
+
+        """
         rm_handler.initialize(delta=0.1, add_errors=True)
         trm_handler.initialize(delta=1.9, add_errors=True)
         circulator_handler.initialize(delta=0.5, add_errors=True)
         psc_handler.initialize(delta=0.5, add_errors=True)
+        """
 
         self.__row_length = row_length
         self.__column_length = 0
         self.__dist_rows = dist_rows
         self.__dist_columns = dist_columns
         self.__row_shift = row_shift
+
+    def add_errors(self, errors):
+        if not isinstance(errors, list) or len(errors) == 0 or [True for error in errors if len(error) != 2]:
+            print()
+            raise Exception('errors are not well created')
+
+        rm_handler = ScatteringParameters.RmScatteringParameters()
+        trm_handler = ScatteringParameters.TrmScatteringParameters()
+        circulator_handler = ScatteringParameters.CirculatorScatteringParameters()
+        psc_handler = ScatteringParameters.PscScatteringParameters()
+
+        self.__scattering_handler.set_successor(psc_handler)
+        psc_handler.set_successor(trm_handler)
+        trm_handler.set_successor(circulator_handler)
+        circulator_handler.set_successor(rm_handler)
+
+        f = lambda x: [True if isinstance(idx, str) else idx for error in errors for idx in error if error[0] == x]
+        self.__scattering_handler.initialize(*f(AntennaCommon.Cable_error))
+        rm_handler.initialize(*f(AntennaCommon.Rm_error))
+        trm_handler.initialize(*f(AntennaCommon.Trm_error))
+        circulator_handler.initialize(*f(AntennaCommon.Circulator_error))
+        psc_handler.initialize(*f(AntennaCommon.Psc_error))
 
     def __build_front_panel_structure(self, filename):
         (matrix_distances, distances) = AntennaCommon.calculate_distances_between_rms(self.__column_length,

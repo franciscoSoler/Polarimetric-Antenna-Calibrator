@@ -8,6 +8,20 @@ Reception = 'R'
 H_pol = 'H'
 V_pol = 'V'
 
+# Errors
+Inter_pulse_phase_err = 'interPulsePhaseChirpError'
+Inter_pulse_gain_err = 'interPulseGainChirpError'
+Gain_chirp_rep_err = 'gainChirpRepError'
+Phase_chirp_rep_err = 'phaseChirpRepError'
+
+Cable_error = 'CableError'
+Circulator_error = 'CirculatorError'
+Trm_error = 'TRMError'
+Psc_error = 'PSCError'
+Rm_error = 'RMError'
+
+
+
 # For RFDN
 Rfdn_h_pol = 'hPolarization'
 Rfdn_v_pol = 'vPolarization'

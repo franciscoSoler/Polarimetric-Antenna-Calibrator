@@ -2,12 +2,12 @@ __author__ = 'fsoler'
 
 import sys
 import src.Visual_Comparator.Visual_Comparator as VisualComparator
-import src.Pattern_Generator.Pattern_Generator as Pattern_Generator
+import src.Pattern_Generator.Pattern_Generator as PatternGenerator
 import matplotlib.pyplot as plt
 import numpy as np
 import glob
 import os
-import src.Controllers.Antenna_Creator as RFDNCreator
+import src.Controllers.Antenna_Creator as AntennaCreator
 import src.Controllers.Antenna_Calibrator as AntennaCalibrator
 import src.Utilities.Antenna_Common as AntennaCommon
 
@@ -19,7 +19,7 @@ def generate_pattern():
     x_band_freq = 8 GHz
     :return:
     """
-    generator = Pattern_Generator.PatternGenerator(1275000000, 0.127, 0.110)
+    generator = PatternGenerator.PatternGenerator(1275000000, 0.127, 0.110)
     weights = [[1 for _ in range(20)]for _ in range(1)]
 
     angles, power = generator.generate_pattern(weights, [-30, 30], 0)
@@ -83,12 +83,14 @@ def main():
     rm = [AntennaCommon.Rm, []]
 
     sequence_items = [cable1, psc, cable2, trm, circulator, cable3, rm]
-
+    component_errors = [[AntennaCommon.Rm_error, 0.1], [AntennaCommon.Trm_error, 1.9],
+                        [AntennaCommon.Circulator_error, 0.5], [AntennaCommon.Psc_error, 0.5]]
     """
     rms = quantity_columns * quantity_rows
     sequence_items = ["cable", "PSC1{0}".format(rms), "cable", "TRM", "circulator", "cable", "RM"]
     """
-    creator = RFDNCreator.AntennaCreator(quantity_columns, separation, separation)
+    creator = AntennaCreator.AntennaCreator(quantity_columns, separation, separation)
+    creator.add_errors(component_errors)
     creator.create_structure(filename, sequence_items)
     """
     create_antenna(filename)

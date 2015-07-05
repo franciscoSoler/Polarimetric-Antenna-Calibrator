@@ -9,6 +9,8 @@ from abc import ABCMeta
 
 class AntennaCalibrator(object):
     __metaclass__ = ABCMeta
+    Available_errors = []
+    errors = []
 
     def __init__(self, input_power, input_phase, dist_rows, dist_columns, filename="antenna"):
         self._antenna = Antenna.Antenna()
@@ -17,6 +19,8 @@ class AntennaCalibrator(object):
         self._input_power = input_power
         self._input_phase = input_phase
 
+    def add_errors(self, errors):
+        [self.errors.append(error) for error in errors if error not in self.errors]
     @property
     def input_power(self):
         return self._input_power
@@ -109,7 +113,8 @@ class MutualCalibrator(AntennaCalibrator):
 
         [b, a] = strategy(self._antenna, tx_network, self.__rm_coupling, rx_network)
 
-        f = lambda x: x * AntennaCommon.pol2rec(10**(self._input_power/20), self._input_phase)
+        input_voltage = 10**(self._input_power/20)
+        f = lambda x: x * AntennaCommon.pol2rec(input_voltage, self._input_phase)
         self.__equations = dict([a[i], f(b[i].item(1, 0))] for i in range(len(a)))
 
         self.__matrix_builder.initialize_matrix_builder(self._antenna, self.__equations)

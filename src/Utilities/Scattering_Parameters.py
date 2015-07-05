@@ -10,14 +10,14 @@ class ScatteringParametersHandler(object):
 
     def __init__(self, check_component):
         self._successor = None
-        self._delta = 0
         self.__errors = False
+        self._delta = 0
         self.__check_component = check_component
 
-    def initialize(self, delta=0, add_errors=True):
+    def initialize(self, add_errors=False, delta=0):
         random.seed(None)
-        self._delta = delta
         self.__errors = add_errors
+        self._delta = delta
 
     def _add_error(self, param):
         module = abs(param) * (1 + random.uniform(0, self._delta))
