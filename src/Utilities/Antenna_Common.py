@@ -10,7 +10,7 @@ V_pol = 'V'
 
 # Errors
 Inter_pulse_phase_err = 'interPulsePhaseChirpError'
-Inter_pulse_gain_err = 'interPulseGainChirpError'
+Inter_pulse_power_err = 'interPulseGainChirpError'
 Gain_chirp_rep_err = 'gainChirpRepError'
 Phase_chirp_rep_err = 'phaseChirpRepError'
 

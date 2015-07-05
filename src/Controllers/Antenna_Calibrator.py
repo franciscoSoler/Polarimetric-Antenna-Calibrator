@@ -5,6 +5,7 @@ import src.Utilities.Antenna_Common as AntennaCommon
 import src.Controllers.Matrix_Calibrator_builder as MatrixBuilder
 import numpy as np
 from abc import ABCMeta
+import random
 
 
 class AntennaCalibrator(object):
@@ -19,8 +20,18 @@ class AntennaCalibrator(object):
         self._input_power = input_power
         self._input_phase = input_phase
 
+        self._input_delta_phase = 0
+        self._input_delta_power = 0
+
+    def add_calibration_errors(self, errors):
+        if not isinstance(errors, list) or len(errors) == 0 or [True for error in errors if len(error) != 2]:
+            raise Exception('errors are not well created')
+        self._input_delta_power = [error[1] for error in errors if error[0] == AntennaCommon.Inter_pulse_power_err][0]
+        self._input_delta_phase = [error[1] for error in errors if error[0] == AntennaCommon.Inter_pulse_phase_err][0]
+
     def add_errors(self, errors):
         [self.errors.append(error) for error in errors if error not in self.errors]
+
     @property
     def input_power(self):
         return self._input_power
@@ -113,8 +124,10 @@ class MutualCalibrator(AntennaCalibrator):
 
         [b, a] = strategy(self._antenna, tx_network, self.__rm_coupling, rx_network)
 
-        input_voltage = 10**(self._input_power/20)
-        f = lambda x: x * AntennaCommon.pol2rec(input_voltage, self._input_phase)
+        rand = lambda x, y: x + random.uniform(-y, y)
+        f = lambda x: x * AntennaCommon.pol2rec(AntennaCommon.db2v(rand(self._input_power, self._input_delta_power)),
+                                                rand(self._input_phase, self._input_delta_phase))
+        # f = lambda x: x * AntennaCommon.pol2rec(input_voltage + random.uniform(0, self._input_delta_power), self._input_phase)
         self.__equations = dict([a[i], f(b[i].item(1, 0))] for i in range(len(a)))
 
         self.__matrix_builder.initialize_matrix_builder(self._antenna, self.__equations)

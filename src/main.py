@@ -27,7 +27,7 @@ def generate_pattern():
     plt.show()
 
 
-def create_antenna(filename):
+def create_antenna2(filename):
     with open("base_rfdn") as f:
         with open(filename + "_rfdn", "w") as g:
             g.write(f.read())
@@ -42,24 +42,7 @@ def append_signal_into_signals(signals, power_signal, phase_signal):
     signals.append(phase_signal)
 
 
-def main():
-    filename = "test"
-    power = 20
-    phase = 10
-    separation = 1
-    quantity_columns = 10
-    quantity_rows = 10
-
-    desired_tx_power = 20
-    desired_rx_power = 0
-
-    desired_tx_phase = 0
-    desired_rx_phase = 0
-
-    desired_signals = [desired_tx_power, desired_tx_phase, desired_rx_power, desired_rx_phase]
-    tx_signals = []
-    rx_signals = []
-
+def create_antenna(quantity_columns, quantity_rows, separation, filename):
     att = 0.1           # [neper/m]
     c = 299792458       # [m/seg]
     f = 1275000000      # [Hz]
@@ -93,11 +76,47 @@ def main():
     creator.add_errors(component_errors)
     creator.create_structure(filename, sequence_items)
     """
-    create_antenna(filename)
+    create_antenna2(filename)
     """
 
-    calibrator = AntennaCalibrator.MutualCalibrator(power, phase, separation, separation, filename)
+
+def create_calibrator(input_power, input_phase, separation, filename):
+    calibration_errors = [[AntennaCommon.Inter_pulse_power_err, 0.5], [AntennaCommon.Inter_pulse_phase_err, 5],
+                          [AntennaCommon.Gain_chirp_rep_err, 1], [AntennaCommon.Phase_chirp_rep_err, 5]]
+
+    calibrator = AntennaCalibrator.MutualCalibrator(input_power, input_phase, separation, separation, filename)
+    calibrator.add_calibration_errors(calibration_errors)
     calibrator.generate_cal_paths(AntennaCalibrator.every_one_to_one_path_strategy)
+    return calibrator
+
+
+def remove_antenna(filename):
+    for filename in glob.glob(filename + "_*"):
+        os.remove(filename)
+
+
+def main():
+    filename = "test"
+    separation = 1
+    quantity_columns = 2
+    quantity_rows = 2
+
+    create_antenna(quantity_columns, quantity_rows, separation, filename)
+
+    input_power = 20
+    input_phase = 10
+
+    calibrator = create_calibrator(input_power, input_phase, separation, filename)
+
+    desired_tx_power = 20
+    desired_rx_power = 0
+
+    desired_tx_phase = 0
+    desired_rx_phase = 0
+
+    desired_signals = [desired_tx_power, desired_tx_phase, desired_rx_power, desired_rx_phase]
+    tx_signals = []
+    rx_signals = []
 
     tx_power, tx_phase = calibrator.get_transmission_power()
     rx_power, rx_phase = calibrator.get_reception_power()
@@ -152,10 +171,9 @@ def main():
     visual_comparator.compare_signals_against_ideal(*rx_signals, title="Rx power")
 
     visual_comparator.show_graphics()
-    """
-    for filename in glob.glob(filename + "_*"):
-        os.remove(filename)
-    """
+
+    # remove_antenna(filename)
+
     return 0
 
 

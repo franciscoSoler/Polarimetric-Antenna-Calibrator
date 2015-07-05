@@ -53,7 +53,6 @@ class AntennaCreator:
 
     def add_errors(self, errors):
         if not isinstance(errors, list) or len(errors) == 0 or [True for error in errors if len(error) != 2]:
-            print()
             raise Exception('errors are not well created')
 
         rm_handler = ScatteringParameters.RmScatteringParameters()
