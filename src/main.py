@@ -93,7 +93,7 @@ def main():
     create_antenna(filename)
     """
 
-    calibrator = AntennaCalibrator.AntennaCalibrator(power, separation, separation, filename)
+    calibrator = AntennaCalibrator.MutualCalibrator(power, separation, separation, filename)
     calibrator.generate_cal_paths(AntennaCalibrator.every_one_to_one_path_strategy)
 
     tx_power, tx_phase = calibrator.get_transmission_power()

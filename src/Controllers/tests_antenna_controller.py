@@ -16,7 +16,7 @@ class MyTestCase(unittest.TestCase):
         self.power = 20
         separation = 1
         self.__create_antenna(2, 2, separation)
-        self.calibrator = AntennaCalibrator.AntennaCalibrator(self.power, separation, separation, self.filename)
+        self.calibrator = AntennaCalibrator.MutualCalibrator(self.power, separation, separation, self.filename)
 
     def test_the_antenna_retrieve_the_correct_cal_paths(self):
         print(self.calibrator.generate_cal_paths(AntennaCalibrator.every_one_to_one_path_strategy))

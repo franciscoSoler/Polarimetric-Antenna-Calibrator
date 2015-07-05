@@ -4,15 +4,42 @@ import src.Model.Antenna as Antenna
 import src.Utilities.Antenna_Common as AntennaCommon
 import src.Controllers.Matrix_Calibrator_builder as MatrixBuilder
 import numpy as np
+from abc import ABCMeta
 
 
-class AntennaCalibrator:
+class AntennaCalibrator(object):
+    __metaclass__ = ABCMeta
+
+    def __init__(self, input_power, dist_rows, dist_columns, filename="antenna"):
+        self._antenna = Antenna.Antenna()
+        self._antenna.initialize(dist_rows, dist_columns, filename)
+
+        self._input_power = input_power
+
+    @property
+    def input_power(self):
+        return self._input_power
+
+    @input_power.setter
+    def input_power(self, power):
+        self._input_power = power
+
+
+class ClassicCalibrator(AntennaCalibrator):
+
+    def __init__(self, input_power, dist_rows, dist_columns, filename):
+        super(ClassicCalibrator, self).__init__(input_power, dist_rows, dist_columns, filename)
+
+    def __obtain_walsh_matrix(self):
+        pass
+
+class MutualCalibrator(AntennaCalibrator):
     Available_calibration_modes = ("TxH-RxV", "TxV-RxH")
     Available_power_modes = ("TxH", "TxV", "RxH", "RxV")
 
-    def __init__(self, input_power, dist_rows, dist_columns, filename="antenna"):
-        self.__antenna = Antenna.Antenna()
-        self.__antenna.initialize(dist_rows, dist_columns, filename)
+    def __init__(self, input_power, dist_rows, dist_columns, filename):
+        super(MutualCalibrator, self).__init__(input_power, dist_rows, dist_columns, filename)
+
         self.__matrix_builder = MatrixBuilder.LinearBuilder()
         cross = MatrixBuilder.CrossBuilder()
         double = MatrixBuilder.DoubleBuilder()
@@ -22,10 +49,9 @@ class AntennaCalibrator:
         cross.set_successor(double)
         self.__matrix_builder.set_successor(cross)
 
-        self.__input_power = input_power
         self.__pol_mode = None
 
-        self.__rm_coupling = self.__antenna.get_mutual_coupling_front_panel()
+        self.__rm_coupling = self._antenna.get_mutual_coupling_front_panel()
         self.__tx_network = None
         self.__rx_network = None
 
@@ -63,7 +89,7 @@ class AntennaCalibrator:
             raise Exception("the pol_mode is not valid: ", pol_mode)
 
         self.__pol_mode = pol_mode
-        [self.__tx_network, self.__rx_network] = self.__antenna.get_gain_paths(pol_mode)
+        [self.__tx_network, self.__rx_network] = self._antenna.get_gain_paths(pol_mode)
         (last_row, last_col) = max(self.__rm_coupling.keys())
         rows = range(last_row + 1)
         columns = range(last_col + 1)
@@ -72,12 +98,12 @@ class AntennaCalibrator:
         tx_network = f(self.__tx_network)
         rx_network = f(self.__rx_network)
 
-        [b, a] = strategy(self.__antenna, tx_network, self.__rm_coupling, rx_network)
+        [b, a] = strategy(self._antenna, tx_network, self.__rm_coupling, rx_network)
 
-        f = lambda x: x * 10**(self.__input_power/20)
+        f = lambda x: x * 10**(self._input_power/20)
         self.__equations = dict([a[i], f(b[i].item(1, 0))] for i in range(len(a)))
 
-        self.__matrix_builder.initialize_matrix_builder(self.__antenna, self.__equations)
+        self.__matrix_builder.initialize_matrix_builder(self._antenna, self.__equations)
         self.__matrix_builder.build_matrix()
         return self.__equations
 
@@ -88,8 +114,8 @@ class AntennaCalibrator:
         """
         self.__power_calculated = True
         format_phase = lambda x: (x + 180) % 360 - 180
-        least_squares = lambda a_mx, b: np.matrix(np.linalg.lstsq(a_mx, b)[0]).reshape(self.__antenna.quantity_rows,
-                                                                                       self.__antenna.quantity_columns)
+        least_squares = lambda a_mx, b: np.matrix(np.linalg.lstsq(a_mx, b)[0]).reshape(self._antenna.quantity_rows,
+                                                                                       self._antenna.quantity_columns)
 
         a, tx_gain, tx_phase = self.__matrix_builder.get_tx_matrix()
         self.__tx_power = least_squares(a, tx_gain)
@@ -121,18 +147,18 @@ class AntennaCalibrator:
         g = lambda x: [list(map(lambda z: np.angle(z.item(1, 0), deg=True), y)) for y in x]
 
         # print("Tx_power non-cal inside of calibrate_antenna", f(self.__antenna.get_gain_paths("TxH")[0]))
-        print("Tx_phase non-cal inside of calibrate_antenna", g(self.__antenna.get_gain_paths("TxH")[0]))
+        print("Tx_phase non-cal inside of calibrate_antenna", g(self._antenna.get_gain_paths("TxH")[0]))
         # print("rx_power non-cal inside of calibrate_antenna", f(self.__antenna.get_gain_paths("RxV")[0]))
-        print("rx_phase non-cal inside of calibrate_antenna", g(self.__antenna.get_gain_paths("RxV")[0]))
+        print("rx_phase non-cal inside of calibrate_antenna", g(self._antenna.get_gain_paths("RxV")[0]))
 
         modes = AntennaCommon.parse_polarization_mode(self.__pol_mode)
-        self.__antenna.change_trm_tx_params(tx_shift, modes[0][1])
-        self.__antenna.change_trm_rx_params(rx_shift, modes[1][1])
+        self._antenna.change_trm_tx_params(tx_shift, modes[0][1])
+        self._antenna.change_trm_rx_params(rx_shift, modes[1][1])
 
         # print("Tx_power cal inside of calibrate_antenna", f(self.__antenna.get_gain_paths("TxH")[0]))
-        print("Tx_phase cal inside of calibrate_antenna", g(self.__antenna.get_gain_paths("TxH")[0]))
+        print("Tx_phase cal inside of calibrate_antenna", g(self._antenna.get_gain_paths("TxH")[0]))
         # print("rx_power cal inside of calibrate_antenna", f(self.__antenna.get_gain_paths("RxV")[0]))
-        print("rx_phase cal inside of calibrate_antenna", g(self.__antenna.get_gain_paths("RxV")[0]))
+        print("rx_phase cal inside of calibrate_antenna", g(self._antenna.get_gain_paths("RxV")[0]))
         self.generate_cal_paths(*self.__last_cal_paths)
 
     def get_reception_power(self):
@@ -154,14 +180,6 @@ class AntennaCalibrator:
         if not self.__power_calculated:
             self.__obtain_tx_rx_power()
         return (abs(desired_power) - self.__rx_power).tolist(), (np.angle(desired_power) - self.__rx_phase).tolist()
-
-    @property
-    def input_power(self):
-        return self.__input_power
-
-    @input_power.setter
-    def input_power(self, power):
-        self.__input_power = power
 
 
 def every_one_to_one_path_strategy(antenna, tx_network, rm_coupling, rx_network):

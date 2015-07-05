@@ -18,7 +18,7 @@ class MyTestCase(unittest.TestCase):
         self.power = 20
         self.separation = 1
         self.__create_antenna(2, 2, self.separation)
-        self.calibrator = AntennaCalibrator.AntennaCalibrator(self.power, self.separation, self.separation,
+        self.calibrator = AntennaCalibrator.MutualCalibrator(self.power, self.separation, self.separation,
                                                               self.filename)
 
     def test_the_antenna_retrieve_the_correct_cal_paths(self):
@@ -47,7 +47,7 @@ class MyTestCase(unittest.TestCase):
                 g.write(f.read())
         antenna = Antenna.Antenna()
         antenna.initialize(self.separation, self.separation, self.filename)
-        self.calibrator = AntennaCalibrator.AntennaCalibrator(self.power, self.separation, self.separation,
+        self.calibrator = AntennaCalibrator.MutualCalibrator(self.power, self.separation, self.separation,
                                                               self.filename)
         self.calibrator.generate_cal_paths(AntennaCalibrator.every_one_to_one_path_strategy)
         antenna.get_gain_paths("TxH")
