@@ -5,7 +5,7 @@ import glob
 import os
 
 import src.Model.Antenna as Antenna
-import src.Controllers.RFDNCreator as RFDNCreator
+import src.Controllers.Antenna_Creator as RFDNCreator
 import numpy as np
 
 

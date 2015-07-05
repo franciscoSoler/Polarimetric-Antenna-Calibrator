@@ -10,11 +10,12 @@ from abc import ABCMeta
 class AntennaCalibrator(object):
     __metaclass__ = ABCMeta
 
-    def __init__(self, input_power, dist_rows, dist_columns, filename="antenna"):
+    def __init__(self, input_power, input_phase, dist_rows, dist_columns, filename="antenna"):
         self._antenna = Antenna.Antenna()
         self._antenna.initialize(dist_rows, dist_columns, filename)
 
         self._input_power = input_power
+        self._input_phase = input_phase
 
     @property
     def input_power(self):
@@ -24,11 +25,19 @@ class AntennaCalibrator(object):
     def input_power(self, power):
         self._input_power = power
 
+    @property
+    def input_phase(self):
+        return self._input_phase
+
+    @input_phase.setter
+    def input_phase(self, phase):
+        self._input_phase = phase
+
 
 class ClassicCalibrator(AntennaCalibrator):
 
-    def __init__(self, input_power, dist_rows, dist_columns, filename):
-        super(ClassicCalibrator, self).__init__(input_power, dist_rows, dist_columns, filename)
+    def __init__(self, input_power, input_phase, dist_rows, dist_columns, filename):
+        super(ClassicCalibrator, self).__init__(input_power, input_phase, dist_rows, dist_columns, filename)
 
     def __obtain_walsh_matrix(self):
         pass
@@ -37,8 +46,8 @@ class MutualCalibrator(AntennaCalibrator):
     Available_calibration_modes = ("TxH-RxV", "TxV-RxH")
     Available_power_modes = ("TxH", "TxV", "RxH", "RxV")
 
-    def __init__(self, input_power, dist_rows, dist_columns, filename):
-        super(MutualCalibrator, self).__init__(input_power, dist_rows, dist_columns, filename)
+    def __init__(self, input_power, input_phase, dist_rows, dist_columns, filename):
+        super(MutualCalibrator, self).__init__(input_power, input_phase, dist_rows, dist_columns, filename)
 
         self.__matrix_builder = MatrixBuilder.LinearBuilder()
         cross = MatrixBuilder.CrossBuilder()
@@ -100,7 +109,7 @@ class MutualCalibrator(AntennaCalibrator):
 
         [b, a] = strategy(self._antenna, tx_network, self.__rm_coupling, rx_network)
 
-        f = lambda x: x * 10**(self._input_power/20)
+        f = lambda x: x * AntennaCommon.pol2rec(10**(self._input_power/20), self._input_phase)
         self.__equations = dict([a[i], f(b[i].item(1, 0))] for i in range(len(a)))
 
         self.__matrix_builder.initialize_matrix_builder(self._antenna, self.__equations)
@@ -139,9 +148,11 @@ class MutualCalibrator(AntennaCalibrator):
         if not self.__power_calculated:
             self.__obtain_tx_rx_power()
 
-        pol2rec = lambda mod, ang: np.multiply(mod, np.exp(1j*AntennaCommon.deg2rad(ang)))
-        tx_shift = pol2rec(AntennaCommon.db2v(desired_tx_power - self.__tx_power), desired_tx_phase - self.__tx_phase)
-        rx_shift = pol2rec(AntennaCommon.db2v(desired_rx_power - self.__rx_power), desired_rx_phase - self.__rx_phase)
+        # pol2rec = lambda mod, ang: np.multiply(mod, np.exp(1j*AntennaCommon.deg2rad(ang)))
+        tx_shift = AntennaCommon.pol2rec(AntennaCommon.db2v(desired_tx_power - self.__tx_power),
+                                         desired_tx_phase - self.__tx_phase)
+        rx_shift = AntennaCommon.pol2rec(AntennaCommon.db2v(desired_rx_power - self.__rx_power),
+                                         desired_rx_phase - self.__rx_phase)
 
         f = lambda x: [list(map(lambda z: AntennaCommon.v2db(abs(z.item(1, 0))), y)) for y in x]
         g = lambda x: [list(map(lambda z: np.angle(z.item(1, 0), deg=True), y)) for y in x]

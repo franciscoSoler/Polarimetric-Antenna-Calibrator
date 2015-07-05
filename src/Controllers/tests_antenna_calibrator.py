@@ -9,7 +9,7 @@ import numpy as np
 import src.Controllers.Antenna_Calibrator as AntennaCalibrator
 import src.Model.Antenna as Antenna
 import src.Utilities.Antenna_Common as AntennaCommon
-import src.Controllers.RFDNCreator as RFDNCreator
+import src.Controllers.Antenna_Creator as RFDNCreator
 
 
 class MyTestCase(unittest.TestCase):

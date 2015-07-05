@@ -7,7 +7,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 import glob
 import os
-import src.Controllers.RFDNCreator as RFDNCreator
+import src.Controllers.Antenna_Creator as RFDNCreator
 import src.Controllers.Antenna_Calibrator as AntennaCalibrator
 import src.Utilities.Antenna_Common as AntennaCommon
 
@@ -45,9 +45,10 @@ def append_signal_into_signals(signals, power_signal, phase_signal):
 def main():
     filename = "test"
     power = 20
+    phase = 10
     separation = 1
-    quantity_columns = 2
-    quantity_rows = 2
+    quantity_columns = 10
+    quantity_rows = 10
 
     desired_tx_power = 20
     desired_rx_power = 0
@@ -93,7 +94,7 @@ def main():
     create_antenna(filename)
     """
 
-    calibrator = AntennaCalibrator.MutualCalibrator(power, separation, separation, filename)
+    calibrator = AntennaCalibrator.MutualCalibrator(power, phase, separation, separation, filename)
     calibrator.generate_cal_paths(AntennaCalibrator.every_one_to_one_path_strategy)
 
     tx_power, tx_phase = calibrator.get_transmission_power()

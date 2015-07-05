@@ -7,7 +7,7 @@ import glob
 import numpy as np
 
 import src.Model.Antenna as Antenna
-import src.Controllers.RFDNCreator as RFDNCreator
+import src.Controllers.Antenna_Creator as RFDNCreator
 import src.Controllers.Matrix_Calibrator_builder as MatCalBuilder
 
 

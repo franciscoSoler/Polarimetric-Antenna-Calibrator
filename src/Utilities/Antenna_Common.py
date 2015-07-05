@@ -126,6 +126,14 @@ def deg2rad(deg):
     return deg*cmath.pi/180
 
 
+def pol2rec(module, angle):
+    """
+    :param module: voltage
+    :param angle: degrees
+    :return:
+    """
+    return np.multiply(module, np.exp(1j*deg2rad(angle)))
+
 def parse_polarization_mode(mode):
     """
     :keyword parameters:
