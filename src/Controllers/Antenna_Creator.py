@@ -1,6 +1,5 @@
 #!/usr/bin/python3.3
 
-import sys
 import random
 import json
 import collections
@@ -89,7 +88,7 @@ class AntennaCreator:
         keys = [(row, col) for col in range(self.__row_length) for row in range(self.__column_length)]
 
         front_panel = []
-        f = lambda x: "RM " + str(x)
+        f = lambda x: AntennaCommon.Rm + " " + str(x)
         g = lambda x: list(map(lambda y: list(map(str, y)), x))
         for key in keys:
 
@@ -185,7 +184,8 @@ class AntennaCreator:
 
         [component, parameters] = sequence[0]
         structure = collections.OrderedDict()
-        structure["sParameters"] = [list(map(str, si)) for si in self.__scattering_handler.get_scattering_matrix(component, parameters)]
+        structure[AntennaCommon.SParams] = [list(map(str, si)) for si in
+                                            self.__scattering_handler.get_scattering_matrix(component, parameters)]
 
         if AntennaCommon.is_psc(component):
             list_cables = []
@@ -196,7 +196,7 @@ class AntennaCreator:
         else:
             extreme = self.__build_rfdn_structure(sequence[1:], rm_iterator)
 
-        structure["extremeAttached"] = extreme
+        structure[AntennaCommon.Extreme] = extreme
         return {component: structure}
 
     def create_structure(self, filename, sequence):
@@ -214,9 +214,9 @@ class AntennaCreator:
 
         g = lambda: [" " + str((col, row)) for row in range(self.__row_length) for col in range(self.__column_length)]
         rm_iterator = iter(g())
-        structure["vPolarization"] = self.__build_rfdn_structure(sequence, rm_iterator)
+        structure[AntennaCommon.Rfdn_v_pol] = self.__build_rfdn_structure(sequence, rm_iterator)
         rm_iterator = iter(g())
-        structure["hPolarization"] = self.__build_rfdn_structure(sequence, rm_iterator)
+        structure[AntennaCommon.Rfdn_h_pol] = self.__build_rfdn_structure(sequence, rm_iterator)
 
         with open(filename + "_rfdn", "w") as f:
             f.write(json.dumps(structure, sort_keys=False, indent=4, separators=(',', ': ')))

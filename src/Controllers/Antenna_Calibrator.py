@@ -127,7 +127,6 @@ class MutualCalibrator(AntennaCalibrator):
         rand = lambda x, y: x + random.uniform(-y, y)
         f = lambda x: x * AntennaCommon.pol2rec(AntennaCommon.db2v(rand(self._input_power, self._input_delta_power)),
                                                 rand(self._input_phase, self._input_delta_phase))
-        # f = lambda x: x * AntennaCommon.pol2rec(input_voltage + random.uniform(0, self._input_delta_power), self._input_phase)
         self.__equations = dict([a[i], f(b[i].item(1, 0))] for i in range(len(a)))
 
         self.__matrix_builder.initialize_matrix_builder(self._antenna, self.__equations)
