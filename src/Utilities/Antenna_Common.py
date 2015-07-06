@@ -20,8 +20,6 @@ Trm_error = 'TRMError'
 Psc_error = 'PSCError'
 Rm_error = 'RMError'
 
-
-
 # For RFDN
 Rfdn_h_pol = 'hPolarization'
 Rfdn_v_pol = 'vPolarization'
@@ -147,6 +145,7 @@ def pol2rec(module, angle):
     :return:
     """
     return np.multiply(module, np.exp(1j*deg2rad(angle)))
+
 
 def parse_polarization_mode(mode):
     """

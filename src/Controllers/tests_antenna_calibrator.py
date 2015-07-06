@@ -16,10 +16,11 @@ class MyTestCase(unittest.TestCase):
     def setUp(self):
         self.filename = "test"
         self.power = 20
+        self.phase = 0
         self.separation = 1
         self.__create_antenna(2, 2, self.separation)
-        self.calibrator = AntennaCalibrator.MutualCalibrator(self.power, self.separation, self.separation,
-                                                              self.filename)
+        self.calibrator = AntennaCalibrator.MutualCalibrator(self.power, self.phase, self.separation, self.separation,
+                                                             self.filename)
 
     def test_the_antenna_retrieve_the_correct_cal_paths(self):
         print(self.calibrator.generate_cal_paths(AntennaCalibrator.every_one_to_one_path_strategy))
@@ -29,13 +30,31 @@ class MyTestCase(unittest.TestCase):
 
     def test_antenna_retrieve_the_correct_powers(self):
         self.calibrator.generate_cal_paths(AntennaCalibrator.every_one_to_one_path_strategy)
-        np.testing.assert_almost_equal(self.calibrator.get_transmission_power(), [[20, 20], [20, 20]])
-        np.testing.assert_almost_equal(self.calibrator.get_reception_power(), [[0, 0], [0, 0]])
+        tx_power, tx_phase = self.calibrator.get_transmission_power()
+        np.testing.assert_almost_equal(tx_power, [[40.784171182715156, 40.784171182715156],
+                                                  [40.784171182715156, 40.784171182715156]])
+        np.testing.assert_almost_equal(tx_phase, [[32.979812787692396, 32.979812787692396],
+                                                  [32.979812787692396, 32.979812787692396]])
+
+        rx_power, rx_phase = self.calibrator.get_reception_power()
+        np.testing.assert_almost_equal(rx_power, [[20.784171182715156, 20.784171182715156],
+                                                  [20.784171182715156, 20.784171182715156]])
+        np.testing.assert_almost_equal(rx_phase, [[32.979812787692396, 32.979812787692396],
+                                                  [32.979812787692396, 32.979812787692396]])
 
     def test_signal_shifts_are_correct(self):
         self.calibrator.generate_cal_paths(AntennaCalibrator.every_one_to_one_path_strategy)
-        np.testing.assert_almost_equal(self.calibrator.get_rx_signal_shifts(0), [[0, 0], [0, 0]])
-        np.testing.assert_almost_equal(self.calibrator.get_tx_signal_shifts(20), [[0, 0], [0, 0]])
+        rx_power_shift, rx_phase_shift = self.calibrator.get_rx_signal_shifts(0)
+        np.testing.assert_almost_equal(rx_power_shift, [[-20.784171182715156, -20.784171182715156],
+                                                        [-20.784171182715156, -20.784171182715156]])
+        np.testing.assert_almost_equal(rx_phase_shift, [[-32.979812787692396, -32.979812787692396],
+                                                        [-32.979812787692396, -32.979812787692396]])
+
+        tx_power_shift, tx_phase_shift = self.calibrator.get_tx_signal_shifts(20)
+        np.testing.assert_almost_equal(tx_power_shift, [[-20.784171182715156, -20.784171182715156],
+                                                        [-20.784171182715156, -20.784171182715156]])
+        np.testing.assert_almost_equal(tx_phase_shift, [[-32.979812787692396, -32.979812787692396],
+                                                        [-32.979812787692396, -32.979812787692396]])
 
     def test_every_one_to_one_strategy(self):
         with open("../base_rfdn") as f:
@@ -47,96 +66,39 @@ class MyTestCase(unittest.TestCase):
                 g.write(f.read())
         antenna = Antenna.Antenna()
         antenna.initialize(self.separation, self.separation, self.filename)
-        self.calibrator = AntennaCalibrator.MutualCalibrator(self.power, self.separation, self.separation,
-                                                              self.filename)
+        self.calibrator = AntennaCalibrator.MutualCalibrator(self.power, self.phase, self.separation, self.separation,
+                                                             self.filename)
         self.calibrator.generate_cal_paths(AntennaCalibrator.every_one_to_one_path_strategy)
-        antenna.get_gain_paths("TxH")
-        antenna.get_gain_paths("RxV")
-        f = lambda x: 20*np.log10(10*np.array(x))
-        g = lambda x: [[mtx.item(1, 0) for mtx in row]for row in antenna.get_gain_paths("TxH")[0]]
-        print("antena", f(g(antenna.get_gain_paths("TxH"))))
-        print("calibrated", self.calibrator.get_transmission_power())
-        np.testing.assert_almost_equal(f(g(antenna.get_gain_paths("TxH"))), self.calibrator.get_transmission_power())
-        np.testing.assert_almost_equal(f(g(antenna.get_gain_paths("RxH"))), self.calibrator.get_reception_power())
-        """
-        tx_network = [[np.matrix([[-0.06039018+0.j,  0.96957050+0.j],
-                                  [0.98155780+0.j, -0.05896126-0.j]]),
-                       np.matrix([[-0.20441523+0.j,  1.30932119+0.j],
-                                  [1.21843198+0.j, -0.47589587-0.j]])],
-                      [np.matrix([[-0.06468088+0.j,  1.10330958+0.j],
-                                  [1.09883445+0.j,  0.23394620+0.j]]),
-                       np.matrix([[-0.04692100+0.j,  1.19473155+0.j],
-                                  [1.00275439+0.j,  0.23362583+0.j]])]]
 
-
-        same_coup = np.matrix([[0., 1.],
-                               [1., 0.]])
-
-        neighbour_coup = np.matrix([[0., 3.],
-                                    [3., 0.]])
-
-        cross_coup = np.matrix([[0., 3.82842712],
-                                [3.82842712, 0.]])
-
-        coupling_network = {(0, 1): {(0, 1): np.matrix([[0., 1.],
-                                                        [1., 0.]]),
-                                     (1, 0): np.matrix([[0., 3.82842712],
-                                                        [3.82842712, 0.]]),
-                                     (0, 0): np.matrix([[0., 3.],
-                                                        [3., 0.]]),
-                                     (1, 1): np.matrix([[0., 3.],
-                                                        [3., 0.]])},
-                            (1, 0): {(0, 1): np.matrix([[0., 3.82842712],
-                                                        [3.82842712, 0.]]),
-                                     (1, 0): np.matrix([[0., 1.],
-                                                        [1., 0.]]),
-                                     (0, 0): np.matrix([[0., 3.],
-                                                        [3., 0.]]),
-                                     (1, 1): np.matrix([[0., 3.],
-                                                        [3., 0.]])},
-                            (0, 0): {(0, 1): np.matrix([[0., 3.],
-                                                        [3., 0.]]),
-                                     (1, 0): np.matrix([[0., 3.],
-                                                        [3., 0.]]),
-                                     (0, 0): np.matrix([[0., 1.],
-                                                        [1., 0.]]),
-                                     (1, 1): np.matrix([[0., 3.82842712],
-                                                        [3.82842712, 0.]])},
-                            (1, 1): {(0, 1): np.matrix([[0., 3.],
-                                                        [3., 0.]]),
-                                     (1, 0): np.matrix([[0., 3.],
-                                                        [3., 0.]]),
-                                     (0, 0): np.matrix([[0., 3.82842712],
-                                                        [3.82842712, 0.]]),
-                                     (1, 1): np.matrix([[0., 1.],
-                                                        [1., 0.]])}}
-
-        rx_network = [[np.matrix([[-0.28491053-0.j,  1.28334637+0.j],
-                                  [1.22235657+0.j, -0.50988760+0.j]]),
-                       np.matrix([[0.03935427+0.j,  1.31926821+0.j],
-                                  [1.13068183+0.j, -0.51933755+0.j]])],
-                      [np.matrix([[0.13253064+0.j,  0.92211135+0.j],
-                                  [0.75821942+0.j,  0.09271972+0.j]]),
-                       np.matrix([[-0.13835146-0.j,  1.17647078+0.j],
-                                  [1.43692311+0.j, -0.53852356+0.j]])]]
-        f = lambda x: AntennaCommon.s2t_parameters(x)
-        g = lambda x: AntennaCommon.t2s_parameters(x)
-        print(g(f(tx_network[0][0])*f(same_coup)*f(rx_network[0][0])))
-        print(g(f(tx_network[0][1])*f(neighbour_coup)*f(rx_network[1][1])))
-        print(g(f(tx_network[1][0])*f(neighbour_coup)*f(rx_network[1][1])))
-        print(g(f(tx_network[0][0])*f(cross_coup)*f(rx_network[1][1])))
-
-
-        antenna = Antenna.Antenna()
-        antenna.initialize(1, 1, self.filename)
-        print("que ida?")
-        f = lambda x: [[AntennaCommon.s2t_parameters(x[row][col]) for col in range(2)] for row in range(2)]
-        print(AntennaCalibrator.every_one_to_one_path_strategy(antenna, f(tx_network), coupling_network, f(rx_network)))
-        """
+        f = lambda x: np.matrix([list(map(lambda z: AntennaCommon.v2db(abs(z.item(1, 0))), y)) for y in x])
+        np.testing.assert_almost_equal(f(antenna.get_gain_paths("TxH")[0]) + self.power,
+                                       self.calibrator.get_transmission_power()[0])
+        np.testing.assert_almost_equal(f(antenna.get_gain_paths("RxV")[0]), self.calibrator.get_reception_power()[0])
 
     def __create_antenna(self, quantity_rows, quantity_columns, separation):
-        rms = quantity_columns * quantity_rows
-        sequence_items = ["cable", "PSC1{0}".format(rms), "cable", "TRM", "circulator", "cable", "RM"]
+        att = 0.1           # [neper/m]
+        c = 299792458       # [m/seg]
+        f = 1275000000      # [Hz]
+        wavelenght = c/f    # [m]
+
+        length1 = 0.45      # [m]
+        length2 = 8         # [m]
+        length3 = 0.5       # [m]
+
+        trm_gain = 10       # []
+        trm_ph_shift = 10   # [deg]
+
+        psc_out_ports = quantity_columns * quantity_rows
+
+        cable1 = [AntennaCommon.Cable, [att, wavelenght, length1]]
+        psc = ["{0}1{1}".format(AntennaCommon.Psc, psc_out_ports), [psc_out_ports]]
+        cable2 = [AntennaCommon.Cable, [att, wavelenght, length2]]
+        trm = [AntennaCommon.Trm, [trm_gain, trm_ph_shift]]
+        circulator = [AntennaCommon.Circulator, []]
+        cable3 = [AntennaCommon.Cable, [att, wavelenght, length3]]
+        rm = [AntennaCommon.Rm, []]
+
+        sequence_items = [cable1, psc, cable2, trm, circulator, cable3, rm]
         creator = RFDNCreator.AntennaCreator(quantity_rows, separation, separation)
         creator.create_structure(self.filename, sequence_items)
 

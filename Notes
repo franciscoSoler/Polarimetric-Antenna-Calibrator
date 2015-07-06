@@ -1,0 +1,20 @@
+* Hipótesis
+    - Antena totalmente plana
+    - No hay restricciones entre acoplamientos mutuos, los TRMs no se queman por
+    tener demasiada potencia en la señal que entra
+    - Los componentes estan perfectamente adaptados entre si
+   
+* Metodología
+    - Cabe destacar que en Tx_power and Tx_phase, la señal con que se alimenta 
+    modifica este valor, en caso de Rx_power y Rx_phase no.
+    - Se puede aplicar a la vez ambas calibraciones, dado que la calibración 
+    convencional calibra 1 polarización a la vez, y la mutual recibe en la otra
+    polarización. 
+
+* errores a agregar
+    - Interpulse Phase chirp
+    - Interpulse Gain chirp
+    - Gain ChirpRep
+    - Phase ChirpRep
+    - Gain in Components
+    - Phase in Components

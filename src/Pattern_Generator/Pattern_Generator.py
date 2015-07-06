@@ -1,6 +1,5 @@
 __author__ = 'fsoler'
 import math
-import cmath
 import numpy as np
 
 
@@ -12,7 +11,7 @@ def rad_to_deg(rad):
     return rad * 180 / math.pi
 
 
-class PatternGenerator():
+class PatternGenerator:
     # speed of light [m/sec]
     C_0 = 299792458
 
@@ -67,8 +66,8 @@ class PatternGenerator():
     def generate_pattern(self, output_power, start_stop_angle, phi=0):
         """
         This function generates the beam pattern from the antenna matrix.
-        :param output_power: is the matrix of gain-phase transmitted pairs. The format is, the global list represent the rows
-          the inner list contain one gain-phase pair for each column of the antenna.
+        :param output_power: is the matrix of gain-phase transmitted pairs. The format is, the global list represent the
+         rows the inner list contain one gain-phase pair for each column of the antenna.
         :param start_stop_angle: list containing the start and stop angle values in degrees.
         :param phi: represents the cut in which the pattern is generated (default = 0)
         :return:

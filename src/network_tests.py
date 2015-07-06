@@ -95,7 +95,7 @@ class NetworkTests(unittest.TestCase):
                         [0.9020375873057322, 0.0040086768451177]])
         # cable
         s6 = np.matrix([[0.0905861642768713, 0.9817369357682371],
-                        [ 0.9034234523476304, 0.0637755241693794]])
+                        [0.9034234523476304, 0.0637755241693794]])
 
         tx_4_matrix = AntennaCommon.t2s_parameters(f(s1)*f(s2_d)*f(s3)*f(s4)*f(s5)*f(s6))
         np.testing.assert_almost_equal(tx_4_matrix, self.__antenna.get_gain_paths("TxH")[0][1][1], decimal=14)

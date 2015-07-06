@@ -57,6 +57,7 @@ class ClassicCalibrator(AntennaCalibrator):
     def __obtain_walsh_matrix(self):
         pass
 
+
 class MutualCalibrator(AntennaCalibrator):
     Available_calibration_modes = ("TxH-RxV", "TxV-RxH")
     Available_power_modes = ("TxH", "TxV", "RxH", "RxV")
@@ -174,18 +175,18 @@ class MutualCalibrator(AntennaCalibrator):
         f = lambda x: [list(map(lambda z: AntennaCommon.v2db(abs(z.item(1, 0))), y)) for y in x]
         g = lambda x: [list(map(lambda z: np.angle(z.item(1, 0), deg=True), y)) for y in x]
 
-        # print("Tx_power non-cal inside of calibrate_antenna", f(self.__antenna.get_gain_paths("TxH")[0]))
+        print("Tx_power non-cal inside of calibrate_antenna", f(self._antenna.get_gain_paths("TxH")[0]))
         print("Tx_phase non-cal inside of calibrate_antenna", g(self._antenna.get_gain_paths("TxH")[0]))
-        # print("rx_power non-cal inside of calibrate_antenna", f(self.__antenna.get_gain_paths("RxV")[0]))
+        print("rx_power non-cal inside of calibrate_antenna", f(self._antenna.get_gain_paths("RxV")[0]))
         print("rx_phase non-cal inside of calibrate_antenna", g(self._antenna.get_gain_paths("RxV")[0]))
 
         modes = AntennaCommon.parse_polarization_mode(self.__pol_mode)
         self._antenna.change_trm_tx_params(tx_shift, modes[0][1])
         self._antenna.change_trm_rx_params(rx_shift, modes[1][1])
 
-        # print("Tx_power cal inside of calibrate_antenna", f(self.__antenna.get_gain_paths("TxH")[0]))
+        print("Tx_power cal inside of calibrate_antenna", f(self._antenna.get_gain_paths("TxH")[0]))
         print("Tx_phase cal inside of calibrate_antenna", g(self._antenna.get_gain_paths("TxH")[0]))
-        # print("rx_power cal inside of calibrate_antenna", f(self.__antenna.get_gain_paths("RxV")[0]))
+        print("rx_power cal inside of calibrate_antenna", f(self._antenna.get_gain_paths("RxV")[0]))
         print("rx_phase cal inside of calibrate_antenna", g(self._antenna.get_gain_paths("RxV")[0]))
         self.generate_cal_paths(*self.__last_cal_paths)
 

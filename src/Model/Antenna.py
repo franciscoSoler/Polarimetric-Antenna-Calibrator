@@ -5,7 +5,7 @@ import re
 import src.Utilities.Antenna_Common as AntennaCommon
 
 
-class Antenna():
+class Antenna:
     __AvailableModes = ["TxH", "TxV", "RxH", "RxV", "TxH-RxV", "TxV-RxH"]
     __Polarizations = [AntennaCommon.Rfdn_h_pol, AntennaCommon.Rfdn_v_pol]
 

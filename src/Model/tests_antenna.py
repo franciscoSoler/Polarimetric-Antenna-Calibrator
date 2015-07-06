@@ -5,6 +5,7 @@ import glob
 import os
 
 import src.Model.Antenna as Antenna
+import src.Utilities.Antenna_Common as AntennaCommon
 import src.Controllers.Antenna_Creator as RFDNCreator
 import numpy as np
 
@@ -73,8 +74,29 @@ class TestAntenna(unittest.TestCase):
         np.testing.assert_equal(tx_v_post_cal, tx_v_post_second_cal)
 
     def __create_antenna(self, quantity_rows, quantity_columns, separation):
-        rms = quantity_columns * quantity_rows
-        sequence_items = ["cable", "PSC1{0}".format(rms), "cable", "TRM", "circulator", "cable", "RM"]
+        att = 0.1           # [neper/m]
+        c = 299792458       # [m/seg]
+        f = 1275000000      # [Hz]
+        wavelenght = c/f    # [m]
+
+        length1 = 0.45      # [m]
+        length2 = 8         # [m]
+        length3 = 0.5       # [m]
+
+        trm_gain = 10       # []
+        trm_ph_shift = 10   # [deg]
+
+        psc_out_ports = quantity_columns * quantity_rows
+
+        cable1 = [AntennaCommon.Cable, [att, wavelenght, length1]]
+        psc = ["{0}1{1}".format(AntennaCommon.Psc, psc_out_ports), [psc_out_ports]]
+        cable2 = [AntennaCommon.Cable, [att, wavelenght, length2]]
+        trm = [AntennaCommon.Trm, [trm_gain, trm_ph_shift]]
+        circulator = [AntennaCommon.Circulator, []]
+        cable3 = [AntennaCommon.Cable, [att, wavelenght, length3]]
+        rm = [AntennaCommon.Rm, []]
+
+        sequence_items = [cable1, psc, cable2, trm, circulator, cable3, rm]
         creator = RFDNCreator.AntennaCreator(quantity_columns, separation, separation)
         creator.create_structure(self.filename, sequence_items)
         self.antenna.initialize(separation, separation, self.filename)

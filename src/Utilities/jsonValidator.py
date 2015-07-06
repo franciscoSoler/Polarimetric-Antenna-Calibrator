@@ -16,13 +16,12 @@ def main(argc, argv):
         print("	* second parameter: the json to validate")
         return 0
 
-
     with open(argv[1], "r") as f:
         schema = json.load(f)
     with open(argv[2], "r") as f:
-        jSon = json.load(f)
+        j_son = json.load(f)
     try:
-        jsonschema.validate(jSon, schema)
+        jsonschema.validate(j_son, schema)
         print("the json is valid")
     except jsonschema.ValidationError as e:
         print(e.message)

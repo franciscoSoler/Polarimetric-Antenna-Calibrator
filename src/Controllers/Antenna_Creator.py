@@ -1,6 +1,5 @@
 #!/usr/bin/python3.3
 
-import random
 import json
 import collections
 import functools
@@ -36,13 +35,6 @@ class AntennaCreator:
         trm_handler.initialize()
         circulator_handler.initialize()
         psc_handler.initialize()
-
-        """
-        rm_handler.initialize(delta=0.1, add_errors=True)
-        trm_handler.initialize(delta=1.9, add_errors=True)
-        circulator_handler.initialize(delta=0.5, add_errors=True)
-        psc_handler.initialize(delta=0.5, add_errors=True)
-        """
 
         self.__row_length = row_length
         self.__column_length = 0
