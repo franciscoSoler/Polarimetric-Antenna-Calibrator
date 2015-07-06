@@ -26,8 +26,8 @@ class AntennaCalibrator(object):
     def add_calibration_errors(self, errors):
         if not isinstance(errors, list) or len(errors) == 0 or [True for error in errors if len(error) != 2]:
             raise Exception('errors are not well created')
-        self._input_delta_power = [error[1] for error in errors if error[0] == AntennaCommon.Inter_pulse_power_err][0]
-        self._input_delta_phase = [error[1] for error in errors if error[0] == AntennaCommon.Inter_pulse_phase_err][0]
+        self._input_delta_power = [err[1] for err in errors if err[0] == AntennaCommon.Inter_pulse_power_err].pop()
+        self._input_delta_phase = [err[1] for err in errors if err[0] == AntennaCommon.Inter_pulse_phase_err].pop()
 
     def add_errors(self, errors):
         [self.errors.append(error) for error in errors if error not in self.errors]
