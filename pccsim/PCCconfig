@@ -1,0 +1,53 @@
+{
+	"antennaConfig": {
+		"rows": 20,
+		"panels": 7
+	},
+    "chirpData": {
+		"bw": 10e6,
+		"fc": 0,
+		"tp": 20.00e-6
+	},
+    "samplingWindow": {
+		"swst": 0e-6,
+		"fs": 120e6
+	},
+    "errors": {
+		"trmPhErrOn": false,
+		"chirpRepErrOn": false,
+        "phError": 5
+	},
+    "errorsICAL": {
+		"att": 0.2,
+		"phShift": -5
+	},
+    "attElementsDb": {
+        "_ArrayType_": "double",
+		"_ArraySize_": [140,1],
+		"_ArrayIsSparse_": 1,
+		"_ArrayData_": [
+			[1,0.5],
+            [2,0.5],
+            [3,0.5],
+            [4,0.5],
+            [5,0.5],
+            [6,0.5],
+            [7,0.5],
+            [8,0.5],
+            [9,0.5],
+            [10,0.5],
+            [11,0.5],
+            [12,0.5],
+            [13,0.5],
+            [14,0.5],
+            [15,0.5],
+            [16,0.5],
+            [17,0.5],
+            [18,2.5],
+            [19,0.5],
+            [20,0.5]
+		]
+    },
+    "steeringAngle": 0
+}
+
