@@ -81,12 +81,15 @@ def create_antenna(quantity_columns, quantity_rows, separation, filename):
 
 
 def create_calibrator(input_power, input_phase, separation, filename):
+    """
     calibration_errors = [[AntennaCommon.Inter_pulse_power_err, 0.5], [AntennaCommon.Inter_pulse_phase_err, 5],
                           [AntennaCommon.Gain_chirp_rep_err, 1], [AntennaCommon.Phase_chirp_rep_err, 5]]
 
     calibrator = AntennaCalibrator.MutualCalibrator(input_power, input_phase, separation, separation, filename)
     # calibrator.add_calibration_errors(calibration_errors)
     calibrator.generate_cal_paths(AntennaCalibrator.every_one_to_one_path_strategy)
+    """
+    calibrator = AntennaCalibrator.ClassicCalibrator(input_power, input_phase, separation, separation, filename)
     return calibrator
 
 
@@ -113,7 +116,7 @@ def main():
 
     desired_tx_phase = 0
     desired_rx_phase = 0
-
+    """
     desired_signals = [desired_tx_power, desired_tx_phase, desired_rx_power, desired_rx_phase]
     tx_signals = []
     rx_signals = []
@@ -171,7 +174,8 @@ def main():
     visual_comparator.compare_signals_against_ideal(*rx_signals, title="Rx power")
 
     visual_comparator.show_graphics()
-
+    """
+    calibrator.calibrate_antenna()
     # remove_antenna(filename)
 
     return 0

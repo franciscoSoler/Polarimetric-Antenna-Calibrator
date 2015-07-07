@@ -21,8 +21,9 @@ class WalshMatrixCreator:
 
     def __initialize_walsh(self, order):
         walkm = 1
-        for i in range(order):
-            self.__walkm = np.vstack((np.hstack((walkm, walkm)), np.hstack((walkm, -walkm))))
+        for i in range(int(order)):
+            walkm = np.vstack((np.hstack((walkm, walkm)), np.hstack((walkm, -walkm))))
+        self.__walkm = walkm
 
     def create_ideal_phase_walsh(self, amount_elements, ph_shift=np.pi/2):
         order = self.__get_order(amount_elements)

@@ -135,9 +135,7 @@ def db2v(decibel):
 
 
 def v2db(voltage):
-    if voltage < 0:
-        raise Exception("the voltage delivered was negative:", voltage)
-    return 20*np.log10(voltage)
+    return 20*np.log10(abs(voltage))
 
 
 def rad2deg(rad):

@@ -5,6 +5,13 @@ import numpy as np
 
 
 class ChirpCreator:
+    @staticmethod
+    def __create_unitary_chirp(fs, fc, bw, tp, swl):
+        kr = bw/tp                      # Chirp rate in range
+        t = np.arange(0, swl, 1/fs)     # Time for each sample
+        f0 = fc-bw/2                    # Initial frequency
+
+        return np.matrix(np.exp(1j*2*np.pi*(f0*t + kr/2*t**2)))
 
     def __init__(self, power, phase):
         """
@@ -25,6 +32,9 @@ class ChirpCreator:
         self.__add_gain_error, self.__std_gain = [True if isinstance(i, str) else i for err in errors for i in err
                                                   if err[0] == AntennaCommon.Gain_chirp_rep_err].pop()
 
+    def create_ideal_chirp(self, fs, fc, bw, tp, swl):
+        return self.__gain * np.exp(1j*self.__phase) * self.__create_unitary_chirp(fs, fc, bw, tp, swl)
+
     def create_chirp(self, fs, fc, bw, tp, swl):
         """
         :param fs: frequency sampling
@@ -34,13 +44,8 @@ class ChirpCreator:
         :param swl: sampling windows length
         :return:
         """
-
-        kr = bw/tp                      # Chirp rate in range
-        t = np.arange(0, swl, 1/fs)     # Time for each sample
-        f0 = fc-bw/2                    # Initial frequency
-
         f = lambda x, y, z: x + np.random.normal(sigma=y) if z else x
         gain = f(self.__gain, self.__std_gain, self.__add_gain_error)
         phase = AntennaCommon.deg2rad(f(self.__phase, self.__std_phase, self.__add_phase_error))
 
-        return gain * np.exp(1j*phase) * np.exp(1j*2*np.pi*(f0*t + kr/2*t**2))
+        return gain * np.exp(1j*phase) * self.__create_unitary_chirp(fs, fc, bw, tp, swl)
