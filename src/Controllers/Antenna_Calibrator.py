@@ -3,15 +3,15 @@ __author__ = 'fsoler'
 import src.Model.Antenna as Antenna
 import src.Utilities.Antenna_Common as AntennaCommon
 import src.Controllers.Matrix_Calibrator_builder as MatrixBuilder
+import src.Utilities.Walsh_mtx_creator as WalshCreator
+import src.Utilities.Chirp_creator as ChirpCreator
 import numpy as np
-from abc import ABCMeta
+from abc import ABCMeta, abstractmethod
 import random
 
 
 class AntennaCalibrator(object):
     __metaclass__ = ABCMeta
-    Available_errors = []
-    errors = []
 
     def __init__(self, input_power, input_phase, dist_rows, dist_columns, filename="antenna"):
         self._antenna = Antenna.Antenna()
@@ -23,14 +23,16 @@ class AntennaCalibrator(object):
         self._input_delta_phase = 0
         self._input_delta_power = 0
 
+    @abstractmethod
+    def _add_calibration_errors(self, errors):
+        pass
+
     def add_calibration_errors(self, errors):
         if not isinstance(errors, list) or len(errors) == 0 or [True for error in errors if len(error) != 2]:
             raise Exception('errors are not well created')
         self._input_delta_power = [err[1] for err in errors if err[0] == AntennaCommon.Inter_pulse_power_err].pop()
         self._input_delta_phase = [err[1] for err in errors if err[0] == AntennaCommon.Inter_pulse_phase_err].pop()
-
-    def add_errors(self, errors):
-        [self.errors.append(error) for error in errors if error not in self.errors]
+        self._add_calibration_errors(errors)
 
     @property
     def input_power(self):
@@ -50,12 +52,109 @@ class AntennaCalibrator(object):
 
 
 class ClassicCalibrator(AntennaCalibrator):
+    Dec = 1e11
+    Swl = 2*AntennaCommon.tp  # sampling window length [sec]
 
     def __init__(self, input_power, input_phase, dist_rows, dist_columns, filename):
         super(ClassicCalibrator, self).__init__(input_power, input_phase, dist_rows, dist_columns, filename)
+        self.__walsh_creator = WalshCreator.WalshMatrixCreator()
+        self.__chirp_creator = ChirpCreator.ChirpCreator(self._input_power, self._input_phase)
 
-    def __obtain_walsh_matrix(self):
-        pass
+    def _add_calibration_errors(self, errors):
+        self.__walsh_creator.add_walsh_errors(errors)
+        self.__chirp_creator.add_chirp_errors(errors)
+
+    def calibrate_antenna(self):
+        n_elements = self._antenna.get_qtty_antennas()
+        steering_angle = 5
+
+        # todo i must change this thing later
+        # Phase and attenuation of every element (a complete loop across the antenna = rfdn + TRM + return rfdn)
+        ph_deg = np.mod(np.arange(1, n_elements+1) * steering_angle, 360)
+        att_db = np.ones(n_elements) * 10
+
+        n = 2**np.ceil(np.log2(n_elements))     # quantity of sequences (and mode pulses)
+
+        # Matriz con las secuencias de desfasajes para cada elemento (filas)
+        # en cada pulso (cols) en radianes:
+        walsh_phi_m = self.__walsh_creator.create_ideal_phase_walsh(n_elements)
+        walsh_phi_m_err = self.__walsh_creator.create_phase_walsh_matrix(n_elements)
+
+    """
+    % CONSTRUCCION DEL CHIRP QUE RECORRE CADA TRM DE LA ANTENA (ICAL LONG LOOP)
+
+    chirp = createChirp( fs,fc,bw,tp,swl ); % chirp ideal, con envolvente unitaria
+    % Se creo un chirp ideal con envolvente unitaria
+    % En prox version se puede construir el chirp con errores lineales/cuadraticos/random
+    % de la CE(sin hardware de ical)+antena(rfdn ida + trm + rfdn vuelta)
+
+
+
+    % CONSTRUCCION DEL CHIRP REPLICA DE REFERENCIA (OBTENIDO DE ICAL SHORT LOOP)
+    if chirp_rep_err_on
+        chirpRep = createChirp( fs,fc,bw,tp,swl,'attenuation',icatt,'phaseShift',icph );
+    else
+        chirpRep = chirp; % caso con cadena de calibracion CE ideal
+    end
+    % Se creo un chirp replica, asumiendo que el short loop (hardware de ical de la CE) agrega
+    % un offset fijo de fase y amplitud
+    % En prox version se puede construir el chirp con errores lineales/cuadraticos/random
+    % de la CE(con hardware de ical)
+
+
+    %%% CONVERSION DE UNIDADES DE ATENUACION Y FASE DE CADA ELEMENTO
+
+    % vector con las atenuaciones a medir, correspondientes a c/u de los
+    % N_elems elementos o paths, pasados a veces
+    amp = db2mag(-att_db);
+    % vector con las fases a medir, correspondientes a c/u de los
+    % N_elems elementos o paths, pasados a radianes
+    ph_rad = ph_deg * deg2rad;
+
+
+
+    %%%% CONSTRUCCION DE DATOS CRUDOS
+
+    % Fase agregada por cada camino (seteo real + codigo walsh agregado, con
+    % error del desfasador)
+    phi0 = repmat( ph_rad,1,N ) + walsh_phi_m_err( 1:N_elems,: );
+    % Construccion de la señal loopeada por cada elemento y sumada entre todos
+    acq = (amp' * exp( 1i*phi0 )).' * chirp;
+            % TODO: debería hacer chirp * lo otro, acq me queda traspuesta.
+    % Aca en prox version se podrian agregar señales de error debido a ruido,
+    % repetibilidad de switches, isolation en switches de TRMs y power splitters,
+    % inestabilidades en hardware de calibracion y nominal
+    % (sus reflexiones que generan error en la medicion, porque el camino
+    % nominal y su estabilidad es lo que se mide), y RFI
+
+    % aca se puede grabar la adquisicion en disco para simularle datos de entrada al
+    % procesador de la Processing Chain y validarlo
+
+    if strcmp( showOutput,'noOutput')
+        return
+    end
+
+
+    %%%% DECODIFICACION DE DATOS CRUDOS
+
+    signal = repmat( (acq * chirpRep').',N_elems,1 );
+    integral = signal .* exp( -1i*walsh_phi_m( 1:N_elems,: ));
+        % integro todos los tériminos
+    signalEst = integral * ones(N,1) /(N*qttyRepeatedRows * (chirpRep*chirpRep'));
+        % La integral de arriba tiene dividiendo 2 valores a saber:
+        %	N: es ||cj||², TODO: esto está mal tambien, uno tiene que calcular
+        %	la correlación de las matrices de generación, la que tiene errores
+        %	con la que no tiene errores.
+        %	chirpRep*chirpRep' es el módulo de las dos chirps a la que fue
+        % 	multiplicada la señal, no va la ideal porque no se conoce.
+
+    angm = mod( round( angle( signalEst )*dec )/dec*rad2deg,360 ); % signalEst de fase en deg
+        % error de estimacion de fase llevado a 0
+    errp = mod( angm - ph_deg + 180,360 ) - 180;
+    attm = round(-mag2db( abs( signalEst ) )*dec )/dec; % signalEsts de atenuacion en dB power
+
+    erra = attm - att_db;
+    """
 
 
 class MutualCalibrator(AntennaCalibrator):
@@ -90,6 +189,9 @@ class MutualCalibrator(AntennaCalibrator):
         self.__last_cal_paths = None
 
         self.__equations = None
+
+    def _add_calibration_errors(self, errors):
+        pass
 
     def __fix_rx_power_and_phase(self):
         """

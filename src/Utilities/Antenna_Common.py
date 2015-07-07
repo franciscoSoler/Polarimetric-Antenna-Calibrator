@@ -8,11 +8,21 @@ Reception = 'R'
 H_pol = 'H'
 V_pol = 'V'
 
+# Chirp data
+bw = 10e6       # bandwidth [Hz]
+fc = 0          # central frequency [Hz] 0 -> base-band
+tp = 20.00e-6   # duration [sec]
+
+# sampling window
+swst = 0e-6     # sampling window start time [sec]
+fs = 120e6      # frequency sampling [Hz]
+
 # Errors
 Inter_pulse_phase_err = 'interPulsePhaseChirpError'
 Inter_pulse_power_err = 'interPulseGainChirpError'
 Gain_chirp_rep_err = 'gainChirpRepError'
 Phase_chirp_rep_err = 'phaseChirpRepError'
+Walsh_phase_err = 'WalPhaseErrors'
 
 Cable_error = 'CableError'
 Circulator_error = 'CirculatorError'
