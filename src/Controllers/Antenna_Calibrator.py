@@ -83,8 +83,8 @@ class ClassicCalibrator(AntennaCalibrator):
         # built of ICAL LONG LOOP chirp and ICAL SHORT LOOP chirp
         chirp_parameters = [AntennaCommon.fs, AntennaCommon.fc, AntennaCommon.bw, AntennaCommon.tp, self.__Swl]
         chirp = [self.__chirp_creator.create_chirp(*chirp_parameters) for _ in range(n_elements)]
-        chirp_rep = np.matrix(self.__chirp_creator.create_ideal_chirp(*chirp_parameters))
-        print(chirp)
+        chirp_rep = np.matrix(self.__chirp_creator.create_chirp_replica(*chirp_parameters))
+
         amp = AntennaCommon.db2v(-att_db)
         ph_rad = AntennaCommon.deg2rad(ph_deg)
 
@@ -94,7 +94,6 @@ class ClassicCalibrator(AntennaCalibrator):
         # Fase agregada por cada camino (seteo real + codigo walsh agregado, con error del desfasador)
         phi0 = np.tile(ph_rad, sequences) + walsh_phi_m_err[:n_elements, :]
         # Construccion de la señal loopeada por cada elemento y sumada entre todos
-        print([np.dot(amp.T, np.exp(1j * phi0)).T])
         acq = np.multiply(np.dot(amp.T, np.exp(1j * phi0)).T, chirp)
 
         # aca se puede grabar la adquisicion en disco para simularle datos de entrada al
@@ -116,10 +115,10 @@ class ClassicCalibrator(AntennaCalibrator):
         # signalEst de fase en deg
         angm = np.mod(AntennaCommon.rad2deg(np.around(np.angle(signal_est), decimals=self.__Dec)), 360)
         # error de estimacion de fase llevado a 0
-        errp = np.mod(angm - ph_deg + 180, 360) - 180
+        errp = np.mod(ph_deg - angm + 180, 360) - 180
         attm = np.around(-AntennaCommon.v2db(abs(signal_est)), decimals=self.__Dec)
 
-        erra = attm - att_db
+        erra = att_db - attm
         print("Measured angle", angm)
         print("Error in phase", errp)
         print("Measured power", attm)
