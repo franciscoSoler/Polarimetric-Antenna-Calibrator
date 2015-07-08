@@ -52,6 +52,7 @@ class AntennaCalibrator(object):
 
 
 class ClassicCalibrator(AntennaCalibrator):
+    __Valid_cal_modes = ("TxH", "TxV", "RxH", "RxV")
     __Dec = 11
     __Swl = 2*AntennaCommon.tp  # sampling window length [sec]
 
@@ -64,16 +65,15 @@ class ClassicCalibrator(AntennaCalibrator):
         self.__walsh_creator.add_walsh_errors(errors)
         self.__chirp_creator.add_chirp_errors(errors)
 
-    def calibrate_antenna(self):
+    def calibrate_antenna(self, mode):
         n_elements = self._antenna.get_qtty_antennas()
-        steering_angle = 5
 
-        # todo i must change this thing later
-        # Phase and attenuation of every element (a complete loop across the antenna = rfdn + TRM + return rfdn)
-        ph_deg = np.mod(np.reshape(np.arange(1, n_elements+1), (n_elements, -1)) * steering_angle, 360)
-        att_db = np.ones((n_elements, 1)) * 10
+        f = lambda x: np.reshape([list(map(lambda z: AntennaCommon.v2db(abs(z.item(1, 0))), y)) for y in x], (-1, 1))
+        g = lambda x: np.reshape([list(map(lambda z: np.angle(z.item(1, 0), deg=True), y)) for y in x], (-1, 1))
+        att_db = f(self._antenna.get_gain_paths(mode)[0])
+        ph_deg = g(self._antenna.get_gain_paths(mode)[0])
 
-        n = 2**np.ceil(np.log2(n_elements))     # quantity of sequences (and mode pulses)
+        sequences = 2**np.ceil(np.log2(n_elements))     # quantity of sequences (and mode pulses)
 
         # Matriz con las secuencias de desfasajes para cada elemento (filas)
         # en cada pulso (cols) en radianes:
@@ -97,7 +97,7 @@ class ClassicCalibrator(AntennaCalibrator):
         CONSTRUCCION DE DATOS CRUDOS
         """
         # Fase agregada por cada camino (seteo real + codigo walsh agregado, con error del desfasador)
-        phi0 = np.tile(ph_rad, n) + walsh_phi_m_err[:n_elements, :]
+        phi0 = np.tile(ph_rad, sequences) + walsh_phi_m_err[:n_elements, :]
         # Construccion de la señal loopeada por cada elemento y sumada entre todos
         acq = np.dot(amp.T, np.exp(1j * phi0)).T * chirp
                 # TODO: debería hacer chirp * lo otro, acq me queda traspuesta.
@@ -109,7 +109,7 @@ class ClassicCalibrator(AntennaCalibrator):
         """
         signal = np.tile((acq * chirp_rep.H).T, (n_elements, 1))
         integral = np.multiply(signal, np.exp(-1j * walsh_phi_m[:n_elements, :]))  # integro todos los tériminos
-        signalEst = integral * np.ones((n, 1)) / (n * chirp_rep * chirp_rep.H)
+        signalEst = integral * np.ones((sequences, 1)) / (sequences * chirp_rep * chirp_rep.H)
         """
             La integral de arriba tiene dividiendo 2 valores a saber:
               N: es ||cj||², TODO: esto está mal tambien, uno tiene que calcular
@@ -125,15 +125,14 @@ class ClassicCalibrator(AntennaCalibrator):
         attm = np.around(-AntennaCommon.v2db(abs(signalEst)), decimals=self.__Dec)  # signalEsts de atenuacion en dB power
 
         erra = attm - att_db
-        print(angm)
-        print(errp)
-        print(attm)
-        print(erra)
+        print("Measured angle", angm)
+        print("Error in phase", errp)
+        print("Measured power", attm)
+        print("Error in power", erra)
 
 
 class MutualCalibrator(AntennaCalibrator):
     Available_calibration_modes = ("TxH-RxV", "TxV-RxH")
-    Available_power_modes = ("TxH", "TxV", "RxH", "RxV")
 
     def __init__(self, input_power, input_phase, dist_rows, dist_columns, filename):
         super(MutualCalibrator, self).__init__(input_power, input_phase, dist_rows, dist_columns, filename)
