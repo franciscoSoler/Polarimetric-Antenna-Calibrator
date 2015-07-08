@@ -42,7 +42,7 @@ def append_signal_into_signals(signals, power_signal, phase_signal):
     signals.append(phase_signal)
 
 
-def create_antenna(quantity_columns, quantity_rows, separation, filename):
+def create_antenna(quantity_columns, quantity_rows, separation, row_steering, column_steering, filename):
     att = 0.1           # [neper/m]
     c = 299792458       # [m/seg]
     f = 1275000000      # [Hz]
@@ -74,14 +74,14 @@ def create_antenna(quantity_columns, quantity_rows, separation, filename):
     """
     creator = AntennaCreator.AntennaCreator(quantity_columns, separation, separation)
     creator.add_errors(component_errors)
-    creator.create_structure(filename, sequence_items)
+    creator.create_structure(filename, sequence_items, row_steering, column_steering)
     """
     create_antenna2(filename)
     """
 
 
 def create_calibrator(input_power, input_phase, separation, filename):
-    """
+
     calibration_errors = [[AntennaCommon.Inter_pulse_power_err, 0.5], [AntennaCommon.Inter_pulse_phase_err, 5],
                           [AntennaCommon.Gain_chirp_rep_err, 1], [AntennaCommon.Phase_chirp_rep_err, 5]]
 
@@ -90,6 +90,7 @@ def create_calibrator(input_power, input_phase, separation, filename):
     calibrator.generate_cal_paths(AntennaCalibrator.every_one_to_one_path_strategy)
     """
     calibrator = AntennaCalibrator.ClassicCalibrator(input_power, input_phase, separation, separation, filename)
+    """
     return calibrator
 
 
@@ -103,8 +104,10 @@ def main():
     separation = 1
     quantity_columns = 2
     quantity_rows = 2
+    row_steering = 10
+    column_steering = 10
 
-    create_antenna(quantity_columns, quantity_rows, separation, filename)
+    create_antenna(quantity_columns, quantity_rows, separation, row_steering, column_steering, filename)
 
     input_power = 0
     input_phase = 0
@@ -116,7 +119,7 @@ def main():
 
     desired_tx_phase = 0
     desired_rx_phase = 0
-    """
+
     desired_signals = [desired_tx_power, desired_tx_phase, desired_rx_power, desired_rx_phase]
     tx_signals = []
     rx_signals = []
@@ -176,7 +179,8 @@ def main():
     visual_comparator.show_graphics()
     """
     calibrator.calibrate_antenna()
-    # remove_antenna(filename)
+    """
+    remove_antenna(filename)
 
     return 0
 

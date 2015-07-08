@@ -167,7 +167,7 @@ class MyTestCase(unittest.TestCase):
 
         sequence_items = [cable1, psc, cable2, trm, circulator, cable3, rm]
         creator = RFDNCreator.AntennaCreator(quantity_rows, separation, separation)
-        creator.create_structure(self.filename, sequence_items)
+        creator.create_structure(self.filename, sequence_items, row_steering, column_steering)
         self.antenna = Antenna.Antenna()
         self.antenna.initialize(separation, separation, self.filename)
 
