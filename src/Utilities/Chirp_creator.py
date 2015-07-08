@@ -33,7 +33,8 @@ class ChirpCreator:
 
         if [True for error in errors if error[0] == AntennaCommon.Gain_chirp_rep_err]:
             self.__add_gain_error = True
-            self.__std_gain = [error[1] for error in errors if error[0] == AntennaCommon.Gain_chirp_rep_err].pop()
+            self.__std_gain = AntennaCommon.db2v([error[1] for error in errors
+                                                  if error[0] == AntennaCommon.Gain_chirp_rep_err].pop())
 
     def create_ideal_chirp(self, fs, fc, bw, tp, swl):
         return self.__gain * np.exp(1j*self.__phase) * self.__create_unitary_chirp(fs, fc, bw, tp, swl)
