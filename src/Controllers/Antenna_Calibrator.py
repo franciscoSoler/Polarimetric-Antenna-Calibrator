@@ -82,9 +82,9 @@ class ClassicCalibrator(AntennaCalibrator):
 
         # built of ICAL LONG LOOP chirp and ICAL SHORT LOOP chirp
         chirp_parameters = [AntennaCommon.fs, AntennaCommon.fc, AntennaCommon.bw, AntennaCommon.tp, self.__Swl]
-        chirp = [self.__chirp_creator.create_ideal_chirp(*chirp_parameters) for _ in range(n_elements)]
-        chirp_rep = np.matrix(self.__chirp_creator.create_chirp(*chirp_parameters))
-
+        chirp = [self.__chirp_creator.create_chirp(*chirp_parameters) for _ in range(n_elements)]
+        chirp_rep = np.matrix(self.__chirp_creator.create_ideal_chirp(*chirp_parameters))
+        print(chirp)
         amp = AntennaCommon.db2v(-att_db)
         ph_rad = AntennaCommon.deg2rad(ph_deg)
 
