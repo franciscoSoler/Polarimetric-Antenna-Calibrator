@@ -73,34 +73,29 @@ class ClassicCalibrator(AntennaCalibrator):
         att_db = f(self._antenna.get_gain_paths(mode)[0])
         ph_deg = g(self._antenna.get_gain_paths(mode)[0])
 
-        sequences = 2**np.ceil(np.log2(n_elements))     # quantity of sequences (and mode pulses)
+        sequences = 2**np.ceil(np.log2(n_elements))  # quantity of sequences (and mode pulses)
 
-        # Matriz con las secuencias de desfasajes para cada elemento (filas)
-        # en cada pulso (cols) en radianes:
+        # built of walsh sequence matrix, which is a sequence of phase shift per element (rows) in each pulse (cols).
+        # in rad
         walsh_phi_m = self.__walsh_creator.create_ideal_phase_walsh(n_elements)
         walsh_phi_m_err = self.__walsh_creator.create_phase_walsh_matrix(n_elements)
 
-        # CONSTRUCCION DEL CHIRP QUE RECORRE CADA TRM DE LA ANTENA (ICAL LONG LOOP)
-        chirp = self.__chirp_creator.create_ideal_chirp(AntennaCommon.fs, AntennaCommon.fc, AntennaCommon.bw,
-                                                        AntennaCommon.tp, self.__Swl)
-        chirp_rep = self.__chirp_creator.create_chirp(AntennaCommon.fs, AntennaCommon.fc, AntennaCommon.bw,
-                                                      AntennaCommon.tp, self.__Swl)
+        # built of ICAL LONG LOOP chirp and ICAL SHORT LOOP chirp
+        chirp_parameters = [AntennaCommon.fs, AntennaCommon.fc, AntennaCommon.bw, AntennaCommon.tp, self.__Swl]
+        chirp = [self.__chirp_creator.create_ideal_chirp(*chirp_parameters) for _ in range(n_elements)]
+        chirp_rep = np.matrix(self.__chirp_creator.create_chirp(*chirp_parameters))
 
-        # vector con las atenuaciones a medir, correspondientes a c/u de los
-        # N_elems elementos o paths, pasados a veces
         amp = AntennaCommon.db2v(-att_db)
-        # vector con las fases a medir, correspondientes a c/u de los
-        # N_elems elementos o paths, pasados a radianes
         ph_rad = AntennaCommon.deg2rad(ph_deg)
 
         """
-        CONSTRUCCION DE DATOS CRUDOS
+        RAW DATA BUILDING
         """
         # Fase agregada por cada camino (seteo real + codigo walsh agregado, con error del desfasador)
         phi0 = np.tile(ph_rad, sequences) + walsh_phi_m_err[:n_elements, :]
         # Construccion de la señal loopeada por cada elemento y sumada entre todos
-        acq = np.dot(amp.T, np.exp(1j * phi0)).T * chirp
-                # TODO: debería hacer chirp * lo otro, acq me queda traspuesta.
+        print([np.dot(amp.T, np.exp(1j * phi0)).T])
+        acq = np.multiply(np.dot(amp.T, np.exp(1j * phi0)).T, chirp)
 
         # aca se puede grabar la adquisicion en disco para simularle datos de entrada al
         # procesador de la Processing Chain y validarlo
@@ -109,7 +104,7 @@ class ClassicCalibrator(AntennaCalibrator):
         """
         signal = np.tile((acq * chirp_rep.H).T, (n_elements, 1))
         integral = np.multiply(signal, np.exp(-1j * walsh_phi_m[:n_elements, :]))  # integro todos los tériminos
-        signalEst = integral * np.ones((sequences, 1)) / (sequences * chirp_rep * chirp_rep.H)
+        signal_est = integral * np.ones((sequences, 1)) / (sequences * chirp_rep * chirp_rep.H)
         """
             La integral de arriba tiene dividiendo 2 valores a saber:
               N: es ||cj||², TODO: esto está mal tambien, uno tiene que calcular
@@ -119,10 +114,10 @@ class ClassicCalibrator(AntennaCalibrator):
               multiplicada la señal, no va la ideal porque no se conoce.
         """
         # signalEst de fase en deg
-        angm = np.mod(AntennaCommon.rad2deg(np.around(np.angle(signalEst), decimals=self.__Dec)), 360)
+        angm = np.mod(AntennaCommon.rad2deg(np.around(np.angle(signal_est), decimals=self.__Dec)), 360)
         # error de estimacion de fase llevado a 0
         errp = np.mod(angm - ph_deg + 180, 360) - 180
-        attm = np.around(-AntennaCommon.v2db(abs(signalEst)), decimals=self.__Dec)  # signalEsts de atenuacion en dB power
+        attm = np.around(-AntennaCommon.v2db(abs(signal_est)), decimals=self.__Dec)
 
         erra = attm - att_db
         print("Measured angle", angm)

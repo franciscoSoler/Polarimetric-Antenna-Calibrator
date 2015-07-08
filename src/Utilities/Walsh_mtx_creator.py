@@ -16,8 +16,9 @@ class WalshMatrixCreator:
         self.__walkm = 1
 
     def add_walsh_errors(self, errors):
-        self.__add_errors, self.__std_phase = [True if isinstance(i, str) else i for error in errors for i in error
-                                               if error[0] == AntennaCommon.Walsh_phase_err]
+        if [True for error in errors if error[0] == AntennaCommon.Walsh_phase_err]:
+            self.__add_errors = True
+            self.__std_phase = [error[1] for error in errors if error[0] == AntennaCommon.Walsh_phase_err].pop()
 
     def __initialize_walsh(self, order):
         walkm = 1
