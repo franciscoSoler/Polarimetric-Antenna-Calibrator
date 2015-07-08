@@ -68,6 +68,7 @@ class ClassicCalibrator(AntennaCalibrator):
     def calibrate_antenna(self, mode):
         n_elements = self._antenna.get_qtty_antennas()
 
+        # todo: I could add errors in the cable of measurement
         f = lambda x: np.reshape([list(map(lambda z: AntennaCommon.v2db(abs(z.item(1, 0))), y)) for y in x], (-1, 1))
         g = lambda x: np.reshape([list(map(lambda z: np.angle(z.item(1, 0), deg=True), y)) for y in x], (-1, 1))
         att_db = f(self._antenna.get_gain_paths(mode)[0])
@@ -89,40 +90,34 @@ class ClassicCalibrator(AntennaCalibrator):
         ph_rad = AntennaCommon.deg2rad(ph_deg)
 
         """
-        RAW DATA BUILDING
+        RAW DATA CODING
         """
-        # Fase agregada por cada camino (seteo real + codigo walsh agregado, con error del desfasador)
+        # added phase per loop (real setting + walsh coding, with phase shift errors)
         phi0 = np.tile(ph_rad, sequences) + walsh_phi_m_err[:n_elements, :]
-        # Construccion de la señal loopeada por cada elemento y sumada entre todos
+        # Built of every loop signal and summed among them
         acq = np.multiply(np.dot(amp.T, np.exp(1j * phi0)).T, chirp)
 
-        # aca se puede grabar la adquisicion en disco para simularle datos de entrada al
-        # procesador de la Processing Chain y validarlo
         """
-        DECODIFICACION DE DATOS CRUDOS
+        RAW DATA DECODING
         """
         signal = np.tile((acq * chirp_rep.H).T, (n_elements, 1))
-        integral = np.multiply(signal, np.exp(-1j * walsh_phi_m[:n_elements, :]))  # integro todos los tériminos
+        integral = np.multiply(signal, np.exp(-1j * walsh_phi_m[:n_elements, :]))  # integral of every term
         signal_est = integral * np.ones((sequences, 1)) / (sequences * chirp_rep * chirp_rep.H)
         """
-            La integral de arriba tiene dividiendo 2 valores a saber:
-              N: es ||cj||², TODO: esto está mal tambien, uno tiene que calcular
-              la correlación de las matrices de generación, la que tiene errores
-              con la que no tiene errores.
-              chirpRep*chirpRep' es el módulo de las dos chirps a la que fue
-              multiplicada la señal, no va la ideal porque no se conoce.
+            the divisor is composed by:
+              sequences: is ||cj||². This is not correct, the calculation is the correlation of generation matrices,
+                one with errors with the other, without errors.
+              chirpRep*chirpRep' is the module of both chirps in which the signal was multiplied.
         """
-        # signalEst de fase en deg
-        angm = np.mod(AntennaCommon.rad2deg(np.around(np.angle(signal_est), decimals=self.__Dec)), 360)
-        # error de estimacion de fase llevado a 0
-        errp = np.mod(ph_deg - angm + 180, 360) - 180
-        attm = np.around(-AntennaCommon.v2db(abs(signal_est)), decimals=self.__Dec)
+        estimated_phase = np.mod(AntennaCommon.rad2deg(np.around(np.angle(signal_est), decimals=self.__Dec)), 360)
+        error_phase = np.mod(ph_deg - estimated_phase + 180, 360) - 180
+        estimated_power = np.around(-AntennaCommon.v2db(abs(signal_est)), decimals=self.__Dec)
 
-        erra = att_db - attm
-        print("Measured angle", angm)
-        print("Error in phase", errp)
-        print("Measured power", attm)
-        print("Error in power", erra)
+        error_power = att_db - estimated_power
+        print("Measured angle", estimated_phase)
+        print("Error in phase", error_phase)
+        print("Measured power", estimated_power)
+        print("Error in power", error_power)
 
 
 class MutualCalibrator(AntennaCalibrator):

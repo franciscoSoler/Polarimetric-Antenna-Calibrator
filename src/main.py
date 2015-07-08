@@ -89,7 +89,11 @@ def create_calibrator(input_power, input_phase, separation, filename):
     # calibrator.add_calibration_errors(calibration_errors)
     calibrator.generate_cal_paths(AntennaCalibrator.every_one_to_one_path_strategy)
     """
+    calibration_errors = [[AntennaCommon.Inter_pulse_power_err, 0.5], [AntennaCommon.Inter_pulse_phase_err, 5],
+                          [AntennaCommon.Gain_chirp_rep_err, 1], [AntennaCommon.Phase_chirp_rep_err, 5]]
+
     calibrator = AntennaCalibrator.ClassicCalibrator(input_power, input_phase, separation, separation, filename)
+    calibrator.add_calibration_errors(calibration_errors)
 
     return calibrator
 
