@@ -44,6 +44,9 @@ class AntennaCreator:
         self.__dist_columns = dist_columns
         self.__row_shift = row_shift
 
+    def __row_col_to_index(self, row, col):
+        return row * self.__quantity_cols + col
+
     def add_errors(self, errors):
         if not isinstance(errors, list) or len(errors) == 0 or [True for error in errors if len(error) != 2]:
             raise Exception('errors are not well created')
@@ -167,7 +170,7 @@ class AntennaCreator:
             # to another distance.
             self.__append_next_distance(j, j2+1, rm_used, matrix_distances, distances, pos_calculator, dist_calculator)
 
-    def __build_rfdn_structure(self, sequence, rm_iterator, steering_iterator):
+    def __build_rfdn_structure(self, sequence, rm_iterator, trm_state_iterator):
         # el TRM se comporta igual que el cable, no tengo que distinguirlos realmente,
         # los diferentes son los PSC y los RM
         if AntennaCommon.is_rm(sequence[0][0]):
@@ -176,8 +179,10 @@ class AntennaCreator:
         [component, parameters] = sequence[0]
 
         if AntennaCommon.is_trm(component):
+            is_dead, steering_shift = next(trm_state_iterator)
             parameters = list(parameters)
-            parameters[1] = np.mod(parameters[1] + next(steering_iterator), 360)
+            parameters[1] = np.mod(parameters[1] + steering_shift, 360)
+            parameters.append(is_dead)
 
         structure = collections.OrderedDict()
         structure[AntennaCommon.SParams] = [list(map(str, si)) for si in
@@ -186,16 +191,16 @@ class AntennaCreator:
         if AntennaCommon.is_psc(component):
             list_cables = []
             for _ in range(AntennaCommon.get_qtty_output_ports(component)):
-                semi_structure = self.__build_rfdn_structure(sequence[1:], rm_iterator, steering_iterator)
+                semi_structure = self.__build_rfdn_structure(sequence[1:], rm_iterator, trm_state_iterator)
                 list_cables.append(semi_structure)
             extreme = list_cables
         else:
-            extreme = self.__build_rfdn_structure(sequence[1:], rm_iterator, steering_iterator)
+            extreme = self.__build_rfdn_structure(sequence[1:], rm_iterator, trm_state_iterator)
 
         structure[AntennaCommon.Extreme] = extreme
         return {component: structure}
 
-    def create_structure(self, filename, sequence, row_steering, column_steering):
+    def create_structure(self, filename, sequence, row_steering, column_steering, dead_trms=()):
         quantity_signal_splitters = [AntennaCommon.get_qtty_output_ports(component[0]) for component in sequence if
                                      AntennaCommon.is_psc(component[0])]
 
@@ -203,20 +208,31 @@ class AntennaCreator:
         if quantity_rms % self.__quantity_cols != 0:
             raise Exception("quantity of rms: {0} is not multiple of row length: {1}".format(quantity_rms,
                                                                                              self.__quantity_cols))
-
         self.__quantity_rows = int(quantity_rms / self.__quantity_cols)
+
+        trms_dead = [False] * quantity_rms
+        if dead_trms:
+            if max(dead_trms)[0] >= self.__quantity_rows or max(dead_trms)[1] >= self.__quantity_cols:
+                raise Exception("ERROR: TRM dead has an index bigger than the antenna size, TRM: {}".format(max(dead_trms)))
+
+            for idx in [self.__row_col_to_index(*pair) for pair in dead_trms]:
+                trms_dead[idx] = True
+
+        # i must create an iterator with pair true (if dead or not) and angle for the TRM shift
+
+
 
         f = lambda row, col: np.mod(row * row_steering + col * column_steering, 360)
         steering_angle = [f(row, col) for col in range(self.__quantity_cols) for row in range(self.__quantity_rows)]
-
+        trm_state = list(zip(trms_dead, steering_angle))
         structure = collections.OrderedDict()
 
         g = lambda: [" "+str((row, col)) for col in range(self.__quantity_cols) for row in range(self.__quantity_rows)]
         rm_iterator = iter(g())
-        steering_iterator = iter(steering_angle)
+        steering_iterator = iter(trm_state)
         structure[AntennaCommon.Rfdn_v_pol] = self.__build_rfdn_structure(sequence, rm_iterator, steering_iterator)
         rm_iterator = iter(g())
-        steering_iterator = iter(steering_angle)
+        steering_iterator = iter(trm_state)
         structure[AntennaCommon.Rfdn_h_pol] = self.__build_rfdn_structure(sequence, rm_iterator, steering_iterator)
 
         with open(filename + "_rfdn", "w") as f:
@@ -224,11 +240,3 @@ class AntennaCreator:
 
         # this is the other file, the one that have all distances between RMs
         self.__build_front_panel_structure(filename)
-
-    @staticmethod
-    def __create_parameters(large):
-        return [[1 for _ in range(large)] for _ in range(large)]
-
-    def __add_component_behaviour(self, sequence):
-        return [[component[0], self.__scattering_handler.get_scattering_matrix(component[0], component[1])]
-                for component in sequence]

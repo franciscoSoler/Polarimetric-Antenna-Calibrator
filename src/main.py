@@ -74,26 +74,23 @@ def create_antenna(quantity_columns, quantity_rows, separation, row_steering, co
     """
     creator = AntennaCreator.AntennaCreator(quantity_columns, separation, separation)
     # creator.add_errors(component_errors)
-    creator.create_structure(filename, sequence_items, row_steering, column_steering)
+    creator.create_structure(filename, sequence_items, row_steering, column_steering, [[0, 0], [1, 1]])
     """
     create_antenna2(filename)
     """
 
 
 def create_calibrator(input_power, input_phase, separation, filename):
-    """
+
     calibration_errors = [[AntennaCommon.Inter_pulse_power_err, 0.5], [AntennaCommon.Inter_pulse_phase_err, 5],
                           [AntennaCommon.Gain_chirp_rep_err, 1], [AntennaCommon.Phase_chirp_rep_err, 5]]
-
+    """
     calibrator = AntennaCalibrator.MutualCalibrator(input_power, input_phase, separation, separation, filename)
     # calibrator.add_calibration_errors(calibration_errors)
     calibrator.generate_cal_paths(AntennaCalibrator.every_one_to_one_path_strategy)
     """
-    calibration_errors = [[AntennaCommon.Inter_pulse_power_err, 0.5], [AntennaCommon.Inter_pulse_phase_err, 5],
-                          [AntennaCommon.Gain_chirp_rep_err, 1], [AntennaCommon.Phase_chirp_rep_err, 5]]
-
     calibrator = AntennaCalibrator.ClassicCalibrator(input_power, input_phase, separation, separation, filename)
-    calibrator.add_calibration_errors(calibration_errors)
+    # calibrator.add_calibration_errors(calibration_errors)
 
     return calibrator
 
@@ -113,11 +110,11 @@ def main():
 
     create_antenna(quantity_columns, quantity_rows, separation, row_steering, column_steering, filename)
 
-    input_power = 20
+    input_power = 0
     input_phase = 0
 
     calibrator = create_calibrator(input_power, input_phase, separation, filename)
-    """
+
     desired_tx_power = 20
     desired_rx_power = 0
 
@@ -181,8 +178,6 @@ def main():
     visual_comparator.compare_signals_against_ideal(*rx_signals, title="Rx power")
 
     visual_comparator.show_graphics()
-    """
-    calibrator.calibrate_antenna("TxH")
 
     remove_antenna(filename)
 

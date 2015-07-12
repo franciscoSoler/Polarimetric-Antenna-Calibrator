@@ -81,12 +81,13 @@ class CirculatorScatteringParameters(ScatteringParametersHandler):
 
 
 class TrmScatteringParameters(ScatteringParametersHandler):
+    __Dead_gain = 0.00000001
 
     def __init__(self):
         super(TrmScatteringParameters, self).__init__(AntennaCommon.is_trm)
 
-    def __get_scattering_matrix(self, gain, phase_shift):
-        sij = gain * np.exp(1j*AntennaCommon.deg2rad(phase_shift))
+    def __get_scattering_matrix(self, gain, phase_shift, is_dead):
+        sij = self.__Dead_gain if is_dead else gain * np.exp(1j*AntennaCommon.deg2rad(phase_shift))
         add_errors = lambda x: list(map(self._add_error, x))
         return [add_errors([0, 0, sij]), add_errors([sij, 0, 0]), add_errors([0, 0, 0])]
 

@@ -139,7 +139,8 @@ def v2db(voltage):
 
 
 def rad2deg(rad):
-    return rad*180/cmath.pi
+    cut = 180
+    return np.mod(rad*180/cmath.pi + cut, 360) - cut
 
 
 def deg2rad(deg):
