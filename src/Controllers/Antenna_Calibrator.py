@@ -55,22 +55,9 @@ class AntennaCalibrator(object):
         rx_shift = AntennaCommon.pol2rec(AntennaCommon.db2v(desired_rx_power - self._rx_power),
                                          desired_rx_phase - self._rx_phase)
 
-        f = lambda x: [list(map(lambda z: AntennaCommon.v2db(abs(z.item(1, 0))), y)) for y in x]
-        g = lambda x: [list(map(lambda z: np.angle(z.item(1, 0), deg=True), y)) for y in x]
-
-        print("Tx_power non-cal inside of calibrate_antenna", f(self._antenna.get_gain_paths("TxH")[0]))
-        print("Tx_phase non-cal inside of calibrate_antenna", g(self._antenna.get_gain_paths("TxH")[0]))
-        print("rx_power non-cal inside of calibrate_antenna", f(self._antenna.get_gain_paths("RxV")[0]))
-        print("rx_phase non-cal inside of calibrate_antenna", g(self._antenna.get_gain_paths("RxV")[0]))
-
         modes = AntennaCommon.parse_polarization_mode(self._pol_mode)
         self._antenna.change_trm_tx_params(tx_shift, modes[0][1])
         self._antenna.change_trm_rx_params(rx_shift, modes[1][1])
-
-        print("Tx_power cal inside of calibrate_antenna", f(self._antenna.get_gain_paths("TxH")[0]))
-        print("Tx_phase cal inside of calibrate_antenna", g(self._antenna.get_gain_paths("TxH")[0]))
-        print("rx_power cal inside of calibrate_antenna", f(self._antenna.get_gain_paths("RxV")[0]))
-        print("rx_phase cal inside of calibrate_antenna", g(self._antenna.get_gain_paths("RxV")[0]))
 
     @abstractmethod
     def _add_calibration_errors(self, errors):
@@ -90,6 +77,12 @@ class AntennaCalibrator(object):
         self._input_delta_power = [err[1] for err in errors if err[0] == AntennaCommon.Inter_pulse_power_err].pop()
         self._input_delta_phase = [err[1] for err in errors if err[0] == AntennaCommon.Inter_pulse_phase_err].pop()
         self._add_calibration_errors(errors)
+
+    def get_antenna_gain_paths(self):
+        f = lambda x: [list(map(lambda z: AntennaCommon.v2db(abs(z.item(1, 0))), y)) for y in x]
+        g = lambda x: [list(map(lambda z: np.angle(z.item(1, 0), deg=True), y)) for y in x]
+        tx_signal, rx_signal = self._antenna.get_gain_paths(self._pol_mode)
+        return f(tx_signal), g(tx_signal), f(rx_signal), g(rx_signal)
 
     def get_reception_power(self):
         if not self._power_calculated:
@@ -129,7 +122,6 @@ class AntennaCalibrator(object):
 
 
 class ClassicCalibrator(AntennaCalibrator):
-    __Valid_cal_modes = ("TxH", "TxV", "RxH", "RxV")
     __Dec = 11
     __Swl = 2*AntennaCommon.tp  # sampling window length [sec]
 
@@ -143,11 +135,9 @@ class ClassicCalibrator(AntennaCalibrator):
         self.__walsh_creator.add_walsh_errors(errors)
         self.__chirp_creator.add_chirp_errors(errors)
 
-    def __obtain_estimated_signal(self, signal):
-        f = lambda x: np.reshape([list(map(lambda z: AntennaCommon.v2db(abs(z.item(1, 0))), y)) for y in x], (-1, 1))
-        g = lambda x: np.reshape([list(map(lambda z: np.angle(z.item(1, 0), deg=True), y)) for y in x], (-1, 1))
-        att_db = f(signal)
-        ph_deg = g(signal)
+    def __obtain_estimated_signal(self, power_signal, phase_signal):
+        att_db = np.reshape(power_signal, (-1, 1))
+        ph_deg = np.reshape(phase_signal, (-1, 1))
         sequences = 2**np.ceil(np.log2(self.__quantity_elements))  # quantity of sequences (and mode pulses)
 
         # built of walsh sequence matrix, which is a sequence of phase shift per element (rows) in each pulse (cols).
@@ -176,7 +166,7 @@ class ClassicCalibrator(AntennaCalibrator):
         """
         signal = np.tile((acq * chirp_rep.H).T, (self.__quantity_elements, 1))
         integral = np.multiply(signal, np.exp(-1j * walsh_phi_m[:self.__quantity_elements, :]))  # integral of every term
-        signal_est = integral * np.ones((sequences, 1)) / (sequences * chirp_rep * chirp_rep.H)
+        signal_est = np.dot(integral, np.ones(sequences)) / (sequences * chirp_rep * chirp_rep.H)
         """
             the divisor is composed by:
               sequences: is ||cj||². This is not correct, the calculation is the correlation of generation matrices,
@@ -184,16 +174,17 @@ class ClassicCalibrator(AntennaCalibrator):
               chirpRep*chirpRep' is the module of both chirps in which the signal was multiplied.
         """
 
-        estimated_phase = AntennaCommon.rad2deg(np.around(np.angle(signal_est), decimals=self.__Dec))
+        estimated_phase = np.around(np.angle(signal_est, deg=True), decimals=self.__Dec)
         estimated_power = np.around(-AntennaCommon.v2db(abs(signal_est)), decimals=self.__Dec)
         f = lambda x: np.resize(x, (self._antenna.quantity_rows, self._antenna.quantity_columns))
         return f(estimated_power), f(estimated_phase)
 
     def _obtain_tx_rx_power(self):
         self._power_calculated = True
-        tx_signal, rx_signal = self._antenna.get_gain_paths(self._pol_mode)
-        self._tx_power, self._tx_phase = self.__obtain_estimated_signal(tx_signal)
-        self._rx_power, self._rx_phase = self.__obtain_estimated_signal(rx_signal)
+        # tx_signal, rx_signal = self._antenna.get_gain_paths(self._pol_mode)
+        tx_power, tx_phase, rx_power, rx_phase = self.get_antenna_gain_paths()
+        self._tx_power, self._tx_phase = self.__obtain_estimated_signal(tx_power, tx_phase)
+        self._rx_power, self._rx_phase = self.__obtain_estimated_signal(rx_power, rx_phase)
 
     def set_pol_mode(self, pol_mode):
         self._set_pol_mode(pol_mode)
@@ -201,59 +192,6 @@ class ClassicCalibrator(AntennaCalibrator):
     def calibrate_antenna(self, desired_tx_power, desired_tx_phase, desired_rx_power, desired_rx_phase):
         self._calibrate_antenna(desired_tx_power, desired_tx_phase, desired_rx_power, desired_rx_phase)
         self._power_calculated = False
-        '''
-        # todo: I could add errors in the cable of measurement
-        f = lambda x: np.reshape([list(map(lambda z: AntennaCommon.v2db(abs(z.item(1, 0))), y)) for y in x], (-1, 1))
-        g = lambda x: np.reshape([list(map(lambda z: np.angle(z.item(1, 0), deg=True), y)) for y in x], (-1, 1))
-        att_db = f(self._antenna.get_gain_paths(mode)[0])
-        ph_deg = g(self._antenna.get_gain_paths(mode)[0])
-
-        sequences = 2**np.ceil(np.log2(self.__quantity_elements))  # quantity of sequences (and mode pulses)
-
-        # built of walsh sequence matrix, which is a sequence of phase shift per element (rows) in each pulse (cols).
-        # in rad
-        walsh_phi_m = self.__walsh_creator.create_ideal_phase_walsh(self.__quantity_elements)
-        walsh_phi_m_err = self.__walsh_creator.create_phase_walsh_matrix(self.__quantity_elements)
-
-        # built of ICAL LONG LOOP chirp and ICAL SHORT LOOP chirp
-        chirp_parameters = [AntennaCommon.fs, AntennaCommon.fc, AntennaCommon.bw, AntennaCommon.tp, self.__Swl]
-        chirp = [self.__chirp_creator.create_chirp(*chirp_parameters) for _ in range(self.__quantity_elements)]
-        chirp_rep = np.matrix(self.__chirp_creator.create_chirp_replica(*chirp_parameters))
-
-        amp = AntennaCommon.db2v(-att_db)
-        ph_rad = AntennaCommon.deg2rad(ph_deg)
-
-        """
-        RAW DATA CODING
-        """
-        # added phase per loop (real setting + walsh coding, with phase shift errors)
-        phi0 = np.tile(ph_rad, sequences) + walsh_phi_m_err[:self.__quantity_elements, :]
-        # Built of every loop signal and summed among them
-        acq = np.multiply(np.dot(amp.T, np.exp(1j * phi0)).T, chirp)
-
-        """
-        RAW DATA DECODING
-        """
-        signal = np.tile((acq * chirp_rep.H).T, (self.__quantity_elements, 1))
-        integral = np.multiply(signal, np.exp(-1j * walsh_phi_m[:self.__quantity_elements, :]))  # integral of every term
-        signal_est = integral * np.ones((sequences, 1)) / (sequences * chirp_rep * chirp_rep.H)
-        """
-            the divisor is composed by:
-              sequences: is ||cj||². This is not correct, the calculation is the correlation of generation matrices,
-                one with errors with the other, without errors.
-              chirpRep*chirpRep' is the module of both chirps in which the signal was multiplied.
-        """
-
-        estimated_phase = np.mod(AntennaCommon.rad2deg(np.around(np.angle(signal_est), decimals=self.__Dec)), 360)
-        error_phase = np.mod(ph_deg - estimated_phase + 180, 360) - 180
-        estimated_power = np.around(-AntennaCommon.v2db(abs(signal_est)), decimals=self.__Dec)
-
-        error_power = att_db - estimated_power
-        print("Measured angle", estimated_phase)
-        print("Error in phase", error_phase)
-        print("Measured power", estimated_power)
-        print("Error in power", error_power)
-        '''
 
 
 class MutualCalibrator(AntennaCalibrator):

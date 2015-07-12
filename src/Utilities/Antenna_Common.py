@@ -79,11 +79,6 @@ def get_rm_position(component):
         raise Exception("the component should be a RM")
     return eval(re.match(Rm + "(.*)", component).group(1))
 
-"""
-def get_qtty_output_ports(psc):
-    return int(re.match("PSC1(.*)", psc).group(1))
-"""
-
 
 def get_qtty_ports(component):
     if re.match("{0}|{1}|{2}|{3}|{4}".format(Psc, Cable, Rm, Trm, Circulator), component) is None:
@@ -103,7 +98,6 @@ def s2t_parameters(s_matrix):
     s21 = s_matrix.item(1, 0)
     s22 = s_matrix.item(1, 1)
     return 1/s21 * np.matrix([[s12*s21 - s11*s22, s11], [-s22, 1]])
-    # return 1/s21 * np.matrix([[1, -s22], [s11, s12*s21 - s11*s22]])
 
 
 def t2s_parameters(t_matrix):
@@ -112,7 +106,6 @@ def t2s_parameters(t_matrix):
     t21 = t_matrix.item(1, 0)
     t22 = t_matrix.item(1, 1)
     return 1/t22 * np.matrix([[t12, t11*t22 - t12*t21], [1, -t21]])
-    # return 1/t11 * np.matrix([[t21, t11*t22 - t12*t21], [1, -t12]])
 
 
 def get_s2p(component, sxp_matrix, mode, idx):

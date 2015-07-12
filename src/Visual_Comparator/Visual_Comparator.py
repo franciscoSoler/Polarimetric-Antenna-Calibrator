@@ -95,10 +95,9 @@ class VisualComparator:
         p4, = plt.plot(antennas, self.__upper_att_limit, "r--")
         plt.plot(antennas, self.__lower_att_limit, "r--")
         legends = ["non_cal_att", "cal_att", "ideal_att", "upper_lower_limit"]
-        self.__set_plot_environment(title, "Attenuation [dB]", "RMs", [p1, p2, p3, p4], legends)
+        self.__set_plot_environment(title, "Power [dB]", "RMs", [p1, p2, p3, p4], legends)
 
         plt.subplot(212)
-        print("reception shits", phase)
         p1, = plt.plot(antennas, phase, "bo")
         plt.plot(antennas, phase, "b")
         p2, = plt.plot(antennas, cal_phase, "g^")
@@ -109,7 +108,7 @@ class VisualComparator:
         legends = ["non_cal_ph", "cal_ph", "ideal_ph", "upper_lower_limit"]
         self.__set_plot_environment(title, "Phase [deg]", "RMs", [p1, p2, p3, p4], legends)
 
-    def compare_signals(self, signal_one, signal_two, title):
+    def compare_signals(self, power_one, phase_one, power_two, phase_two, title=""):
         """
         This function compares two signals, the first one should be the ideal
         :param signal_one:
@@ -117,37 +116,33 @@ class VisualComparator:
         :param title:
         :return:
         """
+        power = self.__format_signal(power_one)
+        cal_power = self.__format_signal(power_two)
 
-        first_signal = self.__format_signal(signal_one)
-        second_signal = self.__format_signal(signal_two)
+        phase = self.__format_signal(phase_one)
+        cal_phase = self.__format_signal(phase_two)
 
-        if len(first_signal) != len(second_signal):
+        antennas = range(len(cal_phase))
+        f = lambda x: len(x) != len(cal_phase)
+        if f(power) or f(cal_power) or f(phase):
             raise Exception("both signals must contain the same length")
-
-        antennas = range(len(first_signal))
-        ideal_att, ideal_ph = zip(*map(lambda x: cmath.polar(x), first_signal))
-        cal_att, cal_ph = zip(*map(lambda x: cmath.polar(x), second_signal))
-
-        self.__set_limits(ideal_att, ideal_ph)
 
         plt.figure(self.__get_figure_number())
         plt.subplot(211)
-        p2, = plt.plot(antennas, cal_att, "g^")
-        plt.plot(antennas, cal_att, "g")
-        p3, = plt.plot(antennas, ideal_att, "k")
-        p4, = plt.plot(antennas, self.__upper_att_limit, "r--")
-        plt.plot(antennas, self.__lower_att_limit, "r--")
-        legends = ["s1_att", "s2_att", "upper_lower_limit"]
-        self.__set_plot_environment(title, "Attenuation [dB]", "RMs", [p2, p3, p4], legends)
+        p1, = plt.plot(antennas, power, "bo")
+        plt.plot(antennas, power, "b")
+        p2, = plt.plot(antennas, cal_power, "g^")
+        plt.plot(antennas, cal_power, "g")
+        legends = ["non_cal_power", "cal_power"]
+        self.__set_plot_environment(title, "Power [dB]", "RMs", [p1, p2], legends)
 
         plt.subplot(212)
-        p2, = plt.plot(antennas, self.__rad2deg(cal_ph), "g^")
-        # plt.plot(antennas, cal_ph, "g")
-        p3, = plt.plot(antennas, self.__rad2deg(ideal_ph), "k")
-        p4, = plt.plot(antennas, self.__upper_ph_limit, "r--")
-        plt.plot(antennas, self.__lower_ph_limit, "r--")
-        legends = ["s1_ph", "s2_ph", "upper_lower_limit"]
-        self.__set_plot_environment(title, "Phase [deg]", "RMs", [p2, p3, p4], legends)
+        p1, = plt.plot(antennas, phase, "bo")
+        plt.plot(antennas, phase, "b")
+        p2, = plt.plot(antennas, cal_phase, "g^")
+        plt.plot(antennas, cal_phase, "g")
+        legends = ["non_cal_ph", "cal_ph"]
+        self.__set_plot_environment("", "Phase [deg]", "RMs", [p1, p2], legends)
 
     def compare_patterns(self, angles, pattern_one, pattern_two, title):
         """

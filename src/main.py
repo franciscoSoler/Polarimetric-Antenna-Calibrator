@@ -95,76 +95,53 @@ def create_calibrator(input_power, input_phase, separation, filename):
     return calibrator
 
 
-def remove_antenna(filename):
-    for filename in glob.glob(filename + "_*"):
-        os.remove(filename)
-
-
-def main():
-    filename = "test"
-    separation = 1
-    quantity_columns = 2
-    quantity_rows = 2
-    row_steering = 10
-    column_steering = 10
-
-    create_antenna(quantity_columns, quantity_rows, separation, row_steering, column_steering, filename)
-
-    input_power = 0
-    input_phase = 0
-
-    calibrator = create_calibrator(input_power, input_phase, separation, filename)
-
-    desired_tx_power = 20
-    desired_rx_power = 0
-
-    desired_tx_phase = 0
-    desired_rx_phase = 0
-
-    desired_signals = [desired_tx_power, desired_tx_phase, desired_rx_power, desired_rx_phase]
+def compare_estimated_gains_against_real(calibrator, visual_comparator, title):
     tx_signals = []
     rx_signals = []
 
     tx_power, tx_phase = calibrator.get_transmission_power()
     rx_power, rx_phase = calibrator.get_reception_power()
-    tx_power_shift, tx_phase_shift = calibrator.get_tx_signal_shifts(desired_tx_power)
-    rx_power_shift, rx_phase_shift = calibrator.get_rx_signal_shifts(desired_rx_power)
-
     append_signal_into_signals(tx_signals, tx_power, tx_phase)
     append_signal_into_signals(rx_signals, rx_power, rx_phase)
 
-    calibrator.calibrate_antenna(*desired_signals)
+    tx_ant_power, tx_ant_phase, rx_ant_power, rx_ant_phase = calibrator.get_antenna_gain_paths()
+    append_signal_into_signals(tx_signals, tx_ant_power, tx_ant_phase)
+    append_signal_into_signals(rx_signals, rx_ant_power, rx_ant_phase)
 
-    tx_cal_power, tx_cal_phase = calibrator.get_transmission_power()
-    rx_cal_power, rx_cal_phase = calibrator.get_reception_power()
-    tx_cal_power_shift, tx_cal_phase_shift = calibrator.get_tx_signal_shifts(desired_tx_power)
-    rx_cal_power_shift, rx_cal_phase_shift = calibrator.get_rx_signal_shifts(desired_rx_power)
+    visual_comparator.compare_signals(*tx_signals, title="{}: Tx chain".format(title))
+    visual_comparator.compare_signals(*rx_signals, title="{}: Rx chain".format(title))
 
-    append_signal_into_signals(tx_signals, tx_cal_power, tx_cal_phase)
-    append_signal_into_signals(rx_signals, rx_cal_power, rx_cal_phase)
-
-    print("Tx power         ", tx_power)
-    print("Tx shift         ", tx_power_shift)
-    print("Tx power + shift ", (np.array(tx_power) + np.array(tx_power_shift)).tolist())
-    print("Tx cal power     ", tx_cal_power)
-
-    print("Tx phase         ", tx_phase)
-    print("Tx shift         ", tx_phase_shift)
-    print("Tx phase + shift ", (np.array(tx_phase) + np.array(tx_phase_shift)).tolist())
-    print("Tx cal phase     ", tx_cal_phase)
+    print("{}:".format(title), "Tx antenna power    ", tx_ant_power)
+    print("{}:".format(title), "Tx estimated power  ", tx_power)
+    print("{}:".format(title), "Tx abs power error  ", (np.array(tx_ant_power) - np.array(tx_power)).tolist())
+    print("{}:".format(title), "Tx antenna phase    ", tx_ant_phase)
+    print("{}:".format(title), "Tx estimated phase  ", tx_phase)
+    print("{}:".format(title), "Tx abs phase error  ", (np.array(tx_ant_phase) - np.array(tx_phase)).tolist())
     print("")
 
-    print("Rx power         ", rx_power)
-    print("Rx shift         ", rx_power_shift)
-    print("Rx power + shift ", (np.array(rx_power) + np.array(rx_power_shift)).tolist())
-    print("Rx cal power     ", rx_cal_power)
+    print("{}:".format(title), "Rx antenna power    ", rx_ant_power)
+    print("{}:".format(title), "Rx estimated power  ", rx_power)
+    print("{}:".format(title), "Rx abs power error  ", (np.array(rx_ant_power) - np.array(rx_power)).tolist())
+    print("{}:".format(title), "Rx antenna phase    ", rx_ant_phase)
+    print("{}:".format(title), "Rx estimated phase  ", rx_phase)
+    print("{}:".format(title), "Rx abs phase error  ", (np.array(rx_ant_phase) - np.array(rx_phase)).tolist())
+    print("")
 
-    print("Rx phase         ", rx_phase)
-    print("Rx shift         ", rx_phase_shift)
-    print("Rx phase + shift ", (np.array(rx_phase) + np.array(rx_phase_shift)).tolist())
-    print("Rx cal phase     ", rx_cal_phase)
 
-    visual_comparator = VisualComparator.VisualComparator()
+def compare_estimated_gains_against_ideal(calibrator, visual_comparator, quantity_rows, quantity_columns,
+                                          desired_tx_power, desired_tx_phase, desired_rx_power, desired_rx_phase,
+                                          title):
+    tx_signals = []
+    rx_signals = []
+
+    tx_ant_power, tx_ant_phase, rx_ant_power, rx_ant_phase = calibrator.get_antenna_gain_paths()
+    append_signal_into_signals(tx_signals, tx_ant_power, tx_ant_phase)
+    append_signal_into_signals(rx_signals, rx_ant_power, rx_ant_phase)
+
+    tx_power, tx_phase = calibrator.get_transmission_power()
+    rx_power, rx_phase = calibrator.get_reception_power()
+    append_signal_into_signals(tx_signals, tx_power, tx_phase)
+    append_signal_into_signals(rx_signals, rx_power, rx_phase)
 
     tx_ideal_power = [[desired_tx_power] * quantity_columns] * quantity_rows
     rx_ideal_power = [[desired_rx_power] * quantity_columns] * quantity_rows
@@ -174,8 +151,46 @@ def main():
     append_signal_into_signals(tx_signals, tx_ideal_power, tx_ideal_phase)
     append_signal_into_signals(rx_signals, rx_ideal_power, rx_ideal_phase)
 
-    visual_comparator.compare_signals_against_ideal(*tx_signals, title="Tx power")
-    visual_comparator.compare_signals_against_ideal(*rx_signals, title="Rx power")
+    visual_comparator.compare_signals_against_ideal(*tx_signals, title="{}: Tx chain".format(title))
+    visual_comparator.compare_signals_against_ideal(*rx_signals, title="{}: Rx chain".format(title))
+
+
+def remove_antenna(filename):
+    for filename in glob.glob(filename + "_*"):
+        os.remove(filename)
+
+
+def main():
+    visual_comparator = VisualComparator.VisualComparator()
+    filename = "test"
+    separation = 1
+    quantity_columns = 2
+    quantity_rows = 2
+    row_steering = 10
+    column_steering = 10
+
+    create_antenna(quantity_columns, quantity_rows, separation, row_steering, column_steering, filename)
+
+    input_power = 10
+    input_phase = 0
+
+    calibrator = create_calibrator(input_power, input_phase, separation, filename)
+    compare_estimated_gains_against_real(calibrator, visual_comparator, "BEFORE CALIBRATION")
+
+    desired_tx_power = 20
+    desired_rx_power = 0
+
+    desired_tx_phase = 0
+    desired_rx_phase = 0
+
+    desired_signals = [desired_tx_power, desired_tx_phase, desired_rx_power, desired_rx_phase]
+    calibrator.calibrate_antenna(*desired_signals)
+    compare_estimated_gains_against_real(calibrator, visual_comparator, "AFTER CALIBRATION")
+
+    params = [calibrator, visual_comparator, quantity_rows, quantity_columns]
+    params.extend(desired_signals)
+    params.append("")
+    compare_estimated_gains_against_ideal(*params)
 
     visual_comparator.show_graphics()
 
