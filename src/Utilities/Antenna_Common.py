@@ -35,6 +35,7 @@ Rfdn_h_pol = 'hPolarization'
 Rfdn_v_pol = 'vPolarization'
 Extreme = 'extremeAttached'
 SParams = 'sParameters'
+Dead = 'isDead'
 
 Trm_gain_shift = 10
 Cable_length = 1

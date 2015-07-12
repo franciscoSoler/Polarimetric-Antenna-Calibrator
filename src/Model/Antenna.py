@@ -50,10 +50,10 @@ class Antenna:
 
         if AntennaCommon.is_psc(component):
             qtty_ports = AntennaCommon.get_qtty_output_ports(component)
-            acumulated_ports = self.__get_qtty_antennas(value["extremeAttached"][0])
+            acumulated_ports = self.__get_qtty_antennas(value[AntennaCommon.Extreme][0])
             return qtty_ports * acumulated_ports
         else:
-            return self.__get_qtty_antennas(value["extremeAttached"])
+            return self.__get_qtty_antennas(value[AntennaCommon.Extreme])
 
     def get_qtty_antennas(self):
         return self.__get_qtty_antennas(next(iter(self.__json_rfdn.values())))
@@ -127,13 +127,13 @@ class Antenna:
         component, value = list(structure.items())[0]
 
         if AntennaCommon.is_psc(component):
-            [self.__change_trm_param(extreme, power_shifts, f) for extreme in value["extremeAttached"]]
+            [self.__change_trm_param(extreme, power_shifts, f) for extreme in value[AntennaCommon.Extreme]]
         else:
-            rm_position = self.__change_trm_param(value["extremeAttached"], power_shifts, f)
-            if AntennaCommon.is_trm(component):
-                parameters = [list(map(complex, si)) for si in value["sParameters"]]
+            rm_position = self.__change_trm_param(value[AntennaCommon.Extreme], power_shifts, f)
+            if AntennaCommon.is_trm(component) and not eval(value[AntennaCommon.Dead]):
+                parameters = [list(map(complex, si)) for si in value[AntennaCommon.SParams]]
                 parameters[f[0]][f[1]] *= power_shifts.item(rm_position)
-                value["sParameters"] = [list(map(str, si)) for si in parameters]
+                value[AntennaCommon.SParams] = [list(map(str, si)) for si in parameters]
             return rm_position
 
     def change_trm_rx_params(self, power_shift, polarization):

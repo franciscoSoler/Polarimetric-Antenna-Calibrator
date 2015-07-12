@@ -178,13 +178,15 @@ class AntennaCreator:
 
         [component, parameters] = sequence[0]
 
+        structure = collections.OrderedDict()
+
         if AntennaCommon.is_trm(component):
             is_dead, steering_shift = next(trm_state_iterator)
             parameters = list(parameters)
             parameters[1] = np.mod(parameters[1] + steering_shift, 360)
             parameters.append(is_dead)
+            structure[AntennaCommon.Dead] = str(is_dead)
 
-        structure = collections.OrderedDict()
         structure[AntennaCommon.SParams] = [list(map(str, si)) for si in
                                             self.__scattering_handler.get_scattering_matrix(component, parameters)]
 
@@ -219,8 +221,6 @@ class AntennaCreator:
                 trms_dead[idx] = True
 
         # i must create an iterator with pair true (if dead or not) and angle for the TRM shift
-
-
 
         f = lambda row, col: np.mod(row * row_steering + col * column_steering, 360)
         steering_angle = [f(row, col) for col in range(self.__quantity_cols) for row in range(self.__quantity_rows)]

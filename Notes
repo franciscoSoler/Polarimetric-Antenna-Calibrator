@@ -25,7 +25,3 @@
 clásico mide la potencia que están seteados los MTRs (no es necesario esto, es 
 porque estoy divididendo por la potencia de la chirp réplica) (tengo que rever 
 este statement)
-
-COSAS A HACER
-    - debo corregir el correct gain/phase porque modifica los TRMs que están
-    muertos
