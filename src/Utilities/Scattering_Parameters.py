@@ -34,7 +34,7 @@ class ScatteringParametersHandler(object):
         elif self._successor is not None:
             return self._successor.get_scattering_matrix(component, attributes)
         else:
-            raise Exception("the component is not valid: ", component)
+            raise Exception("the component is not valid: {}".format(component))
 
     def set_successor(self, successor):
         self._successor = successor
@@ -45,7 +45,7 @@ class CableScatteringParameters(ScatteringParametersHandler):
     def __init__(self):
         super(CableScatteringParameters, self).__init__(AntennaCommon.is_cable)
 
-    def __get_scattering_matrix(self, attenuation, wavelength, length):
+    def __get_scattering_matrix(self, attenuation, length, wavelength):
         sij = np.exp((attenuation + 2j*np.pi/wavelength) * length)
         return [[0, self._add_error(sij)], [self._add_error(sij), 0]]
 

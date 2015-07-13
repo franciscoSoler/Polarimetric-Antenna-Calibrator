@@ -1,0 +1,76 @@
+{
+  "inputParameters": {
+    "freq": 1275000000,
+    "power": 10,
+    "phase": 0,
+    "rowSteering": 10,
+    "columnSteering": 10
+  },
+  "calibrationParameters": {
+    "desiredTxPower": 20,
+    "desiredTxPhase": 0,
+    "desiredRxPower": 0,
+    "desiredRxPhase": 0,
+    "errors": ["interPulseGainChirpError", "interPulsePhaseChirpError",
+      "gainChirpRepError", "phaseChirpRepError", "WalPhaseErrors"]
+  },
+  "antenna": {
+    "fileName": "test",
+    "quantityRows": 3,
+    "quantityColumns": 3,
+    "verticalSeparation": 1,
+    "horizontalSeparation": 1,
+    "componentSequence": ["cable1", "psc19", "cable2", "trm",
+      "circulator", "cable3", "rm"],
+    "errors": ["RMError", "TRMError", "CirculatorError", "PSCError"]
+  },
+  "components": {
+    "cable1": {
+      "attenuation": 0.1,
+      "length": 0.45,
+      "type": "cable"
+    },
+    "cable2": {
+      "attenuation": 0.1,
+      "length": 8,
+      "type": "cable"
+    },
+    "cable3": {
+      "attenuation": 0.1,
+      "length": 0.5,
+      "type": "cable"
+    },
+    "trm": {
+      "gain": 10,
+      "phaseShift": 10,
+      "type": "TRM"
+    },
+    "psc14": {
+      "outputPorts": 4,
+      "type": "PSC14"
+    },
+    "psc19": {
+      "outputPorts": 9,
+      "type": "PSC19"
+    },
+    "circulator": {
+      "type": "circulator"
+    },
+    "rm": {
+      "type": "RM"
+    }
+  },
+  "standardDeviationErrors": {
+    "CableError": 0.1,
+    "CirculatorError": 0.5,
+    "TRMError": 1.9,
+    "PSCError": 0.5,
+    "RMError": 0.1,
+
+    "interPulseGainChirpError": 0.5,
+    "interPulsePhaseChirpError": 5,
+    "gainChirpRepError": 1,
+    "phaseChirpRepError": 5,
+    "WalPhaseErrors": 0
+  }
+}

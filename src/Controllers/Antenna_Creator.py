@@ -76,8 +76,8 @@ class AntennaCreator:
         wavelength = AntennaCommon.c / AntennaCommon.f
 
         dispersion_params = list(map(lambda x: self.__scattering_handler.get_scattering_matrix("cable",
-                                                                                               [att, wavelength,
-                                                                                                x]), distances))
+                                                                                               [att, x, wavelength]),
+                                     distances))
 
         keys = [(row, col) for col in range(self.__quantity_cols) for row in range(self.__quantity_rows)]
 

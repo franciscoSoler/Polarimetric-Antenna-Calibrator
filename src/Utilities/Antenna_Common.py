@@ -3,6 +3,33 @@ import numpy as np
 import math
 import cmath
 
+# configurationFile tags
+Conf_in_param = 'inputParameters'
+Conf_freq = 'freq'
+Conf_power = 'power'
+Conf_phase = 'phase'
+Conf_row_steer = 'rowSteering'
+Conf_col_steer = 'columnSteering'
+
+Conf_cal_param = 'calibrationParameters'
+Conf_id_tx_power = 'desiredTxPower'
+Conf_id_tx_phase = 'desiredTxPhase'
+Conf_id_rx_power = 'desiredRxPower'
+Conf_id_rx_phase = 'desiredRxPhase'
+Conf_errors = 'errors'
+
+Conf_ant = 'antenna'
+Conf_filename = 'fileName'
+Conf_qtty_rows = 'quantityRows'
+Conf_qtty_cols = 'quantityColumns'
+Conf_vert_sep = 'verticalSeparation'
+Conf_horiz_sep = 'horizontalSeparation'
+Conf_comp_seq = 'componentSequence'
+
+Conf_component = 'components'
+Conf_std_err = 'standardDeviationErrors'
+
+
 Transmission = 'T'
 Reception = 'R'
 H_pol = 'H'
