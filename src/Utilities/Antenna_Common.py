@@ -13,9 +13,7 @@ Conf_col_steer = 'columnSteering'
 
 Conf_cal_param = 'calibrationParameters'
 Conf_id_tx_power = 'desiredTxPower'
-Conf_id_tx_phase = 'desiredTxPhase'
 Conf_id_rx_power = 'desiredRxPower'
-Conf_id_rx_phase = 'desiredRxPhase'
 Conf_errors = 'errors'
 
 Conf_ant = 'antenna'
@@ -25,6 +23,7 @@ Conf_qtty_cols = 'quantityColumns'
 Conf_vert_sep = 'verticalSeparation'
 Conf_horiz_sep = 'horizontalSeparation'
 Conf_comp_seq = 'componentSequence'
+Conf_dead_trm = 'deadTrms'
 
 Conf_component = 'components'
 Conf_std_err = 'standardDeviationErrors'
@@ -186,12 +185,11 @@ def parse_polarization_mode(mode):
     modes -- list of S parameter (that determines if is transmission or reception) and polarization pairs
     """
     modes = re.findall("(\w)x(\w)", mode)
-    # f = lambda x: "S12" if x == "T" else "S21"
     g = lambda x: Rfdn_h_pol if x == H_pol else Rfdn_v_pol
     return [[mode[0], g(mode[1])]for mode in modes]
 
 
-def calculate_distances_between_rms(column_length, row_length, dist_columns, dist_rows, row_shift):
+def calculate_distances_between_rms(quantity_rows, quantity_columns, dist_columns, dist_rows, row_shift):
     """
     This method calculates all the distances of every radiant module against the one positioned in the upper left
     antenna corner.
@@ -206,16 +204,16 @@ def calculate_distances_between_rms(column_length, row_length, dist_columns, dis
     if dist_columns <= dist_rows:
         d_min = dist_columns
         d_max = dist_rows
-        antennas_in_max_dir = column_length
-        antennas_in_min_dir = row_length
+        antennas_in_max_dir = quantity_rows
+        antennas_in_min_dir = quantity_columns
 
         distance_calculator = lambda x, y: math.sqrt(((get_shift_length(y) + x)*d_min)**2 + (y*d_max)**2)
         position_calculator = lambda x, y: (y, x)
     else:
         d_min = dist_rows
         d_max = dist_columns
-        antennas_in_max_dir = row_length
-        antennas_in_min_dir = column_length
+        antennas_in_max_dir = quantity_columns
+        antennas_in_min_dir = quantity_rows
 
         distance_calculator = lambda x, y: math.sqrt((x*d_min)**2 + ((get_shift_length(x) + y)*d_max)**2)
         position_calculator = lambda x, y: (x, y)

@@ -264,7 +264,8 @@ class MutualCalibrator(AntennaCalibrator):
         :return:
         """
         self._power_calculated = True
-        format_phase = lambda x: (x + 180) % 360 - 180
+        cut = 225
+        format_phase = lambda x: (x + cut) % 360 - cut
         least_squares = lambda a_mx, b: np.matrix(np.linalg.lstsq(a_mx, b)[0]).reshape(self._antenna.quantity_rows,
                                                                                        self._antenna.quantity_columns)
 
