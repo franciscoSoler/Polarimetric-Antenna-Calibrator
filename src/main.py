@@ -58,18 +58,20 @@ def compare_estimated_gains_against_real(calibrator, visual_comparator, title):
 
     visual_comparator.compare_signals(*tx_signals, title="{}: Tx chain".format(title))
     visual_comparator.compare_signals(*rx_signals, title="{}: Rx chain".format(title))
-
+    """
     print("{}:".format(title), "Tx antenna power    ", tx_ant_power)
     print("{}:".format(title), "Tx estimated power  ", tx_power)
     print("{}:".format(title), "Tx abs power error  ", (np.array(tx_ant_power) - np.array(tx_power)).tolist())
+    """
     print("{}:".format(title), "Tx antenna phase    ", tx_ant_phase)
     print("{}:".format(title), "Tx estimated phase  ", tx_phase)
     print("{}:".format(title), "Tx abs phase error  ", (np.array(tx_ant_phase) - np.array(tx_phase)).tolist())
     print("")
-
+    """
     print("{}:".format(title), "Rx antenna power    ", rx_ant_power)
     print("{}:".format(title), "Rx estimated power  ", rx_power)
     print("{}:".format(title), "Rx abs power error  ", (np.array(rx_ant_power) - np.array(rx_power)).tolist())
+    """
     print("{}:".format(title), "Rx antenna phase    ", rx_ant_phase)
     print("{}:".format(title), "Rx estimated phase  ", rx_phase)
     print("{}:".format(title), "Rx abs phase error  ", (np.array(rx_ant_phase) - np.array(rx_phase)).tolist())

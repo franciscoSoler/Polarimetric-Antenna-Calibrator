@@ -189,7 +189,7 @@ def parse_polarization_mode(mode):
     return [[mode[0], g(mode[1])]for mode in modes]
 
 
-def calculate_distances_between_rms(quantity_rows, quantity_columns, dist_columns, dist_rows, row_shift):
+def calculate_distances_between_rms(quantity_rows, quantity_columns, dist_rows, dist_columns, row_shift):
     """
     This method calculates all the distances of every radiant module against the one positioned in the upper left
     antenna corner.

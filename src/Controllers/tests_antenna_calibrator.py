@@ -23,7 +23,12 @@ class MyTestCase(unittest.TestCase):
                                                              self.filename)
 
     def test_the_antenna_retrieve_the_correct_cal_paths(self):
-        print(self.calibrator.generate_cal_paths(AntennaCalibrator.every_one_to_one_path_strategy))
+        cal = self.calibrator.generate_cal_paths(AntennaCalibrator.every_one_to_one_path_strategy)
+        print("cal paths", list(cal.keys()))
+        print("")
+        print("values", list(cal.values()))
+        print("")
+        print("phase paths", np.angle(list(cal.values()), deg=True))
         # todo correct this strategies
         # print(self.calibrator.generate_cal_paths(AntennaCalibrator.strategy_2))
         # print(self.calibrator.generate_cal_paths(AntennaCalibrator.strategy_3))
@@ -87,6 +92,9 @@ class MyTestCase(unittest.TestCase):
 
         trm_gain = 10       # []
         trm_ph_shift = 10   # [deg]
+
+        row_steering = 0
+        column_steering = 0
 
         psc_out_ports = quantity_columns * quantity_rows
 

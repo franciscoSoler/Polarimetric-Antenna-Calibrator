@@ -155,6 +155,9 @@ class MyTestCase(unittest.TestCase):
         trm_gain = 0       # []
         trm_ph_shift = 0   # [deg]
 
+        row_steering = 0
+        column_steering = 0
+
         psc_out_ports = quantity_columns * quantity_rows
 
         cable1 = [AntennaCommon.Cable, [att, wavelenght, length1]]

@@ -227,9 +227,8 @@ class MutualCalibrator(AntennaCalibrator):
         """
         power_shift = AntennaCommon.v2db(abs(self.__equations[(0, 0)])) - self._tx_power.item(0, 0) - \
             self._rx_power.item(0, 0)
-        phase_shift = np.angle(self.__equations[(0, 0)], deg=True) - self._tx_phase.item(0, 0) - \
-            self._rx_phase.item(0, 0)
-
+        phase_shift = np.mod(np.angle(self.__equations[(0, 0)], deg=True) - self._tx_phase.item(0, 0) -
+                             self._rx_phase.item(0, 0) + 180, 360) - 180
         self._rx_power += power_shift
         self._rx_phase += phase_shift
 
@@ -256,6 +255,7 @@ class MutualCalibrator(AntennaCalibrator):
 
         self.__matrix_builder.initialize_matrix_builder(self._antenna, self.__equations)
         self.__matrix_builder.build_matrix()
+
         return self.__equations
 
     def _obtain_tx_rx_power(self):
@@ -264,18 +264,18 @@ class MutualCalibrator(AntennaCalibrator):
         :return:
         """
         self._power_calculated = True
-        cut = 225
+        cut = 180
         format_phase = lambda x: (x + cut) % 360 - cut
         least_squares = lambda a_mx, b: np.matrix(np.linalg.lstsq(a_mx, b)[0]).reshape(self._antenna.quantity_rows,
                                                                                        self._antenna.quantity_columns)
 
         a, tx_gain, tx_phase = self.__matrix_builder.get_tx_matrix()
         self._tx_power = least_squares(a, tx_gain)
-        self._tx_phase = least_squares(a, format_phase(tx_phase))
+        self._tx_phase = format_phase(least_squares(a, format_phase(tx_phase)))
 
         a, rx_gain, rx_phase = self.__matrix_builder.get_rx_matrix()
         self._rx_power = least_squares(a, rx_gain)
-        self._rx_phase = least_squares(a, format_phase(rx_phase))
+        self._rx_phase = format_phase(least_squares(a, format_phase(rx_phase)))
 
         self.__fix_rx_power_and_phase()
 

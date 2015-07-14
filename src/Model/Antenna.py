@@ -40,7 +40,7 @@ class Antenna:
         self.__quantity_columns = int(re.match("^RM \([\d]+, ([\d]+).*", self.__json_panel[-1][0]).group(1)) + 1
         (self.__matrix_distances, _) = AntennaCommon.calculate_distances_between_rms(self.__quantity_rows,
                                                                                      self.__quantity_columns,
-                                                                                     dist_columns, dist_rows, False)
+                                                                                     dist_rows, dist_columns, False)
 
     def __get_qtty_antennas(self, structure):
         if type(structure) is not dict:

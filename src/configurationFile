@@ -4,7 +4,7 @@
     "power": 0,
     "phase": 0,
     "rowSteering": 0,
-    "columnSteering": 0
+    "columnSteering": 4
   },
   "calibrationParameters": {
     "desiredTxPower": 20,
@@ -14,14 +14,14 @@
   },
   "antenna": {
     "fileName": "test",
-    "quantityRows": 5,
-    "quantityColumns": 5,
-    "verticalSeparation": 0.1,
-    "horizontalSeparation": 0.1,
-    "componentSequence": ["cable1", "psc15", "cable2", "psc15", "cable2", "trm",
+    "quantityRows": 10,
+    "quantityColumns": 10,
+    "verticalSeparation": 1,
+    "horizontalSeparation": 1,
+    "componentSequence": ["cable1", "psc110", "cable2", "psc110", "cable2", "trm",
       "circulator", "cable3", "rm"],
     "errors": ["RMError", "TRMError", "CirculatorError", "PSCError"],
-    "deadTrms": [[0, 0], [1, 1], [2, 3], [4, 2]]
+    "deadTrms": []
   },
   "components": {
     "cable1": {
@@ -44,6 +44,14 @@
       "phaseShift": 10,
       "type": "TRM"
     },
+    "psc12": {
+      "outputPorts": 2,
+      "type": "PSC12"
+    },
+    "psc13": {
+      "outputPorts": 3,
+      "type": "PSC13"
+    },
     "psc14": {
       "outputPorts": 4,
       "type": "PSC14"
@@ -52,13 +60,18 @@
       "outputPorts": 5,
       "type": "PSC15"
     },
-    "psc125": {
-      "outputPorts": 25,
-      "type": "PSC125"
-    },
     "psc19": {
       "outputPorts": 9,
       "type": "PSC19"
+    },
+
+    "psc110": {
+      "outputPorts": 10,
+      "type": "PSC110"
+    },
+    "psc125": {
+      "outputPorts": 25,
+      "type": "PSC125"
     },
     "circulator": {
       "type": "circulator"
@@ -70,7 +83,7 @@
   "standardDeviationErrors": {
     "CableError": 0.1,
     "CirculatorError": 0.5,
-    "TRMError": 1.9,
+    "TRMError": 1.5,
     "PSCError": 0.5,
     "RMError": 0.1,
 

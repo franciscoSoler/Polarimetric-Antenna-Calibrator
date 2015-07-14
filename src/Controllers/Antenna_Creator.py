@@ -69,7 +69,7 @@ class AntennaCreator:
         psc_handler.initialize(*f(AntennaCommon.Psc_error))
 
     def __build_front_panel_structure(self, filename):
-        parameters = [self.__quantity_rows, self.__quantity_cols, self.__dist_columns, self.__dist_rows, self.__row_shift]
+        parameters = [self.__quantity_rows, self.__quantity_cols, self.__dist_rows, self.__dist_columns, self.__row_shift]
         (matrix_distances, distances) = AntennaCommon.calculate_distances_between_rms(*parameters)
 
         att = 0.1
@@ -78,7 +78,6 @@ class AntennaCreator:
         dispersion_params = list(map(lambda x: self.__scattering_handler.get_scattering_matrix("cable",
                                                                                                [att, x, wavelength]),
                                      distances))
-
         keys = [(row, col) for col in range(self.__quantity_cols) for row in range(self.__quantity_rows)]
 
         front_panel = []
@@ -220,10 +219,12 @@ class AntennaCreator:
             for idx in [self.__row_col_to_index(*pair) for pair in dead_trms]:
                 trms_dead[idx] = True
 
-        # i must create an iterator with pair true (if dead or not) and angle for the TRM shift
-
-        f = lambda row, col: np.mod(row * row_steering + col * column_steering, 360)
+        f = lambda row, col: row * row_steering + col * column_steering - 56
+        # delta_steering = -f(self.__quantity_rows-1, self.__quantity_cols-1)/2
+        # steering_angle = [f(row, col) + delta_steering-39 for col in range(self.__quantity_cols) for row in range(self.__quantity_rows)]
         steering_angle = [f(row, col) for col in range(self.__quantity_cols) for row in range(self.__quantity_rows)]
+        # print(steering_angle)
+
         trm_state = list(zip(trms_dead, steering_angle))
         structure = collections.OrderedDict()
 
