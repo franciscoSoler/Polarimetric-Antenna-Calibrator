@@ -3,8 +3,8 @@
     "freq": 1275000000,
     "power": 0,
     "phase": 0,
-    "rowSteering": 0,
-    "columnSteering": 4
+    "rowSteering": 30,
+    "columnSteering": 40
   },
   "calibrationParameters": {
     "desiredTxPower": 20,
@@ -14,11 +14,11 @@
   },
   "antenna": {
     "fileName": "test",
-    "quantityRows": 10,
-    "quantityColumns": 10,
-    "verticalSeparation": 1,
-    "horizontalSeparation": 1,
-    "componentSequence": ["cable1", "psc110", "cable2", "psc110", "cable2", "trm",
+    "quantityRows": 2,
+    "quantityColumns": 2,
+    "verticalSeparation": 0.2,
+    "horizontalSeparation": 0.2,
+    "componentSequence": ["cable1", "psc12", "cable2", "psc12", "cable2", "trm",
       "circulator", "cable3", "rm"],
     "errors": ["RMError", "TRMError", "CirculatorError", "PSCError"],
     "deadTrms": []

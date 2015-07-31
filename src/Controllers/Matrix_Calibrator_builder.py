@@ -89,11 +89,13 @@ class LinearBuilder(MatrixCalibratorBuilder):
     def __add_aligned_rms(self, common_rm, row, column, vertical_dist, horizontal_dist):
         first_rm = self._antenna.row_col_to_index(row - horizontal_dist, column - vertical_dist)
         second_rm = self._antenna.row_col_to_index(row + horizontal_dist, column + vertical_dist)
+        print("linear builder 1")
         self._add_trans_rec_file(first_rm, common_rm, second_rm)
 
         if vertical_dist != 0 and horizontal_dist != 0:
             first_rm = self._antenna.row_col_to_index(row - horizontal_dist, column + vertical_dist)
             second_rm = self._antenna.row_col_to_index(row + horizontal_dist, column - vertical_dist)
+            print("linear builder 2")
             self._add_trans_rec_file(first_rm, common_rm, second_rm)
 
     def _add_equations(self):
@@ -140,6 +142,7 @@ class CrossBuilder(MatrixCalibratorBuilder):
             while column - rotation >= 0 and rotation <= dist:
                 first_rm = self._antenna.row_col_to_index(row + f(rotation), column + dist)
                 second_rm = self._antenna.row_col_to_index(row + rm_dist, column - rotation)
+                print("cross builder 1")
                 self._add_trans_rec_file(first_rm, common_rm, second_rm)
                 rotation += 1
 
@@ -148,6 +151,7 @@ class CrossBuilder(MatrixCalibratorBuilder):
             while column + rotation < self._antenna.quantity_columns and rotation < dist:
                 first_rm = self._antenna.row_col_to_index(row + f(rotation), column - dist)
                 second_rm = self._antenna.row_col_to_index(row + rm_dist, column + rotation)
+                print("cross builder 2")
                 self._add_trans_rec_file(first_rm, common_rm, second_rm)
                 rotation += 1
 
@@ -159,6 +163,7 @@ class CrossBuilder(MatrixCalibratorBuilder):
             while row - rotation >= 0 and rotation <= dist:
                 first_rm = self._antenna.row_col_to_index(row + dist, column + f(rotation))
                 second_rm = self._antenna.row_col_to_index(row - rotation, column + rm_dist)
+                print("cross builder 3")
                 self._add_trans_rec_file(first_rm, common_rm, second_rm)
                 rotation += 1
 
@@ -167,6 +172,7 @@ class CrossBuilder(MatrixCalibratorBuilder):
             while row + rotation < self._antenna.quantity_rows and rotation < dist:
                 first_rm = self._antenna.row_col_to_index(row - dist, column + f(rotation))
                 second_rm = self._antenna.row_col_to_index(row + rotation, column + rm_dist)
+                print("cross builder 4")
                 self._add_trans_rec_file(first_rm, common_rm, second_rm)
                 rotation += 1
 
@@ -255,12 +261,14 @@ class TinyBuilder(MatrixCalibratorBuilder):
             for column in range(self._antenna.quantity_columns):
                 first_rm = self._antenna.row_col_to_index(row, column)
                 second_rm = self._antenna.row_col_to_index(row + 1, column)
+                print("tiny builder 1")
                 self.__add_file(first_rm, second_rm)
         if self._antenna.quantity_columns == 2:
             column = 0
             for row in range(self._antenna.quantity_rows):
                 first_rm = self._antenna.row_col_to_index(row, column)
                 second_rm = self._antenna.row_col_to_index(row, column + 1)
+                print("tiny builder 2")
                 self.__add_file(first_rm, second_rm)
 
 
@@ -327,12 +335,14 @@ class DoubleBuilder(MatrixCalibratorBuilder):
                 for sec_col in range(first_col + 1, self._antenna.quantity_columns):
                     first_rm = self._antenna.row_col_to_index(row, first_col)
                     second_rm = self._antenna.row_col_to_index(row, sec_col)
+                    print("double builder 1")
                     self.__add_file(first_rm, second_rm)
 
                     if ((sec_col - first_col) % 2) != 0 and sec_col - first_col > 1:
                         for delta in range(1, int((sec_col - first_col + 1)/2)):
                             first_int_rm = self._antenna.row_col_to_index(row, first_col + delta)
                             second_int_rm = self._antenna.row_col_to_index(row, sec_col - delta)
+                            print("double builder 2")
                             self.__add_file(first_rm, second_rm, first_int_rm, second_int_rm)
 
         elif self._antenna.quantity_columns == 1:
@@ -341,12 +351,14 @@ class DoubleBuilder(MatrixCalibratorBuilder):
                 for sec_row in range(first_row + 1, self._antenna.quantity_rows):
                     first_rm = self._antenna.row_col_to_index(first_row, column)
                     second_rm = self._antenna.row_col_to_index(sec_row, column)
+                    print("double builder 3")
                     self.__add_file(first_rm, second_rm)
 
                     if ((sec_row - first_row) % 2) != 0 and sec_row - first_row > 1:
                         for delta in range(1, int((sec_row - first_row + 1)/2)):
                             first_int_rm = self._antenna.row_col_to_index(first_row + delta, column)
                             second_int_rm = self._antenna.row_col_to_index(sec_row - delta, column)
+                            print("double builder 4")
                             self.__add_file(first_rm, second_rm, first_int_rm, second_int_rm)
 
         else:
@@ -355,6 +367,7 @@ class DoubleBuilder(MatrixCalibratorBuilder):
                     for second_row in range(first_row + 1, self._antenna.quantity_rows):
                         first_rm = self._antenna.row_col_to_index(first_row, column)
                         second_rm = self._antenna.row_col_to_index(second_row, column)
+                        print("double builder 5")
                         self.__add_file(first_rm, second_rm)
 
             for row in range(self._antenna.quantity_rows):
@@ -362,6 +375,7 @@ class DoubleBuilder(MatrixCalibratorBuilder):
                     for second_column in range(first_column + 1, self._antenna.quantity_columns):
                         first_rm = self._antenna.row_col_to_index(row, first_column)
                         second_rm = self._antenna.row_col_to_index(row, second_column)
+                        print("double builder 6")
                         self.__add_file(first_rm, second_rm)
 
 

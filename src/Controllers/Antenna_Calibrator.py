@@ -266,16 +266,29 @@ class MutualCalibrator(AntennaCalibrator):
         self._power_calculated = True
         cut = 180
         format_phase = lambda x: (x + cut) % 360 - cut
+        # format_phase = lambda x: np.mod(AntennaCommon.deg2rad(x) + np.pi, 2*np.pi) - np.pi
+        # format_phase = lambda x: np.array([-np.sign(val)*(360-abs(val)) if 130 < val < 149 or 159 < val < 168 or 205 < val < 260 else val for val in x.tolist()])
         least_squares = lambda a_mx, b: np.matrix(np.linalg.lstsq(a_mx, b)[0]).reshape(self._antenna.quantity_rows,
                                                                                        self._antenna.quantity_columns)
 
         a, tx_gain, tx_phase = self.__matrix_builder.get_tx_matrix()
         self._tx_power = least_squares(a, tx_gain)
-        self._tx_phase = format_phase(least_squares(a, format_phase(tx_phase)))
-
+        self._tx_phase = least_squares(a, self.__correct_phase(a, format_phase(tx_phase)))
+        # self._tx_phase = least_squares(a, format_phase(tx_phase))
+        # self._tx_phase = format_phase(least_squares(a, format_phase(tx_phase)))
+        # self._tx_phase = AntennaCommon.rad2deg(least_squares(a, format_phase(tx_phase)))
+        """
+        print(a)
+        print(tx_phase)
+        print(format_phase(tx_phase))
+        print(AntennaCommon.rad2deg(least_squares(a, format_phase(tx_phase))))
+        """
         a, rx_gain, rx_phase = self.__matrix_builder.get_rx_matrix()
         self._rx_power = least_squares(a, rx_gain)
-        self._rx_phase = format_phase(least_squares(a, format_phase(rx_phase)))
+        self._rx_phase = least_squares(a, self.__correct_phase(a, format_phase(rx_phase)))
+        # self._rx_phase = least_squares(a, format_phase(rx_phase))
+        # self._rx_phase = format_phase(least_squares(a, format_phase(rx_phase)))
+        # self._rx_phase = AntennaCommon.rad2deg(least_squares(a, format_phase(rx_phase)))
 
         self.__fix_rx_power_and_phase()
 
@@ -283,6 +296,39 @@ class MutualCalibrator(AntennaCalibrator):
         self._calibrate_antenna(desired_tx_power, desired_tx_phase, desired_rx_power, desired_rx_phase)
         self.generate_cal_paths(*self.__last_cal_paths)
 
+    def __change_values(self, phase, indexes, increment):
+        for idx in indexes:
+            phase[idx] += increment
+
+    def __correct_phase(self, a, phase):
+        # index = dict((val, np.where(phase == val)[0]) for val in np.unique(phase))
+        index = [np.where(phase == val)[0] for val in np.unique(phase)]
+        # dict[new_key] = dict.pop(old_key)
+        min_residual = np.linalg.lstsq(a, phase)[1]
+        counter = 0
+        while min_residual > 0.1:
+            counter += 1
+            if counter > 30:
+                raise Exception("the algorithm does not converge")
+
+            for idxs in index:
+                self.__change_values(phase, idxs, 360)
+                res_add = np.linalg.lstsq(a, phase)[1]
+                self.__change_values(phase, idxs, -2*360)
+                res_sub = np.linalg.lstsq(a, phase)[1]
+                if res_add < res_sub:
+                    if res_add < min_residual:
+                        min_residual = res_add
+                        self.__change_values(phase, idxs, 2*360)
+                    else:
+                        self.__change_values(phase, idxs, 360)
+                else:
+                    if res_sub < min_residual:
+                        min_residual = res_sub
+                    else:
+                        self.__change_values(phase, idxs, 360)
+        return phase
+                    
 
 def every_one_to_one_path_strategy(antenna, tx_network, rm_coupling, rx_network):
     """

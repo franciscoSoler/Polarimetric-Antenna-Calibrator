@@ -219,7 +219,7 @@ class AntennaCreator:
             for idx in [self.__row_col_to_index(*pair) for pair in dead_trms]:
                 trms_dead[idx] = True
 
-        f = lambda row, col: row * row_steering + col * column_steering - 56
+        f = lambda row, col: row * row_steering + col * column_steering
         # delta_steering = -f(self.__quantity_rows-1, self.__quantity_cols-1)/2
         # steering_angle = [f(row, col) + delta_steering-39 for col in range(self.__quantity_cols) for row in range(self.__quantity_rows)]
         steering_angle = [f(row, col) for col in range(self.__quantity_cols) for row in range(self.__quantity_rows)]
