@@ -115,7 +115,7 @@ class Simulator:
         row_steering = self.__config[Common.Conf_in_param][Common.Conf_row_steer]
         column_steering = self.__config[Common.Conf_in_param][Common.Conf_col_steer]
 
-        f = lambda row, col: np.mod(row * row_steering + col * column_steering, 360)
+        f = lambda row, col: np.mod(row * row_steering + col * column_steering + 180, 360) - 180
         return [[f(row, col) for col in range(quantity_columns)] for row in range(quantity_rows)]
 
     def __create_antenna(self):
@@ -140,13 +140,16 @@ class Simulator:
     def __create_calibrator(self):
         in_power = self.__config[Common.Conf_in_param][Common.Conf_power]
         in_phase = self.__config[Common.Conf_in_param][Common.Conf_phase]
+        row_steering = self.__config[Common.Conf_in_param][Common.Conf_row_steer]
+        column_steering = self.__config[Common.Conf_in_param][Common.Conf_col_steer]
         row_separation = self.__config[Common.Conf_ant][Common.Conf_vert_sep]
         col_separation = self.__config[Common.Conf_ant][Common.Conf_horiz_sep]
         filename = self.__config[Common.Conf_ant][Common.Conf_filename]
 
         calibration_errors = self.__build_calibration_errors()
 
-        calibrator = AntennaCalibrator.MutualCalibrator(in_power, in_phase, row_separation, col_separation, filename)
+        calibrator = AntennaCalibrator.MutualCalibrator(in_power, in_phase, row_steering, column_steering,
+                                                        row_separation, col_separation, filename)
         # calibrator.add_calibration_errors(calibration_errors)
         calibrator.generate_cal_paths(AntennaCalibrator.every_one_to_one_path_strategy)
         """

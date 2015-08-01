@@ -48,7 +48,12 @@ class AntennaCreator:
         return row * self.__quantity_cols + col
 
     def add_errors(self, errors):
-        if not isinstance(errors, list) or len(errors) == 0 or [True for error in errors if len(error) != 2]:
+        if not isinstance(errors, list):
+            raise Exception('errors are not well created. The variable is not a list')
+
+        if len(errors) == 0:
+            return
+        if [True for error in errors if len(error) != 2]:
             raise Exception('errors are not well created')
 
         rm_handler = ScatteringParameters.RmScatteringParameters()
