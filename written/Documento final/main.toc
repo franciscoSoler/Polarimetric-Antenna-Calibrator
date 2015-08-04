@@ -1,0 +1,68 @@
+\select@language {spanish}
+\contentsline {chapter}{Abstract}{\es@scroman {i}}{dummy.1}
+\vspace {1em}
+\contentsline {chapter}{Agredecimientos}{\es@scroman {ii}}{dummy.2}
+\vspace {1em}
+\contentsline {chapter}{Contenidos}{\es@scroman {iii}}{dummy.3}
+\contentsline {chapter}{Lista de figuras}{\es@scroman {v}}{dummy.5}
+\contentsline {chapter}{Lista de cuadros}{\es@scroman {vii}}{dummy.7}
+\contentsline {chapter}{\numberline {1}Introducci\IeC {\'o}n}{1}{chapter.10}
+\contentsline {section}{\numberline {1.1}Celdas de combustible}{2}{section.11}
+\contentsline {section}{\numberline {1.2}Sistemas de generaci\IeC {\'o}n h\IeC {\'\i }bridos}{2}{section.12}
+\contentsline {section}{\numberline {1.3}Emulador de pila de combustible}{3}{section.14}
+\contentsline {chapter}{\numberline {2}Celdas de combustible}{4}{chapter.15}
+\contentsline {section}{\numberline {2.1}Principios de funcionamiento}{4}{section.16}
+\contentsline {section}{\numberline {2.2}Tipos de celdas de combustible}{6}{section.23}
+\contentsline {section}{\numberline {2.3}Sistemas de celdas de combustible}{7}{section.25}
+\contentsline {section}{\numberline {2.4}Consideraciones energ\IeC {\'e}ticas}{8}{section.27}
+\contentsline {section}{\numberline {2.5}Comentarios}{10}{section.31}
+\contentsline {chapter}{\numberline {3}Modelo del sistema de celdas de combustible}{11}{chapter.32}
+\contentsline {section}{\numberline {3.1}Caracter\IeC {\'\i }sticas el\IeC {\'e}ctricas}{11}{section.33}
+\contentsline {subsection}{\numberline {3.1.1}Tensi\IeC {\'o}n reversible de circuito abierto}{12}{subsection.34}
+\contentsline {subsection}{\numberline {3.1.2}P\IeC {\'e}rdidas de activaci\IeC {\'o}n}{12}{subsection.36}
+\contentsline {subsection}{\numberline {3.1.3}P\IeC {\'e}rdidas \IeC {\'O}hmicas}{14}{subsection.37}
+\contentsline {subsection}{\numberline {3.1.4}P\IeC {\'e}rdidas por concentraci\IeC {\'o}n o transporte de masa}{14}{subsection.38}
+\contentsline {section}{\numberline {3.2}Modelos propuestos}{15}{section.39}
+\contentsline {subsection}{\numberline {3.2.1}Modelo fijo}{16}{subsection.42}
+\contentsline {subsection}{\numberline {3.2.2}Modelo param\IeC {\'e}trico}{17}{subsection.48}
+\contentsline {section}{\numberline {3.3}Comentarios}{19}{section.53}
+\contentsline {chapter}{\numberline {4}Convertidores conmutados DC-DC}{21}{chapter.54}
+\contentsline {section}{\numberline {4.1}Convertidor elevador}{23}{section.56}
+\contentsline {subsection}{\numberline {4.1.1}Operaci\IeC {\'o}n en estado estacionario}{23}{subsection.58}
+\contentsline {subsubsection}{\numberline {4.1.1.1}Modo de conducci\IeC {\'o}n continua}{24}{subsubsection.59}
+\contentsline {subsubsection}{\numberline {4.1.1.2}Exigencias el\IeC {\'e}ctricas en estado estacionario para MCC}{28}{subsubsection.81}
+\contentsline {subsubsection}{\numberline {4.1.1.3}Modo de conducci\IeC {\'o}n discontinua}{28}{subsubsection.83}
+\contentsline {subsection}{\numberline {4.1.2}Modelo din\IeC {\'a}mico}{30}{subsection.94}
+\contentsline {section}{\numberline {4.2}Convertidor reductor}{31}{section.97}
+\contentsline {subsection}{\numberline {4.2.1}Operaci\IeC {\'o}n en estado estacionario}{32}{subsection.99}
+\contentsline {subsubsection}{\numberline {4.2.1.1}Modo de conducci\IeC {\'o}n continua}{32}{subsubsection.100}
+\contentsline {subsubsection}{\numberline {4.2.1.2}Exigencias el\IeC {\'e}ctricas en estado estacionario para MCC}{34}{subsubsection.115}
+\contentsline {subsubsection}{\numberline {4.2.1.3}Modo de conducci\IeC {\'o}n discontinua}{34}{subsubsection.117}
+\contentsline {subsection}{\numberline {4.2.2}Modelo din\IeC {\'a}mico}{36}{subsection.128}
+\contentsline {section}{\numberline {4.3}Detalles t\IeC {\'e}cnicos de los convertidores utilizados}{37}{section.132}
+\contentsline {subsection}{\numberline {4.3.1}Convertidor elevador}{37}{subsection.134}
+\contentsline {subsection}{\numberline {4.3.2}Convertidor reductor}{39}{subsection.139}
+\contentsline {section}{\numberline {4.4}Comentarios}{41}{section.144}
+\contentsline {chapter}{\numberline {5}Control y simulaciones}{42}{chapter.145}
+\contentsline {section}{\numberline {5.1}Introducci\IeC {\'o}n}{43}{section.146}
+\contentsline {section}{\numberline {5.2}Controladores}{43}{section.147}
+\contentsline {section}{\numberline {5.3}Modelos promediados de los convertidores}{45}{section.150}
+\contentsline {subsection}{\numberline {5.3.1}Convertidor Elevador}{48}{subsection.165}
+\contentsline {subsection}{\numberline {5.3.2}Convertidor Reductor}{48}{subsection.167}
+\contentsline {section}{\numberline {5.4}Arquitectura de control}{48}{section.169}
+\contentsline {subsection}{\numberline {5.4.1}Sinton\IeC {\'\i }a de controladores para elevador}{49}{subsection.173}
+\contentsline {subsection}{\numberline {5.4.2}Sinton\IeC {\'\i }a de controlador para reductor}{50}{subsection.177}
+\contentsline {section}{\numberline {5.5}Modelos y simulaciones}{51}{section.181}
+\contentsline {subsection}{\numberline {5.5.1}Convertidor elevador}{52}{subsection.182}
+\contentsline {subsection}{\numberline {5.5.2}Convertidor reductor}{52}{subsection.185}
+\contentsline {subsection}{\numberline {5.5.3}Simulaci\IeC {\'o}n de la operaci\IeC {\'o}n conjunta de convertidores}{53}{subsection.188}
+\contentsline {section}{\numberline {5.6}Soporte de hardware}{55}{section.192}
+\contentsline {subsection}{\numberline {5.6.1}Comentarios}{56}{subsection.193}
+\contentsline {chapter}{\numberline {6}Modelo del Emulador}{58}{chapter.194}
+\contentsline {section}{\numberline {6.1}Modelo de control}{58}{section.195}
+\contentsline {subsection}{\numberline {6.1.1}Filtro de corriente}{58}{subsection.197}
+\contentsline {section}{\numberline {6.2}Simulaciones}{61}{section.204}
+\contentsline {subsection}{\numberline {6.2.1}Modelo Fijo}{61}{subsection.205}
+\contentsline {subsection}{\numberline {6.2.2}Modelo param\IeC {\'e}trico}{63}{subsection.209}
+\contentsline {subsection}{\numberline {6.2.3}Operaci\IeC {\'o}n conjunta del emulador y la etapa de potencia}{64}{subsection.214}
+\contentsline {subsection}{\numberline {6.2.4}Comentarios}{65}{subsection.218}

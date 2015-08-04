@@ -1,0 +1,73 @@
+\select@language {spanish}
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {1.1}{\ignorespaces Diagrama en bloques de sistema h\IeC {\'\i }brido\relax }}{3}{figure.caption.13}
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {2.1}{\ignorespaces Esquema constructivo de una celda de combustible de electrolito \IeC {\'a}cido\relax }}{5}{figure.caption.17}
+\contentsline {figure}{\numberline {2.2}{\ignorespaces Disposici\IeC {\'o}n en apilado bipolar planar\relax }}{6}{figure.caption.22}
+\contentsline {figure}{\numberline {2.3}{\ignorespaces Sistema de celdas de combustible tipo PEM\relax }}{8}{figure.caption.26}
+\contentsline {figure}{\numberline {2.4}{\ignorespaces Caracter\IeC {\'\i }stica t\IeC {\'\i }pica de tensi\IeC {\'o}n-densidad de corriente.\relax }}{10}{figure.caption.30}
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {3.1}{\ignorespaces Caracter\IeC {\'\i }stica el\IeC {\'e}ctrica del m\IeC {\'o}dulo NEXA mostrando rango de funcionamiento.\relax }}{17}{figure.caption.47}
+\contentsline {figure}{\numberline {3.2}{\ignorespaces Diagrama esquem\IeC {\'a}tico del modelo de tensi\IeC {\'o}n de la celda parametrizado\relax }}{19}{figure.caption.51}
+\contentsline {figure}{\numberline {3.3}{\ignorespaces Diagrama esquem\IeC {\'a}tico del modelo de tensi\IeC {\'o}n de la celda parametrizado\relax }}{20}{figure.caption.52}
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {4.1}{\ignorespaces Topolog\IeC {\'\i }a de un convertidor elevador de conducci\IeC {\'o}n bidireccional\relax }}{23}{figure.caption.57}
+\contentsline {figure}{\numberline {4.2}{\ignorespaces Curvas de estado estacionario para el elevador operando en MCC\relax }}{24}{figure.caption.60}
+\contentsline {subfigure}{\numberline {(a)}{\ignorespaces {Tensi\IeC {\'o}n de inductor}}}{24}{subfigure.2.1}
+\contentsline {subfigure}{\numberline {(b)}{\ignorespaces {Corriente de diodo}}}{24}{subfigure.2.2}
+\contentsline {subfigure}{\numberline {(c)}{\ignorespaces {Corriente de inductor}}}{24}{subfigure.2.3}
+\contentsline {subfigure}{\numberline {(d)}{\ignorespaces {Corriente de capacitor}}}{24}{subfigure.2.4}
+\contentsline {figure}{\numberline {4.3}{\ignorespaces Relaciones de tensi\IeC {\'o}n del convertidor elevador con diferentes cargas.\relax }}{25}{figure.caption.69}
+\contentsline {figure}{\numberline {4.4}{\ignorespaces Eficiencia del convertidor elevador a diferentes cargas.\relax }}{26}{figure.caption.70}
+\contentsline {figure}{\numberline {4.5}{\ignorespaces Curvas de estado estacionario para el elevador operando en MCC\relax }}{29}{figure.caption.84}
+\contentsline {subfigure}{\numberline {(a)}{\ignorespaces {Tensi\IeC {\'o}n de inductor}}}{29}{subfigure.5.1}
+\contentsline {subfigure}{\numberline {(b)}{\ignorespaces {Corriente de diodo}}}{29}{subfigure.5.2}
+\contentsline {subfigure}{\numberline {(c)}{\ignorespaces {Corriente de inductor}}}{29}{subfigure.5.3}
+\contentsline {figure}{\numberline {4.6}{\ignorespaces Intervalos de modos de conducci\IeC {\'o}n para la relaci\IeC {\'o}n de conversi\IeC {\'o}n del elevador.\relax }}{30}{figure.caption.93}
+\contentsline {figure}{\numberline {4.8}{\ignorespaces Curvas de estado estacionario para el elevador operando en MCC\relax }}{32}{figure.caption.101}
+\contentsline {subfigure}{\numberline {(a)}{\ignorespaces {Tensi\IeC {\'o}n de inductor}}}{32}{subfigure.8.1}
+\contentsline {subfigure}{\numberline {(b)}{\ignorespaces {Corriente de inductor}}}{32}{subfigure.8.2}
+\contentsline {subfigure}{\numberline {(c)}{\ignorespaces {Corriente de capacitor}}}{32}{subfigure.8.3}
+\contentsline {figure}{\numberline {4.7}{\ignorespaces Esquem\IeC {\'a}tico del reductor a partir del circuito del elevador\relax }}{32}{figure.caption.98}
+\contentsline {figure}{\numberline {4.9}{\ignorespaces Curvas de estado estacionario para el elevador operando en MCC\relax }}{35}{figure.caption.118}
+\contentsline {subfigure}{\numberline {(a)}{\ignorespaces {Tensi\IeC {\'o}n de inductor}}}{35}{subfigure.9.1}
+\contentsline {subfigure}{\numberline {(b)}{\ignorespaces {Corriente de diodo}}}{35}{subfigure.9.2}
+\contentsline {subfigure}{\numberline {(c)}{\ignorespaces {Corriente de inductor}}}{35}{subfigure.9.3}
+\contentsline {figure}{\numberline {4.10}{\ignorespaces Intervalos de modos de conducci\IeC {\'o}n para la relaci\IeC {\'o}n de conversi\IeC {\'o}n del reductor.\relax }}{36}{figure.caption.127}
+\contentsline {figure}{\numberline {4.11}{\ignorespaces Convertidor elevador operando en MCC\relax }}{38}{figure.caption.137}
+\contentsline {figure}{\numberline {4.12}{\ignorespaces Convertidor elevador operando en MCD\relax }}{39}{figure.caption.138}
+\contentsline {figure}{\numberline {4.13}{\ignorespaces Convertidor reductor operando en MCC\relax }}{40}{figure.caption.142}
+\contentsline {figure}{\numberline {4.14}{\ignorespaces Convertidor reductor operando en MCD\relax }}{40}{figure.caption.143}
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {5.1}{\ignorespaces Consideraci\IeC {\'o}n del controlador PID a los valores obtenidos.\relax }}{44}{figure.caption.148}
+\contentsline {figure}{\numberline {5.2}{\ignorespaces Controlador PI con mecanismo anti-wind-up\relax }}{45}{figure.caption.149}
+\contentsline {subfigure}{\numberline {(a)}{\ignorespaces {Esquema de control para el elevador}}}{49}{subfigure.3.1}
+\contentsline {subfigure}{\numberline {(b)}{\ignorespaces {Esquema de control para el reductor}}}{49}{subfigure.3.2}
+\contentsline {figure}{\numberline {5.3}{\ignorespaces Esquema linealizado del control del elevador.\relax }}{50}{figure.caption.174}
+\contentsline {figure}{\numberline {5.4}{\ignorespaces An\IeC {\'a}lisis del lugar de las ra\IeC {\'\i }ces en el dominio $Z$ para $T_{s}=50\mu s$\relax }}{50}{figure.caption.175}
+\contentsline {figure}{\numberline {5.5}{\ignorespaces Esquema de control del Reductor.\relax }}{51}{figure.caption.178}
+\contentsline {figure}{\numberline {5.6}{\ignorespaces Diagrama del lugar de ra\IeC {\'\i }ces para el lazo de tensi\IeC {\'o}n del reductor.\relax }}{51}{figure.caption.179}
+\contentsline {figure}{\numberline {5.7}{\ignorespaces Modelo completo del convertidor elevador\relax }}{52}{figure.caption.183}
+\contentsline {figure}{\numberline {5.8}{\ignorespaces Resultado de simulaci\IeC {\'o}n de corriente de inductor y tensi\IeC {\'o}n de salida del convertidor DC-DC elevador\relax }}{52}{figure.caption.184}
+\contentsline {figure}{\numberline {5.9}{\ignorespaces Modelo completo del convertidor reductor\relax }}{53}{figure.caption.186}
+\contentsline {figure}{\numberline {5.10}{\ignorespaces Resultado de simulaci\IeC {\'o}n de corriente de inductor y tensi\IeC {\'o}n de salida del convertidor DC-DC reductor\relax }}{53}{figure.caption.187}
+\contentsline {figure}{\numberline {5.11}{\ignorespaces Modelo usado para la simulaci\IeC {\'o}n del comportamiento conjunto de los convertidores\relax }}{54}{figure.caption.189}
+\contentsline {figure}{\numberline {5.12}{\ignorespaces Resultados de la simulaci\IeC {\'o}n para el convertidor reductor alimentando al elevador\relax }}{54}{figure.caption.190}
+\contentsline {figure}{\numberline {5.13}{\ignorespaces Resultados de simulaci\IeC {\'o}n para el convertidor elevador alimentado por el reductor\relax }}{54}{figure.caption.191}
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {6.1}{\ignorespaces Esquema general de control\relax }}{58}{figure.caption.196}
+\contentsline {figure}{\numberline {6.2}{\ignorespaces Formas directas de filtros IIR\relax }}{60}{figure.caption.198}
+\contentsline {subfigure}{\numberline {(a)}{\ignorespaces {Filtro bicuadr\IeC {\'a}tico en forma directa I}}}{60}{subfigure.2.1}
+\contentsline {subfigure}{\numberline {(b)}{\ignorespaces {Filtro bicuadr\IeC {\'a}tico en forma directa II}}}{60}{subfigure.2.2}
+\contentsline {figure}{\numberline {6.3}{\ignorespaces Respuesta en frecuencia de filtro de corriente\relax }}{61}{figure.caption.201}
+\contentsline {subfigure}{\numberline {(a)}{\ignorespaces {Respuesta en frecuencia del filtro implementado}}}{61}{subfigure.3.1}
+\contentsline {subfigure}{\numberline {(b)}{\ignorespaces {Ampliaci\IeC {\'o}n de la zona del filtro correspondiente a la banda de paso}}}{61}{subfigure.3.2}
+\contentsline {figure}{\numberline {6.4}{\ignorespaces Esquema de simulink del modelo fijo\relax }}{62}{figure.caption.206}
+\contentsline {figure}{\numberline {6.5}{\ignorespaces Resultados de simulaci\IeC {\'o}n para las magnitudes de salida del emulador\relax }}{62}{figure.caption.207}
+\contentsline {figure}{\numberline {6.6}{\ignorespaces Relevamiento de curvas para modelo fijo\relax }}{62}{figure.caption.208}
+\contentsline {figure}{\numberline {6.7}{\ignorespaces Esquema simulink del modelo param\IeC {\'e}trico\relax }}{63}{figure.caption.211}
+\contentsline {figure}{\numberline {6.8}{\ignorespaces Resultados de simulaci\IeC {\'o}n para las magnitudes de salida del emulador param\IeC {\'e}trico\relax }}{63}{figure.caption.212}
+\contentsline {figure}{\numberline {6.9}{\ignorespaces Relevamiento de curvas para modelo param\IeC {\'e}trico\relax }}{64}{figure.caption.213}
+\contentsline {figure}{\numberline {6.10}{\ignorespaces Esquema del emulador conectado a la etapa de potencia\relax }}{64}{figure.caption.215}
+\contentsline {figure}{\numberline {6.11}{\ignorespaces Esquema del emulador conectado a la etapa de potencia\relax }}{65}{figure.caption.216}
+\contentsline {figure}{\numberline {6.12}{\ignorespaces Esquema del emulador conectado a la etapa de potencia\relax }}{65}{figure.caption.217}

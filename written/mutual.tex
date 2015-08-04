@@ -1,0 +1,920 @@
+\documentclass[a4paper,10pt]{article}
+%\usepackage[latin1]{inputenc} % Paquetes de idioma
+\usepackage[utf8]{inputenc} % Paquetes de idioma
+\usepackage[spanish]{babel} % Paquetes de idioma
+\usepackage{graphicx} % Paquete para ingresar gráficos
+\usepackage{grffile}
+\usepackage{hyperref}
+\usepackage{fancybox}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{listings}
+% Paquetes de macros de Circuitos
+%\usepackage{pstricks}
+\usepackage{tikz}
+\usepackage[colorinlistoftodos,prependcaption,textsize=tiny]{todonotes}
+
+% Encabezado y Pié de página
+\input{EncabezadoyPie.tex}
+% Carátula del Trabajo
+\title{ \input{Portada.tex} }
+
+\begin{document}
+	\maketitle % Hace que el título anterior sea el principal del documento
+	\newpage
+
+	\tableofcontents % Esta línea genera un indice a partir de las secciones y subsecciones creadas en el documento
+	\newpage
+
+	\section{INTRODUCCIÓN}
+		Las antenas de arreglo de fase controlada son comunmente utilizadas en 
+	aplicaciones aéreas y espaciales. Para obtener un buen comportamiento de las
+	mismas es necesario que estén correctamente calibradas. Esto implica, que 
+	las tolerancias de fases y amplitudes se mantengan y sus valores sean bien 
+	conocidas por cada elemento del arreglo.
+	
+		Estas antenas en tierra son, generalmente, calibradas utilizando fuentes
+    externas de campo lejano o cercano. Sin embargo, en aplicaciones aéreas o 
+    espaciales, la utilización de dichas fuentes son imprácticas o difícil de 
+    implementar. A su vez, si se opta por caracterizar todos los componentes, el
+    tiempo que implicaría es excesivo. Por estas razones, surgieron distintos 
+    métodos de calibración interna.
+
+		En este conexto, se propone un nuevo método de calibración, el cual 
+	aprovecha el acoplamiento mutuo inherente entre los módulos radiantes de la 
+	antena.
+
+	\subsection{DEFINICIÓN}
+		Una antena de arreglo de fase controlada es una antena compuesta por un
+	conjunto de módulos radiantes dispuestos de tal forma, que, aplicando la
+	teoría de construcción y desturcción de ondas, la señal emitida logra ser 
+	dirigida donde se desee.
+		
+		Calibración interna es colocar sensores que permitan la medición directa
+	u indirecta de la potencia y fase de salida/entrada de la antena 
+	polarimétrica.
+		
+	\subsection{CARACTERÍSTICAS}
+		La utilización de una buena calibracíon interna es una problemática muy
+	desafiante dado que es uno de los factores limitantes en la calidad de los 
+	productos obtenidos con estas antenas.
+
+	\section{MOTIVACIÓN}
+		Hay numerosas motivaciones para la investigación de un nuevo método de 
+	calibración:
+		Primero, a la hora de adquirir imágenes satelitales es crucial que se 
+	conozca perfectamente la señal emitida y recibida por la antena. Ya sea por 
+	envejecimiento de los materiales, por variaciones de temperaturas u algún 
+	otro factor, se observan dispersiones de las mismas. Hay dos enfoques para 
+	encarar esta problemática:
+
+		\begin{itemize}
+			\item Controlando las dispersiones máximas que pueden presentarse 
+			utilizando hardware más complejo.
+
+			\item Corrigiendo dichas dispersiones haciendo uso de calibración 
+			interna.
+		\end{itemize}
+
+		Al utilizar la calibración interna se evita aumentar la complejidad y 
+	peso del hardware utilizado a costa de un mayor procesamiento de software, 
+	logrando así, disminuir el costo de la misión.
+		
+		Otro motivo es que el método de calibración convencional posee numerosas
+	limitaciones y falencias; la principal es que no abarca todo el sistema de 
+	transmisión/recepción, dejando así parámetros fuera de control. 
+
+
+		
+	\section{Objetivo de la tesis}
+		La presente tesis tiene como objetivo la investigación, análisis y 
+	desarrollo de un nuevo método de calibración interna de una antena 
+	polarimétrica que abarque el sistema completo de transmisión/recepción. 
+
+	\section{Metodología de la tesis}
+		En la presente tesis se investigarán los métodos de calibraciones 
+	actuales para poder determinar que ventajas, desventajas, limitaciones y 
+	diferencias hay entre cada una de ellos. Se buscará tener una visión global
+	de esta problemática para poder determinar y entender que posibles falencias
+	puede tener este nuevo método.
+
+		Posteriormente, se investigarán las limitaciones que poseen las antenas 
+	polarimétricas para poder determinar que recaudos se deben tener en cuenta a
+	la hora de desarrollar el método.
+
+		Luego, tomando todo en cuenta, se determinarán las hipótesis necesarias
+	para que el algoritmo funcione correctamente. Para la validación del método
+	se realizará un modelo de antena.
+		
+		Finalmente, se probarán, analizarán y documentarán los resultados 
+	obtenidos de la comparación entre el algoritmo propuesto y el algoritmo de
+	la calibración convencional. A su vez, se dejará asentado que posibles 
+	mejoras se podrían aplicar al algoritmo para determinar otros aspectos que
+	están fuera del alcance de esta tesis.
+
+	\section{Estado del Arte}
+		La calibración de una antena polarimétrica se ha estudiado en numerosas 
+	ocasiones, abordando el problema desde distintos enfoques. En el siguiente 
+	gráfico se pueden observar los distintos métodos utilizados.
+	\[
+		\begin{cases}
+			hola\\
+			chau
+			\begin{cases}
+			todo bien\\
+			seee
+			\end{cases}
+		\end{cases}
+	\]
+
+
+	\todo{todo}
+
+		Dichos métodos se han clasificado por la utilización o no de componentes
+	externos a la antena.
+
+	\section{Cronograma}
+	\subsection{Cronograma detallado}
+	\todo{agregar cronograma}
+
+	\newpage
+	\section{Bibliografía}
+
+	\newpage
+	\section{Currículum Vitae}
+	
+	\newpage
+	\section{Materias Aprobadas}	
+		
+	\newpage
+	\section{Plan de cursada}
+	
+	\begin{table}[!htb]
+		\centering
+		\begin{tabular}{|c|c|c|c|}
+			\hline
+			Código & Denominación & Créditos & Fecha \\
+			\hline
+			75.00 & TESIS & 24-OBL & 2 - 2015 \\
+			\hline
+		\end{tabular}
+		\caption{Plan de cursada} \label{tabPlanCursada}
+	\end{table}
+
+	TOTAL CRÉDITOS: 24	
+		
+		El tema de 
+	
+	El presente trabajo consiste en estudiar las características de una etapa amplificadora multietapa. En este caso, el circuito bajo estudio es una 
+		configuración circuital conocida como \emph{Cascode}. La misma se encuentra implementada en el presente trabajo por medio de un transistor de NMOSFET
+		de doble gate de código BF966. El circuito equivalente que se obtiene al utilizar este transistor en esta configuración es equivalente al de 
+		dos transistores MOSFET con valores para sus parámetros principales exhibidos en el cuadro \ref{tab001}. 
+
+		\begin{table}[!htb]
+			\centering
+			\begin{tabular}{|c|c|c|c|}
+				\hline
+				Transistor & k & $V_{TH}$ & $\frac{W}{L}$ \\
+				\hline
+				T1 & 7.5 $\frac{\text{mA}}{V^2}$ & -1V & 1 \\
+				\hline
+				T2 & 100 $\frac{\text{mA}}{V^2}$ & -1V & 1 \\
+				\hline
+			\end{tabular}
+			\caption{Parámetros de los transistores equivalentes del MOSFET doble gate BF966} \label{tab001}
+		\end{table}
+
+		El circuito equivalente simplificado del \emph{Cascode} se exhibe en la figura \ref{circ001}. 
+
+		\begin{figure}[!htp]
+			\centering
+			 \input circuito1
+	     \caption{Cascode implementado a partir de una transistor de doble gate (BF966)} \label{circ001}
+		 \end{figure}
+
+
+		\subsection{Polarización}
+
+			\subsubsection{Parte Teórica}
+				Se procede a verificar que el circuito exhibido en la figura \ref{circ001} se polarice de forma correcta. Dado que en continua los capacitores 
+				actúan como circuitos abiertos, se puede simplificar el diagrama circuital del esquemático en cuestión. El circuito a polarizar entonces es el 
+				exhibido en la figura \ref{circ002}. \\
+
+				\begin{figure}[!htp]
+					\centering
+			 		\input circuito2
+	     		\caption{Circuito de Polarización} \label{circ002}
+		 		\end{figure}
+
+				\indent Primero se procede a calcular la corriente $I_{D}$. Para realizar esto se recorre la malla de entrada obteniéndose la ecuación \ref{eq001}.
+				Luego, con la ecuación característica de un MOSFET exhibida en \ref{eq002} y la ecuación \ref{eq001} se despeja el valor la corriente $I_D$ y de la 
+				tensión de gate $V_{GS_{1}}$. Los valores obtenidos son:  $V_{GS_1} = -0.698~\text{V}$ y $I_D = 0.695~\text{mA}$.
+
+				\begin{equation}
+					I_D = \frac{V_{GS_1}}{R_S} \label{eq001}
+				\end{equation}
+
+				\begin{equation}
+					I_D = k_1 (V_{GS} - V_{TH})^2 \label{eq002}
+				\end{equation}
+
+				Con la corriente $I_D$ se calcula la tensión $V_{GS_2}$ del segundo transistor de la misma forma que se calculó la del primero. El valor obtenido 
+				es $V_{GS_2} = -0.916 V$. Luego de calcular la corriente que entra al drain de ambos transistores y sus respectivas tensiones $V_{GS}$, queda por 
+				calcular las tensiones $V_{DS}$ de los mismos para verificar que ambos están actuando en su correspondiente zona de saturación. \\
+				\indent Recorriendo la malla que involucra a la tensión $V_{GS}$ del transistor T2 y la tensión $V_{DS}$ del transistor T1 se obtiene la ecuación
+				exhibida en \ref{eq003}. De la misma se despeja el valor de $V_{DS_1}$. El valor obtenido es $V_{DS_1} = 0.881~\text{V}$.
+
+				\begin{equation}
+					I_D \cdot 50 \Omega  + V_{DS_1} + V_{GS_2} = 0 \label{eq003}
+				\end{equation}
+
+				Por último, se procede a calcular el valor de la tensión entre drain y source del transistor T2. Para hacer esto, se recorre la malla planteando la
+				ley de tensiones de Kirchhoff que involucra las ramas en la cual se encuentra la fuente de tensión $V_{CC}$, ambos transistores y la resistencia $R_S$,
+				obteniéndose la ecuación exhibida en \ref{eq004}. Despejando la única incógnita de esta ecuación, se obtiene que el valor de la misma es
+				$V_{DS_2} = 5.04~\text{V}$. 
+				
+				\begin{equation}
+					I_{D} R_{S} + V_{DS_1} + I_D \cdot 50 \Omega + V_{DS_2} + I_D R_D - V_{CC} = 0 \label{eq004}
+				\end{equation}
+
+				Dado que ambas tensiones $V_{DS}$ dieron valores mayores a $V_{GS} - V_{TH}$, se corrobora que el circuito se encuentra polarizado correctamente. 
+				En la figura \ref{tab002} se muestran los valores de polarización calculados. 
+
+				\begin{table}[!htb]
+					\centering
+					\begin{tabular}{|c|c|}
+						\hline
+						Parámetro Medido & Valor Obtenido  \\
+						\hline
+						$I_{D}$ & 0.695 mA \\
+						\hline
+						$V_{GS_1}$ & -0.695 V \\
+						\hline
+						$V_{GS_2}$ & -0.916 V \\
+						\hline
+						$V_{DS_1}$ & 0.881 V \\
+						\hline
+						$V_{DS_2}$ & 5.04 V \\
+						\hline
+					\end{tabular}
+					\caption{Resumen de los valores de polarización obtenidos} \label{tab002}
+				\end{table}
+
+			\subsubsection{Simulación y Valores Medidos}
+				En la figura \ref{img001} se exhibe el esquemático del circuito a simular. Se ajustaron los modelos de los transistores para coincidir con los
+				exhibidos en el cuadro \ref{tab001}. El circuito armado es el equivalente del transistor BF966 presentado en el enunciado del trabajo práctico,
+				el cual incluye muchas capacidades parásitas no consideradas en el circuito planteado en la figura \ref{circ001}. Dado que en el cálculo de 
+				polarización las capacidades equivalen a circuitos abiertos, el circuito de polarización de continua es el mismo. \\
+
+				\begin{figure}[!htb]
+					\centering
+						\includegraphics[width=11cm]{Imagenes/EsquematicoCascode.png}
+						\caption{Esquemático del Circuito de Polarización} \label{img001}
+				\end{figure}
+
+				\indent En la tabla \ref{tab003} se exhiben los valores obtenidos por simulación y los obtenidos de forma empírica al medir el circuito indicado
+				en el enunciado del TP. Al realizar la medición, como no se puede acceder al nodo $D_1$ o $S_2$, directamente se midió $V_{D_2S_1}$, que es igual 
+				a $V_{DS_1} + V_{DS_2}$. \\
+				
+				\indent Dado que las mediciones se realizaron de forma directa sin armar ningún banco específico, se muestran directamente en el cuadro  
+				\ref{tab003}.  
+				 
+				\begin{table}[!htb]
+					\centering
+					\begin{tabular}{|c|c|c|}
+						\hline
+						Parámetro & Valor Obtenido (Simulación) & Valor Obtenido (Medición)  \\
+						\hline
+						$I_{D}$ & 0.695 mA & 0.660 mA\\
+						\hline
+						$V_{GS_1}$ & -0.695 V & -0.418 V \\
+						\hline
+						$V_{D_2S_1}$ & 5.921 V & 6.22 V\\
+						\hline
+						$V_{D_2}$ & 6.73 V & 6.85 V\\						
+						\hline						
+					\end{tabular}
+					\caption{Resumen de los valores de polarización medidos y simulados} \label{tab003}
+				\end{table}
+
+				Se puede observar que hay una diferencia entre los valores simulados y los valores medidos, especialmente en el valor de $V_{GS_1}$. Esto se puede 
+				llegar a deber a la dispersión de los parámetros del transistor. % O a una mala modelización del Transistor Dual Gate?
+				 
+
+		\subsection{Parámetros en Señal}
+			\subsubsection{Parte Teórica}
+				En la presente sección se procede a realizar los cálculos de los parámetros de señales más comunes como lo son Av, Ro y Ri. Para hacer esto primero 
+				se procede a realizar los cálculos de las transconductancias de cada transistor. La fórmula de la transconductancia en un MOSFET es la exhibida en
+				la ecuación \ref{eq005}. 
+
+				\begin{equation}
+					g_m = \left[\frac{\partial I_D}{\partial V_{GS}}\right]_{Q} = 2k(V_{GS} - V_{TH}) \label{eq005}
+				\end{equation}
+	
+				Teniendo en cuenta los parámetros de los transistores modelados exhibidos en la tabla \ref{tab001} se obtiene que los valores de transconductancia 
+				buscados son los siguientes:
+
+				\begin{displaymath}
+					g_{m_1} = 4.575~\frac{\text{mA}}{{V}}
+				\end{displaymath}
+			
+				\begin{displaymath}
+					g_{m_2} = 16.8~\frac{\text{mA}}{{V}}
+				\end{displaymath}
+
+				Con las transconductancias calculadas se procede a realizar los cálculos del Av, Ro y Ri. En la figura \ref{circ003} se exhibe el circuito de señal
+				que resulta de considerar a los capacitores de bajas frecuencias como cortocircuitos y los de altas frencuencias como circuitos abiertos, asumiendo 
+				que se está trabajando en frecuencias medias.  
+
+				\begin{figure}[!htp]
+					\centering
+			 		\input circuito3
+	   			\caption{Equivalente circuital del \emph{Cascode} en Señal} \label{circ003}
+		 		\end{figure}
+
+				Con el circuito de señal se procede a calcular la ganancia de tensión Av. En la fórmula \ref{eq006} se exhibe el cálculo de este parámetro:
+				\begin{equation}
+					Av = \frac{vo_2}{vi_1} \simeq \frac{-i_d (R_{ca})}{v_{gs_1}} = - gm_1 (R_{ca}) \simeq -11.21 \label{eq006}
+				\end{equation}
+
+				Luego se procede a calcular Ro y Ri. Debido a que $R_{ig}$, la resistencia vista entre Gate y común del transistor T1, es infinita, el cálculo de
+				la resistencia de entrada es el siguiente:
+				
+				\begin{displaymath}
+					R_i = R_{ig} || R_{G} = R_{G} = 1~\text{M}\Omega
+				\end{displaymath}
+	
+				Para calcular la resistencia de salida como bien se sabe se reemplaza a la carga por una fuente de tensión o corriente  pasivando las fuentes 
+				independientes del circuito y se calcula la resistencia como la tensión de salida obtenida sobre la corriente de salida. Dado que no se 
+				especifica en el enunciado cuanto vale el valor de $\lambda$, se asume que este valor tiende a cero y por lo tanto la resistencia de 
+				señal $r_{ds}$ tiende a infinito. Esto trae como consecuencia que el generador controlado del transistor T2 no se prenda en ningún momento, por
+				lo cual la resistencia vista entre Drain y común de este transistor tiende a a valer infinito. La fórmula de la resistencia de salida se exhibe 
+				en la ecuación \ref{eq007}. 
+			
+				\begin{equation}	 
+					R_o = R_{oc} || R_{D} = R_{D} = 4.7~\text{k}\Omega \label{eq007}
+				\end{equation} 
+
+			\subsubsection{Simulaciones}
+				El circuito a simular para obtener los parámetros de señal es el mismo exhibido en la figura \ref{img001}. Para calcular los parámetros deseados
+				sólo debe elegirse la correcta opción de simulación. En este caso, se hace un estudio en frecuencia mediante la opción de simulación 
+				\emph{AC analysis} para verificar en qué rango se puede considerar que uno se encuentra en frecuencias medias y se calculan los parámetros en 
+				cuestión para esta condición. \\
+				\indent Primero se procede a calcular Av. El resultado de la simulación es mostrado en la figura \ref{img002}. Luego se procede a calcular la 
+				resistencia de entrada $R_i$. Esta medición como la del Av se realiza sin modificar el circuito en la simulación. El resultado de la simulación
+				es exhibido en la figura \ref{img003}. 
+
+				\begin{figure}[!htb]
+					\centering
+						\includegraphics[width=12cm]{Imagenes/SimulacionAv.png}
+						\caption{Simulación del parámetro de señal Av} \label{img002}
+				\end{figure}
+		
+				\begin{figure}[!htb]
+					\centering
+						\includegraphics[width=11cm]{Imagenes/SimulacionRi.png}
+						\caption{Simulación del parámetro de señal $R_i$} \label{img003}
+				\end{figure}
+
+				Por último se procede a calcular la resistencia de salida del \emph{Cascode}, $R_o$. Se reemplaza en el esquemático de Spice la fuente de tensión 
+				senoidal ideal por un corto y la carga por un generador para computar el cálculo de este parámetro. En la figura \ref{img004} se exhibe el 
+				resultado de la simulación. Se puede observar como la misma coincide con al valor teórico calculado.  
+
+				\begin{figure}[!htb]
+					\centering
+						\includegraphics[width=11cm]{Imagenes/SimulacionRo.png}
+						\caption{Simulación del parámetro de señal Ro} \label{img004}
+				\end{figure}
+
+			\subsubsection{Mediciones}
+				Para realizar las mediciones de los parámetros de señal se procede a medir el circuito polarizado en la primera etapa del TP. Con la ayuda de
+				un osciloscopio se mide la tensión de salida y la tensión de entrada, teniendo especial cuidado con la amplitud de la señal de entrada y
+				la frecuencia de trabajo elegidos.\\
+				\indent  En la sección siguiente (\ref{sec001} Excursiones) se calcula que la máxima tensión de entrada $v_i$ antes de que alguno de los transistores 
+				recorte es de $\simeq 152~\text{mV}$. De esta forma, para cumplir con este requisito, se alimenta al circuito con una tensión de entrada $v_i$ 
+				de 20 mV y una frecuencia de 50 kHz a la hora de calcular el parámetro Av, obteniéndose como resultado:
+
+				\begin{displaymath}
+					Av \simeq -10
+				\end{displaymath}  	
+
+				Luego se procede a calcular la resistencia de entrada. Dado que la medición de la resistencia de entrada involucra el cálculo de una corriente,
+				se agrega una resistencia del orden de la resistencia a medir y se calcula $R_i$ en función de un divisor resistivo. Debe tenerse en 
+				cuenta el efecto de carga introducido por la punta del osciloscopio en esta medición dado que $R_i$ es del orden de los M$\Omega$ y como se
+				sabe la resistencia equivalente de una punta x1 es de $\simeq 1~\text{M}\Omega$ y la de una punta x10 es de $\simeq 10~\text{M}\Omega$. En
+				la figura \ref{circ004} se exhibe el banco de medición equivalente y en la ecuación \ref{eq008} se exhibe la expresión de $R_i$ en función
+				de los parámetros (conocidos) involucrados en el banco de medición. La resistencia auxiliar utilizada es de 1 M$\Omega$ y la relación de
+				tensiones $\frac{\hat{V_{s}}}{\hat{V_{x}}}$ calculada es igual a $\simeq 1.46$ utilizando en la medición puntas x1. 
+			 
+				\begin{figure}[!htp]
+					\centering
+			 		\input circuito4
+	   			\caption{Banco de Medición para medir $R_i$} \label{circ004} 
+		 		\end{figure}
+
+				\begin{equation}
+					\label{eq008}
+					\hat{V_{x}} = \hat{V_{s}} \left( \frac{R_{aux}}{R_{aux} + R_{i}||R_{punta}}\right) \Rightarrow R_{i}||R_{punta} = 
+					\left(\frac{\hat{V_s}}{\hat{V_x}} -1\right) R_{aux} \simeq 466~\text{k}\Omega 
+				\end{equation}
+
+				\begin{displaymath}
+					\Rightarrow R_i = \frac{R_{punta} \cdot 466~\text{k}\Omega}{R_{punta} - 466~\text{k}\Omega}	\simeq 872~\text{k}\Omega
+				\end{displaymath} 
+		
+				Por último se procede a calcular la resistencia de salida. Para realizar esta medición se plantea un banco de medición parecido al utilizado
+				para calcular $R_i$. El banco es similar dado que la resistencia en cuestión se calcula como una relación entre la tensión y la corriente
+				en un malla determinada del circuito (en este caso, la malla de salida). Como toda resistencia de salida, para calcular la misma se debe 
+				reemplazar la carga por un generador de prueba y se deben pasivar todas las fuentes independientes involucradas en el circuito. Sin embargo, 
+				debido a que la resistencia de carga se encuentra soldada a la plaqueta, no se puede extraer la misma para realizar esta medición. De esta
+				forma, el banco de medición armado para medir la resistencia de salida es el exhibido en la figura \ref{circ005}. La expresión de la 
+				resistencia de salida en función de los parámetros involucrados es la mostrada en la ecuación \ref{eq009}. La resistencia auxiliar utilizada
+				es de 4.7 k$\Omega$ y la relación de tensiones $\frac{\hat{V_{s}}}{\hat{V_{x}}}$ medidas es igual a $\simeq 1.53$.   
+					 
+				\begin{figure}[!htp]
+					\centering
+			 		\input circuito5
+	   			\caption{Banco de Medición para medir $R_o$} \label{circ005} 
+		 		\end{figure}
+
+				\begin{equation}
+					\label{eq009}
+					\hat{V_{x}} = \hat{V_{s}} \left( \frac{R_{aux}}{R_{aux} + R_{o}||R_{L}}\right) \Rightarrow R_{o}||R_{L} = 
+					\left(\frac{\hat{V_s}}{\hat{V_x}} -1\right) R_{aux} \simeq 2.5~\text{k}\Omega 
+				\end{equation}
+
+				\begin{displaymath}
+					\Rightarrow R_o = \frac{R_L \cdot 2.5~\text{k}\Omega}{{R_{L}} - 2.5~\text{k}\Omega}	\simeq 5.34~\text{k}\Omega
+				\end{displaymath} 
+
+		\subsection{Excursiones} \label{sec001}
+			\subsubsection{Parte Teórica}
+				% Con el enconding utilizado (UTF-8) ya no es necesario escapear los acentos ni las ñ
+				%Las excursiones son importantes para determinar la máxima tensión sin recorte que se puede obtener a la salida del circuito. Además de las excursiones,
+				%debe verificarse que la señal de salida no posea un porcentaje de distorsión elevado, lo cual puede darse aunque los transistores nunca lleguen a	sus
+				%máximas excursiones. \\
+				\indent Para comenzar se calculan las rectas de carga dinámica de cada transistor, teniendo en cuenta el esquemático del
+				\emph{Cascode} en señal presentado en la figura \ref{circ003}. Debido a que las corrientes de gate son pequeñas y despreciables, las corrientes de drain
+				de los dos transistores son iguales. Con esto sabido, se recorre la malla que involucra a las tensiones $v_{ds_1}$ y $v_{gs_2}$, obteniéndose la 
+				ecuación mostrada en \ref{eeq001}.
+			
+				\begin{equation}
+					v_{ds_1} + i_d \cdot 50~\Omega - v_{gs_2} = 0 \label{eeq001}
+				\end{equation}
+
+				Dado que la corriente de drain de un transistor se puede escribir en función de su transconductancia, se reemplaza esta expresión en la
+				ecuación \ref{eeq001} y despejando se llega a la expresión de la recta de carga dinámica del transistor T1. La misma se exhibe en la ecuación 
+				\ref{eeq002}.
+
+				\begin{equation}
+					i_d = \frac{v_{ds_1}}{r{d_2} + 50 \Omega} = \frac{v_{ds_1}}{110 \Omega} \label{eeq002}
+				\end{equation}
+
+				Para realizar el cálculo de la excursión del segundo transistor, se recorre la malla que involucra a las ddp $v_{ds_1}$ y $v_{ds_2}$ obteniéndose como
+				resultado la ecuación exhibida en \ref{eeq003}. Dado que $R_{ca}$ en este caso es del orden de los K$\Omega$, se puede despreciar el efecto de carga 
+				impuesto por la resistencia de 50 $\Omega$ en esta última ecuación. Luego, reemplazando el resultado obtenido en \ref{eeq002} en \ref{eeq003} se 
+				obtiene la expresión de la recta de carga del transistor T2. La misma se exhibe en la ecuación \ref{eeq004}.
+
+				\begin{equation}
+					i_d \cdot (R_{ca} + 50 \Omega) + v_{ds_1} + v_{ds_2} = 0  \label{eeq003}
+				\end{equation}
+
+				\begin{equation}
+					i_d = \frac{- v_{ds_2}}{R_{ca} \cdot(1 - \frac{r{d_2}}{R_{ca}})} \quad \Rightarrow \quad i_d \simeq \frac{- v_{ds_2}}{R_{ca}}	\label{eeq004}
+				\end{equation}	
+
+				Con las pendientes de las RCDs, se procede a calcular las máximas excursiones de cada transistor. Para realizar esto hay que recordar que estas
+				últimas rectas fueron calculadas en señal, de modo que cada RCD pasa por el punto de reposo en el cual se encuentra su respectivo transistor. 
+				Teniendo esto en cuenta y despreciando las tensiones y corrientes de codo se exhiben a continuación las máximas excursiónes por corte y saturación 
+				de cada transistor:
+
+				\begin{equation*}
+					\hat{V_{DS_1}}(corte) = I_{D_{1Q}} \cdot 110 \Omega \simeq 77~\text{mV}
+				\end{equation*}
+
+				\begin{equation*}
+					\hat{V_{DS_1}}(sat.) = V_{DS_1} = 0.881~\text{V}
+				\end{equation*}
+
+				\begin{equation*}
+					\hat{V_{DS_2}}(corte) = I_{D_{1Q}} \cdot 2.35 \Omega \simeq 1.645~\text{V}
+				\end{equation*}
+					
+				\begin{equation*}
+					\hat{V_{DS_1}}(corte) = V_{DS_2} = 5.01~\text{V}
+				\end{equation*}
+
+				Como se puede observar, ambos transistores llegan a sus límites debido a sus máximas excursiones por corte. Sin embargo, esto no nos dice cual es
+				el transistor que está limitando la máxima señal de entrada que se puede ingresar. Para determinar cual de los transistores es el limitante en este 
+				circuito se procede a obtener las tensiones de entradas $v_i$ necesarias para que las salidas de cada uno no presenten recortes. Para ello se utilizan 	
+				las amplificaciones de cada etapa las cuales se exhiben a continuación:
+
+				\begin{displaymath}
+					A_{v_1}= -0.27
+				\end{displaymath}
+				\begin{displaymath}
+					A_{v_2} =~39.48
+				\end{displaymath}
+
+				Obteniendo las $v_i$ de recorte:
+
+
+				\begin{displaymath}
+					v_{i_1} =\frac{v_{ds_1}}{-0.27}=285.2~\text{mV}
+				\end{displaymath}
+
+				\begin{displaymath}
+					v_{i_2} =\frac{v_{ds_2}}{39.48}=41.3~\text{mV}
+				\end{displaymath}
+
+				Aquí se muestra que el recorte está limitado por el primer transistor y por lo tanto la señal a la salida del circuito presenta recorte con una 
+				entrada de:
+				\begin{displaymath}
+					v_i = 285.2~mv
+				\end{displaymath}
+
+				Luego de realizar el análisis de las excursiones, se procede a analizar el criterio que debe tomarse para que haya baja distorsión en la señal de
+				salida respecto de la de entrada. Del enunciado del presente trabajo se extrae que la condición que debe cumplirse es que:
+
+				\begin{displaymath}
+					V_{GS}-V_{GSQ} << \frac{V_{GSQ}-V_{TH}}{2}
+				\end{displaymath}
+
+				Esta condición se obtiene del desarrollo por taylor de la ecuación de transferencia del transistor MOS en el punto de trabajo Q. Realizando un 
+				desarrollo de Taylor hasta la derivada primera se obtiene:
+				\begin{displaymath}
+					I_d(V_{GS})=I_d + 2k(V_{GS_Q}-V_{TH})(V_{GS}-V_{GS_Q})+...
+				\end{displaymath}
+
+				Ahora si se multiplica y divide el segundo termino de la sumatoria por $V_{GS} - V_{TH}$ se obtiene:
+
+				\begin{displaymath}
+					I_d(V_{GS})=I_d + \frac{2k(V_{GS_Q}-V_{TH})(V_{GS}-V_{TH})}{(V_{GS_Q}-V_{TH})}+...
+				\end{displaymath}
+
+				Reemplazando la ecuaci\'{o}n caracter\'{i}stica del MOS se llega a que:
+
+				\begin{displaymath}
+					I_d(V_{GS})=I_d + \frac{2I_d(V_{GS}-V_{GS_Q})}{(V_{GS}-V_{TH})}
+				\end{displaymath}
+
+				Esta ecuación muestra que para que la linealización sea respetada, se necesita que los términos no lineales tengan baja influencia por lo tanto 
+				se necesita que:
+
+				\begin{displaymath}
+					V_{GS}-V_{GS_Q}<< \frac{(V_{GS_Q}-V_{TH})}{2}
+				\end{displaymath}
+
+				Se calcularon los valores
+				\begin{displaymath}
+					\frac{(V_{GS_{Q1}}-V_{TH})}{2}=152~\text{mV}
+				\end{displaymath}
+
+				\begin{displaymath}
+					\frac{(V_{GS_{Q2}}-V_{TH})}{2}=42~\text{mV}
+				\end{displaymath}
+				Para concluir se obtiene que antes de que la tension de salida sufra un recorte por corte, esta se vera previamente distorsionada.						
+			\subsubsection{Simulaciones}		
+			Para realizar la simulación, se procede a calcular algunos armónicos del espectro de furier de la señal que obtenemos a la salida del circuito. Para esto se emplea el comando .four del LTSPICE el cual calcula estos armónicos y nos brinda el THD (Distorsión Armónica Total) con el cual tenemos una relación porcentual de la influencia de los armónicos sobre la frecuencia fundamental.
+			El valor que se tomara para considerar a la señal de salida "optima" (baja distorsión) sera un THD en un intervalo de cero a tres por ciento. 
+			\indent La senal utilizada es senoidal con frecuencia de 50 KHz. En las figuras \ref{pimg001}, \ref{pimg002} y \ref{pimg003} se muestra el aumentos del THD causada por la aparicion de armonicos. \\
+			\indent Dichas amplitudes son (expresadas en mV) 10, 25 y 160 respectivamente. Como conclusión, se observa que la señal de entrada que no presenta 
+			distorsión apreciable es:
+				\begin{displaymath}
+					\hat{V_i} =25~\text{mV}
+				\end{displaymath}
+					
+			\begin{figure}[!htb]
+					\centering
+						\includegraphics[width=9.5cm]{Imagenes/FFT_10.png}
+						\caption{Se\~{n}al sin distorcion} \label{pimg001}
+				\end{figure}
+			\begin{figure}[!htb]
+					\centering
+						\includegraphics[width=9.5cm]{Imagenes/FFT_25.png}
+						\caption{Se\~{n}al presentando sintomas de distorcion} \label{pimg002}
+				\end{figure}
+			\begin{figure}[!htb]
+					\centering
+						\includegraphics[width=8cm]{Imagenes/FFT_160.png}
+						\caption{Se\~{n}al con distorcion apreciable} \label{pimg003}
+				\end{figure}
+
+			%TODO: Faltaría realizar el análisis para ver a qué tensiones de entrada recorta la salida. 
+				 
+			\subsubsection{Mediciones}
+			Para el análisis de la distorsión, se procede a observar en el laboratorio la señal a la salida a traves del osciloscopio. Se observa que a partir de 
+			una $V_i$ de 25 mV de amplitud, la señal comienza a distorsionar. Este valor implica que a la salida se tiene 266.5 mV de tension pico, por lo que 
+			el transistor comienza a distorsionar bastante antes de llegar a la máxima excursión por corte calculada por inspección. \\
+ 			\indent Tensi\'{o}n m\'{a}xima de salida medida:	
+
+			\begin{displaymath}
+				\hat{V_i} = 25~\text{mV}
+			\end{displaymath}			
+
+			\paragraph{¿Qué efectos causaría la eliminacion $C_g$ en los valores medidos en los punto 1 a 4?}
+			La eliminación de $C_g$ a frecuencias medias causaría la aparición en alterna de Rs, provocando las siguientes modificaciones en los parámetros del circuito:
+			\begin{itemize}
+				\item El punto de reposo no evidencia variaciones ya que el capacitor en corriente continua actúa como un circuito abierto.
+				\item La ganancia total del circuito caería ya que el primer transistor estaría realimentado para alterna. La nueva ganancia total sería la de un 
+				emisor común realimentado, la cual se exhibe al ecuación \ref{eq010}.
+				\item Aumenta la resistencia de entrada a de gate $R_ig$, pero como es muy grande en comparación con $R_G$, al estar relacionadas mediante un paralelo la
+				resistencia $R_G$ dominaría y la resistencia interna $R_i$ se mantendría sin modificación apreciable.
+				\item Al incorporarse $R_S$ en el circuito de señal la tensión de entrada quedaría compuesta por $v_i = v_{gs_1} + v_{R_S}$, lo cual permite que la 
+				máxima señal de entrada $v_i$ que puede introducirse sin que haya recorte aumente.
+			\end{itemize}
+				
+			\begin{equation}
+				A_v =\frac{-R_D || R_L}{r_{d1}+1}=-1.93 \label{eq010}
+			\end{equation}
+
+		\subsection{Estudio Respuesta En Frecuencia}
+			\subsubsection{Parte Teórica}
+				A continuación se estudiará la respuesta en frecuencia del circuito. Para ello, cabe destacar 3 zonas marcadas, las cuales son bajas frecuencias, 
+				las llamadas frecuencias medias y altas frecuencias. \\
+				\indent Frecuencias medias son aquellas frecuencias en que el circuito se comporta como si fuese puramente resistivo, ya que a esas frecuencias las 
+				reactancias capacitivas no son comparables a los valores de resistencias. \\
+				\indent En bajas frecuencias, los capacitores que están conectados en serie a la señal comienzan a influir haciendo que el $A_v$ disminuya. Estos 
+				capacitores comienzan a influir.
+				\indent Para determinar cual es la frecuencia de corte inferior del circuito, es necesario saber que capacitores son los que afectan a la ganancia, 
+				en este caso el $A_v$. Estos capacitores son los que están conectados en serie al recorrido de la señal, en el circuito \ref{pimg004} son 
+				$C_G$ y $C_L$. Los mismos comienzan a influir porque el valor de sus reactancias comienzan a hacerse comparables con los valores de las 
+				resistencias del circuito. \\
+				
+				\begin{figure}[!htb]
+					\centering
+						\includegraphics[width=12cm]{Imagenes/CascodeRespuestaBajaFrecuencia.png}
+						\caption{Circuito equivalente en baja frecuencia} \label{pimg004}
+				\end{figure}
+				
+				\indent No se realizará un análisis sobre la respuesta con el capacitor $C_L$ ya que, al considerarse $r_o$ y $r_\mu$ infinitas, dicho componente 
+				no posee interacción ni con la entrada ni con el resto de los capacitores. \\
+				\indent Para calcular la frecuencia de corte inferior se supondrá a priori, que los polos impuestos por los capacitores se encuentran suficientemente 
+				separados entre sí para que no haya influencia entre los mismos. A su vez, se supondrá que la frecuencia de corte es causada por un polo de primer 
+				orden. Para esto, se calculará la frecuencia de corte de cada capacitor por serparado, por ende, se considerará que los polos impuestos por el 
+				resto de los capacitores están suficientemente a la izquierda (en una frecuencia menor), de esto se interpreta que se debe considerar a estos 
+				capacitores como cortocircuitos. \\\\
+				
+				\indent En señal, las resistencias "vistas" por el capacitor se aprecian en el grafico \ref{pimg005}
+				
+				\begin{figure}[!htb]
+					\centering
+						\includegraphics[width=10cm]{Imagenes/RVistaCg.png}
+						\caption{Circuito equivalente "visto" por $C_g$} \label{pimg005}
+				\end{figure}
+				
+				Para conocer el valor de $r_d$ se realiza la siguiente ecuación:
+				
+				\begin{equation}
+					rd = \frac{1}{gm_1} = \frac{1}{4.575~\frac{\text{mA}}{\text{V}}} = 219~\Omega
+				\end{equation}
+				
+				Quedando así, la resistencia total vista por el capacitor:
+				
+				\begin{equation}
+					R_t = rd // R1 = 219~\Omega // 1~\text{K}\Omega = 180~\Omega
+				\end{equation}
+				
+				Como $\tau = R_t \cdot C$, la frecuencia de corte inferior queda de la siguiente manera:
+
+				\begin{equation}
+					F_c = \frac{1}{2\pi \cdot \tau} = \frac{1}{2 \pi \cdot 180~\mu \text{s}} = 884~\text{Hz} \label{eq011}
+				\end{equation}
+
+				\indent En altas frecuencias, los capacitores anteriormente mencionados continúan comportándose como un cortocircuito como lo hacían a frecuencias 
+				medias, pero ahora, los capacitores del modelo del transistor comienzan a influir afectando así, nuevamente, a la ganancia $A_v$ porque están 
+				conectados en paralelo al recorrido de la señal. Por ende, mientras más se aumenta la frecuencia, menor es la reactancia, hasta que se comportan 
+				como un cortocircuito. En este punto extremo, la $V_o = 0$. \\
+				\indent El circuito equivalente a altas frecuencias es mostrado en la figura \ref{pimg006} \\
+				
+				\begin{figure}[!htb]
+					\centering
+						\includegraphics[width=10cm]{Imagenes/CircuitoAltaFrec.png}
+						\caption{Circuito equivalente a alta frecuencia} \label{pimg006}
+				\end{figure}
+				
+				\indent Para calcular la frecuencia de corte superior se supondrá a priori que los polos impuestos por los capacitores se encuentran suficientemente 
+				separados entre sí para que no haya influencia entre los mismos. A su vez, se supondrá que la frecuencia de corte es causada por un polo de 
+				primer orden. Para esto, se calculará la frecuencia de corte de cada nodo por separado. Por ende, se considerará que los polos impuestos por el 
+				resto de los capacitores están suficientemente a la derecha (en una frecuencia mayor), de esto se interpreta que se debe considerar a estos 
+				capacitores como abiertos. \\ \\
+				\indent Como puede observarse en el gráfico \ref{pimg006}, sólo se debe calcular la frecuencia de corte en los nodos de la entrada ($G_1$) y 
+				salida ($D_2$), ya que el resto de los capacitores del modelo mostrados en la figura \ref{circ001} están conectados en ambos terminales a masa. \\
+				\indent Primero se procederá a calcular el tau referente al nodo del $G_1$, para ello se debe calcular que resistencia equivalente "ve" 
+				el capacitor equivalente (como hay un capacitor que une la entrada con la salida, es necesario reflejarlo utilizando los criterios de müller). 
+				En el gráfico \ref{pimg007} se muestra el circuito equivalente. \\
+
+				\begin{figure}[!htb]
+					\centering
+						\includegraphics[width=10cm]{Imagenes/CircEqNodoG1.png}
+						\caption{Circuito equivalente a alta frecuencia para el nodo $G_1$} \label{pimg007}
+				\end{figure}
+				
+				\indent Como el capacitor $C_5$ está conectado entre la entrada y la salida, su capacitancia reflejada se multipmica por un factor 
+				de $(1 - A_v)$, el $A_v$ es el calculado en la sección anterior y es igual a $-11,21$, resultando en los siguientes valores equivalentes:
+				
+				\begin{equation}
+					R_{eq} = R_5 // R_2 = R_5 = 50~\Omega
+				\end{equation}
+				
+				\begin{equation}
+					C_{eq} = C_4 + C_5^{*} \cdot (1 - A_v) = 2.2~\text{pF} + 25~\text{fF} \cdot (1 + 11.21) = 2.5~\text{pF}
+				\end{equation}
+				
+				La fórmula de la frecuencia de corte es la misma que para bajas frecuencias, por ende se procederá a calcularla como en la ecuación 
+				\ref{eq008}. El resultado a continuación:
+				
+				\begin{equation}
+					\tau = R_{eq} \cdot C_{eq} = 125~\text{ps}
+				\end{equation}
+
+				\begin{equation}
+					F_{c_{sup_1}} = \frac{1}{2\pi \cdot \tau} = \frac{1}{2\pi \cdot 125~\text{ps}} = 1.2~\text{GHz}
+				\end{equation}
+				
+				\indent Ahora se procederá a calcular el tau con respecto al nodo de salida o nodo de $D_2$ realizando el mismo procedimiento. Esta vez, 
+				el $A_v$ utilizado para la reflexión de $C_5$ es de una ganancia inversa, ya que la señal entra por el nodo $D_2$ y sale por $G_1$. Por ende este 
+				valor tiende a 0 y se lo desprecia. En el gráfico \ref{pimg008} se muestra el circuito de resistencias y capacitores equivalentes. Como se 
+				supone un $V_a$ tendiendo a infinito, la resistencia vista hacia el nodo $D_2$ tiende a infinito y no se la considera.
+
+				\begin{figure}[!htb]
+					\centering
+						\includegraphics[width=10cm]{Imagenes/CircEqNodoD2.png}
+						\caption{Circuito equivalente a alta frecuencia para el nodo $D_2$} \label{pimg008}
+				\end{figure}
+
+				\begin{equation}
+					R_{eq} = R_{ca} = 2450~\Omega \label{eq012}
+				\end{equation}
+				
+				\begin{equation}
+					C_{eq} = C_6 + C_5^{*} \cdot (1 - A_v) = 0.8~\text{pF} + 25~\text{fF} = 0.825~\text{pF} \label{eq013}
+				\end{equation}
+				
+				\indent Con los valores exhibidos en las ecuaciones \ref{eq011} y \ref{eq012} se procederá a calcular la segunda posible frecuencia 
+				de corte superior:
+				
+				\begin{equation}
+					\tau = R_{eq} \cdot C_{eq} = 2.02~\text{ns}
+				\end{equation}
+
+				\begin{equation}
+					F_{c_{sup_2}} = \frac{1}{2 \cdot \pi \cdot \tau} = \frac{1}{2\pi \cdot 2.02~\text{ns}} = 79~\text{MHz}
+				\end{equation}				
+				
+				\indent Comparando ambas frecuencias de corte superiores, $1.2~\text{GHz}$ y $79~\text{MHz}$, se puede concluir que la frecuencia de corte superior ronda 
+				por los $79~\text{MHz}$. Por lo tanto el ancho de banda del circuito es de $885~\text{Hz} - 79~\text{MHz}$ \\ \\
+				\indent A la hora de realizar las mediciones, se debe tener en cuenta el efecto de carga que el circuito punta-osciloscopio genera en el circuito. 
+				Las mediciones se realizaron con dos puntas distintas, una punta $x10$ y otra activa, la cual es posee una factor de atenuación igual a 20. Dichas 
+				puntas se cuelgan en paralelo a los circuitos calculados anteriormente para dichas mediciones. Para la medición de la frecuencia de corte inferior 
+				el capacitor equivalente no afecta, ya que para esta frecuencia se lo considera como un circuito abierto. \\
+				\indent Las resistencias y capacitores equivalentes de dichos componentes se muestran en el cuadro \ref{tab004}.
+				
+				\begin{table}[!htb]
+				\centering
+					\begin{tabular}{|c|c|c|}
+						\hline
+						Punta & $R_{int}$ & $C_{int}$ \\
+						\hline
+						$X_{10}$ & $10~\text{M}\Omega$ & $20~\text{pF}$\\
+						\hline
+						$X_{20}$ & $20~\text{M}\Omega$ & $2~\text{pF}$\\
+						\hline
+					\end{tabular}
+				\caption{Resistencias y capacitancias equivalentes en punta $X_{10}$ y $X_{20}$} \label{tab004}
+				\end{table}
+				
+				\indent En la tabla \ref{tab005} se muestran los capacitores y resistencias equivalentes y los valores de las frecuencias de corte superior, 
+				tomando en cuenta el efecto de carga que la punta-osciloscopio genera. La fórmula para calcular la frecuencia de corte es la fórmula anteriormente 
+				mencionada. \\
+				
+				\begin{table}[!htb]
+				\centering
+					\begin{tabular}{|c|c|c|}
+						\hline
+						Parámetros & $X_{10}$ & $X_{20}$ \\
+						\hline
+						$R_{eq}$ & $2450~\Omega$ & $2450~\Omega$ \\
+						\hline
+						$C_{eq}$ & $20~\text{pF}$ & $2.825~\text{pF}$ \\
+						\hline
+						$Fc_{sup}$ & $3~\text{MHz}$ & $23~\text{MHz}$\\
+						\hline
+					\end{tabular}
+				\caption{Frecuencias de corte superior tomando en cuenta el efecto de carga de las distintas puntas} \label{tab005}
+				\end{table}
+				
+				\indent Como puede apreciarse en el cuadro \ref{tab005} la frecuencia de corte superior es menor utilizando la punta $X_{10}$ ya que esta introduce un
+				mayor efecto de carga en la medición. \\
+			%\clearpage	
+
+			\subsubsection{Simulaciones}
+			% TODO: Esto está demasiado pobre. Hay que completar y hacer un análisis de la respuesta en frecuencia en función del efecto de carga introducido por
+			% las puntas. 
+			\indent A continuación se procederá a realizar la simulación de la respuesta en frecuencia para corroborar lo calculado analíticamente y 
+			las mediciones efectuadas. 
+			
+			\begin{figure}[!htb]
+					\centering
+						\includegraphics[width=10cm]{Imagenes/tranferencia.png}
+			\end{figure}
+			
+			Aqui se puede observar que la frecuencia de corte superior calculada analíticamente no difiere en mucho, su error corresponde al m\'{e}todo utilizado.\\
+			Finalmente se observa que la frecuencia de corte superior del circuito mediante simulaci\'{o}n es $\simeq 78~\text{MHz}$.\\
+			\chapter{Simulacion con Puntas}
+				\\Ahora analizaremos los efectos de las puntas en las mediciones\\
+				Las puntas no afectan en bajas frecuencias ya que presentan capacidades equivalentes muy pequeñas\\\\
+				Punta X 10\\
+				La punta x10 presenta
+				\begin{displaymath}
+					C_{eq} = 20 pf
+				\end{displaymath}
+				\begin{displaymath}
+					R_{eq} = 10 Meg
+				\end{displaymath}
+				Ubicadas en paralelo a la salida y entre ellas generando una capacidad equivalente total en el nodo de salida de
+				\begin{displaymath}
+					C_{eqtot}= 0.8pf+20pf = 20.8 pf
+				\end{displaymath}
+				Obteniendo de esta manera
+				\begin{displaymath}
+					f_h = 3.24 MHz
+				\end{displaymath}
+				\begin{figure}[!htb]
+					\centering
+						\includegraphics[width=12cm]{Imagenes/Puntax10.png}
+				\end{figure}
+				Punta Activa\\
+				La punta Activa presenta
+				\begin{displaymath}
+					C_{eq} = 2 pf
+				\end{displaymath}
+				\begin{displaymath}
+					R_{eq} = 1 Meg
+				\end{displaymath}
+				Ubicadas en paralelo a la salida y entre ellas generando una capacidad equivalente total en el nodo de salida de 
+				\begin{displaymath}
+					C_{eqtot}= 0.8pf+2pf = 2.8 pf
+				\end{displaymath}
+				Obteniendo de esta manera
+				\begin{displaymath}
+					f_h = 23.83 MHz
+				\end{displaymath}
+				\begin{figure}[!htb]
+					\centering
+						\includegraphics[width=12cm]{Imagenes/Puntax20.png}
+				\end{figure}
+				Finalmente cabe aclarar que las resistencais equivalentes de las puntas no afectan al valor de la equivalente ya que son grandes en comparacion 
+				la resistecia de salida del circuito\\
+				Se concluye que el polo generado por la inclucion de las puntas afecta a la frecuencia de corte superior de la transferencia. Por consiguiente y 
+				como muestran las simulaciones la punta activa al tener un tau mas pequeño que la punta X10, afecta en menor medida a la medicion de la fh.
+			
+			\subsubsection{Mediciones}
+				\indent Para la medicion de la respuesta en frecuencia se utilizaron dos puntas, una activa $X_{20}$ y otra pasiva $X_{10}$. La punta pasiva posee una 
+				capacitancia de $20~\text{pF}$ y una resistencia en paralelo de $10~\text{M}\Omega$, mientras que la punta activa posee una capacitancia $2~\text{pF}$ 
+				y una resistencia de $20~\text{M}\Omega$ en paralelo. Como indica el item a realizar se midió la frecuencia de corte superior. \\
+				
+				\indent Para realizar la medición se conectaron 2 puntas, una a la entrada del circuito y otra a la salida, se fue variando la frecuencia hasta que la 
+				amplitud de la señal de salida sea menor que la amplitud de entrada por un factor de $\sqrt{2}$. \\
+				\indent La punta conectada a la entrada del circuito no influye en la medición dado que el nodo GATE-T1 no es el dominante por lo demostrado en la 
+				parte teórica. 
+
+				\begin{displaymath}
+					punta X10 \Rightarrow Ceq=0.8~\text{pF}+20~\text{pF}=20.8~\text{pF}
+				\end{displaymath}	
+
+		    \begin{displaymath}
+					punta Activa \Rightarrow Ceq=0.8~\text{pF}+2~\text{pF}=2.8~\text{pF}	
+				\end{displaymath}
+
+				En la tabla \ref{tab006} se muestran los valores de tensión de la salida medidos a diferentes frecuencias. La $v_i$ utilizada es de $30~\text{mV}$ 
+				y, como el $A_v$ es de 10, la salida a frecuencias medias es de $300~\text{mV}$.
+			
+				\begin{table}[!htb]
+				\centering
+					\begin{tabular}{|c|c|c|}
+						\hline
+						Frecuencia & $V_o$ punta $X_{10}$ (mV) & $V_o$ punta $X_{20}$ (mV) \\
+						\hline
+						$100~\text{KHz}$ & 295 & 290 \\
+						\hline
+						$500~\text{KHz}$ & 280 & 285 \\
+						\hline
+						$1~\text{MHz}$ & 254 & 285 \\
+						\hline
+						$3~\text{MHz}$ & 215 & 286 \\
+						\hline
+						$8~\text{MHz}$ & 180 & 280 \\
+						\hline
+						$10~\text{MHz}$ & 82 & 272 \\
+						\hline
+					\end{tabular}
+				\caption{Mediciones de $V_o$ a distintas frecuencias} \label{tab006}
+				\end{table}			
+			
+				Como se puede apreciar en la tabla \ref{tab006}, se obtuvo una frecuencia de corte de $3.1~\text{MHz}$ con la punta $X_10$. En cuanto a la medición 
+				con la punta activa, no se pudo medir la frecuencia de corte superior ya que el generador de funciones no entrega una frecuencia mayor que 
+				$10~\text{MHz}$. Por ende, lo único que se puede asegurar es que la frecuencia de corte superior del circuito se encuentra por encima de los 
+				$10~\text{MHz}$. 
+		
+\end{document}
