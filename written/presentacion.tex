@@ -117,8 +117,10 @@
 
 	\section{Estado del Arte}
 		La calibración de una antena polarimétrica se ha estudiado en numerosas 
-	ocasiones, abordando el problema desde distintos enfoques. En el siguiente 
-	gráfico se pueden observar los distintos métodos utilizados.
+	ocasiones, abordando el problema desde distintos enfoques. A continuación se
+    pueden observar los distintos métodos utilizados, clasificados por la 
+    utilización o no de componentes externos.
+
 	\[
 		\substack{\text{métodos}\\de\\\text{calibración}}
 		\begin{cases}
@@ -157,10 +159,58 @@
 		\end{cases}
 	\]
 
-	\todo{todo}
 
-		Dichos métodos se han clasificado por la utilización o no de componentes
-	externos a la antena.
+La calibración interna es el método más típicamente utilizado pero adolece de 
+algunos defectos como ser que:
+
+\begin{itemize}
+    \item Los circuladores no están incluidos dentro de dicho lazo de 
+calibración interna. Esto obliga a que los mismos tengan que ser caracterizados
+previamente y asegurar la estabilidad a lo largo de toda la vida útil de la
+misión.
+    \item Las antenas, o modulos radiantes, también quedan fuera del lazo de
+calibración. Por ende, un módulo radiante que pudiese resultar dañado en vuelo,
+no es detectable por el lazo interno de calibración.
+    \item Durante los ensayos, se adolece de puntos de testeo que permitan 
+corroborar que la potencia de salida por el modulo radiante es la esperada. No
+hay acopladores direccionales entre el TRM y el modulo radiante entonces no es
+posible si no es con un equipo de campo cercano poder ver la potencia de salida
+de cada módulo radiante y la fase.
+    \item Es necesario realizar una caracterización de la RFDN en temperatura lo
+cual insume numerosos recursos y queda sujeto además a la suposición de que nada
+cambien en el tiempo. \todo{pongo que esto es debido a que, para calibrar una 
+cadena, se deben utilizan ambas (de ambas polarizaciones), una para transmisión
+y otra para recepción. Por lo tanto, se debe eliminar el defasaje y atenuación 
+que agrega el camino de recepción?}
+    \item Existe una incertidumbre dada reductible hasta cierto punto en la 
+determinación de fase y amplitud de salida dada por lo que determina la cadena y
+el camino en cuestión.
+\end{itemize}
+
+Por este motivo la calibración interna requiere de un método que complemente 
+todos estos aspectos, mejorandolos. Es decir un método que:
+
+\begin{itemize}
+    \item Incorpore los circuladores al lazo de calibración interno (LCI).
+    \item Incorpore los módulos radiantes al LCI.
+    \item Permita durante los ensayos poder estimar la potencia real y fase con
+la que emite cada uno de los módulos radiante sin la necesidad de incorporar
+elementos adicionales como ser acopladoes direccionales.
+    \item Evite o minimice las caracterizaciones previas que demandan una
+cantidad de recursos para nada despreciable y que encarece las campañas.
+    \item Permita minimizar la incertidumbre de salida en fase y ganancia.
+\end{itemize}
+
+Entre la biliografia de antenas existe un método denominado de calibración por 
+acoplamiento mutuo\todo{buscar en los papers este método}. Este método no puede
+determinar la potencia y fase absoluta de transmisión de cada módulo radiante, 
+solamente la potencia y fase relativa entre los mismos. Por ende, este método no
+es completo.
+
+Se propone utilizar el método de acoplamiento mutuo como “complemento” del 
+existente denominándolo método de “autocalibracion interna extendida”. Como 
+ventaja, no solo se abarca todo el sistema sino que también es fácilmente 
+implementable con el hardware ya existente. 
 
 	\section{Cronograma}
 	\subsection{Cronograma detallado}
