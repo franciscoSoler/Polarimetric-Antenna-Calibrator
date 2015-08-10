@@ -12,10 +12,47 @@
 \usepackage{enumerate}
 \usepackage{csquotes}
 \usepackage{longtable}
+\usepackage{pdflscape}
+\usepackage{comment}
+
+\usepackage[a5paper,hmargin=3cm,vmargin=5cm]{geometry}
+\usepackage{lipsum,graphicx}
+\usepackage[absolute]{textpos}
+\usepackage{fancyhdr}
+\usepackage{typearea}
+\fancypagestyle{lscape}{%
+  \fancyhf{}
+  \fancyhead[L]{%
+    \tikz[remember picture,overlay]
+      \node[outer sep=1cm,below,rotate=90] at (current page.west) 
+      {\textsf{Facultad de Ingenier\'ia $-$ Universidad de Buenos Aires}};}
+      
+  \fancyhead[R]{%
+    \tikz[remember picture,overlay]
+\node[outer sep=1.5cm,below,rotate=90] at (current page.west) {\textsf{PROYECTO
+ DE TESIS DE INGENIERÍA INFORMÁTICA}                                \thepage};}
+  \fancyfoot[R]{%
+    \tikz[remember picture,overlay]
+      \node[outer sep=2cm,above,rotate=90] at (current page.east) {\textsf{Estudiante: Soler, Francisco}};}
+
+
+
+
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{0pt}
+
+}
+
 % Paquetes de macros de Circuitos
 %\usepackage{pstricks}
 \usepackage{tikz}
 \usepackage[colorinlistoftodos,prependcaption,textsize=tiny]{todonotes}
+
+\usepackage{tabto}
+
+\newcommand{\personalData}[2]{%
+  \textbf{\indent #1 \NumTabs{6}\tab\tab{#2}}\\%
+}
 
 % Encabezado y Pié de página
 \input{EncabezadoyPie.tex}
@@ -212,9 +249,38 @@ existente denominándolo método de “autocalibracion interna extendida”. Com
 ventaja, no solo se abarca todo el sistema sino que también es fácilmente 
 implementable con el hardware ya existente. 
 
-	\section{Cronograma}
-	\subsection{Cronograma detallado}
-	\todo{agregar cronograma}
+\newgeometry{hmargin=3cm,vmargin=5cm}
+\thispagestyle{lscape}
+\begin{landscape}
+ 
+    \section{Cronograma}
+	
+\begin{figure}[!htb]
+ \centering
+ \includegraphics[width=1.5\textwidth]{Imagenes/CronogramaTesis.png}
+ \caption{Diagrama en bloques de sistema híbrido}
+ \label{fig:sist_hibrido}
+\end{figure}
+
+    \end{landscape}
+\restoregeometry
+       
+    \subsection{Cronograma detallado}
+
+En el cronograma se propone un tiempo de cuatro horas por día de trabajo, por lo tanto, las tareas quedan divididas de la siguiente forma:
+
+\begin{itemize}
+    \item 240 horas para investigar sobre los distintos métodos de calibración existentes.
+    \item 80 horas para investigar sobre el funcionamiento de una antena polarimétrica.
+    \item 240 horas para desarrollar un modelo de antena polarimétrica
+    \item 120 horas para desarrolar la simulación del método de mutual Calibration.
+    \item 60 horas para desarrollar la simulación del método de calibración interna.
+    \item 100 horas para definir ensayar testear y extraer conclusiones de las comparaciones entre ambos métodos de calibración.
+    \item 220 horas para redactar la tesis
+\end{itemize}
+
+Resultando así en unas 1060 horas de trabajo.
+
 
 	\newpage
 	\section{Bibliografía}
@@ -427,7 +493,50 @@ implementable con el hardware ya existente.
 	\newpage
 	\section{Currículum Vitae}
 	
-	\newpage
+
+\subsection*{Datos Personales}
+\personalData{}{}
+\personalData{Nombre: José Francisco Soler}{D.N.I.: 34765654}
+\personalData{Domicilio: Adolfo Alsina 2550}{Capital Federal}
+\personalData{Teléfono: 011-39041335}{}
+\personalData{Fecha de nacimiento: 04/10/1989}{Edad: 25 años}
+\personalData{Nacionalidad: Argentina}{Estado civil: soltero}	
+
+\subsection*{Formación Académica}
+Escuela Provincial Técnica No 748, Trelew - Chubut: Egresado en el año 2007 con
+honores. Orientación electrónica en Telecomunicaciones.
+
+Facultad de Ingeniería, Universidad de Buenos Aires: Ingeniería en Informática e
+Ingeniería en Electrónica. Aprobado Ciclo Básico Común; 240 créditos de un total
+de 248, un promedio de 7.22 en Informática y 216 créditos en Electrónica.
+
+
+\subsection*{Idiomas}
+    Inglés, nivel upper intermediate.
+
+\subsection*{Experiencia}
+Ayudante en la materia Laboratorio desde el segundo cuatrimestre del 2010.
+Realización de un trabajo práctico, el cual, constó del procesamiento de una 
+señal en crudo, tomada con una antena de apertura sintética, en la materia 
+Señales y Sistemas.
+
+Análisis, diseño y construcción de un prototipo didáctico de sensor satelital. 
+El cual consta de una plataforma con 8 sensores infrarrojos, dispuestos de tal 
+forma que, colocando una maqueta con relieve, estos realizan un mapeo de la 
+zona para luego mostrar por computadora el mapa topográfico resultante. Este 
+prototipo se lo puede encontrar en las instalaciones de la escuela provincial 
+de Trelew ex-enet No 748.
+
+Trabajé en el negocio familiar en ventas durante 10 años.
+
+Actualmente trabajando en CONAE en el área de sistemas, dedsde enero del 2014.
+
+Manejo de Windows, Linux, Excel, Word, entre otros.
+
+Lenguajes de programación: Pascal, C, C++, Java, Smalltalk, Oz, Go, Perl,
+assembler, Python.
+
+\newpage
 	\section{Materias Aprobadas}	
 	\begin{center}
 		\scriptsize
