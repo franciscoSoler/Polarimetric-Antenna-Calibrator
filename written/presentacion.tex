@@ -67,22 +67,24 @@
 	\newpage
 
 	\section{INTRODUCCIÓN}
-		Las antenas de arreglo de fase controlada son comunmente utilizadas en 
-	aplicaciones aéreas y espaciales. Para obtener un buen comportamiento de las
-	mismas es necesario que estén correctamente calibradas. Esto implica, que 
-	las tolerancias de fases y amplitudes se mantengan y sus valores sean bien 
-	conocidas por cada elemento del arreglo.
-	
-		Las antenas de arreglo de fase en tierra son, generalmente, calibradas
-	utilizando fuentes externas de campo lejano o cercano. Sin embargo, en 
-	aplicaciones aéreas o espaciales, la utilización de dichas fuentes es 
-	impráctica o difícil de implementar. A su vez, si se opta por caracterizar
-	todos los componentes, el tiempo que implicaría es excesivo. Por estas 
-	razones, surgieron distintos métodos de calibración interna.
+    
+Las antenas de arreglo de fase controlada son comunmente utilizadas en 
+aplicaciones aéreas y espaciales. Para obtener un buen comportamiento de las
+mismas para generar diversos productos, por ejemplo imágenes satelitales, es 
+necesario que estén correctamente calibradas. Esto implica, que las tolerancias
+de fases y amplitudes se mantengan y sus valores sean bien conocidas por cada
+elemento del arreglo.
 
-		En este conexto, se propone un nuevo método de calibración, el cual 
-	aprovecha el acoplamiento mutuo inherente entre los módulos radiantes de la 
-	antena.
+Generalmente, este tipo de antenas son calibradas en tierra utilizando fuentes 
+externas de campo lejano o cercano. Sin embargo, en aplicaciones aéreas o 
+espaciales, la utilización de dichas fuentes es impráctica o difícil de 
+implementar. A su vez, si se opta por caracterizar todos los componentes, el 
+tiempo que implicaría es excesivo. Por estas razones, surgieron distintos 
+métodos de calibración interna.
+
+    En este conexto, se propone un nuevo método de calibración, el cual 
+aprovecha el acoplamiento mutuo inherente entre los módulos radiantes de la 
+antena.
 
 	\subsection{DEFINICIÓN}
 		Una antena de arreglo de fase controlada es una antena compuesta por un
@@ -94,19 +96,15 @@
 	u indirecta de la potencia y fase de salida/entrada de la antena 
 	polarimétrica.
 		
-	\subsection{CARACTERÍSTICAS}
-		La utilización de una buena calibracíon interna es una problemática muy
-	desafiante dado que es uno de los factores limitantes en la calidad de los 
-	productos obtenidos con estas antenas.
-
 	\section{MOTIVACIÓN}
 		Hay numerosas motivaciones para la investigación de un nuevo método de 
 	calibración:
+
 		Primero, a la hora de adquirir imágenes satelitales es crucial que se 
 	conozca perfectamente la señal emitida y recibida por la antena. Ya sea por 
-	envejecimiento de los materiales, por variaciones de temperaturas u algún 
-	otro factor, se observan dispersiones de las mismas. Hay dos enfoques para 
-	encarar esta problemática:
+	envejecimiento de los componentes o por variaciones de temperaturas se
+    observan dispersiones de las mismas [\ref{ppr:sim1}]. Hay dos enfoques para
+    encarar esta problemática:
 
 		\begin{itemize}
 			\item Controlando las dispersiones máximas que pueden presentarse 
@@ -123,7 +121,6 @@
 		Otro motivo es que el método de calibración convencional posee numerosas
 	limitaciones y falencias; la principal es que no abarca todo el sistema de 
 	transmisión/recepción, dejando así parámetros fuera de control. 
-
 
 		
 	\section{Objetivo de la tesis}
@@ -190,7 +187,8 @@
 				[\ref{ppr:classic-ext1}], [\ref{ppr:classic7}],
 				[\ref{ppr:classic8}]}\\
 				\text{aprovechando acoplamiento mutuo - [\ref{ppr:mutual1}], 
-				[\ref{ppr:mutual-ext1}]}\\
+                [\ref{ppr:mutual2}], [\ref{ppr:mutual3}], 
+                [\ref{ppr:mutual-ext1}]}\\
 				\text{método REV - [\ref{ppr:rev1}]}
 			\end{cases}
 		\end{cases}
@@ -236,10 +234,10 @@ cantidad de recursos para nada despreciable y que encarece las campañas.
 \end{itemize}
 
 Entre la biliografia de antenas existe un método denominado de calibración por 
-acoplamiento mutuo, ver [\ref{ppr:mutual1}], [\ref{ppr:mutual-ext1}]. Este 
-método no puede determinar la potencia y fase absoluta de transmisión de cada 
-módulo radiante, solamente la potencia y fase relativa entre los mismos. Por 
-ende, este método no es completo.
+acoplamiento mutuo, ver [\ref{ppr:mutual1}], [\ref{ppr:mutual2}], 
+[\ref{ppr:mutual3}], [\ref{ppr:mutual-ext1}]. Este método no puede determinar la
+ potencia y fase absoluta de transmisión de cada módulo radiante, solamente la 
+potencia y fase relativa entre los mismos. Por ende, este método no es completo.
 
 Se propone utilizar el método de acoplamiento mutuo como “complemento” del 
 existente denominándolo método de “autocalibracion interna extendida”. Como 
@@ -484,6 +482,15 @@ Resultando así en unas 1060 horas de trabajo.
 		Kumley, Vladimir Krimskiy, Richard Hodges, Suzanne Spitz \enquote*{T/R 
 		Module Development for Large Aperture L-band Phased Array}, IEEEAC paper
 		\# 1179 Version 5, Updated December 10, 2004.
+
+		\item \label{ppr:sim1} Will P. M. N. Keizer \enquote*{Fast and Accurate
+        Array Calibration Using a Synthetic Array Approach}, IEEE TRANSACTIONS 
+        ON ANTENNAS AND PROPAGATION, VOL. 59, NO. 11, NOVEMBER 2011.
+
+		\item \label{ppr:mutual3} HERBERT M. AUMANN, ALAN J. FENN, FRANK G. 
+        WILLWERTH \enquote*{Phased Array Antenna Calibration and Pattern 
+        Prediction Using Mutual Coupling Measurements}, IEEE TRANSACTIONS ON 
+        ANTENNAS AND PROPAGATION, VOL 31. NO 7 , JULY 1989.
 
 	\end{enumerate}
 
