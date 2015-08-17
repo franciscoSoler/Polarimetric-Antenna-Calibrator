@@ -86,6 +86,11 @@ distintos métodos de calibración interna.
 aprovecha el acoplamiento mutuo inherente entre los módulos radiantes de la 
 antena.
 
+    Para poder validar el algoritmo de calibración previamente mencionado se 
+deberá implmenetar un modelo de una antena polarimétrica. La misma debe 
+contemplar las posibles dispersiones de comportamiento de cada uno de
+sus componentes.
+
 	\subsection{DEFINICIÓN}
 		Una antena de arreglo de fase controlada es una antena compuesta por un
 	conjunto de módulos radiantes dispuestos de tal forma, que, aplicando la
@@ -124,10 +129,83 @@ antena.
 
 		
 	\section{Objetivo de la tesis}
-		La presente tesis tiene como objetivo la investigación, análisis y 
-	desarrollo de un nuevo método de calibración interna de una antena 
-	polarimétrica que abarque el sistema completo de transmisión/recepción. 
+    
+    La presente tesis tiene como objetivo la investigación, análisis y 
+desarrollo e implementación de un método alternativo de calibración interna de 
+una antena polarimétrica que abarque el sistema completo de 
+transmisión/recepción. Otro objetivo es comparar este método con el método de 
+calibración convencional para poder determinar las ventajas y desventajas de uno
+sobre el otro.
 
+\section{Alcance}
+
+\subsection{Requerimientos Funcionales}
+
+    A continuación se listarán los requerimientos funcionales de la aplicación:
+
+\begin{itemize}
+    \item La aplicación debe poder calibrar una antena polarimétrica con el 
+método de calibración convencional.
+    \item La aplicación debe poder calibrar una antena polarimétrica con el
+método de calibración alternativo.
+    \item La aplicación debe poder calibrar tanto la potencia como la fase de
+transmisión y recepción.
+    \item La aplicación debe poder calibrar en ambas polarizaciones (H y V).
+    \item Se debe poder calibrar correctamente utilizando cualquier seteo en los
+defasadores y atenuadores.
+    \item No se puede calibrar en la misma polarización para transmisión y 
+recepción a la vez.
+    \item La antena tiene que ser perfectamente plana.
+    \item La antena debe estar compuesta por defasadores, atenuadores, cables, 
+divisores de potencia y módulos radiantes.
+    \item Los componentes de la antena deben caracterizarse utilizando 
+parámetros s.
+    \item Se debe tener en cuenta el efecto que impone un componente al resto de
+la antena.
+    \item Se debe poder configurar la frecuencia de trabajo.
+    \item Se debe poder configurar la dimensión de la antena.
+    \item Se debe poder configurar la distancia entre módulos radiantes.
+    \item Se debe poder configurar los atributos que afecten la modelización de
+cada componente de la antena.
+    \item Se debe poder configurar el error de comportamiento de cada
+componente de la antena.
+    \item Se debe poder configurar la destruccion total de TRMs.
+    \item Se debe poder configurar el setting de los atenuadores y defasadores
+a la hora de realizar la calibración. 
+\end{itemize}
+
+\subsection{Requerimientos no Funcionales}
+
+\subsubsection{Hardware}
+
+    No hay requerimientos básicos del hardware, el simulador corre en cualquier
+computadora de escritorio. 
+
+\subsubsection{Software}
+
+    El software base para esta aplicación es python3.x. No hay restriccioines de
+sistema operativo, se está desarrollado y probando sobre debian.
+
+\section{Herramientas de Desarrollo}
+
+\subsection{Hardware}
+
+Para desarrollar la aplicación solo se utilizará una computadora. En caso que se
+contara con una antena e instrumentos para medir potencia, se podría implementar
+el algoritmo de calibración sobre la misma y mostrar los resultados. 
+
+\subsection{Software}
+
+El software utilizado para desarrollar la aplicación es el siguiente:
+\begin{itemize}
+    \item Lenguaje Aplicación: Python.
+    \item Lenguaje Configuraciones: json
+    \item IDE: Pycharm [\ref{ide}]
+    \item Organización y administración de tareas: Trello [\ref{tareas}]
+    \item Control de versionado: git con github [\ref{versionado}]
+    \item Documentación: Escritura en formato Latex en el vim.
+\end{itemize}   
+    
 	\section{Metodología de la tesis}
 		En la presente tesis se investigarán los métodos de calibraciones 
 	actuales para poder determinar que ventajas, desventajas, limitaciones y 
@@ -253,8 +331,8 @@ implementable con el hardware ya existente.
 \begin{figure}[!htb]
  \centering
  \includegraphics[width=1.5\textwidth]{Imagenes/CronogramaTesis.png}
- \caption{Diagrama en bloques de sistema híbrido}
- \label{fig:sist_hibrido}
+ \caption{Cronograma}
+ \label{fig:crono}
 \end{figure}
 
     \end{landscape}
@@ -270,12 +348,10 @@ En el cronograma se propone un tiempo de cuatro horas por día de trabajo, por l
     \item 240 horas para desarrollar un modelo de antena polarimétrica
     \item 120 horas para desarrolar la simulación del método de mutual Calibration.
     \item 60 horas para desarrollar la simulación del método de calibración interna.
-    \item 100 horas para definir ensayar testear y extraer conclusiones de las comparaciones entre ambos métodos de calibración.
+    \item 100 horas para definir ensayar testear y extraer conclusiones de las 
+comparaciones entre ambos métodos de calibración.
     \item 220 horas para redactar la tesis
 \end{itemize}
-
-Resultando así en unas 1060 horas de trabajo.
-
 
 	\newpage
 	\section{Bibliografía}
@@ -491,7 +567,10 @@ Resultando así en unas 1060 horas de trabajo.
         WILLWERTH \enquote*{Phased Array Antenna Calibration and Pattern 
         Prediction Using Mutual Coupling Measurements}, IEEE TRANSACTIONS ON 
         ANTENNAS AND PROPAGATION, VOL 31. NO 7 , JULY 1989.
-
+        
+        \item \label{ide} https://www.jetbrains.com/pycharm/
+        \item \label{tareas} https://trello.com/
+        \item \label{versionado} https://github.com/
 	\end{enumerate}
 
 	\newpage
