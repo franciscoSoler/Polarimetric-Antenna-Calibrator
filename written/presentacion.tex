@@ -68,120 +68,238 @@
 
 	\section{INTRODUCCIÓN}
     
-Las antenas de arreglo de fase controlada son comunmente utilizadas en 
-aplicaciones aéreas [\ref{ppr:punc-ext1}] y espaciales [\ref{ppr:puncTrgt1}][\ref{ppr:classic8}]. 
-Para obtener un buen comportamiento de las mismas para generar diversos 
-productos, por ejemplo imágenes satelitales, es necesario que estén 
-correctamente calibradas. Esto implica, que las tolerancias de fases y
-amplitudes se mantengan y sus valores sean bien conocidas por cada
-elemento del arreglo.
+Las antenas de arreglo de fase controlada [\ref{sarAntenna}] son utilizadas en 
+aplicaciones de todo tipo, por ejemplo comunicaciones de mobiles 
+[\ref{ppr:mutual-ext1}], aéreas [\ref{ppr:punc-ext1}] y espaciales 
+[\ref{ppr:dist1}][\ref{ppr:classic8}]. 
+
+Para generar diversos productos, por ejemplo imágenes satelitales en radares de
+apertura sintética [\ref{ppr:puncTrgt1}], 
+es necesario que est en correctamente calibradas [\ref{ppr:classic1}] 
+[\ref{ppr:classic2}][\ref{ppr:classic3}]. Esto implica, que las tolerancias de
+fases y amplitudes se mantengan en el tiempo y/o sus valores sean bien conocidas
+para cada elemento del arreglo.
 
 Generalmente, este tipo de antenas son calibradas en tierra utilizando fuentes 
-externas de campo lejano o cercano [\ref{ppr:mutual1}]. Sin embargo, en aplicaciones aéreas o 
-espaciales, la utilización de dichas fuentes es impráctica o difícil de 
-implementar [\ref{ppr:mutual3}]. A su vez, si se opta por caracterizar todos los
-componentes, el tiempo que implicaría es excesivo. Por estas razones, surgieron
-distintos métodos de calibración interna.
+externas de campo lejano o cercano [\ref{ppr:mutual1}]. Sin embargo, en 
+aplicaciones aéreas o espaciales, la utilización de dichas fuentes es impráctica
+o difícil de implementar [\ref{ppr:mutual3}]. Resulta fundamental un esquema de
+calibración interna que permita tener bajo control estas variables. Generalmente
+se implementan lazos de calibración internos \todo{Fran: poner referencias de todos los papers de calibración interna en donde se observa esto}. 
+Luego se opta por caracterizar todos aquellos componentes que no entran dentro 
+de dicho lazo de calibración \todo{Fran: poner referencias de todos los papers en cuestión}. 
+Este método presenta algunos inconvenientes. Por dar un par de ejmplos se puede
+mencionar que los recursos necesarios (tiempo, personal) durante la campaña de 
+ensayos previa al lanzamiento impactan en todo el desarrollo de actividades, o
+que las consecuencias que puede traer el hecho de que la caracterización no sea
+válida porque un determinado componente envejece con el paso del tiempo.
 
-    En este conexto, se propone estudiar un método alternativo de calibración, 
-el cual aprovecha el acoplamiento mutuo inherente entre los módulos radiantes de
-la antena.
+En este contexto, se investiga y propone un método que permita reducir costos 
+asociados a la calibración y por ende a los proyectos:
 
-    Para poder validar el algoritmo de calibración previamente mencionado se 
-deberá implmenetar un modelo de una antena polarimétrica. La misma debe 
-contemplar las posibles dispersiones de comportamiento de cada uno de
-sus componentes.
+\begin{enumerate}
+    \item Evitando la necesidad de realizar caracterizaciones previas de la 
+antena de arreglo de fase.
+    \item Permitiendo conocer en tiempo real, y para el estado real de la antena
+, los valores reales de fase y amplitud en vuelo que transmite la antena, 
+independientemente de su estado de envejecimiento.
+\end{enumerate}
 
-	\subsection{DEFINICIÓN}
-		Una antena de arreglo de fase controlada es una antena compuesta por un
-	conjunto de módulos radiantes dispuestos de tal forma, que, aplicando la
-	teoría de construcción y desturcción de ondas, la señal emitida logra ser 
-	dirigida donde se desee.
-		
+En este sentido se investiga y aprovecha el concepto acoplamiento mutuo 
+inherente entre los modulos radiantes de la antena [\ref{ppr:mutual3}], pero de
+manera complementaria al enfoque tradicional. 
+
+En esta tesis se realizaran las siguientes tareas:
+
+\begin{enumerate}
+    \item Se explicaran las ventajas y desventajas del método propuesto respecto
+del tradicional.
+    \item Se analizaran y propondoran los requerimientos para poder 
+implementarlo.
+    \item Se desarrollara un modelo de antena de arreglo de fase polarimétrico 
+básico representativo en parámetros S \todo{Fran: pone referencia}
+    \item Se añadirán al mismo parámetros de dispersión de comportamiento que 
+permitan analizar su comportamiento.
+    \item Se realizará un modelo de calibración que será implementado 
+algoritimicamente.
+\end{enumerate}
+
+\subsection{DEFINICIÓN}
+
+{\textbf{Antena de arreglo de fase}} (en inglés: phased array) es un conjunto de
+antenas en que las fases relativas de las señales con que se alimenta cada 
+antena se varían intencionadamente con objeto de alterar el diagrama de 
+radiación del conjunto. Lo normal es reforzar la radiación en una dirección 
+concreta y suprimirla en direcciones indeseadas. Si todos los elementos del 
+arrreglo de fase están contenidos en el mismo plano y la señal con que se 
+alimentan es de la misma fase, entonces se estará reforzando la dirección 
+perpendicular a ese plano. Si se altera la fase relativa de las señales se podrá
+ \enquote*{mover} el haz (en realidad lo que se está haciendo es cambiar la 
+dirección en la cual las interferencias son constructivas). Se consigue de este
+modo hacer barridos sin necesidad de movimiento físico, con la ventaja añadida
+de que se pueden barrer ángulos del orden de miles de grados por segundo. Esto
+permite utilizar la antena para compaginar simultáneamente funciones de 
+detección y de seguimiento muchos blancos individuales, asi como para obtener 
+imágenes de apertura sintética. Su uso se va extendiendo debido a la 
+confiabilidad derivada del hecho de que no tienen partes móviles. Casi todos los
+radares militares modernos se basan en phased arrays, relegando los sistemas 
+basados en antenas rotatorias a aplicaciones donde el costo es un factor 
+determinante (tráfico aéreo, meteorología, etc) Su uso está también extendido en
+aeronaves militares debido a su capacidad de seguir múltiples objetivos. El 
+primer avión en usar uno fue el B-1B Lancer, y el primer caza, el MiG-31 ruso.
+
+\todo{agregar la definición de calibración interna}
+
 		Calibración interna es colocar sensores que permitan la medición directa
 	u indirecta de la potencia y fase de salida/entrada de la antena 
 	polarimétrica.
 		
-	\section{MOTIVACIÓN}
-		Hay numerosas motivaciones para la investigación de un nuevo método de 
-	calibración:
+\section{MOTIVACIÓN}
 
-		Primero, a la hora de adquirir imágenes satelitales es crucial que se 
-	conozca perfectamente la señal emitida y recibida por la antena. Ya sea por 
-	envejecimiento de los componentes [\ref{ppr:mutual1}] o por variaciones de temperaturas se
-    observan dispersiones de las mismas [\ref{ppr:sim1}]. Hay dos enfoques para
-    encarar esta problemática:
+A la hora de adquirir imágenes satelitales es crucial que se conozca 
+perfectamente la señal emitida y recibida por la antena. Ya sea por 
+envejecimiento de los componentes [\ref{ppr:mutual1}] o por variaciones de 
+temperaturas se observan dispersiones de las mismas [\ref{ppr:sim1}]. 
 
-		\begin{itemize}
-			\item Controlando las dispersiones máximas que pueden presentarse 
-			utilizando hardware más complejo.
 
-			\item Corrigiendo dichas dispersiones haciendo uso de calibración 
-			interna.
-		\end{itemize}
+El método de calibración tradicional, por lazos de calibración internos, permite
+calibrar una antena de arreglo de fase, aunque adolece de algunos defectos entre
+los cuales se incluyen:
 
-		Al utilizar la calibración interna se evita aumentar la complejidad y 
-	peso del hardware utilizado a costa de un mayor procesamiento de software, 
-	logrando así, disminuir el costo de la misión.
-		
-		Otro motivo es que el método de calibración convencional posee numerosas
-	limitaciones y falencias; la principal es que no abarca todo el sistema de 
-	transmisión/recepción, dejando así parámetros fuera de control. 
+\begin{enumerate}
+    \item Una degradación o directamente rotura de un elemento radiante, el cual
+está fuera del lazo de calibración interno, no es detectado por la calibración 
+interna.
+    \item Existen elementos que quedan fuera del lazo de calibración interno. 
+Como por ejemplo los circuladores. Esto lleva a la necesidad de realizar 
+caracterizaciones en tierra lo cual implica consumo de recursos de proyecto 
+importantes, además de tener que confiar que dicha caracterización será válida 
+(o sea que no habrá envejecimiento de los mismo) luego durante vuelo en toda la
+vida útil de la antena.
+    \item Cada lazo de calibración no se interrelaciona con el resto haciendo 
+que no se pueda disminuir el error de medición por multiplicidad de caminos.
+\end{enumerate}
 
-		
-	\section{Objetivo de la tesis}
-    
-    La presente tesis tiene como objetivo la investigación, análisis y 
-desarrollo e implementación de un método alternativo de calibración interna de 
-una antena polarimétrica que abarque el sistema completo de 
-transmisión/recepción. Otro objetivo es comparar este método con el método de 
-calibración convencional para poder determinar las ventajas y desventajas de uno
-sobre el otro.
+Esto lleva a investigar opciones superadoras, que den lugar a un método de 
+calibración que permita complementar al tradicional evitando la necesidad de 
+realizar costosas caracterizaciones en tierra, previendo que los componentes en
+vuelo puedan envejecer y por ende dichas caracterizaciones no ser más validas, 
+permitiendo detectar fallas en elementos que en la calibración interna 
+tradicional quedan fuera del lazo de calibración, y disminuyendo la 
+incertidumbre en la determinación de la fase y amplitud de salida.
+
+El método que se propone en esta tesis, denominado de \enquote*{método de 
+calibración interna complementada por acoplamientos mutos (MCINCAM)} toma la 
+idea de mediciones por acoplamiento mutuo \todo{(Fran poner REF a los papers)},
+para integrarla de manera complementaria al método tradicional, sin necesidad de
+agregar hardware adicional, y además establece los requerimientos electrónicos
+para poder implementarla. En esta tesis además se realiza un modelo ad hoc, en 
+parámetros S, de antena, para mostrar la eficacia del método. 
+
+
+\section{Objetivo de la tesis}
+
+La presente tesis tiene varios objetivos:
+
+\begin{enumerate}
+    \item Presentar conceptualmente el método tradicional de calibración interna
+de una antena polarimétrica que abarque el sistema completo de transmisión/
+recepción. con sus virtudes y defectos. Mencionar algunas misiones de ejemplo en
+las cuales el mismo se ha utilizado.
+    \item Investigar, desarrollar y presentar conceptualmente un método 
+alternativo de calibración interna que introduzca mejoras al método tradicional 
+sin necesidad de introducir hardware adicional y con la premisa fundamental de 
+reducir los costos asociados a las caracterizaciones que el método tradicional 
+incluye. Introducir los requerimientos necesarios para poder implementarlo.
+    \item Investigar, desarrollar y presentar (generar) los algoritmos que 
+permitan representar el modelo de antena polarimétrico (modelo de capa física) 
+que serán utilizados para poder comparar el método tradicional y el alternativo.
+Dichos modelos deben representar el comportamiento en RF básico de las señales 
+al propagarse por el sistema.
+    \item Generar los algoritmos que permitan correr el algoritmo de calibración
+alternativo de manera de poder comparar ambos métodos.
+    \item Sacar conclusiones respecto a los pros y contras del método propuesto,
+en particular en referencia al método tradicional, por medio de algunos 
+parámetros objetivos como ser tiempo de calibración, caracterizaciones 
+necesarias, incertidumbre de medición, entre otros.
+\end{enumerate}    
+
 
 \section{Alcance}
 
 \subsection{Requerimientos Funcionales}
 
-    A continuación se listarán los requerimientos funcionales de la aplicación:
+\subsubsection{Modelización de la capa física}
+
+\todo[inline]{agrega aca Fran los requisitos..que sea LTI, que sea 
+representativo desde el punto de vista de parámetros s para RF, etc..}
+
+\begin{itemize}
+    \item La aplicación debera reproducir el comportamiento en RF de los 
+elementos individuales: cables, psc, TRM, elementos radiantes.
+
+    \item La aplicación deberá reproducir el comportamiento del sistema el cual 
+será LTI (lineal e invariante en el tiempo).
+\end{itemize}
+
+\subsubsection{Modelización del algoritmo de calibración (capa aplicación)}
 
 \begin{itemize}
     \item La aplicación debe poder calibrar una antena polarimétrica con el 
 método de calibración convencional.
+    
     \item La aplicación debe poder calibrar una antena polarimétrica con el
 método de calibración alternativo.
-    \item La aplicación debe poder calibrar tanto la potencia como la fase de
-transmisión y recepción.
-    \item La aplicación debe poder calibrar en ambas polarizaciones (horizontal
-y vertical).
-    \item Se debe poder calibrar correctamente utilizando cualquier seteo en los
-defasadores y atenuadores.
-    \item No se puede calibrar en la misma polarización para transmisión y 
-recepción a la vez.
-    \item La antena tiene que ser perfectamente plana.
+    
+    \item La aplicación debe poder calibrar la potencia de transmisión y 
+recepción.
+    
+    \item La aplicación debe poder calibrar la fase de transmisión y 
+recepción.
+    
+    \item La aplicación debe poder calibrar en ambas polarizaciones: horizontal
+y vertical.
+    
+    \item Se debe poder alcanzar el estado de calibración deseado partiendo 
+cualquier estado inicial en los defasadores y atenuadores.
+    
+    \item No se puede calibrar en la misma polarización transmisión y recepción 
+a la vez.
+    
+    \item La antena tiene que ser perfectamente plana. No deben haber 
+imperfecciones.
+    
     \item La antena debe estar compuesta por defasadores, atenuadores, cables, 
 divisores de potencia y módulos radiantes.
+    
     \item Los componentes de la antena deben caracterizarse utilizando 
-parámetros s.
+parámetros de alta frecuencia.
+    
     \item Se debe tener en cuenta el efecto que impone un componente al resto de
 la antena.
+    
     \item Se debe poder configurar la frecuencia de trabajo.
     \item Se debe poder configurar la dimensión de la antena.
-    \item Se debe poder configurar la distancia entre módulos radiantes.
+    \item Se debe poder configurar la distancia entre elementos radiantes.
     \item Se debe poder configurar los atributos que afecten la modelización de
-cada componente de la antena.
+cada componente de la antena. \todo{buscar cuales son estos atributos}
+    
     \item Se debe poder configurar el error de comportamiento de cada
 componente de la antena.
-    \item Se debe poder configurar la destruccion total de TRMs.
-    \item Se debe poder configurar el setting de los atenuadores y defasadores
-a la hora de realizar la calibración. 
+    
+    \item Se debe poder simular, configurar la destrucción total de elementos de
+la antena SAR como ser los TRMs.
+
+    \item Se deben poder configurar los atenuadores y defasadores a la hora de 
+realizar la calibración. 
 \end{itemize}
 
 \subsection{Requerimientos no Funcionales}
 
 \subsubsection{Hardware}
 
-    No hay requerimientos básicos del hardware, el simulador corre en cualquier
-computadora de escritorio. 
+    El simulador corre en cualquier computadora de escritorio con un procesador
+dual core y al menos 1 GB de ram. 
 
 \subsubsection{Software}
 
@@ -209,11 +327,13 @@ El software utilizado para desarrollar la aplicación es el siguiente:
 \end{itemize}   
     
 	\section{Metodología de la tesis}
+\todo{chequear consistencia con objetivos de la tesis}
+
 		En la presente tesis se investigarán los métodos de calibraciones 
 	actuales para poder determinar que ventajas, desventajas, limitaciones y 
 	diferencias hay entre cada una de ellos. Se buscará tener una visión global
 	de esta problemática para poder determinar y entender que posibles falencias
-	puede tener este nuevo método.
+	puede tener este método alternativo.
 
 		Posteriormente, se investigarán las limitaciones que poseen las antenas 
 	polarimétricas para poder determinar que recaudos se deben tener en cuenta a
@@ -569,6 +689,11 @@ comparaciones entre ambos métodos de calibración.
         WILLWERTH \enquote*{Phased Array Antenna Calibration and Pattern 
         Prediction Using Mutual Coupling Measurements}, IEEE TRANSACTIONS ON 
         ANTENNAS AND PROPAGATION, VOL 31. NO 7 , JULY 1989.
+
+        \item \label{sarAntenna} Alan J. Fenn, Donald H. Temme, William P. 
+        Delaney, and William E. Courtney \enquote*{The Development of 
+        Phased-Array Radar Technology}, VOLUME 12, NUMBER 2, 2000 LINCOLN 
+        LABORATORY JOURNAL.
         
         \item \label{ide} https://www.jetbrains.com/pycharm/
         \item \label{tareas} https://trello.com/
