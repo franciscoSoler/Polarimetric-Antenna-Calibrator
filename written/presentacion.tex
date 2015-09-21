@@ -148,11 +148,31 @@ determinante (tráfico aéreo, meteorología, etc) Su uso está también extendi
 aeronaves militares debido a su capacidad de seguir múltiples objetivos. El 
 primer avión en usar uno fue el B-1B Lancer, y el primer caza, el MiG-31 ruso.
 
-\todo{agregar la definición de calibración interna}
+{\textbf{Calibración interna}} es colocar sensores que permitan la medición 
+directa u indirecta de los distintos parámetros del sistema en vuelo. 
 
-		Calibración interna es colocar sensores que permitan la medición directa
-	u indirecta de la potencia y fase de salida/entrada de la antena 
-	polarimétrica.
+Estas mediciones de calibración interna son útiles solo si se las utilizan en 
+conjuto a los resultados de los test realizados en tierra. los cuales definen la
+relación entre lo observado y la performance de los párametros del sistema. 
+Ejemplos de satélites para los cuales se utilizó calibración interna son el 
+E-ERS-1 y el SIR-C.
+    
+Para sistemas complejos como estos, se realizan test a la electrónica de RF, 
+electrónica digital y la antena sobre temperatura y, cuando sea posible, en un 
+ambiente al vacío. Los parámetros clave del sistema, como: potencia transmitida,
+pérdidas de transmisión o recepción, ganancia de recepción, ganancia y patrón de
+la antena, linealidad de la electrónica digital/RF, rango dinámico, y 
+fase/amplitud vs estabilidad de la frecuencia son medidos en función de la 
+temperatura para cada seteo de ganancia del radar y PRF (Pulse Repetition 
+Frequency). Los elementos de calibración, como medidores de temperatura, de 
+corriente y de potencia, podrán permitir la determinación de la performance del 
+sistema en función de la variación de estos parámetros.
+    
+Esta técnica asume que la variación en la performance del sistema puede ser 
+modelada en función de los parámetros observables.  También, se asume que los 
+componentes de calibración están correctamente calibrados y son estables en el 
+paso del tiempo. Además de estos tests, en la mayoría de los sistemas de radar 
+se realizan mediciones de componentes de RF utilizando loops de calibración.
 		
 \section{MOTIVACIÓN}
 
