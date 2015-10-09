@@ -75,7 +75,7 @@ aplicaciones de todo tipo, por ejemplo comunicaciones de mobiles
 
 Para generar diversos productos, por ejemplo imágenes satelitales en radares de
 apertura sintética [\ref{ppr:puncTrgt1}], 
-es necesario que est en correctamente calibradas [\ref{ppr:classic1}] 
+es necesario que estén correctamente calibradas [\ref{ppr:classic1}] 
 [\ref{ppr:classic2}][\ref{ppr:classic3}]. Esto implica, que las tolerancias de
 fases y amplitudes se mantengan en el tiempo y/o sus valores sean bien conocidas
 para cada elemento del arreglo.
@@ -85,9 +85,12 @@ externas de campo lejano o cercano [\ref{ppr:mutual1}]. Sin embargo, en
 aplicaciones aéreas o espaciales, la utilización de dichas fuentes es impráctica
 o difícil de implementar [\ref{ppr:mutual3}]. Resulta fundamental un esquema de
 calibración interna que permita tener bajo control estas variables. Generalmente
-se implementan lazos de calibración internos \todo{Fran: poner referencias de todos los papers de calibración interna en donde se observa esto}. 
+se implementan lazos de calibración internos [\ref{ppr:classic1}]
+[\ref{ppr:classic2}][\ref{ppr:classic3}][\ref{ppr:abs-rad-ical1}]
+[\ref{ppr:classic4}][\ref{ppr:classic5}][\ref{ppr:classic6}]
+[\ref{ppr:classic-ext1}][\ref{ppr:classic7}][\ref{ppr:classic8}]. 
 Luego se opta por caracterizar todos aquellos componentes que no entran dentro 
-de dicho lazo de calibración \todo{Fran: poner referencias de todos los papers en cuestión}. 
+de dicho lazo de calibración [\ref{ppr:abs-rad-ical1}].
 Este método presenta algunos inconvenientes. Por dar un par de ejmplos se puede
 mencionar que los recursos necesarios (tiempo, personal) durante la campaña de 
 ensayos previa al lanzamiento impactan en todo el desarrollo de actividades, o
@@ -117,7 +120,7 @@ del tradicional.
     \item Se analizaran y propondoran los requerimientos para poder 
 implementarlo.
     \item Se desarrollara un modelo de antena de arreglo de fase polarimétrico 
-básico representativo en parámetros S \todo{Fran: pone referencia}
+básico representativo en parámetros S \ref{pr:parameters}.
     \item Se añadirán al mismo parámetros de dispersión de comportamiento que 
 permitan analizar su comportamiento.
     \item Se realizará un modelo de calibración que será implementado 
@@ -146,30 +149,31 @@ radares militares modernos se basan en phased arrays, relegando los sistemas
 basados en antenas rotatorias a aplicaciones donde el costo es un factor 
 determinante (tráfico aéreo, meteorología, etc) Su uso está también extendido en
 aeronaves militares debido a su capacidad de seguir múltiples objetivos. El 
-primer avión en usar uno fue el B-1B Lancer, y el primer caza, el MiG-31 ruso.
+primer avión en usar uno fue el B-1B Lancer, y el primer caza, el MiG-31 ruso.\\
 
 {\textbf{Calibración interna}} es colocar sensores que permitan la medición 
 directa u indirecta de los distintos parámetros del sistema en vuelo. 
 
-Estas mediciones de calibración interna son útiles solo si se las utilizan en 
-conjuto a los resultados de los test realizados en tierra. los cuales definen la
-relación entre lo observado y la performance de los párametros del sistema. 
+Estas mediciones obtenidas con este sistema son útiles solamente al utilizarlas
+en conjuto a los resultados de los test realizados en tierra, los cuales definen
+la relación entre lo observado y la performance de los párametros del sistema. 
 Ejemplos de satélites para los cuales se utilizó calibración interna son el 
 E-ERS-1 y el SIR-C.
     
-Para sistemas complejos como estos, se realizan test a la electrónica de RF, 
-electrónica digital y la antena sobre temperatura y, cuando sea posible, en un 
-ambiente al vacío. Los parámetros clave del sistema, como: potencia transmitida,
-pérdidas de transmisión o recepción, ganancia de recepción, ganancia y patrón de
-la antena, linealidad de la electrónica digital/RF, rango dinámico, y 
-fase/amplitud vs estabilidad de la frecuencia son medidos en función de la 
-temperatura para cada seteo de ganancia del radar y PRF (Pulse Repetition 
-Frequency). Los elementos de calibración, como medidores de temperatura, de 
-corriente y de potencia, podrán permitir la determinación de la performance del 
-sistema en función de la variación de estos parámetros.
+Los tests realizados en tierra para dichos sistemas complejos son sobre la
+electrónica de RF, la electrónica digital y la antena sobre temperatura; para 
+los cuales es preferible realizarlos, cuando sea posible, en un ambiente al 
+vacío. Los parámetros clave del sistema, como: potencia transmitida, pérdidas de
+transmisión o recepción, ganancia de recepción, ganancia y patrón de la antena, 
+linealidad de la electrónica digital/RF, rango dinámico, y fase/amplitud vs 
+estabilidad de la frecuencia son medidos en función de la temperatura para cada 
+seteo de ganancia del radar y PRF (Pulse Repetition Frequency). Los elementos de
+calibración, como medidores de temperatura, de corriente y de potencia, podrán 
+permitir la determinación de la performance del sistema en función de la 
+variación de dichos parámetros.
     
 Esta técnica asume que la variación en la performance del sistema puede ser 
-modelada en función de los parámetros observables.  También, se asume que los 
+modelada en función de los parámetros observables. También, se asume que los 
 componentes de calibración están correctamente calibrados y son estables en el 
 paso del tiempo. Además de estos tests, en la mayoría de los sistemas de radar 
 se realizan mediciones de componentes de RF utilizando loops de calibración.
@@ -210,11 +214,12 @@ incertidumbre en la determinación de la fase y amplitud de salida.
 
 El método que se propone en esta tesis, denominado de \enquote*{método de 
 calibración interna complementada por acoplamientos mutos (MCINCAM)} toma la 
-idea de mediciones por acoplamiento mutuo \todo{(Fran poner REF a los papers)},
-para integrarla de manera complementaria al método tradicional, sin necesidad de
-agregar hardware adicional, y además establece los requerimientos electrónicos
-para poder implementarla. En esta tesis además se realiza un modelo ad hoc, en 
-parámetros S, de antena, para mostrar la eficacia del método. 
+idea de mediciones por acoplamiento mutuo [\ref{ppr:mutual1}][\ref{ppr:mutual2}]
+[\ref{ppr:mutual3}][\ref{ppr:mutual-ext1}], para integrarla de manera 
+complementaria al método tradicional, sin necesidad de agregar hardware 
+adicional, y además establece los requerimientos electrónicos para poder 
+implementarla. En esta tesis además se realiza un modelo ad hoc, en parámetros 
+S, de antena, para mostrar la eficacia del método. 
 
 
 \section{Objetivo de la tesis}
@@ -251,15 +256,38 @@ necesarias, incertidumbre de medición, entre otros.
 
 \subsubsection{Modelización de la capa física}
 
-\todo[inline]{agrega aca Fran los requisitos..que sea LTI, que sea 
-representativo desde el punto de vista de parámetros s para RF, etc..}
-
 \begin{itemize}
     \item La aplicación debera reproducir el comportamiento en RF de los 
 elementos individuales: cables, psc, TRM, elementos radiantes.
 
     \item La aplicación deberá reproducir el comportamiento del sistema el cual 
 será LTI (lineal e invariante en el tiempo).
+    
+    \item La antena debe estar compuesta por defasadores, atenuadores, cables, 
+divisores de potencia y módulos radiantes.
+    
+    \item Se deben poder utilizar distintos divisores/combinadores de potencia. 
+La diferencia entre ellos es la cantidad de puertos de salida.
+    
+    \item Los componentes de la antena deben caracterizarse utilizando 
+parámetros de alta frecuencia.
+    
+    \item Se debe tener en cuenta el efecto que impone un componente al resto de
+la antena.
+
+    \item Se debe poder configurar la dimensión de la antena.
+    \item Se debe poder configurar la distancia entre elementos radiantes.
+    \item Se debe poder configurar los atributos que afecten la modelización de
+cada componente de la antena. 
+    
+    \item Se debe poder configurar el largo de los cables.
+    \item Se debe poder configurar la atenuación de los cables.
+    
+    \item Se debe poder configurar el error de comportamiento de cada
+componente de la antena de forma independiente.
+
+    \item Se deben poder configurar los atenuadores y defasadores a la hora de 
+realizar la calibración. 
 \end{itemize}
 
 \subsubsection{Modelización del algoritmo de calibración (capa aplicación)}
@@ -288,30 +316,22 @@ a la vez.
     
     \item La antena tiene que ser perfectamente plana. No deben haber 
 imperfecciones.
-    
-    \item La antena debe estar compuesta por defasadores, atenuadores, cables, 
-divisores de potencia y módulos radiantes.
-    
-    \item Los componentes de la antena deben caracterizarse utilizando 
-parámetros de alta frecuencia.
-    
-    \item Se debe tener en cuenta el efecto que impone un componente al resto de
-la antena.
-    
+           
     \item Se debe poder configurar la frecuencia de trabajo.
-    \item Se debe poder configurar la dimensión de la antena.
-    \item Se debe poder configurar la distancia entre elementos radiantes.
-    \item Se debe poder configurar los atributos que afecten la modelización de
-cada componente de la antena. \todo{buscar cuales son estos atributos}
+
+    \item Se debe poder configurar los parámetros de error (desvío estandar) 
+para la ganancia y fase de la chirp utilizada entre pulsos.
+
+    \item Se debe poder configurar los parámetros de error (desvío estandar) 
+para la ganancia y fase de la chirp réplica utilizada a la hora de realizar la 
+calibración convencional.
     
-    \item Se debe poder configurar el error de comportamiento de cada
-componente de la antena.
-    
+    \item Se debe poder configurar los parámetros de error (desvío estandar) 
+para la fase de la codificación utilizada a la hora de realizar la calibración
+convencional.
+
     \item Se debe poder simular, configurar la destrucción total de elementos de
 la antena SAR como ser los TRMs.
-
-    \item Se deben poder configurar los atenuadores y defasadores a la hora de 
-realizar la calibración. 
 \end{itemize}
 
 \subsection{Requerimientos no Funcionales}
@@ -347,7 +367,6 @@ El software utilizado para desarrollar la aplicación es el siguiente:
 \end{itemize}   
     
 	\section{Metodología de la tesis}
-\todo{chequear consistencia con objetivos de la tesis}
 
 		En la presente tesis se investigarán los métodos de calibraciones 
 	actuales para poder determinar que ventajas, desventajas, limitaciones y 
@@ -523,14 +542,6 @@ comparaciones entre ambos métodos de calibración.
 		Calibration of the CCRS SAR}, IEEE TRANSACTIONS ON GEOSCIENCE AND REMOTE
 		SENSING, VOL. 29. NO. 6. NOVEMBER 1991.
 		
-		\item G. Gonwald *, W. Wiesbeck, \enquote*{Anomalous Effects of Phased 
-		Array Antennas due to Mutual Coupling and Feeding Network}, Antennas and
-		Propagation Society International Symposium, 1992. AP-S 1992 Digest.
-		
-		\item C. H. Tang, \enquote*{EFFECTS OF PHASED ARRAY STRUCTURE
-		DEFORMATION ANDELEMENTOUTAGE}, Antennas and Propagation Society 
-		International Symposium, 1992. AP-S 1992 Digest.
-		
 		\item \label{ppr:puncTrgt1} Anthony Freeman, \enquote*{SAR Calibration: 
 		An Overview}, IEEE Transactions on Geoscience And Remote Sensing, Vol. 
 		30, NO. 6, November 1992.
@@ -542,12 +553,6 @@ comparaciones entre ambos métodos de calibración.
 		\item \label{ppr:classic2} M. Zink, \enquote*{CALIBRATION AND 
 		PERFORMANCE ANALYSIS OF THE X-SAR SYSTEM}, Geoscience and Remote Sensing
 		Syposium, 1994. IGARSS 1994.
-		
-		\item Mustafa Karaman, Hayrettin Koymen, Abdullah Atalar and Matthew 
-		O’Donnell, \enquote*{Influence of Missing Array Elements on Phase 
-		Aberration Correction for Medical Ultrasound}, IEEE TRANSACTIONS ON
-		ULTRASONICS, FERROELECTRICS, AND FREQUENCY CONTROL, VOL. 41. NO. 5, 
-		SEPTEMBER 1994.
 		
 		\item \label{ppr:classic3} Jorgen Dall, Niels Skou, Erik Lintz 
 		Christensen, \enquote*{Pulse-Based Internal Calibration of Polarimetric
@@ -590,9 +595,6 @@ comparaciones entre ambos métodos de calibración.
 		Algorithms for Active Phased Array Transmitters}, Signals, Systems and
 		Computers, 1996.
 		
-		\item A. Freeman, \enquote*{THE NEED FOR SAR CALIBRATION}, Geoscience
-		and Remote Sensing Syposium, 1989. IGARSS 1989. 
-		
 		\item \label{ppr:ext3} Daniel S. Purdy, \enquote*{In Orbit Active Array
 		Calibration for NASA’s LightSAR}, Radar Conference, 1999. The Record of
 		the 1999 IEEE.
@@ -606,17 +608,9 @@ comparaciones entre ambos métodos de calibración.
 		Systems and Technology, 2000. Proceedings. 2000 IEEE International 
 		Conference.
 		
-		\item Envisat Cal-Val Team, \enquote*{ENVISAT Calibration and Validation
-		Plani}, ESA.
-		
 		\item \label{ppr:rad4} Jeffrey A. Mendenhall, \enquote*{Radiometric 
 		Calibration and Flight Validation}, ALI Tech\_Trans-1 JAM 10/23/01.
 
-		
-		\item Marian Werner, Martin Haeusler, \enquote*{X-SAR/SRTM Instrument 
-		Phase Error Calibration}, Geoscience and Remote Sensing Syposium, 1989.
-		IGARSS 1989.
-		
 		\item \label{ppr:rad5} Volker Kaltenborn, \enquote*{Intern Report: 
 		Volker Kaltenborn}, Alaska SAR Facility (ASF).
 		
@@ -662,13 +656,6 @@ comparaciones entre ambos métodos de calibración.
 		Phased Array Flatness Effects on Antenna System Performance}, 978-1-4244
 		-5128-9/10/\$26.00 \copyright 2010 IEEE
 
-		
-		\item Tore Lindgren and Johan Borg \enquote*{A Measurement System for 
-		the Position and Phase Errors of the Elements in an Antenna Array 
-		Subject to Mutual Coupling}, Hindawi Publishing Corporation. 
-		International Journal of Antennas and Propagation Volume 2012, 
-		Article ID 526121.
-
 		\item \label{ppr:classic7} Shuo Wang, Haiming Qi, and Weidong Yu 
 		\enquote*{An Internal Calibration Scheme for Polarimetric Synthetic 
 		Aperture Radar System}, IEEE transactions on geoscience and remote 
@@ -680,9 +667,8 @@ comparaciones entre ambos métodos de calibración.
 		Publishing Corporation International Journal of Antennas and Propagation
 		Volume 2012, Article ID 625165.
 
-		
-		\item N. Fistas and A. Manikas \enquote*{A NEW GENERAL GLOBAL ARRAY 
-		CALIBRATION METHOD}, ICASSP PROCEEDINGS, APRIL 94.
+		%\item N. Fistas and A. Manikas \enquote*{A NEW GENERAL GLOBAL ARRAY 
+		%CALIBRATION METHOD}, ICASSP PROCEEDINGS, APRIL 94.
 		
 		\item \label{ppr:classic8} Eduardo Makhoul, Antoni Broquetas, 
 		Francisco López-Dekker, Josep Closa, and Paula Saameno \enquote*{
@@ -695,11 +681,6 @@ comparaciones entre ambos métodos de calibración.
 		Merlet, Pierre Granger \enquote*{Active compensation techniques for 
 		deformable phased array antenna}, Thales Air Systems Hameau de Roussigny
 		, 91470 Limours, France.
-
-		\item Neil Chamberlain, Constantine Andricos, Andrew Berkun, Kendra 
-		Kumley, Vladimir Krimskiy, Richard Hodges, Suzanne Spitz \enquote*{T/R 
-		Module Development for Large Aperture L-band Phased Array}, IEEEAC paper
-		\# 1179 Version 5, Updated December 10, 2004.
 
 		\item \label{ppr:sim1} Will P. M. N. Keizer \enquote*{Fast and Accurate
         Array Calibration Using a Synthetic Array Approach}, IEEE TRANSACTIONS 
@@ -718,6 +699,9 @@ comparaciones entre ambos métodos de calibración.
         \item \label{ide} https://www.jetbrains.com/pycharm/
         \item \label{tareas} https://trello.com/
         \item \label{versionado} https://github.com/
+
+        \item \label{pr:parameters} F. Caspers. \enquote*{RF engineering basic 
+concepts: S parameters}, CERN, Genova, Switzerland
 	\end{enumerate}
 
 	\newpage
@@ -929,5 +913,64 @@ assembler, Python.
 		\caption{Plan de cursada} \label{tabPlanCursada}
 	\end{table}
 
-	TOTAL CRÉDITOS: 24	
+	TOTAL CRÉDITOS: 24
+
+\newpage
+\begingroup
+\pagestyle{empty}
+
+\hfill Buenos Aires, 09 de Octubre de 2015
+
+\noindent Sres
+
+\noindent Comisión Curricular
+
+\noindent Ingeniería en Informática
+\\
+
+Tengo el agrado de dirigirme a usted con el objeto de presentarle la 
+propuesta de Tesis en Ingeniería en Informática del señor José Francisco Soler 
+(Padrón 91227) que realizará bajo mi dirección.
+
+Adjunto a la presente el Plan de tesis con su cronograma de desarrollo, el 
+currículum del señor Soler y el listado de sus materias aprobadas, así como el 
+acta-compromiso.
+
+A la espera de su resolución los saluda atte.
+
+\vspace*{2cm}
+
+\hfill Rosa Wachenchauzer
+
+\newpage
+
+\section*{\centering Acta de Acuerdo para el Desarrollo de Tesis}
+
+En Buenos Aires, a los nueve días del mes de octubre del año dos mil quince se 
+reúnen en el Departamento de Computación de la Facultad de Ingeniería de la 
+Universidad de Buenos Aires la profesora Rosa Wachenchauzer y el alumno de la 
+carrera Infeniería en Informática José Francisco Soler (91227) para dar 
+tratamiento a la selección del Tema de Tesis y el Plan de Estudio Personal para 
+el Ciclo Superior de la carrera.
+
+Se acuerda establecer como Tema de Tesis de Grado de Ingeniería en Informática 
+del señor Francisco Soler \textbf{\enquote*{Calibracion de una antena 
+polarimétrica utilizando los acoplamientos mutuos}}.
+
+El plan de Estudios Personal del señor Soler, de la orientación en SISTEMAS DE 
+PRODUCCIÓN, comprende la cursada de las materias optativas SEÑALES Y SISTEMAS 
+(66.74), ANÁLISIS DE CIRCUITOS (66.06), MATEMÁTICA DISCRETA (61.07) y TEORÍA DE 
+CONTROL 1 (66.18), que abarcan los conocimientos suficientes para desarrollar 
+satisfactoriamente la tesis de Grado.
+
+Sin más que tratar se firman tres ejemplare de la presente acta, uno para elevar
+a la Direccion del Departamento de Computación, otro para el estudiante y un 
+tercero para el profesor.
+
+\vspace*{2cm}
+
+Francisco Soler \hfill Rosa Wachenchauzer
+
+\clearpage
+\endgroup
 \end{document}
