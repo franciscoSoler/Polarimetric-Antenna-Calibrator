@@ -69,7 +69,7 @@
 	\section{INTRODUCCIÓN}
     
 Las antenas de arreglo de fase controlada [\ref{sarAntenna}] son utilizadas en 
-aplicaciones de todo tipo, por ejemplo comunicaciones de mobiles 
+aplicaciones de todo tipo, por ejemplo comunicaciones de móviles 
 [\ref{ppr:mutual-ext1}], aéreas [\ref{ppr:punc-ext1}] y espaciales 
 [\ref{ppr:dist1}][\ref{ppr:classic8}]. 
 
@@ -109,17 +109,17 @@ independientemente de su estado de envejecimiento.
 \end{enumerate}
 
 En este sentido se investiga y aprovecha el concepto acoplamiento mutuo 
-inherente entre los modulos radiantes de la antena [\ref{ppr:mutual3}], pero de
+inherente entre los módulos radiantes de la antena [\ref{ppr:mutual3}], pero de
 manera complementaria al enfoque tradicional. 
 
-En esta tesis se realizaran las siguientes tareas:
+En esta tesis se realizarán las siguientes tareas:
 
 \begin{enumerate}
-    \item Se explicaran las ventajas y desventajas del método propuesto respecto
+    \item Se explicarán las ventajas y desventajas del método propuesto respecto
 del tradicional.
-    \item Se analizaran y propondoran los requerimientos para poder 
+    \item Se analizarán y propondorán los requerimientos para poder 
 implementarlo.
-    \item Se desarrollara un modelo de antena de arreglo de fase polarimétrico 
+    \item Se desarrollará un modelo de antena de arreglo de fase polarimétrico 
 básico representativo en parámetros S \ref{pr:parameters}.
     \item Se añadirán al mismo parámetros de dispersión de comportamiento que 
 permitan analizar su comportamiento.
@@ -250,11 +250,7 @@ necesarias, incertidumbre de medición, entre otros.
 \end{enumerate}    
 
 
-\section{Alcance}
-
-\subsection{Requerimientos Funcionales}
-
-\subsubsection{Modelización de la capa física}
+\section{Especificaciones del problema}
 
 \begin{itemize}
     \item La aplicación debera reproducir el comportamiento en RF de los 
@@ -288,11 +284,7 @@ componente de la antena de forma independiente.
 
     \item Se deben poder configurar los atenuadores y defasadores a la hora de 
 realizar la calibración. 
-\end{itemize}
 
-\subsubsection{Modelización del algoritmo de calibración (capa aplicación)}
-
-\begin{itemize}
     \item La aplicación debe poder calibrar una antena polarimétrica con el 
 método de calibración convencional.
     
@@ -334,39 +326,8 @@ convencional.
 la antena SAR como ser los TRMs.
 \end{itemize}
 
-\subsection{Requerimientos no Funcionales}
 
-\subsubsection{Hardware}
-
-    El simulador corre en cualquier computadora de escritorio con un procesador
-dual core y al menos 1 GB de ram. 
-
-\subsubsection{Software}
-
-    El software base para esta aplicación es python3.x. No hay restriccioines de
-sistema operativo, se está desarrollado y probando sobre debian.
-
-\section{Herramientas de Desarrollo}
-
-\subsection{Hardware}
-
-Para desarrollar la aplicación solo se utilizará una computadora. En caso que se
-contara con una antena e instrumentos para medir potencia, se podría implementar
-el algoritmo de calibración sobre la misma y mostrar los resultados. 
-
-\subsection{Software}
-
-El software utilizado para desarrollar la aplicación es el siguiente:
-\begin{itemize}
-    \item Lenguaje Aplicación: Python.
-    \item Lenguaje Configuraciones: json
-    \item IDE: Pycharm [\ref{ide}]
-    \item Organización y administración de tareas: Trello [\ref{tareas}]
-    \item Control de versionado: git con github [\ref{versionado}]
-    \item Documentación: Escritura en formato Latex en el vim.
-\end{itemize}   
-    
-	\section{Metodología de la tesis}
+\section{Metodología de la tesis}
 
 		En la presente tesis se investigarán los métodos de calibraciones 
 	actuales para poder determinar que ventajas, desventajas, limitaciones y 
@@ -388,7 +349,8 @@ El software utilizado para desarrollar la aplicación es el siguiente:
 	mejoras se podrían aplicar al algoritmo para determinar otros aspectos que
 	están fuera del alcance de esta tesis.
 
-	\section{Estado del Arte}
+
+\section{Estado de Situación}
 		La calibración de una antena polarimétrica se ha estudiado en numerosas 
 	ocasiones, abordando el problema desde distintos enfoques. A continuación se
     pueden observar los distintos métodos utilizados, clasificados por la 
@@ -434,7 +396,7 @@ El software utilizado para desarrollar la aplicación es el siguiente:
 	\]
 
 
-La calibración interna es el método más típicamente utilizado pero adolece de 
+La calibración interna es el método típicamente más utilizado pero adolece de 
 algunos defectos como ser que:
 
 \begin{itemize}
@@ -696,10 +658,6 @@ comparaciones entre ambos métodos de calibración.
         Phased-Array Radar Technology}, VOLUME 12, NUMBER 2, 2000 LINCOLN 
         LABORATORY JOURNAL.
         
-        \item \label{ide} https://www.jetbrains.com/pycharm/
-        \item \label{tareas} https://trello.com/
-        \item \label{versionado} https://github.com/
-
         \item \label{pr:parameters} F. Caspers. \enquote*{RF engineering basic 
 concepts: S parameters}, CERN, Genova, Switzerland
 	\end{enumerate}
@@ -928,19 +886,20 @@ assembler, Python.
 \noindent Ingeniería en Informática
 \\
 
-Tengo el agrado de dirigirme a usted con el objeto de presentarle la 
+Tenemos el agrado de dirigirnos a usted con el objeto de presentarle la 
 propuesta de Tesis en Ingeniería en Informática del señor José Francisco Soler 
-(Padrón 91227) que realizará bajo mi dirección.
+(Padrón 91227) que realizará bajo nuestra dirección.
 
-Adjunto a la presente el Plan de tesis con su cronograma de desarrollo, el 
+Adjuntamos a la presente el Plan de tesis con su cronograma de desarrollo, el 
 currículum del señor Soler y el listado de sus materias aprobadas, así como el 
 acta-compromiso.
 
 A la espera de su resolución los saluda atte.
 
-\vspace*{2cm}
+\vspace*{3cm}
 
-\hfill Rosa Wachenchauzer
+\hfill \parbox{3.5cm}{Rosa Wachenchauzer\\Directora} \hfill 
+\parbox{3cm}{Pablo Marino\\Co Director}
 
 \newpage
 
@@ -948,10 +907,10 @@ A la espera de su resolución los saluda atte.
 
 En Buenos Aires, a los nueve días del mes de octubre del año dos mil quince se 
 reúnen en el Departamento de Computación de la Facultad de Ingeniería de la 
-Universidad de Buenos Aires la profesora Rosa Wachenchauzer y el alumno de la 
-carrera Infeniería en Informática José Francisco Soler (91227) para dar 
-tratamiento a la selección del Tema de Tesis y el Plan de Estudio Personal para 
-el Ciclo Superior de la carrera.
+Universidad de Buenos Aires la Lic. Rosa Wachenchauzer, el Ing. Pablo Marino y 
+el alumno de la carrera Infeniería en Informática José Francisco Soler (91227) 
+para dar tratamiento a la selección del Tema de Tesis y el Plan de Estudio 
+Personal para el Ciclo Superior de la carrera.
 
 Se acuerda establecer como Tema de Tesis de Grado de Ingeniería en Informática 
 del señor Francisco Soler \textbf{\enquote*{Calibracion de una antena 
@@ -967,9 +926,10 @@ Sin más que tratar se firman tres ejemplare de la presente acta, uno para eleva
 a la Direccion del Departamento de Computación, otro para el estudiante y un 
 tercero para el profesor.
 
-\vspace*{2cm}
+\vspace*{3cm}
 
-Francisco Soler \hfill Rosa Wachenchauzer
+Francisco Soler \hfill \parbox{3.5cm}{Directora\\Rosa Wachenchauzer} \hfill 
+\parbox{3cm}{Co Director\\ Pablo Marino}
 
 \clearpage
 \endgroup
