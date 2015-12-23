@@ -1,4 +1,3 @@
-function [acq chirpRep] = pccsim_v2( level,mode,pol,showOutput ) 
 %%%%%%%%%%%%%%%%%%%%%%%%
 % Simulador de PCC
 %%%%%%%%%%%%%%%%%%%%%%%%
@@ -25,6 +24,10 @@ function [acq chirpRep] = pccsim_v2( level,mode,pol,showOutput )
 % - Misma funcionalidad que V1, con codigo mejor ordenado, comentado y 
 %	optimizado
 
+level = 'TRMs';
+mode = 'Tx';
+pol = 'H';
+showOutput = 'asdf';
 
 %%%%%%%%%%%%%%%%%%%%%%%%
 % INICIALIZACION
@@ -32,7 +35,6 @@ function [acq chirpRep] = pccsim_v2( level,mode,pol,showOutput )
 dec = 1e11;
 deg2rad = pi/180;
 rad2deg = 180/pi;
-configFile = 'PCCconfig';
 
 validLvl = strcmp( level,'row' ) || strcmp( level,'panel' ) || ...
 			strcmp( level,'TRMs' );
@@ -61,46 +63,54 @@ end
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 % Cantidad de elementos a caracterizar (casi casi, falta terminar, no esta del todo bien)
-config = loadjson( configFile );
+% config = loadjson( configFile );
 
 % cantidad de paneles * cantidad de filas (140 TRMs)(no se simula promediado 
 % por panel/fila)
 
-N_elems = config.antennaConfig.rows * config.antennaConfig.panels;
-
+% N_elems = config.antennaConfig.rows * config.antennaConfig.panels;
+N_elems = 4;
 
 % Fase y atenuacion de cada uno de los N_elems (loop entero sobre la antena=rfdn ida + TRM + rfdn vuelta)
-ph_deg = mod( ( 1:N_elems )' * config.steeringAngle,360 ); 
+% ph_deg = mod( ( 1:N_elems )' * config.steeringAngle,360 ); 
+ph_deg = [22.97981279
+          42.97981279
+          42.97981279
+          52.97981279];
 % fase [deg]  escalonada, subiendo 5.625deg en cada loop, normalizada de 0 a 
 % 360deg
-att_db = full( config.attElementsDb );
+% att_db = full( config.attElementsDb );
+att_db = [-159.21582882
+          20.78417118
+          20.78417118
+          20.78417118];
 
 % Datos del chirp
-bw = config.chirpData.bw;  % ancho de banda [Hz]
-fc = config.chirpData.fc;  % frecuencia central [Hz] 0 ->baseband
-tp = config.chirpData.tp;  % duracion [sec]
+bw = 10e6;  % ancho de banda [Hz]
+fc = 0;  % frecuencia central [Hz] 0 ->baseband
+tp = 20e-6;  % duracion [sec]
 
 % Datos de ventana de muestreo
-swst = config.samplingWindow.swst; % retardo de apertura de ventana de 
+swst = 0e-6; % retardo de apertura de ventana de 
 								% muestreo (sampling window start time) [sec]
-fs = config.samplingWindow.fs;		% frecuencia de sampleo [sec]
+fs = 120e6;		% frecuencia de sampleo [sec]
 swl = 2*tp; % duracion de la ventana de muestreo (sampling window length) [sec]
 
 %%%% ERRORES EN CHIRP (long loop)
 
 % Setear en 1 para activar error residual de LUT del desfasaje introducido por los TRMs, 0 para desfasaje perfecto
-trm_ph_err_on = config.errors.trmPhErrOn;
+trm_ph_err_on = false;
 
 % Desviacion estandar del error residual de LUT del desfasaje introducido por los TRMs 
 % (importa solo si trm_ph_err_on == 1)
-err_ph = config.errors.phError * deg2rad; % std del error de fase en rad
+err_ph = 5 * deg2rad; % std del error de fase en rad
 
 % Setear en 1 para activar errores en chirp replica
-chirp_rep_err_on = config.errors.chirpRepErrOn;
+chirp_rep_err_on = false;
 
 % Se asume en esta version solo el error de codificacion, con chirp sin 
 % errores lineales/cuadraticos/random
-% En prox version se pueden agregar señales de error debido a
+% En prox version se pueden agregar seï¿½ales de error debido a
 % ruido, repetibilidad de switches, isolation en switches de TRMs y power splitters,
 % inestabilidades en hardware de calibracion y nominal
 % (sus reflexiones que generan error en la medicion, porque el camino 
@@ -117,9 +127,9 @@ chirp_rep_err_on = config.errors.chirpRepErrOn;
 % En esto impactan igual que en lo anterior, ruido, repetibilidad de swithces, 
 % isolation, inestabilidades del hardware, error residual de caracterizacion 
 % en caso de que este caracterizado, RFI.  
-icatt = config.errorsICAL.att;  % ical loop path power attenuation [dB] (req.
+icatt = 0.2;  % ical loop path power attenuation [dB] (req.
 								% to be known to 0.1dB)
-icph = config.errorsICAL.phShift; % ical loop path insertion phase [deg] (req.
+icph = -5; % ical loop path insertion phase [deg] (req.
 								  % to be known to 5deg)
 
 
@@ -131,8 +141,10 @@ icph = config.errorsICAL.phShift; % ical loop path insertion phase [deg] (req.
 
 
 %%% GENERACION DE SECUENCIAS ORTOGONALES PARA LA CODIFICACION PCC
-
-if strcmp( level,'row' ) % tiene 20 valores, las filas de cada panel son promediadas
+nEl = N_elems;
+qttyRepeatedRows = 1;
+%{
+if strcmp( level,'row' ) % 20 elementos
 	nEl = config.antennaConfig.rows;
 	qttyRepeatedRows = config.antennaConfig.panels;
 	ph_deg = mod( ( ceil( (1:N_elems)/qttyRepeatedRows ) )' * config.steeringAngle,360 ); 
@@ -145,6 +157,7 @@ else
 	qttyRepeatedRows = 1;
 	ph_deg = mod( ( 1:N_elems )' * config.steeringAngle,360 ); 
 end
+%}
 
 k = ceil(log2(nEl));    	% Orden de las secuencias de Walsh
 N = 2^k;                    % Cantidad de secuencias (y pulsos del modo)
@@ -197,10 +210,10 @@ ph_rad = ph_deg * deg2rad;
 % Fase agregada por cada camino (seteo real + codigo walsh agregado, con 
 % error del desfasador)
 phi0 = repmat( ph_rad,1,N ) + walsh_phi_m_err( 1:N_elems,: );
-% Construccion de la señal loopeada por cada elemento y sumada entre todos 
+% Construccion de la seï¿½al loopeada por cada elemento y sumada entre todos 
 acq = (amp' * exp( 1i*phi0 )).' * chirp;
-		% TODO: debería hacer chirp * lo otro, acq me queda traspuesta.
-% Aca en prox version se podrian agregar señales de error debido a ruido, 
+		% TODO: deberï¿½a hacer chirp * lo otro, acq me queda traspuesta.
+% Aca en prox version se podrian agregar seï¿½ales de error debido a ruido, 
 % repetibilidad de switches, isolation en switches de TRMs y power splitters,
 % inestabilidades en hardware de calibracion y nominal
 % (sus reflexiones que generan error en la medicion, porque el camino 
@@ -218,14 +231,14 @@ end
 
 signal = repmat( (acq * chirpRep').',N_elems,1 );
 integral = signal .* exp( -1i*walsh_phi_m( 1:N_elems,: ));
-	% integro todos los tériminos 
+	% integro todos los tï¿½riminos 
 signalEst = integral * ones(N,1) /(N*qttyRepeatedRows * (chirpRep*chirpRep'));
 	% La integral de arriba tiene dividiendo 2 valores a saber:
-	%	N: es ||cj||², TODO: esto está mal tambien, uno tiene que calcular
-	%	la correlación de las matrices de generación, la que tiene errores 
+	%	N: es ||cj||ï¿½, TODO: esto estï¿½ mal tambien, uno tiene que calcular
+	%	la correlaciï¿½n de las matrices de generaciï¿½n, la que tiene errores 
 	%	con la que no tiene errores.
-	%	chirpRep*chirpRep' es el módulo de las dos chirps a la que fue 
-	% 	multiplicada la señal, no va la ideal porque no se conoce.
+	%	chirpRep*chirpRep' es el mï¿½dulo de las dos chirps a la que fue 
+	% 	multiplicada la seï¿½al, no va la ideal porque no se conoce.
 
 angm = mod( round( angle( signalEst )*dec )/dec*rad2deg,360 ); % signalEst de fase en deg
 	% error de estimacion de fase llevado a 0	
@@ -251,8 +264,8 @@ for el = 1:N_elems
 end
 
 % Estadisticas de error
-[mp sp rssp] = characterizeError( errp,0 ); 
-[ma sa rssa] = characterizeError( erra,0 ); 
+[mp, sp, rssp] = characterizeError( errp,0 ); 
+[ma, sa, rssa] = characterizeError( erra,0 ); 
 
 disp(sprintf('Pha estimation error mean/std/rss: %02.2f / %02.2f / %02.2f deg',mp,sp,rssp))
 disp(sprintf('Att estimation error mean/std/rss: %02.2f / %02.2f / %02.2f dB ',ma,sa,rssa))
