@@ -36,6 +36,9 @@
 \usepackage[spanish]{babel}
 \usepackage{float}
 \usepackage{acronym}
+\usepackage{comment}
+\usepackage{csquotes}
+\usepackage[colorinlistoftodos,prependcaption,textsize=tiny]{todonotes}
 \usepackage[square, numbers, comma, sort&compress]{natbib} % Use the natbib reference package - read up on this to edit the reference style; if you want text (e.g. Smith et al., 2012) for the in-text references (instead of numbers), remove 'numbers' 
 \hypersetup{urlcolor=blue, colorlinks=true} % Colors hyperlinks in blue - change to black if annoying
 \title{\ttitle} % Defines the thesis title - don't touch this
@@ -68,11 +71,11 @@
 \begin{titlepage}
 \begin{center}
 
-\textsc{\LARGE Universidad Nacional de La Plata}\\[1.5cm] % University name
-\textsc{\Large Proyecto final}\\[0.5cm] % Thesis type
+\textsc{\LARGE Facultad de Ingeniería \\ Universidad de Buenos Aires}\\[1.5cm] % University name
+\textsc{\Large PROYECTO DE TESIS DE INGENIERÍA INFORMÁTICA}\\[0.5cm] % Thesis type
 
 \HRule \\[0.4cm] % Horizontal line
-{\huge \bfseries Diseño y desarrollo de emulador de celdas de combustible}\\[0.4cm] % Thesis title
+{\huge \bfseries Calibración de una antena polarimétrica utilizando los acoplamientos mutuos}\\[0.4cm] % Thesis title
 \HRule \\[1.5cm] % Horizontal line
  
 \begin{minipage}{0.4\textwidth}
@@ -84,7 +87,7 @@
 \begin{minipage}{0.4\textwidth}
 \begin{flushright} \large
 \emph{Coordinadores:} \\
-{Ing. Pablo Marino \\Ing. Rosa Wachenchauzer} % Supervisor name - remove the \href bracket to remove the link  
+{Lic. Rosa Wachenchauzer \\ Ing. Pablo Marino} % Supervisor name - remove the \href bracket to remove the link  
 \end{flushright}
 \end{minipage}\\[3cm]
  
@@ -93,7 +96,7 @@
 Departamento de informática\\[2cm] % Research group name and department name
  
 %{\large \today}\\[4cm] % Date
-\includegraphics[width=4cm]{logo_UNLP.jpg} % University/department logo - uncomment to place it
+\includegraphics[width=4cm]{Logo2.png} % University/department logo - uncomment to place it
  
 \vfill
 \end{center}
@@ -205,16 +208,17 @@ The acknowledgements and the people to thank go here, don't forget to include yo
 \chapter*{Acrónimos}
 
 \begin{acronym}[UML]
-\acro{FC}{Celda de combustible (del inglés)}
-\acro{PEM}{Membrana de intercambio protónico (del inglés)}
-\acro{SGH}{Sistema de generación híbrido}
-\acro{CCE}{Convertidor conmutado DC-DC elevador}
-\acro{CCR}{Convertidor conmutado DC-DC reductor}
-\acro{MCC}{Modo de conducción continua}
-\acro{MCD}{Modo de conducción discontinua}
-\acro{ESR}{Resistencia serie equivalente (del inglés)}
-\acro{FIR}{Respuesta al impulso finita (del inglés)}
-\acro{IIR}{Respuesta al impulso infinita (del inglés)}
+\acro{RF}{Radio Frequency}
+\acro{PRF}{Pulse Repetition Frequency}
+
+\acro{RFDN}{Radio Frequency distribution network}
+\acro{PSC}{Power splitter combiner}
+\acro{TRM}{Módulo de transmisión/recepción (del inglés)}
+\acro{RM}{Módulo radiante (del inglés)}
+\acro{LTI}{Lineal e invariante en el tiempo (del inglés)}
+
+\acro{SAR}{Radar de apertura sintética (del inglés)}
+\acro{LCI}{Lazo de calibración interna}
 \end{acronym}  
 %----------------------------------------------------------------------------------------
 %	PHYSICAL CONSTANTS/OTHER DEFINITIONS
@@ -303,13 +307,13 @@ The acknowledgements and the people to thank go here, don't forget to include yo
 %----------------------------------------------------------------------------------------
 %	BIBLIOGRAPHY
 %----------------------------------------------------------------------------------------
-% 
-% \label{Bibliography}
-% 
-% \lhead{\emph{Bibliography}} % Change the page header to say "Bibliography"
-% 
-% \bibliographystyle{unsrtnat} % Use the "unsrtnat" BibTeX style for formatting the Bibliography
-% 
-% \bibliography{Bibliography} % The references (bibliography) information are stored in the file named "Bibliography.bib"
-% 
-% \end{document}  
+ 
+\label{Bibliography}
+ 
+\lhead{\emph{Bibliography}} % Change the page header to say "Bibliography"
+
+\bibliographystyle{unsrtnat} % Use the "unsrtnat" BibTeX style for formatting the Bibliography
+ 
+\bibliography{Bibliography} % The references (bibliography) information are stored in the file named "Bibliography.bib"
+ 
+\end{document}  

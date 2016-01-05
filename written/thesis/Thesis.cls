@@ -181,9 +181,9 @@
 %	defined as \examname above so you cite it as \examname
 %----------------------------------------------------------------------------------------
 
-\thesistitle{Calibración de una antena polarimétrica haciendo uso de acoplamiento mutuo} % Your thesis title - this is used in the title and abstract
+\thesistitle{Calibración de una antena polarimétrica utilizando los acoplamientos mutuos} % Your thesis title - this is used in the title and abstract
 %-------------------------------------------------  
-\supervisor{Ing. Pablo Marino, Ing. Rosa Wachenchauzer} % You supervisor's name - this is used in the title page
+\supervisor{Lic. Rosa Wachenchauzer, Ing. Pablo Marino} % You supervisor's name - this is used in the title page
 %-------------------------------------------------   
 \examiner{} % Your examiner's name - this is not currently used anywhere in the template, cite it with \examname if you want it
 %-------------------------------------------------   
