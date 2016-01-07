@@ -1,34 +1,68 @@
 % Chapter 2
 
-\chapter{Motivación} % Chapter title
+\chapter{Introducción a las antenas polarimétricas y sus problemas} % Chapter title
 \label{ch:motivacion}
-\lhead{\emph{Motivación}}
+\lhead{\emph{Introducción a las antenas polarimétricas y sus problemas}}
 %----------------------------------------------------------------------------------------
-Hay numerosas motivaciones para la investigación de un nuevo método de 
-calibración:
-    
-Primero, a la hora de adquirir imágenes satelitales es crucial que se 
-conozca perfectamente la señal emitida y recibida por la antena. Ya sea por 
-envejecimiento de los materiales, por variaciones de temperaturas u algún 
-otro factor, se observan dispersiones de las mismas. Hay dos enfoques para 
-encarar esta problemática:
 
-\begin{itemize}
-    \item Controlando las dispersiones máximas que pueden presentarse 
-    utilizando hardware más complejo.
+\section{Antenas polarimétricas}
 
-    \item Corrigiendo dichas dispersiones haciendo uso de calibración 
-    interna.
-\end{itemize}
 
-Al utilizar la calibración interna se evita aumentar la complejidad y 
-peso del hardware utilizado a costa de un mayor procesamiento de software, 
-logrando así, disminuir el costo de la misión.
-    
-Otro motivo es que el método de calibración convencional posee numerosas
-limitaciones y falencias; la principal es que no abarca todo el sistema de 
-transmisión/recepción, dejando así parámetros fuera de control. 
+\section{Parámetros S}
 
+La sigla S deriva de la palabra scattering. Para altas frecuencias, es conveniente describir una
+determinada red en términos de ondas en vez de tensiones o corrientes. Esto permite una definición más 
+sencilla de planos de referencia. Por razones prácticas, la descripción en términos de ondas entrantes
+y salientes ha sido introducida. Ahora, una red de 4 polos se transforma en 2 puertos y $2n$ polos se 
+transforman en $n$ puertos. En el caso de un número impar de polos (ej. 3 polos), un punto de referencia
+puede ser elegido, atribuyendo un polo igualmente a dos puertos. Por lo tanto 3 polos se convierten en 
+3 + 1 polo correspidiendo a 2 puertos. Como una regla general, para cantidades impares de polos, siempre
+se agrega un polo extra.
+
+\begin{figure}[H]
+ \centering
+ \includegraphics[width=10cm]{gfx/sParameters1.png}
+ \caption{Ejemplo de una red de 2 puertos: circuito serie}
+ \label{fig:esquema_serie}
+\end{figure}
+
+Tomando como ejemplo una red de 2 puertos compuesta por una sola impedancia $Z$ conectada en serie (\ref{fig:esquema_serie}).
+Las impedancias de la fuente y de la carga son $Z_G$ y $Z_L$ respectivamente. Si $Z=0$ y $Z_L = Z_G$ (para el caso de $Z_G$ real) 
+la carga está adaptada. En este caso se obtiene una máxima transferencia de potencia y $U_1 = U_2 = U_0/2$. Notar que todas las
+tensiones y corrientes son valores pico. Se supone que las líneas que unen los componentes poseen longitud eléctrica igual a 0. 
+Las conecciones con una longitud eléctrica finita están dibujadas como una doble líea. A continuación se relacionará $U_0$, $U_1$ 
+y $U_2$ a $a$ y $b$.
+
+
+\subsection{Definición de \enquote*{ondas de potencia}}
+
+Las ondas incidentes al puerto son $\textbf{a}=(a_1, a_2, a_3, ..., a_n)$, las ondas salientes, o reflejadas, del puerto son  
+$\textbf{b}=(b_1, b_2, b_3, ..., b_n)$. Por definición, las corrientes incidentes son positivas y las salientes negativas. La
+onda $a_1$, incidente al puerto 1, es derivada de la tensión entrante a la carga balanceada. 
+
+Para hacer qe esta definición sea consistente con la ley de la conservación de la energía. La tensión es normalizada a $\sqrt{Z_0}$. 
+$Z_0$ es, en general una impedancia de referencia arbitraria, que usualmente se la utiliza como la impedancia característica de la 
+línea (ej, $Z_0 = 50 \Omega$). Y, cuando todas las impedancias son iguales ($Z_G = Z_L = Z_0$), se dice que la línea está adaptada
+y no hay onda reflejada. Las definiciones de $a1$ y $b1$ son:
+
+\begin{equation}
+\begin{aligned}
+	a1 &= \dfrac{U_0}{2\sqrt{Z_0}}= \dfrac{\textrm{onda de tensión incidente (puerto 1)}}{\sqrt{Z_0}}=\dfrac{U_1^{inc}}{\sqrt{Z_0}} \\
+	b1 &= \dfrac{U_1^{refl}}{2\sqrt{Z_0}}= \dfrac{\textrm{onda de tensión reflejada (puerto 1)}}{\sqrt{Z_0}}
+\end{aligned}
+\end{equation}
+
+Notar que \textbf{a} y \textbf{b} tienen las unidades de $\sqrt{\textrm{power}}$.
+
+La potencia incidente al puerto 1, $P_{inc}$, es simplemente la potencia entregada por la fuente, mientras que la potencia saliente 
+del puerto 1, $P_{refl}$, viene de la onda de tensión reflejada.
+
+\begin{equation}
+\begin{aligned}
+	P_1^{inc} &= \dfrac{1}{2}|a_1|^2= \dfrac{|U_1^{inc}|^2}{2Z_0}=\dfrac{|I_1^{inc}|^2}{2}Z_0 \\
+	P_1^{refl} &= \dfrac{1}{2}|b_1|^2= \dfrac{|U_1^{refl}|^2}{2Z_0}=\dfrac{|I_1^{refl}|^2}{2}Z_0 \\
+\end{aligned}
+\end{equation}
 
 
 
