@@ -52,7 +52,7 @@ y no hay onda reflejada. Las definiciones de $a1$ y $b1$ son:
 \end{aligned}
 \end{equation}
 
-Notar que \textbf{a} y \textbf{b} tienen las unidades de $\sqrt{\textrm{power}}$.
+Notar que \textbf{a} y \textbf{b} tienen las unidades de $\sqrt{\textrm{potencia}}$.
 
 La potencia incidente al puerto 1, $P_{inc}$, es simplemente la potencia entregada por la fuente, mientras que la potencia saliente 
 del puerto 1, $P_{refl}$, viene de la onda de tensión reflejada.
@@ -64,6 +64,175 @@ del puerto 1, $P_{refl}$, viene de la onda de tensión reflejada.
 \end{aligned}
 \end{equation}
 
+En el caso de una desadaptación de la impedancia de carga $Z_L$, parte de la potencia será reflejada a través del puerto 2 (
+potencia incidente al puerto 2).
+
+$$
+P_2^{inc}=\dfrac{1}{2}|a_2|^2
+$$
+
+Se ha definido $a_1 = U_0/2\sqrt{Z_0} = U^{inc}/\sqrt{Z_0}$ con la onda de tensión incidente $U^{inc}$. Como analogía 
+se la puede definir como $a_1 = I^{inc}\sqrt{Z_0}$ con la onda incidente de corriente $I^{inc}$. Utilizando ambas, se obtiene la 
+definición general de las ondas incidentes $a_i$ y reflejadas $b_i$ de un puerto.
+
+\begin{equation}
+\begin{aligned}
+	a_i &= \dfrac{U_i + I_iZ_0}{2\sqrt{Z_0}} \\
+	b_i &= \dfrac{U_i - I_iZ_0}{2\sqrt{Z_0}}
+\end{aligned}
+\label{eq:waves}
+\end{equation}
+
+Solucionando este sistema de ecuaciones, $U_i$ y $I_i$ pueden ser obtenidas de $a_i$ y $b_i$ como
+
+\begin{equation}
+\begin{aligned}
+	U_i &= \sqrt{Z_0}(a_i + b_i) = U_i^{inc} + U_i^{refl}\\
+	I_i &= \dfrac{1}{\sqrt{Z_0}}(a_i - b_i) = \dfrac{U_i^{refl}}{Z_0}
+\end{aligned}
+\end{equation}
+
+
+\subsection{La matríz de parámetros S}
+
+La relación entre $a_i$ y $b_i$ (siendo $i=1..n$) puede ser escrito como un sistema de n ecuaciones lineales (siendo la variable 
+independiente $a_i$ y $b_i$ como la dependiente)
+
+\begin{equation}
+\begin{aligned}
+	b_1 = S_{11}a_1 + S_{12}a_2 \\
+	b_2 = S_{21}a_1 + S_{22}a_2
+\end{aligned}
+\label{eq:s_matrix}
+\end{equation}
+	
+Escrito de forma matricial: \textbf{b} = \textbf{Sa}
+
+El significado físico de los parámetros S son los siguientes:
+\begin{itemize}
+	\item $S_{11}$: es el coeficiente de reflexión con la salida de la red terminada en una carga adaptada ($a_2 = 0$).
+	\item $S_{21}$: es la transmisión en directa (del puerto 1 al 2)
+	\item $S_{12}$: es la transmisión en inversa (del puerto 2 al 1)
+	\item $S_{22}$: es el coeficiente de reflexión de la salida. 
+\end{itemize}
+
+Al medir todos los parámetros S de una red de n puertos, todos los puertos deben estar terminados con una carga adaptada.
+Utilizando las equaciones \ref{eq:waves} y \ref{eq:s_matrix} se obtiene el coeficiente de reflexión de una impedancia $Z_L$
+conectada a un generador de impedancia de salida $Z_0$ (Figura \ref{fig:esquema_serie}, caso $Z_G = Z_0$ y $Z = 0$):
+
+\begin{equation}
+S_{11} = \dfrac{b_1}{a_1}\bigg|_{a_2=0} = \dfrac{U_1 - I_1Z_0}{U_1 + I_1Z_0} = \dfrac{Z_L - Z_0}{Z_L + Z_0} = \Gamma 
+\end{equation}
+
+\subsection{La matriz de transferencia}
+
+Resulta muy conveiente la utilización de la matriz de parámetros S para describir una red de n polos en términos de ondas y 
+para mediciones. Pero, no es muy conveniente su utilización para caracterizar la respuesta de una cascada de redes de 2 
+puertos. En este caso, una manera de encarar dicha problemática, es la utilización de la matriz de parámetros T (matriz 
+de transferencia), la cual relaciona las ondas de entrada y salida de cada cuadripolo.
+
+\begin{equation}
+\begin{pmatrix} a_1\\b_1 \end{pmatrix} = \begin{pmatrix} T_{11} & T_{12}\\T_{21} & T_{22} \end{pmatrix} 
+\begin{pmatrix} a_2\\b_2 \end{pmatrix}
+\end{equation}
+
+Cabe destacar que, para los casos en que no hay transmisión entre el puerto 1 y 2, si bien la matriz de parámetros S está definida, 
+la matriz de parámetros T no. La matriz resultante de parámetros T de una cascada de redes de 2 puertos resulta como sigue:
+
+\begin{equation}
+\mathbf{T_M=T_1T_2...T_m}
+\end{equation}
+
+\subsection{Conversión entre parámetros T y S}
+\todo{poner como referencia el libro que tengo en casa}
+
+\subsection{Propiedades de la matriz de parámetros S}
+
+Una red generalizada de n puertos posee $n^2$ coeficientes de scattering. Mientras que los $S_{ij}$ podrían ser todos independientes,
+en general, debido a simetrías u otros factores, la cantidad de coeficientes independientes es mucho menor.
+\begin{itemize}
+	\item Una red de n puertos es recíproca cuando $S_{ij} = S_{ji}$ para todo $i, j$. La mayoría de los componentes pasivos son 
+		recíprocos (resistencias, capacitores, transformadores, etc., exceptuando para estructuras involucrando ferrites magnéticos,
+		plasmas, etc.), componentes activos como amplificadores generalmente son no recíprocos.
+	\item Una red de 2 puertos es simétrica cuado es recíproca ($S_{21} = S_{12}$) y cuando los coeficientes de reflexión son iguales
+		($S_{11} = S_{22}$).
+	\item Una red de N puertos es pasiva y sin pérdidas si su matriz de parámetros S es unitaria ($\mathbf{S^{\dagger}S = 1}$ donde 
+		$\mathbf{x^{\dagger} = (x^*)^T}$ es la conjugada y transpuesta de $x$). Para una red de 2 puertos esto significa
+
+\begin{equation}
+S^{\dagger}S = \begin{pmatrix} S_{11}^* & S_{21}^*\\S_{12}^* & S_{22}^* \end{pmatrix}
+			\begin{pmatrix} S_{11} & S_{12}\\S_{21} & S_{22} \end{pmatrix} = \begin{pmatrix} 1 & 0\\0 & 1 \end{pmatrix}
+\end{equation}
+
+Esto conlleva a 3 condiciones 
+
+\begin{equation}
+\begin{aligned}
+	|S_{11}|^2 + |S_{21}|^2 = 1 \\
+	|S_{12}|^2 + |S_{22}|^2 = 1 \\
+	S_{11}^*S_{12} + S_{21}^*S_{22} = 0
+\end{aligned}
+\label{eq:sCondition}
+\end{equation}
+
+Separando la última ecuación en módulo y fase, se obtiene
+
+\begin{equation}
+\begin{aligned}
+	|S_{11}||S_{12}| &= |S_{21}||S_{22}| \\
+	-argS_{11} + argS_{12} &= -argS_{21} + argS_{22} + \pi
+\end{aligned}
+\label{eq:con}
+\end{equation}
+
+Donde $arg(x)$ es el argumento (angulo) de la variable compleja $x$. Combinando la ecuación \ref{eq:sCondition} con la primera 
+de la ecuación \ref{eq:con} se obtiene
+
+\begin{equation}
+\begin{aligned}
+	|S_{11}| = |S_{12}|, |S_{21}| = |S_{22}| \\
+	|S_{11}| = \sqrt{1 - |S_{12}|^2}
+\end{aligned}
+\end{equation}
+
+Por lo tanto, cualquier red de 2 puertos sin pérdidas puede ser caracterizada con un módulo y tres ángulos.
+\end{itemize}
+
+En general los parámetros S son valores complejos y dependientes de la frecuencia. 
+
+\section{Parámetros S de cada componente}
+
+Los componentes que son ideales, se los trata como si estuviesen perfectamente adaptados, logrando así que los coeficientes
+de reflexión sean nulos, esto es $S_{11} = S_{22} = 0$
+
+\subsection{RM}
+	
+El módulo radiante es un módulo de un único puerto y es pasivo, por lo tanto el parámetro S que lo define es $S_{11}$ y su 
+valor varía entre -1 y 1.
+
+\begin{itemize}
+	\item Cortocircuito ideal: $S_{11} = -1$
+	\item Conexión ideal: $S_{11} = 0$
+	\item Circuito abierto ideal: $S_{11} = 1$
+\end{itemize}
+
+Los casos de cortocircuito y circuito abierto son casos de falla del módulo radiante. Cualquier otro valor intermedio implica
+una desadaptación de impedancias.
+
+\subsection{Cable ideal}
+Un cable se comporta como una línea de transmisión, y su matriz es la siguiente
+
+$$
+\mathbf{S} = \begin{pmatrix} 0 & e^{-\gamma l}\\e^{-\gamma l} & 0\end{pmatrix}
+$$
+
+Donde $\gamma = \alpha + j\beta$ es una constante de propagación compleja. $\alpha$ es la atenuación de la línea en [neper/m] 
+y $\beta = 2\pi/\delta$ con la longitud de onda $\delta$. Para una línea sin pérdidas se obtiene $|S_{21}| = 1$
+
+\subsection{Phase shifter ideal}
+\subsection{Atenuador ideal}
+\subsection{Amplificador ideal}
+\subsection{PSC}
 
 
 \begin{comment}
