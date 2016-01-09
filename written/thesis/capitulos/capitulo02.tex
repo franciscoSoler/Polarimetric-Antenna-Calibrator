@@ -230,9 +230,66 @@ Donde $\gamma = \alpha + j\beta$ es una constante de propagación compleja. $\al
 y $\beta = 2\pi/\delta$ con la longitud de onda $\delta$. Para una línea sin pérdidas se obtiene $|S_{21}| = 1$
 
 \subsection{Phase shifter ideal}
+
+$$
+\mathbf{S} = \begin{pmatrix} 0 & e^{-j\phi_{12}}\\e^{-j\phi_{21}} & 0\end{pmatrix}
+$$
+
+Un defasador recíproco posee $\phi_{12} = \phi_{21}$.
+
 \subsection{Atenuador ideal}
+
+$$
+\mathbf{S} = \begin{pmatrix} 0 & e^{-\beta}\\e^{-\alpha} & 0\end{pmatrix}
+$$
+
+Si el atenuador es recíproco, $\alpha = \beta$. El factor de atenuación, $\alpha$, está en neper. La atenuación en decibeles
+viene dado por $A = '20\log_{10}(S_{21})$, $1N = 8.686dB$.
+
+
 \subsection{Amplificador ideal}
+
+$$
+\mathbf{S} = \begin{pmatrix} 0 & 0\\G & 0\end{pmatrix}
+$$
+
+Con $G > 1$.
+
+
+\subsection{Circulador ideal}
+
+El circulador ideal es sin pérdidas y adaptado en todos sus puertos. La señal entrante por un puerto es exclusivamente 
+transmitida al puerto siguiente en el sentido de la flecha.
+
+\begin{figure}[H]
+ \centering
+ \includegraphics[width=4cm]{gfx/circulator.png}
+ \caption{circulador de 3 puertos}
+ \label{fig:circulator}
+\end{figure}
+
+La matriz de parámetros S es como sigue.
+
+$$
+\mathbf{S} = \begin{pmatrix} 0 & 0 & 1\\1 & 0 & 0\\0 & 1 & 0\end{pmatrix}
+$$
+
+
 \subsection{PSC}
+
+El tipo de PSC modelado consiste en una red recíproca y adaptada en todos sus puertos, pero con pérdidas. Puede ser un 
+componente de 3 o más puertos. A continuación se muestra la matriz de parámetros S genérica para una red de n puertos 
+(matriz de nxn).
+
+$$
+\mathbf{S} = \begin{pmatrix} 0 & \dfrac{1}{n-1} & ... & \dfrac{1}{n-1}\\
+							 \dfrac{1}{n-1} & 0 & ... & \dfrac{1}{n-1}\\
+							 ... & ... & ... & ... \\
+							 \dfrac{1}{n-1} & \dfrac{1}{n-1} & ... & 0 \end{pmatrix}
+$$
+
+
+
 
 
 \begin{comment}
