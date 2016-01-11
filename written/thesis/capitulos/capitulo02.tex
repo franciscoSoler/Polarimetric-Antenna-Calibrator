@@ -7,6 +7,35 @@
 
 \section{Antenas polarimétricas}
 
+Una antena polarimétrica es una antena que se la utiliza en radares y satélites. Generalmente trabajan en la
+zona del espectro electromagnético de microondas. Las mismas pueden ser activas o pasivas, esto es, para el
+primer caso, que el sistema emita su propia energía, para luego medir el eco de la misma. Para el segundo caso,
+el radar no emite ninguna señal, simplemente recibe el eco de algún otro sistema emisor/receptor.
+
+\begin{figure}[H]
+ \centering
+ \includegraphics[width=10cm]{gfx/electromagneticSpectrum.png}
+ \caption{Espectro Electromagnético}
+ \label{fig:spectrum}
+\end{figure}
+
+Dado que la frecuencia de trabajo está dentro del rango microondas (ver fig \ref{fig:spectrum}), estas antenas poseen la 
+capacidad de trabajar independientemente de las condiciones atmosféricas (ver figura \ref{fig:atmosphere}), esto es, que la 
+señal casi no es atenuada por la atmósfera, tampoco es interferida ni por las lluvias ni por las nubes. A su vez, se puede 
+obtener información sobre la textura del terreno y sobre los sustratos inferiores de las coberturas boscosas. Dependiendo de 
+que longitud de onda de la zona microondas, se tiene de 3 cm a 30 cm de penetración.
+
+\begin{figure}[H]
+ \centering
+ \includegraphics[width=10cm]{gfx/AtmosphericOpacity.png}
+ \caption{Opacidad atmosférica vs frequencia}
+ \label{fig:atmosphere}
+\end{figure}
+
+
+
+
+\todo{Buscar el gráfico de el espectro electromagnético y de la absorción de la señal de la atmósfera}
 
 \section{Parámetros S}
 
@@ -144,7 +173,26 @@ la matriz de parámetros T no. La matriz resultante de parámetros T de una casc
 \end{equation}
 
 \subsection{Conversión entre parámetros T y S}
-\todo{poner como referencia el libro que tengo en casa}
+
+Como la matriz de transferencia (T) simplemente relaciona las ondas de entrada y salidas de una forma diferente a la matriz de 
+scattering, partiendo de una matriz se puede llegar a la otra y viceversa.
+
+\begin{equation}
+	\begin{aligned}
+		T_{11} &= S_{12} - \dfrac{S_{22}S_{11}}{S_{21}},\quad T_{12} = \dfrac{S_{11}}{S_{21}} \\
+		T_{21} &= - \dfrac{S_{22}}{S_{21}},\qquad\qquad T_{22} = \dfrac{1}{S_{21}}
+	\end{aligned}
+\end{equation}
+
+Para obtener los parámetros S partiendo desde los parámetros T, se utiliza la siguiente relación matemática
+
+\begin{equation}
+	\begin{aligned}
+		S_{11} &= \dfrac{T_{12}}{T_{22}},\qquad S_{12} = T_{11} - \dfrac{T_{12}T_{21}}{T_{22}} \\
+		S_{21} &= \dfrac{1}{T_{22}},\qquad S_{22} = - \dfrac{T_{21}}{T_{22}}
+	\end{aligned}
+\end{equation}
+
 
 \subsection{Propiedades de la matriz de parámetros S}
 
@@ -154,7 +202,7 @@ en general, debido a simetrías u otros factores, la cantidad de coeficientes in
 	\item Una red de n puertos es recíproca cuando $S_{ij} = S_{ji}$ para todo $i, j$. La mayoría de los componentes pasivos son 
 		recíprocos (resistencias, capacitores, transformadores, etc., exceptuando para estructuras involucrando ferrites magnéticos,
 		plasmas, etc.), componentes activos como amplificadores generalmente son no recíprocos.
-	\item Una red de 2 puertos es simétrica cuado es recíproca ($S_{21} = S_{12}$) y cuando los coeficientes de reflexión son iguales
+	\item Una red de 2 puertos es simétrica cuando es recíproca ($S_{21} = S_{12}$) y cuando los coeficientes de reflexión son iguales
 		($S_{11} = S_{22}$).
 	\item Una red de N puertos es pasiva y sin pérdidas si su matriz de parámetros S es unitaria ($\mathbf{S^{\dagger}S = 1}$ donde 
 		$\mathbf{x^{\dagger} = (x^*)^T}$ es la conjugada y transpuesta de $x$). Para una red de 2 puertos esto significa
