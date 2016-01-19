@@ -34,6 +34,39 @@ coberturas boscosas. Dependiendo de que longitud de onda del rango de trabajo, s
  \label{fig:atmosphere}
 \end{figure}
 
+\subsection{Composición de una antena}
+
+Una antena polarimétrica está compuesta por tres bloques principales, el generador, la red de distribución y la antena con 
+los módulos radiantes.
+
+El generador de puede generar distitnos tipos de señales. Ej, cuadrada, chirp, senoidal, triangular, etc. \todo{ahondar mas en este tema}
+
+La red de distribución, llamada RFDN, es la encargada de transmitir la señal a todos los módulos radiantes de la antena. 
+Dicha red posee una estructura de árbol, de forma tal, que la longitud de todos los caminos entre las hojas del mismo a 
+la raíz son iguale (Los nodos son los PSC y las holas los RMs). Es necesraio que todos los caminos sean iguales para que la 
+señal transmitida posea la misma fase y atenuación. Los componentes utilizados para distribuir la señal son los siguientes:
+
+\begin{itemize}
+	\item Power Splitter Combiner: este componente es el encargado de dividir la señal transmitida en tantos puertos de salida 
+		tenga y la de sumar/combinar las potencias recibidas.
+	\item Cable: este componente es el utilizado para unir el resto de los componentes.
+	\item Módulo de Transmisión y Recepción: Este componente es el encargado de atenuar y amplificar la señal para que, tanto
+		la potencia transmitida como la entrante a la red esté controlada y conocida. Hay uno por cada módulo radiante para 
+		poder calibrar la antena, esto es, que la potencia de salida/entrada sea la misma en cada módulo radiante.
+	\item Defasador: Este componente simplemente defasa la señal transmitida, hay uno por cada módulo radiante, se lo utiliza
+		para poder calibrar la antena tanto en transmisión como en recepción, logrando así, que cada camino de transmisión/
+		recepción de las hojas a la raíz defase lo mismo. A su vez, se lo utiliza para poder direccionar el beam de la señal
+		emitida.
+	\item Módulo Radiante: Este componente es el emisor de la señal a transmitir y/o el receptor. En este tipo de antenas un 
+		RM puede cumplir una o ambas funcionalidades.
+	\item Circulador: Este componente generalmente es uno de tres puertos, se lo utiliza para separar los caminos de la 
+		señal transmitida (Tx) de la recibida (Rx). Generalmente es utilizado si el mismo módulo radiante se lo utiliza para
+		transmisión como recepción.
+\end{itemize}
+
+\todo{put here an antenna graph}
+\todo{explicar que una antena puede transmitir en 2 polarizaciones principales, para esto requiere de 2 RFDN}
+
 \subsection{Patrón de antena}
 
 Un array de de una antena polarimétrica es una colección de N módulos radiantes espaciados. Todos los elementos poseen los
@@ -79,9 +112,9 @@ están emitiendo en fase.
 \end{figure}
 
 Se puede observar que aumentando la cantidad de módulos radiantes, se logra que el beam principal (lóbulo principal de 
-potencia), sea más angosto, por lo tanto se obtenga una mayor resolución del cuerpo observado. La siguiente figura 
-(\ref{fig:directArrayPat}) muestra cómo cambiando la fase de los elementos radiados modifica la dirección del patrón de 
-antena.
+potencia), sea más angosto, por lo tanto se obtenga una mayor resolución del cuerpo observado. Observando la siguiente 
+figura (\ref{fig:directArrayPat}), se puede deducir que la fase de los elementos radiados modifica la dirección del 
+patrón de antena.
 
 \begin{figure}[H]
 	\centering

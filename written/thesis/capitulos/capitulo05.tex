@@ -1,52 +1,32 @@
-\chapter{Estado del arte}
+\chapter{Método utilizando los acoplamientos mutuos}
 \label{ch:estado}
-\lhead{\emph{Estado del arte}}
+\lhead{\emph{Método utilizando los acoplamientos mutuos}}
 
-    La calibración de una antena polarimétrica se ha estudiado en numerosas 
-ocasiones, abordando el problema desde distintos enfoques. En el siguiente 
-gráfico se pueden observar los distintos métodos utilizados.
-\[
-\substack{\text{métodos}\\de\\\text{calibración}}
-\begin{cases}
-    \substack{\text{utilizan}\\\text{componentes externos}}
-    \begin{cases}
-        
-        \text{blancos puntuales - [\ref{ppr:puncTrgt1}], 
-        [\ref{ppr:puncTrgt2}], [\ref{ppr:punc-ext1}], 
-        [\ref{ppr:puncTrgt3}]}\\
-        \text{blancos distribuidos - [\ref{ppr:dist1}]}\\
-        \text{absolute Radiometric Calibration - [\ref{ppr:absRad1}],
-        [\ref{ppr:rad2}], [\ref{ppr:rad3}], [\ref{ppr:abs-rad-ical1}], 
-        [\ref{ppr:rad4}], [\ref{ppr:rad5}], [\ref{ppr:rad6}], 
-        [\ref{ppr:rad7}]}\\
-        \text{Broadcast Reference Technique - [\ref{ppr:brdcast1}]}\\
-        \text{miden deformación antena - [\ref{ppr:aligment1}], 
-        [\ref{ppr:aligment2}], [\ref{ppr:aligment3}], 
-        [\ref{ppr:aligment4}], [\ref{ppr:aligment5}],
-        [\ref{ppr:aligment6}]}\\
-        \text{utilizan calibración externa - [\ref{ppr:ext1}], 
-        [\ref{ppr:ext2}], [\ref{ppr:ext3}], [\ref{ppr:punc-ext1}], 
-        [\ref{ppr:classic-ext1}], [\ref{ppr:mutual-ext1}]}\\
-    \end{cases}\\
-    \substack{\text{no utilizan}\\\text{componentes externos}}
-    \begin{cases}
-        \text{calibración clásica - [\ref{ppr:classic1}], 
-        [\ref{ppr:classic2}], [\ref{ppr:classic3}], 
-        [\ref{ppr:abs-rad-ical1}], [\ref{ppr:classic4}], 
-        [\ref{ppr:classic5}], [\ref{ppr:classic6}],
-        [\ref{ppr:classic-ext1}], [\ref{ppr:classic7}],
-        [\ref{ppr:classic8}]}\\
-        \text{aprovechando acoplamiento mutuo - [\ref{ppr:mutual1}], 
-        [\ref{ppr:mutual-ext1}]}\\
-        \text{método REV - [\ref{ppr:rev1}]}
-    \end{cases}
-\end{cases}
-\]
+Una antena se calibra buscando que no solo todos los caminos de recepción atenúen y defasen exactamente lo mismo, sino que 
+también sea un valor conocido. Para transmisión se busca lo mismo, con la salvedad que se puede modificar la fase de algunos
+RMs para modificar el lugar de apuntamiento de la antena.
 
-\todo{todo}
+\todo{poner que factores hacen que cambie la ganancia de los componentes para calibrar la antena}
+\todo{poner que ocurre con el antnena pattern si no está correctamente calibrada, altura de lóbulos secundarios, ancho 
+de lóbulo principal, pico del lóbulo principal, etc}
 
-    Dichos métodos se han clasificado por la utilización o no de componentes
-externos a la antena.
+Para poder calibrar esta antena polarimétrica haciendo uso de los acoplamientos mutuos, se cuenta con el uso de 
+cuadrados mínimos. La idea es realizar lazos de calibración transmitiendo en una polarización y recibiendo en la
+otra a la vez. Para esto, es necesario que no solo se pueda configurar algunos RMs em modo $T_x$ y otros en modo $R_x$ en 
+distintas polarizaciones, sino también poder configurar los módulos que no forman parte de dicho lazo en modo alta 
+impedancia (en este modo el módulo no transmite ni recibe nada, evitando así la inyección de ruido y señal en zonas de la 
+antena indeseadas). 
+
+Tomando como caso una antena rectangular de $M x N$ módulos radiantes y asumiendo que solo se transmite y recibe de a un 
+RM por lazo de calibración, a priori, se dispone de un máximo de $(MN)^2$ ecuaciones. La cantidad de incógnitas de todos
+los caminos de la RFDN, tanto transmisión como recepción en ambas polarizaciones (H y V), son $4MN$. A su vez, en el 
+apéndice \ref{AppendixA} se realiza el cálculo de la cantidad de acoplamientos mutuos que posee una antena polarimétrica,
+particularmente, la ecuación \ref{eq:amountMutCoupling} muestra la cantidad de incógnitas, que, para este caso, resulta 
+ser de $MN(MN-1)/2$. Totalizando en $MN(MN + 7)/2$ incógnitas.
+
+Para que el sistema tenga solución, la cantidad de ecuaciones debe ser mayor que la de incógnitas. Esta restricción solo 
+se cumple si se calibra toda la antena en un solo paso (Tx y Rx en ambas polarizaciones) porque es el único caso en que 
+cada acoplamiento mútuo aparezca más de una única vez. En caso contrario, habrían siempre más incógnitas que ecuaciones.
 
 
 \begin{comment}
