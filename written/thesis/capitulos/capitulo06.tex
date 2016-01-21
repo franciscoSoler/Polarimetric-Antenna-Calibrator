@@ -1,7 +1,62 @@
-\chapter{Cronograma}
-\lhead{\emph{Cronograma}}
-\section{Cronograma detallado}
-\todo{agregar cronograma}
+\chapter{Simulaciones}
+\lhead{\emph{Simulaciones}}
+
+\section{Modelo de la antena}
+
+\subsection{Configuraciones del sistema}
+
+Las configuraciones que se le pueden realizar al modelo de antena para realizar los distintos ensayos están listados en la 
+tabla \ref{tab:conf_modelo_antena}.
+
+\begin{center}
+  \footnotesize
+  \centering
+  \begin{longtable}{|c|p{9cm}|}
+    \hline 
+	\multicolumn{2}{|c|}{\textbf{Parámetros de entrada}} \\ 
+	\hline
+    Frequencia		& Es la frecuenia central de trabajo en Hz \tabularnewline \hline 
+    Potencia		& Potencia con la que se alimenta la antena en db \tabularnewline \hline 
+    Fase			& Fase con la que se alimenta la antena en grados \tabularnewline \hline 
+    Row Steering	& Apuntamiento horizontal que se le quiere dar al beam de salida, en grados  \tabularnewline \hline 
+    Column Steering	& Apuntamiento vertical que se le quiere dar al beam de salida, en grados  \tabularnewline \hline 
+	\multicolumn{2}{|c|}{\textbf{Parámetros de calibración}} \\ 
+	\hline
+	potencia Tx deseada	& Potencia de transmisión deseada para calbirar  \tabularnewline \hline 
+	potencia Rx deseada	& Potencia de recepción deseada para calbirar  \tabularnewline \hline 
+	Errores	& Son los errores referentes a la hora de calibrar el modelo de antena. Pueden ser: interPulseGainChirpError, interPulsePhaseChirpError, gainChirpRepError, phaseChirpRepError, WalPhaseErrors  \tabularnewline \hline
+	\multicolumn{2}{|c|}{\textbf{Parámetros de Antena}} \\ 
+	\hline
+	Cantidad Filas	& Da la cantidad de módulos radiantes en dirección vertical \tabularnewline \hline 
+	Cantidad Columnas	& Da la cantidad de módulos radiantes en dirección horizontal \tabularnewline \hline 
+	Separación vertical & Es la separación vertical entre RMs \tabularnewline \hline 
+	Separación horizontal & Es la separación horizontal entre RMs \tabularnewline \hline 
+	Secuencia de componentes & Es la secuencia de componentes que conforma la RFDN, los mismos pueden ser: cables, psc, trm, circulador, rm \tabularnewline \hline 
+	Errores  & Son los componentes de la antena que pueden tener errores. Los mismos pueden ser: RMError, TRMError, CirculatorError, PSCError \tabularnewline \hline 
+	TRMs muertos & Es una lista que indica que trms están muertos en el panel de la antena. \tabularnewline \hline 
+	\multicolumn{2}{|c|}{\textbf{Componentes de Antena}} \\
+	\hline
+	$cable_i$ & Se pueden definir tantos cables como se deseen, los parámetros a definir son: attenuation [db], length [m], type = cable \tabularnewline \hline 
+	$trm_i$ & Se pueden definir tantos TRMs como se deseen, los parámetros a definir son: gain [db], phaseShift [deg], type = TRM \tabularnewline \hline 
+	$psc_{1j}$ & Se pueden definir tantos PSC como se deseen, los parámetros a definir son: outputPorts = $j$, type = PSC1$j$ \tabularnewline \hline 
+	circulator & aca se puede definir un circulador, el parámetro a definir es: type = circulator \tabularnewline \hline 
+	$rm$ & Se puede definir un RM, el parámetro a definir es: type = RM \tabularnewline \hline 
+	\multicolumn{2}{|c|}{\textbf{Desvío estandard del error}} \\
+	\hline
+	Error del cable & Desvío estandard de los cables. \tabularnewline \hline 
+	Error del circulador & Desvío estandard de los circuladores. \tabularnewline \hline 
+	Error del TRM & Desvío estandard de los TRMs. \tabularnewline \hline 
+	Error del PSC & Desvío estandard de los PSC. \tabularnewline \hline 
+	Error del RM & Desvío estandard de los RM. \tabularnewline \hline 
+	Error de ganancia entre pulsos & Desvío estandard de ganancia entre pulsos de calibración. \tabularnewline \hline 
+	Error de fase entre pulsos & Desvío estandard de fase entre pulsos de calibración. \tabularnewline \hline 
+	Error de ganancia de la chirp replica & Desvío estandard de ganancia de la chirp replica. \tabularnewline \hline 
+	Error de fase de la chirp replica & Desvío estandard de fase de la chirp replica. \tabularnewline \hline 
+	Error de fase del walsh & Desvío estandard de fase del seteo de los defasadores en calibración. \tabularnewline \hline 
+	\caption{Configuraciones del modelo de antena}
+  \end{longtable}
+  \label{tab:conf_modelo_antena}
+\end{center}
 
 \begin{comment}
 \section{Modelo de control}

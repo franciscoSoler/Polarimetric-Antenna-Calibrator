@@ -10,24 +10,6 @@ En este capítulo se dará una breve introducción a la problemática a resolver
 la definición del problema a trabajar y el plan de tesis.
 
 
-\section{Resumen}
-
-En este proyecto de tesis se realizará la calibración interna de una antena polarimétrica. Para realizar esta tarea hay distintos
-métodos.
-
-El primer método es el convencional, el cual calibra los lazos internos de transmisión y recepción de la antena de forma 
-independiente. Para esto, se mide la señal recibida luego de ser transmitida por todos los caminos posibles de la RFDN
-y se los compara con la potencia transmitida. Estas diferencias, tanto de fase como de potencia, determinan cuanto atenúa
-y defasa cada camino de la antena.
-
-Otro método utilizado es el llamado método REV, el cual calibra de a un módulo radiante a la vez utilizando una antena externa
-al panel como receptora. El proceso de calibración es el siguiente. Se transmite por un módulo radiante y se va variando la 
-fase hasta que se detecta la fase en que la potencia recibida es máxima, luego, se repite el proceso para todos los módulos. 
-
-El método que se desarrolla en esta tesis es el llamado calibración utilizando los acoplamientos mútuos. Este método calibra 
-tanto los caminos de transmisión como recepción a la vez, para ello, se transmite en una polarización y se recibe en otra de 
-a un módulo radiante a la vez. 
-
 \section{Contexto}
     
 Las antenas de arreglo de fase controlada \cite{Fenn2000} son utilizadas en aplicaciones de todo tipo, por ejemplo comunicaciones 
@@ -275,7 +257,36 @@ conclusiones en el capítulo 8.
 
 \todo{todo}
 \section{Presentación previa de este trabajo}
-\todo{todo}
+
+En este proyecto de tesis se realizará la calibración interna de una antena polarimétrica. Para realizar esta tarea hay distintos
+métodos.
+
+El primer método es el convencional, el cual calibra los lazos internos de transmisión y recepción de la antena de forma 
+independiente. Para esto, se mide la señal recibida luego de ser transmitida por todos los caminos posibles de la RFDN
+y se los compara con la potencia transmitida. Estas diferencias, tanto de fase como de potencia, determinan cuanto atenúa
+y defasa cada camino de la antena.
+
+Otro método utilizado es el llamado método REV, el cual calibra de a un módulo radiante a la vez utilizando una antena externa
+al panel como receptora. El proceso de calibración es el siguiente. Se transmite por un módulo radiante y se va variando la 
+fase hasta que se detecta la fase en que la potencia recibida es máxima, luego, se repite el proceso para todos los módulos. 
+
+El método que se desarrolla en esta tesis es el llamado calibración utilizando los acoplamientos mútuos. Este método calibra 
+tanto los caminos de transmisión como recepción a la vez, para ello, se transmite en una polarización y se recibe en otra de 
+a un módulo radiante a la vez. Una ventaja que tiene frente a los otros métodos realizados es que no solo calibra la antena 
+en su totalidad, sino también que sirve para determinar si hay módulos radiantes quemados.
+
+Previamente a las simulaciones se realizaron los cálculos matemáticos necesarios para demostrar que el método sirve para 
+lo anteriormente realizado. A su vez se investigaron tanto las problematicas que poseen cada método de calibración como
+las problemáticas de la modelización de los componentes que conforman una antena polarimétrica.
+
+Para la simulación, se realizó un programa que modele una antena polarimétrica genérica. Con la posibilidad de configurar 
+sus dimensiones, su geometría y que se puedan simular casos de fallas a los distintos componentes que la conforman.
+conforman.
+
+Para poder contrastar los resultados obtenidos con el método de calibración utilizando los acoplamientos mutuos, en el modelo 
+de antena también se programó el método convencional y se corrieron los mismos set de pruebas.
+
+\todo{poner resultados luego de simularlos}
 
 
 \begin{comment}

@@ -37,9 +37,16 @@ coberturas boscosas. Dependiendo de que longitud de onda del rango de trabajo, s
 \subsection{Composición de una antena}
 
 Una antena polarimétrica está compuesta por tres bloques principales, el generador, la red de distribución y la antena con 
-los módulos radiantes.
+los módulos radiantes (ver figura \ref{fig:compositionAntenna}).
 
-El generador de puede generar distitnos tipos de señales. Ej, cuadrada, chirp, senoidal, triangular, etc. \todo{ahondar mas en este tema}
+\begin{figure}[H]
+ \centering
+ \includegraphics[width=10cm]{gfx/CompositionAntenna.png}
+ \caption{Composición de un arreglo de antena}
+ \label{fig:compositionAntenna}
+\end{figure}
+
+El generador de puede emitir distitnos tipos de señales. Ej, cuadrada, chirp, senoidal, triangular, etc. \todo{ahondar mas en este tema}
 
 La red de distribución, llamada RFDN, es la encargada de transmitir la señal a todos los módulos radiantes de la antena. 
 Dicha red posee una estructura de árbol, de forma tal, que la longitud de todos los caminos entre las hojas del mismo a 
@@ -64,8 +71,29 @@ señal transmitida posea la misma fase y atenuación. Los componentes utilizados
 		transmisión como recepción.
 \end{itemize}
 
-\todo{put here an antenna graph}
-\todo{explicar que una antena puede transmitir en 2 polarizaciones principales, para esto requiere de 2 RFDN}
+Por último está la antena con sus módulos radiantes, la misma puede tener cualquier geometría deseada. Por ejemplo, en la 
+figura \ref{fig:phasedArrayAntenna} se puede observar una distribución circular y una rectangular.
+
+\begin{figure}[H]
+	\centering
+ 	\subfloat[]{
+		\includegraphics[width=4cm]{gfx/phasedArrayAntenna.png}}
+	\subfloat[]{
+		\includegraphics[width=6cm]{gfx/frontAntenna.png}}
+		\caption{ (a) Antena de arreglo de fase circular. (b) Antena de arreglo de fase rectangular}
+	\label{fig:phasedArrayAntenna}
+\end{figure}
+
+Se pueden armar los módulos de tal forma que puedan transmitir en dos polarizaciones distintas, H y V (Ver figura 
+\ref{fig:polarizations}), para esto, se debe duplicar la RFDN. Haciendo uso de ambas polarizaciones se puede caracterizar 
+los blancos observados, dado que, cada cuerpo responde distinto a ambas polarizaciones.
+
+\begin{figure}[H]
+ \centering
+ \includegraphics[width=5cm]{gfx/HAndVPolarizations.png}
+ \caption{Polarizaciones verticales y horizontales}
+ \label{fig:polarizations}
+\end{figure}
 
 \subsection{Patrón de antena}
 

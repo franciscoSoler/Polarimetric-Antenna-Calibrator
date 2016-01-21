@@ -3,8 +3,17 @@
 \lhead{\emph{Método utilizando los acoplamientos mutuos}}
 
 Una antena se calibra buscando que no solo todos los caminos de recepción atenúen y defasen exactamente lo mismo, sino que 
-también sea un valor conocido. Para transmisión se busca lo mismo, con la salvedad que se puede modificar la fase de algunos
-RMs para modificar el lugar de apuntamiento de la antena.
+también sea un valor conocido. Para transmisión se busca lo mismo, con la salvedad que se puede modificar la fase de la 
+señal que se emite en algunos RMs para modificar el lugar de apuntamiento de la antena.
+
+Hay distintos factores que hacen que los componentes dejen de comportarse de forma nominal, por ejemplo se puede nombrar el
+cambio de temperatura, el mero envejecimiento de los componentes al pasar el tiempo, que un mero cable se haya doblado más
+de la cuenta, interferencias electromagnéticas, radiadas o conducidas, o entre distintos componentes, etc. 
+
+Es importante que un patrón de antena posea los lóbulos secundarios lo más chicos posibles con respecto al lóbulo principal,
+que el lóbulo principal sea lo más angosto posible, con esto se aumenta la resolución espacial. Un factor que ocurre es el 
+de los targets ficticios.\todo{no se como se elimina}
+
 
 \todo{poner que factores hacen que cambie la ganancia de los componentes para calibrar la antena}
 \todo{poner que ocurre con el antnena pattern si no está correctamente calibrada, altura de lóbulos secundarios, ancho 
@@ -14,8 +23,8 @@ Para poder calibrar esta antena polarimétrica haciendo uso de los acoplamientos
 cuadrados mínimos. La idea es realizar lazos de calibración transmitiendo en una polarización y recibiendo en la
 otra a la vez. Para esto, es necesario que no solo se pueda configurar algunos RMs em modo $T_x$ y otros en modo $R_x$ en 
 distintas polarizaciones, sino también poder configurar los módulos que no forman parte de dicho lazo en modo alta 
-impedancia (en este modo el módulo no transmite ni recibe nada, evitando así la inyección de ruido y señal en zonas de la 
-antena indeseadas). 
+impedancia (en este modo el módulo no transmite ni recibe nada, evitando así la inyección de ruido y señal en zonas 
+indeseadas de la antena). 
 
 Tomando como caso una antena rectangular de $M x N$ módulos radiantes y asumiendo que solo se transmite y recibe de a un 
 RM por lazo de calibración, a priori, se dispone de un máximo de $(MN)^2$ ecuaciones. La cantidad de incógnitas de todos
@@ -28,6 +37,7 @@ Para que el sistema tenga solución, la cantidad de ecuaciones debe ser mayor qu
 se cumple si se calibra toda la antena en un solo paso (Tx y Rx en ambas polarizaciones) porque es el único caso en que 
 cada acoplamiento mútuo aparezca más de una única vez. En caso contrario, habrían siempre más incógnitas que ecuaciones.
 
+\todo{tener en cuenta que por ahora el requerimiento es que la antena sea totalmente plana}
 
 \begin{comment}
 
