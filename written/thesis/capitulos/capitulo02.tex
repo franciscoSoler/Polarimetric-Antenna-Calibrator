@@ -90,7 +90,24 @@ antena con los módulos radiantes (ver figura \ref{fig:compositionAntenna}).
  \label{fig:compositionAntenna}
 \end{figure}
 
-El generador de puede emitir distitnos tipos de señales. Ej, cuadrada, chirp, senoidal, triangular, etc. \todo{ahondar mas en este tema}
+El generador de puede emitir distitnos tipos de modulaciones. Ej, cuadrada, chirp, senoidal, triangular, etc. Las ventajas y
+desventajas de cada una se lista en el cuadro \ref{tab:modulations}
+
+\begin{table}[H]
+  \footnotesize
+  \centering
+  \begin{tabular}{|c|p{9cm}|}
+	\hline
+	\textbf{Modulación} & \textbf{Cacarcterísticas} \\
+	Cuadrada & Esta modulación es utilizada para mediciones muy precisas a cortas distancias comparando las fases de los dos 
+	semiciclos de la señal recibida. La desventaja es que los distintos ecos de los distintos blancos no pueden distinguirse.\\\hline
+	Chirp & Es la modulación mayormente utilizada, se obtienen mediciones con las mayores distancias posibles.\\\hline
+	Triangular & Con esta modulación se logra distinguir fácilmente la velocidad de la posición del blanco. \\\hline
+	Escalonada & Es utilizada para mediciones de interferometría y para expandir el rango de medición sin ambig\"uedades.\\\hline
+  \end{tabular}
+  \caption{Cacacterísticas de cada modulación de la señal emitida}
+  \label{tab:modulations}
+\end{table}
 
 La red de distribución, llamada RFDN, es la encargada de transmitir la señal a todos los módulos radiantes de la antena. 
 Dicha red posee una estructura de árbol, de forma tal, que la longitud de todos los caminos entre las hojas del mismo a 
