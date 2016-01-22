@@ -34,10 +34,54 @@ coberturas boscosas. Dependiendo de que longitud de onda del rango de trabajo, s
  \label{fig:atmosphere}
 \end{figure}
 
+Por convención, el eje de referencia que es paralelo a la dirección del recorrido del satélite se lo llama azimuth. La
+dirección del eje perpendicular, rango. El nadir es el punto más cercano de la tierra al satélite; en otras palabras, 
+es el punto en la superficie terrestre que, si se trazara una recta perpendicular al mismo, también corta al satélite.
+
+La antena nunca apunta diréctamente hacia abajo porque, de esta forma, se perdería mucha información en rango. Al apuntar 
+en diagonal, y gracias a que el blanco no es puntual, el eco de la señal de la zona iluminada más cercana al nadir llega 
+antes al satélite que la más alejada, logrando así, tomar muestras de distintos lugares espaciados en rango (ver figura 
+\ref{fig:antena_ilumination}).
+
+\begin{figure}[H]
+ \centering
+ \includegraphics[width=7cm]{gfx/satellite.png}
+ \caption{Footprint del satélite}
+ \label{fig:antena_ilumination}
+\end{figure}
+
+El tamaño de la zona iluminada se llama footprint. Dicho tamaño depende tanto de las dimensiones de la antena como de la 
+órbita del satélite o de la altura del avion en que está colocada dicha antena. Como se observa en la imagen 
+\ref{fig:footprint}, mientras más larga es la antena, más angosto es el footprint, logrando así mejorar la resolución 
+espacial.
+
+\begin{figure}[H]
+ \centering
+ \includegraphics[width=7cm]{gfx/footprint.png}
+ \caption{El footprint depende del largo de la antena}
+ \label{fig:footprint}
+\end{figure}
+
 \subsection{Composición de una antena}
 
-Una antena polarimétrica está compuesta por tres bloques principales, el generador, la red de distribución y la antena con 
-los módulos radiantes (ver figura \ref{fig:compositionAntenna}).
+Un array de de una antena polarimétrica es una colección de N módulos radiantes espaciados. Todos los elementos poseen los
+mismos patrones de radiación y están orientados en el mismo sentido y dirección en un ambiente tridimensional. No es 
+necesario que los elementos estén espaciados regularmente ni que emitan los mismos valores de potencia y fase, pero se asume 
+que todos están alimentados con la misma frecuencia de trabajo. En la figura \ref{fig:phasedArrayAntenna} se pueden observar
+dos tipos de distribuciones comunmente utilizadas.
+
+\begin{figure}[H]
+	\centering
+ 	\subfloat[]{
+		\includegraphics[width=4cm]{gfx/phasedArrayAntenna.png}}
+	\subfloat[]{
+		\includegraphics[width=6cm]{gfx/frontAntenna.png}}
+	\caption{ (a) Antena de arreglo de fase circular. (b) Antena de arreglo de fase rectangular}
+	\label{fig:phasedArrayAntenna}
+\end{figure}
+
+Este tipo de antenas están compuestas por tres bloques principales; los cuales son el generador, la red de distribución (o RFDN) y la 
+antena con los módulos radiantes (ver figura \ref{fig:compositionAntenna}).
 
 \begin{figure}[H]
  \centering
@@ -71,36 +115,20 @@ señal transmitida posea la misma fase y atenuación. Los componentes utilizados
 		transmisión como recepción.
 \end{itemize}
 
-Por último está la antena con sus módulos radiantes, la misma puede tener cualquier geometría deseada. Por ejemplo, en la 
-figura \ref{fig:phasedArrayAntenna} se puede observar una distribución circular y una rectangular.
-
-\begin{figure}[H]
-	\centering
- 	\subfloat[]{
-		\includegraphics[width=4cm]{gfx/phasedArrayAntenna.png}}
-	\subfloat[]{
-		\includegraphics[width=6cm]{gfx/frontAntenna.png}}
-		\caption{ (a) Antena de arreglo de fase circular. (b) Antena de arreglo de fase rectangular}
-	\label{fig:phasedArrayAntenna}
-\end{figure}
-
 Se pueden armar los módulos de tal forma que puedan transmitir en dos polarizaciones distintas, H y V (Ver figura 
 \ref{fig:polarizations}), para esto, se debe duplicar la RFDN. Haciendo uso de ambas polarizaciones se puede caracterizar 
-los blancos observados, dado que, cada cuerpo responde distinto a ambas polarizaciones.
+los blancos observados, dado que, cada cuerpo responde de forma distinta a cada tipo de polarización.
 
 \begin{figure}[H]
  \centering
- \includegraphics[width=5cm]{gfx/HAndVPolarizations.png}
+ \includegraphics[width=7cm]{gfx/HAndVPolarizations.png}
  \caption{Polarizaciones verticales y horizontales}
  \label{fig:polarizations}
 \end{figure}
 
-\subsection{Patrón de antena}
 
-Un array de de una antena polarimétrica es una colección de N módulos radiantes espaciados. Todos los elementos poseen los
-mismos patrones de radiación y están orientados en el mismo sentido y dirección en un ambiente tridimensional. No es 
-necesario que los elementos estén espaciados regularmente ni que posean las mismas tensiones y fases, pero se asume que todos
-están alimentados con la misma frecuencia de trabajo.
+
+\subsection{Patrón de antena}
 
 Un array de antena puede armarse recursivamente, esto es, que un elemento sea, en si mismo, un array. Un patrón de antena es 
 un patrón de radiación polar que resulta de reemplazar cada elemento por un radiador isotrópico. Si se asume que el patrón de
