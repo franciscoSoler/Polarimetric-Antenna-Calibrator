@@ -24,6 +24,8 @@ verticalmente, y otra diferente cuando sea horizontalmente. Como una onda transv
 radio es perpendicular al eléctrico, pero, por convención, la polarización hace referencia a la dirección del campo 
 eléctrico \cite{AntennaWiki}.
 
+\todo{agregar ROE y SWR como definición}
+
 {\textbf{Adaptación de impedancias:}} La máxima transferencia de potencia requiere que la impedancia de un sistema de 
 antena esté adaptada al conjugado complejo de la impedancia del transmisor o receptor. En el caso de un transmisor, 
 la impedancia adaptada deseada no necesariamente corresponde a la impedancia de salida dinámica del transmisor analizado
@@ -74,10 +76,22 @@ la performance del sistema en función de la variación de dichos parámetros.
     
 Esta técnica asume que la variación en la performance del sistema puede ser modelada en función de los parámetros observables. 
 También, se asume que los componentes de calibración están correctamente calibrados y son estables en el paso del tiempo. 
-Además de estos tests, en la mayoría de los sistemas de radar se realizan mediciones de componentes de RF utilizando loops de 
+Además de estos tests, en la mayoría de los sistemas de radar se realizan mediciones de componentes de RF utilizando lazos de 
 calibración \cite{Curlander1991}.
 
-{\textbf{Caracterización:}}
+{\textbf{Caracterización:}} significa medir (el desempeño de) los parámetros de la antena con el objeto de describir en 
+forma comprensible su comportamiento \cite{Mittermayer2007}.
+
+{\textbf{Caracterización del sistema:}} adicionalmente incluye la determinación de las curvas de características basadas 
+en los modelos y en las mediciones indirectas de los parámetros, en el caso en que los parámetros no pueden ser medidos 
+en forma directa \cite{Mittermayer2007}.
+
+{\textbf{Calibración:}} significa el ajuste de la representación de los parámetros físicos en los productos que arroje la 
+antena de manera que los mismos puedan ser medidos dentro la especificación \cite{Mittermayer2007}.
+
+{\textbf{Verificación:}} significa mostrar mediante mediciones apropiadas que un sistema o subsistema trabaja dentro de su 
+especificación (o conjunto de especificaciones) o que un producto cumple con su especificación \cite{Mittermayer2007}.
+
 
 {\textbf{Campaña de caracterización:}}
 
@@ -104,7 +118,7 @@ se los presentan en la tabla \ref{tab:type_antennas}.
 	Loop & Consiste en una o múltiples vueltas de cable. Trabajan con campos magnéticos en vez de eléctricos. Usos: receptora 
 	de canales UHF de tv, receptoras de radio de Amplitud Modulada, etc.\\\hline
 	Apertura & Son el principal tipo de antenas direccionales utilizadas en frecuencias microondas. Consisten en una antena 
-	del tipo dipolo o loop junto a una estructura que guía las ondas en una dirección determinada. Usos: Comunicaciones 
+	del tipo dipolo o Loop junto a una estructura que guía las ondas en una dirección determinada. Usos: Comunicaciones 
 	satelitales, comunicaciones marinas, etc.\\\hline
   \end{tabular}
   \caption{Cacacterísticas de cada grupo principal de antenas}
