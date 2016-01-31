@@ -126,18 +126,15 @@ se los presentan en la tabla \ref{tab:type_antennas}.
 \end{table}
 
 La presente tesis se enfoca en el tipo arreglo de antena de fase contorlada, en particular sobre su calibración. Otras aplicaciones para 
-las cuales son utilizadas es en comunicaciones móviles \cite{Chen2012}, aéreas \todo{encontrar la siguiente cita entre las cosas del mendeley}
-[\ref{ppr:punc-ext1}] y espaciales \cite{Shimada1995}\cite{Makhoul2012}. 
+las cuales son utilizadas es en comunicaciones móviles \cite{Chen2012}, aéreas \cite{MHong1989} y espaciales 
+\cite{Shimada1995}\cite{Makhoul2012}. 
 
-Para generar diversos productos, por ejemplo imágenes satelitales en radares SAR \todo{encontrar la siguiente cita entre las cosas del mendeley}
-[\ref{ppr:puncTrgt1}], es necesario que estén 
-correctamente calibradas \todo{encontrar la siguiente cita entre las cosas del mendeley}
-[\ref{ppr:classic1}]\cite{Seifert1996}\cite{Dall1994}. Esto implica, que las tolerancias de
-fases y amplitudes se mantengan en el tiempo y/o sus valores sean bien conocidas
-para cada elemento del arreglo.
+Para generar diversos productos, por ejemplo imágenes satelitales en radares SAR \cite{Freeman1992}, es necesario que estén 
+correctamente calibradas \cite{Luscombe1990}\cite{Seifert1996}\cite{Dall1994}. Esto implica, que las tolerancias de fases y
+amplitudes se mantengan en el tiempo y/o sus valores sean bien conocidas para cada elemento del arreglo.
 
 Generalmente, este tipo de antenas son calibradas en tierra utilizando fuentes 
-externas de campo lejano o cercano [\ref{ppr:mutual1}]. Sin embargo, en 
+externas de campo lejano o cercano \cite{Agrawal2003}. Sin embargo, en 
 aplicaciones aéreas o espaciales, la utilización de dichas fuentes es impráctica
 o difícil de implementar \cite{Aumann1989}. Resulta fundamental un esquema de
 calibración interna que permita tener bajo control estas variables. 
@@ -162,8 +159,8 @@ antena externa al panel como receptora. El proceso de calibración es el siguien
 y se va variando la fase hasta obtener la máxima potencia recibida, luego se repite el proceso para todos los módulos. 
 
 Otro método es el convencional, el cual implementa lazos internos de para calibrar los caminos de transmisión y 
-recepción de la antena de forma independiente [\ref{ppr:classic1}]\cite{Seifert1996}\cite{Dall1994}\cite{Freeman1995}
-[\ref{ppr:classic4}][\ref{ppr:classic5}][\ref{ppr:classic6}]\cite{Srivastava1996}[\ref{ppr:classic7}]\cite{Makhoul2012}.
+recepción de la antena de forma independiente \cite{Makhoul2012}\cite{Luscombe1990}\cite{Seifert1996}\cite{Dall1994}
+\cite{Freeman1995}\cite{Bibby2003}\cite{Bast2003}\cite{Stove2004}\cite{Srivastava1996}\cite{Wang2010}.
 Para ello, la señal de calibración recibida se la compara con la potencia transmitida, obteniendo así, que dicha diferencia 
 se corresponde con el desfasaje de potencia y fase de cada camino de transmisión/recepción. Luego, se opta por caracterizar 
 todos aquellos componentes que no entran dentro de ningún lazo de calibración \cite{Freeman1995}. Este método presenta 
@@ -204,7 +201,7 @@ En esta tesis se realizarán las siguientes tareas:
 \section{Motivación}
 
 A la hora de adquirir imágenes satelitales es crucial que se conozca perfectamente la señal emitida y recibida por la antena. 
-Ya sea por envejecimiento de los componentes [\ref{ppr:mutual1}] o por variaciones de temperaturas se observan dispersiones de 
+Ya sea por envejecimiento de los componentes \cite{Agrawal2003} o por variaciones de temperaturas se observan dispersiones de 
 las mismas \cite{Keizer2011}. 
 
 El método de calibración tradicional, por lazos de calibración internos, permite calibrar una antena de arreglo de fase, aunque 
@@ -228,8 +225,8 @@ tradicional quedan fuera del lazo de calibración, y disminuyendo la incertidumb
 salida.
 
 El método que se propone en esta tesis, denominado de \enquote*{método de calibración interna complementada por acoplamientos 
-mutos (MCINCAM)} toma la idea de mediciones por acoplamiento mutuo [\ref{ppr:mutual1}]\cite{Shipley2000} \cite{Aumann1989}
-[\ref{ppr:mutual-ext1}], para integrarla de manera complementaria al método tradicional, sin necesidad de agregar hardware 
+mutos (MCINCAM)} toma la idea de mediciones por acoplamiento mutuo \cite{Agrawal2003}\cite{Shipley2000} \cite{Aumann1989}
+\cite{Chen2012}, para integrarla de manera complementaria al método tradicional, sin necesidad de agregar hardware 
 adicional, y además establece los requerimientos electrónicos para poder implementarla. En esta tesis además se realiza un modelo 
 ad hoc, en parámetros S, de antena, para mostrar la eficacia del método. 
 

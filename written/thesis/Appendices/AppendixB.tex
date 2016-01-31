@@ -1,9 +1,53 @@
 % Appendix Template
 
-\chapter{Materias Aprobadas} % Main appendix title
+\chapter{Definiciones Matemáticas} % Main appendix title
 
 \label{AppendixB} % Change X to a consecutive letter; for referencing this appendix elsewhere, use \ref{AppendixX}
 
-\lhead{Appendix B. \emph{Materias Aprobadas}} % Change X to a consecutive letter; this is for the header on each page - perhaps a shortened title
+\lhead{Appendix B. \emph{Definiciones Matemáticas}} % Change X to a consecutive letter; this is for the header on each page - perhaps a shortened title
 
-\todo{Hablar de la matriz de Hadamard}
+
+\section{Matriz Hadamard}
+Esta matriz fue descubierta por el matemático Jacques Hadamard, es una matriz cuadrada con valores $1$ o $-1$ y sus columnas 
+son ortogonales. Sus propiedades son las siguientes \cite{HadamardWiki}. 
+
+Si se tiene una matriz $H$ de orden $n$, su traspuesta está cercamente relacionada con su inversa. Y su fórmula es:
+
+$$ H H^{\mathrm{T}} = n I_n $$
+
+Donde $I_n$ es la matriz de identidad de dimensión $n x n$ y $H^\mathrm{T}$ es la traspuesta de $H$. Esta propiedad es válida a causa 
+que las columnas de $H$ son vectores ortogonales en el campo de los números reales y cada uno tiene una longitud de $\sqrt n$.
+Dividiendo H por su longitud, se obtiene una matriz ortonormal que su traspuesta también es su inversa. El determinante es:
+
+$$ \operatorname{det}(H) = \pm n^{\frac{n}{2}} $$
+
+Donde $\operatorname{det}(H)$ es el determinante de $H$.
+
+Si se supone que $M$ es una matriz compleja de orden n, con valores que cumplen la relación $|M_{ij}| \le 1$, por cada $i,j$ 
+entre 1 y $n$. Entonces el determinante de la matriz hadamard resulta,
+		    
+$$ |\operatorname{det}(M)| \leq n^{n/2}. $$
+
+La igualdad es válida solamente si $M$ es real y solo si $M$ también es una matriz Hadamard.
+
+El orden de una matriz hadamard debe ser 1, 2 o un múltiplo de 4.
+
+\subsection{Construcción de Silvester}
+
+Los primeros ejemplos de construcción de matrices Hadamard fueron realizados por James Joseph Sylvester en 1867. Si H es 
+dicha matriz de orden $n$, su construcción es como sigue.
+
+$$ \begin{bmatrix} H & H\\H & -H\end{bmatrix} $$
+
+Resulta una matriz de Hadamard de orden $2n$. Este proceso puede ser repetido para obtener las matrices siguientes, 
+conocidas también como matrices Walsh. 
+
+$$ H_1 = \begin{bmatrix} 1 \end{bmatrix}, $$
+
+$$  H_2 = \begin{bmatrix} 1 & 1 \\ 1 & -1 \end{bmatrix}, $$
+
+and
+
+$$ H_{2^k} = \begin{bmatrix} H_{2^{k-1}} & H_{2^{k-1}}\\ H_{2^{k-1}} & -H_{2^{k-1}}\end{bmatrix} $$
+
+para $2 \le k \in N$.
