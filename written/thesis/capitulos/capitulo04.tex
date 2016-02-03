@@ -1,19 +1,103 @@
-\chapter{Estado de situación}
+\chapter{Calibración utilizando acoplamientos mútuos}
 \label{ch:convertidores}
-\lhead{\emph{Estado de situación}}
+\lhead{\emph{Calibración utilizando acoplamientos mútuos}}
 %\lhead{\emph{Celdas de combustible}}
 
-\section{Calibración clásica}
+\section{Calibración utilizando acoplamientos mútuos}
 
-Como limitación, esta calibración interna no puede medir las partes pasivas del sistema que están fuera del loop de 
-calibración interna, ni la ganancia absoluta, debido a la ausencia de un target standard de calibración \cite{Wang2010}.
+Una de las grandes ventajas de este método frente al método anterior es que no requiere hardware extra, logrando así 
+disminuir la complejidad de la antena, de esta forma se puede construir de una forma más compacta.
+
+Tomando como $M$ la cantidad de filas de módulos radiantes por panel y $N$ la cantidad de paneles, las tres modalidades de 
+este método son:
+
+\begin{itemize}
+	\item \textbf{Modo completo:} En esta modalidad no solo se estima la ganancia en transmisión y recepción en ambas 
+		polarizaciones (H y V), sino que también se determina la planitud de la antena. La cantidad de ecuaciones necesarias es 
+		de $MN(MN + 7)/2$.
+	\item \textbf{Modo rápido:} En esta modalidad se estima la ganancia en transmisión y recepción em ambas polarizaciones
+		(H y V) utilizando el valor guardado de la planitud de la antena calculado previamente. La cantidad de ecuaciones necesarias
+		es de $4MN$.
+	\item \textbf{Modo planitud ideal:} Esta modalidad es igual al modo rápido, asuminedo que la antena es perfectamente plana. 
+		La cantidad de ecuaciones necesarias es de $4MN$.
+\end{itemize}
+
+El modo planitud ideal cuenta con otra limitación que, para poder ser utilizado en una antena de cualquier topología utiliza 
+lazos de calibración de tal forma que el acoplamiento mutuo queda eliminado. Para esto hay dos estrategias, la primera transmite 
+con un RM y recibe de forma consecutiva con otros RMs equiespaciados al de transmisión para luego restar ambos caminos. La 
+segunda, transmite de forma consecutiva desde los RMs equiespaciados y recibe con un único RM central, la imagen 
+
+\todo{crear la imagen para esa cosa}
+\begin{figure}[H]
+ \centering
+	\subfloat[]{	
+		\includegraphics[width=5cm]{gfx/mutualRxCal.png}}
+	\subfloat[]{	
+		\includegraphics[width=5cm]{gfx/mutualTxCal.png}}
+ \caption{estrategia de planitud ideal. (a) Calibra lazos de recepción, (b) Calibra lazos de transmisión}
+ \label{fig:ideal_strategy}
+\end{figure}
 
 
-\todo{se explica el método}
 
 
-Para eliminar el error en la estimación de la ganancia del primer RM, es necesario que se evite la utilización de la 
-primer columna de la matriz de Hadamard \cite{Wang2010}
+Aprovechando la realidad que las variaciones mecánicas son lentas frente a las variaciones eléctricas de los componentes,
+no es necesario correr el método de calibración en su máxima caracterización dado que requiere demasiada cantidad de 
+mediciones para determinar la planitud de la antena.
+
+
+Referencias a utilizar: 
+Shipley2000
+Aumann1989
+Gao2001 (este no esta tan copado, son puras formulas)
+a calibration technique for active phased array antennas (no lo agregue aun a la bibliografia, je)
+Practical faliure compensation in active phased antennas (ni lo lei, pero muy interesante que hacer para compensar algo quemado)
+
+
+Modem phased arrays typically have excellent performance, but still must occasionally undergo phase and amplitude calibration in order to realize their full performance potential. This must be done at least upon completion of antenna fabrication. At the factory, this initial calibration is usually done on a near- field scanning or compact range, and is typically very time consuming. Re-calibration after operational deployment is also required to maintain peak Performance levels, but is typically not done, due to practical difficulties. Re-calibration is also needed if repairs or changes are made in the antenna.
+TSC
+
+
+\todo{poner en algun lado que se sugiere para medir la fase de medir en un unico punto lo que defasa la antena punta a punta una unica vez y se lo carga al metodo}
+\todo[inline]{esto es texto viejo... el capitulo 5 tiene lo mismo}
+Una antena se calibra buscando que no solo todos los caminos de recepción atenúen y defasen exactamente lo mismo, sino que 
+también sea un valor conocido. Para transmisión se busca lo mismo, con la salvedad que se puede modificar la fase de la 
+señal que se emite en algunos RMs para modificar el lugar de apuntamiento de la antena.
+
+Hay distintos factores que hacen que los componentes dejen de comportarse de forma nominal, por ejemplo se puede nombrar el
+cambio de temperatura, el mero envejecimiento de los componentes al pasar el tiempo, que un mero cable se haya doblado más
+de la cuenta, interferencias electromagnéticas, radiadas o conducidas, o entre distintos componentes, etc. 
+
+Es importante que un patrón de antena posea los lóbulos secundarios lo más chicos posibles con respecto al lóbulo principal,
+que el lóbulo principal sea lo más angosto posible, con esto se aumenta la resolución espacial. Un factor que ocurre es el 
+de los targets ficticios.\todo{no se como se elimina}
+
+
+\todo{poner que factores hacen que cambie la ganancia de los componentes para calibrar la antena}
+\todo{poner que ocurre con el antnena pattern si no está correctamente calibrada, altura de lóbulos secundarios, ancho 
+de lóbulo principal, pico del lóbulo principal, etc}
+
+Para poder calibrar esta antena polarimétrica haciendo uso de los acoplamientos mutuos, se cuenta con el uso de 
+cuadrados mínimos. La idea es realizar lazos de calibración transmitiendo en una polarización y recibiendo en la
+otra a la vez. Para esto, es necesario que no solo se pueda configurar algunos RMs em modo $T_x$ y otros en modo $R_x$ en 
+distintas polarizaciones, sino también poder configurar los módulos que no forman parte de dicho lazo en modo alta 
+impedancia (en este modo el módulo no transmite ni recibe nada, evitando así la inyección de ruido y señal en zonas 
+indeseadas de la antena). 
+
+Tomando como caso una antena rectangular de $M x N$ módulos radiantes y asumiendo que solo se transmite y recibe de a un 
+RM por lazo de calibración, a priori, se dispone de un máximo de $(MN)^2$ ecuaciones. La cantidad de incógnitas de todos
+los caminos de la RFDN, tanto transmisión como recepción en ambas polarizaciones (H y V), son $4MN$. A su vez, en el 
+apéndice \ref{AppendixA} se realiza el cálculo de la cantidad de acoplamientos mutuos que posee una antena polarimétrica,
+particularmente, la ecuación \ref{eq:amountMutCoupling} muestra la cantidad de incógnitas, que, para este caso, resulta 
+ser de $MN(MN-1)/2$. Totalizando en $MN(MN + 7)/2$ incógnitas.
+
+Para que el sistema tenga solución, la cantidad de ecuaciones debe ser mayor que la de incógnitas. Esta restricción solo 
+se cumple si se calibra toda la antena en un solo paso (Tx y Rx en ambas polarizaciones) porque es el único caso en que 
+cada acoplamiento mútuo aparezca más de una única vez. En caso contrario, habrían siempre más incógnitas que ecuaciones.
+
+\todo{tener en cuenta que por ahora el requerimiento es que la antena sea totalmente plana}
+
+
 
 
 \begin{comment}

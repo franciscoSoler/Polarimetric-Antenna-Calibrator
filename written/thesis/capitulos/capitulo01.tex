@@ -345,6 +345,43 @@ que posee y que tan compatibles son entre ambos.
 
 \section{Estructura de la Tesis}
 
+ (1) Seccion "Tipos de calibracion. En particular calibracion externa". (1 hoja)
+ Explicar como es. Transponders, corner reflectors. Explicar el problema que trae depender de algo externo. Revisitas espaciadas. Mantenimiento en tierra de estos lugares de calibracion. etc.
+ De alguna manera decir que es la mas sencilla pero no alcanza y los problemas que tiene.
+
+ (2) Sección "Calibración Interna Clásica". (5 hojas).
+ Explicar como es. Referenciar varios satelites con antenas que la han usado (en Curlander aparecen).
+ Explicar para que sirve (solo para ver si un TRM se rompio o no. Enumerar los defectos que tiene si se la quiere usar para lo que no fue pensada (deja cosas fuera del lazo, hay que caracterizar un monton de cosas, si hay falta de planitud no sirve para nada, etc).
+ La idea es tirarla abajo. Por recursos necesarios para implementarla (tiempo, gente). Porque depende de las caracterizaciones internas (que puedn tener errores). Porque las cosas no siempre envejecen como uno espera. Porque no incluye a los elementos radiantes (no sabemos si uno se rompio). Porqe no incluye a los circuladores (Que pueden tener variaciones). POrque depende de una planitud perfecfta. etc etc. Se busca un metodo que permita trascender esto. Ademas se busca simularlo, probarlo, ver las hipotesis necesarias a la hora del diseño para poder implementarlo.
+ 
+ (3) Seccion "Propuestas alternativas superadoras al metodo clasico". (5 hojas)
+ POrque se es conciente de estas limitaciones y cada vez se le pide mas en cuanto a requerimientos de fase y atenuacion a las antenas de arreglo de fase. Discriminar mejor estos valores permite poder tener mas aplicaciones mucho mas exigentes.
+ Mencionar agregar antenas externas como un metodo. Problema de agregar hadware cuando no hay espacio. Perdida de robustez.
+ Mencionar otros metodos. Mencionar el metodo de acoplamientos mutuos general.
+ Mencionar cosas que no se encuentran en la bibliografia: no se habla de la fase.
+ Mencionar que no estan listadas las hipotesis de base. No existe un algoritmo mostrando como aplicarlo a una antena electronica.  No se analiza en profundidad topologias para aumentar el numero de ecuaciones y reducir el numero de incognitas.
+ 
+ (4) Aca arranca el aporte 1: Seccion "Listado de Hipotesis de base necesarias" p/aplicar el metodo de acoplamientos mutuos a una antena polarimetrica con apuntamiento electronico". (10 hojas)
+ Para aplicar el metodo de acoplamientos mutuos antena arreglo de fase polarimetrica controlada de manera electronica, y que RESUELVA lo que el METODO CLASICO NO RESUELVE. Punto a punto mostrar de que manera lo resuelve. Esta es la innovacion. Es el 1er centro de la tesis. El listado de estas hipotesis de manera ordenada. Esto yo no lo vi en nigun paper ni en ningun lado.
+ 
+ (5) Aca sigue el aporte 2: Seccion "Algoritmo de capa 1".  (30 hojas)
+ Para poder probar el metodo consturuis vos (que antes no existia) un modelo en base a algoritmo.
+ Propuesta de modelos en parametros S (breve introduccion a parametros S). Modularización. Descripcion de los módulos individualmente, entrada, salida, internamente. Interconexion entre modulos que permiten formar la red. Facilidad para cambiar las topologias y probar diferentes para ver ventajas y desventajas (se pueden poner dos de ejemplo y hacer una comprarcion) Pruebas para validarlo punta a punta.
+ Propuesta de un par de topologias. Se escoge una de ellas porque genera mas ecuaciones que incognitas. Ventajas y desventajas de usar una RFDN mas o menos subdividida.
+ 
+ (6) Aca sigue el aporte 3: Seccion "Algoritmo de capa 2". (30 hojas)
+ Que es lo que se desea simular.
+ Metodo clasico para calibrar. PCC.
+ Metodo innovador utilizando matrices y aprovechando la SUPERPOSICION de caminos y simplificaciones.
+ 
+ (7) Aca sigue el aporte 4: Seccion "Conclusiones del uso del algoritmo" (10 hojas).
+ Este metodo supera al clasico, lo complementa. Solo se requiere tener las hipotesis de base (aporte1). Se require ademas un algoritmo para probarlo de capa fisicia (aporte 2). Luego el algoritmo funcional que corre sobre el fisico (aporte 3).
+ 
+ (8) Seccion trabajo a futuro. (2 hojas con cosas que se podrian seguir investigando).
+ 
+ (9) Apendices
+
+
 Los siguientes capítulos se organizan de la siguiente manera: 
 \begin{itemize}
 	\item En el capítulo dos se presenta y detalla lo que es una antena, un patrón de antena y como se la modela en RF.
@@ -400,63 +437,3 @@ de antena también se programó el método convencional y se corrieron los mismo
 
 \todo{poner resultados luego de simularlos}
 
-
-\begin{comment}
-Desde hace algún tiempo se ha estado gestando un gran interés por el desarrollo de las energías alternativas, motivado por la búsqueda
-de fuentes eficientes, duraderas y poco contaminantes que podrían reemplazar las fuentes energéticas convencionales.
-Dentro de ellas se cuentan principalmente la energía hidráulica, eólica y solar. Una de las desventajas de las mencionadas frente a los
-combustibles es la posibilidad de ser almacenados para su disponibilidad inmediata. Sin embargo, existen también combustibles limpios,
-como el \textbf{hidrógeno}.
-
-El hidrógeno es un combustible de alto contenido energético y obtenible mediante diversos procesos, cuya reacción con el oxígeno produce agua
-limpia. Estas características lo convierten en una opción atractiva frente al resto de los combustibles, tales como los hidrocarburos.
-
-La utilización del hidrógeno como combustible para la generación de energía eléctrica se puede dar de varias maneras. Si bien su combustión
-directa es una forma de obtener energía calórica que puede transformarse mediante procesos de conversión habituales, también puede conseguirse
-energía eléctrica directamente usando mecanismos electroquímicos. Un modo de hacer esto es mediante \textbf{Celdas de combustible}.
-
-\section{Celdas de combustible}
-Las celdas de combustible son dispositivos electroquímicos que permiten obtener energía eléctrica a partir de la reacción química controlada
-entre un combustible y un oxidante. Algunos de sus beneficios son su gran eficiencia comparada con las máquinas térmicas convencionales y
-las reducidas emisiones de los procesos puestos en juego. Su utilización aún no es muy amplia debido a su elevado costo y la limitada
-disponibilidad de los combustibles empleados.
-
-Existen diversos tipos de celdas de combustible, aunque este trabajo solo se ocupa de las celdas de membrana de intercambio protónico
-(PEM, por sus siglas en inglés), que operan a bajas temperaturas entregando potencia reducida. 
-
-El uso práctico de las celdas comprende la disposición de varios elementos que forman un sistema. Por un lado, debido al reducido nivel
-de tensión que entregan las celdas, suelen utilizarse arreglos de celdas en serie de modo que se obtenga un nivel adecuado de tensión entre
-los electrodos terminales. Tales arreglos son llamados pilas de combustible. Por otro lado, durante la operación de las pilas se producen
-fenómenos físicos, térmicos, electroquímicos, eléctricos, entre otros. Esto deriva en la necesidad de un sistema compuesto por un conjunto
-de elementos auxiliares que tengan en cuenta los efectos de estos fenómenos sobre el comportamiento de la pila.
-
-\section{Sistemas de generación híbridos}
-Más allá de todas las ventajas mencionadas acerca de las celdas de combustible se han comentado varias de sus dificultades. La necesidad de
-producir el combustible que consumen hace que pierdan autonomía. Es por ello que se ha sugerido su utilización en el contexto de los que se conocen 
-como \textit{sistemas de generación híbrida} (SGH), cuyos módulos de generación extraen energía de diferentes fuentes. El presente trabajo 
-se enmarca en el diseño de uno de estos sistemas, que en particular está compuesto por fuentes de energías limpias. En la fig. \ref{fig:sist_hibrido}
-se muestra el esquema del sistema para el cual fue realizado este proyecto.
-
-\begin{figure}[H]
- \centering
- \includegraphics{gfx/diagrama_bloques_sistema_hibrido.eps}
- \caption{Diagrama en bloques de sistema híbrido}
- \label{fig:sist_hibrido}
-\end{figure}
-
-Para poder encarar la concepción del SGH se necesitarían todos los módulos que lo componen, esto representaría un gran costo. Por ello se ha
-planteado una alternativa para el armado del sistema que consiste en la temporal sustitución de los módulos faltantes por plataformas de emulación.
-
-\section{Emulador de pila de combustible}
-El trabajo que se expone en el presente documento trata sobre el diseño y construcción de un emulador de pilas de combustible.
-La necesidad del desarrollo de un emulador de pilas de combustible surge a partir de las diversas dificultades para obtener una pila
-real, ya sea por su costo, su tamaño o el difícil acceso y almacenamiento del combustible.
-
-La conexión de los módulos mostrados en la fig. \ref{fig:sist_hibrido} hacia el bus de tensión continua debe realizarse mediante una etapa de potencia 
-que adapte los niveles eléctricos. En el proyecto del SGH, esta tarea ya ha sido abordada y constituyó el soporte para el desarrollo del emulador. 
-La etapa de potencia consiste en un convertidor DC-DC conmutado elevador.
-
-El flujo de trabajo del proyecto se llevó a cabo  de la siguiendo las tareas que se mencionan a continuación: en primer instancia se diseñaron los modelos
-de simulación que luego fueron programados en el \emph{hardware} de control y se procedió a la realización de ciertos ajustes en la placa diseñada para el 
-convertidor original cambiando la topología del mismo para permitirle funcionar según los modelos diseñados para finalmente realizar los ensayos finales.
-\end{comment}

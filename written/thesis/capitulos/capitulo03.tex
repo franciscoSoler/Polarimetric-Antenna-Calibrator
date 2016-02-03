@@ -7,8 +7,6 @@
 
 \section{Calibración clásica}
 
-En la calibración interna se utilizan lazos de calibración, los cuales son utilizados para calibrar.
-
 Como fue introducido previamente, una antena consta de un generador, una RFDN y el panel de módulos radiantes. Como puede
 variar el comportamiento de cada componente, se utiliza la calibración. En particular, este método se lo utiliza para poder 
 medir, detectar y corregir el mal funcionamiento de parte de la RFDN, en particular todas las desviaciones se las atribuyen 
@@ -19,12 +17,11 @@ Como limitación, esta calibración interna no puede medir las partes pasivas de
 calibración interna (por ejemplo los módulos radiantes), ni la ganancia absoluta, debido a la ausencia de un target standard
 de calibración \cite{Wang2010}. 
 
-
 En la figura \ref{fig:classic_cal_scheme} se muestra el esquema de calibración, en el cual se observan tres modos de 
 calibración. Cada uno posee distintos caminos, \textbf{P1} (líneas rojas) caracteriza el camino de transmisión, \textbf{P2}
 (línea azul) caracteriza el camino de recepción y \textbf{P3} la electrónica central (CE) junto a los puertos auxiliares de 
 transmisión/recepción. \textbf{P3} es utilizado para corregir posibles variaciones en los pulsos \textbf{P1} y \textbf{P2} 
-\cite{Makhoul2012}
+\cite{Makhoul2012}.
 
 \begin{figure}[H]
  \centering
@@ -33,6 +30,9 @@ transmisión/recepción. \textbf{P3} es utilizado para corregir posibles variaci
  y \textbf{P3} (electrónica central) en verde \cite{Makhoul2012}.}
  \label{fig:classic_cal_scheme}
 \end{figure}
+
+Para dar ejemplos de satélites que utilizaron el método se los puede nombrar al E-ERS-1, el SIR-C \cite{Curlander1991}, el 
+terraSAR-X \cite{Schwerdt2005}, el ENVISAT ASAR \cite{Loop}, entre otros.
 
 \subsection{Método}
 
@@ -47,7 +47,7 @@ antena operativa). Para solventar esta problemática y calibrar todos los TRMs a
 se hace uso de los defasadores para armar un código en que las señales sean ortogonales. En particular, por ejemplo, una de
 las usos es defasar cada TRM en $\pm90^{\circ}$ siguiendo una determinada secuencia $c_{mn}(t)$ por cada uno.
 
-\begin{figure}[!H]
+\begin{figure}
  \centering
  \includegraphics[width=8cm]{gfx/superposition_signals_classic.png}
  \caption{Superposición de señales de todos los TRMs. Cada señal tiene su propia secuencia de código aplicada entre pulsos \cite{Br2007}.}
@@ -72,11 +72,11 @@ la ganancia estimada.
 	\tilde{x}_{mn} &= s_c \otimes c^*_{mn} \\
 	\tilde{x}_{mn} = \int s_c(t) &\cdot c^*_{mn}(t) dt = \tilde{a}_{mn}e^{j\tilde{\varphi}_{mn}} \\
 \end{aligned}
-\label{eq:}
+\label{eq:classic_correlation}
 \end{equation}
 
 En general el código de calibración utilizado es el código walsh. Dicho código deriva de las matrices de Hadamard (ver 
-apéndice \ref{AppendixB}); dada sus propiedades de ortonormalidad, cada código, o fila, es unívocamente distinguible del 
+apéndice \ref{AppendixB}); dada sus propiedades de ortogonalidad, cada código, o fila, es unívocamente distinguible del 
 resto. Para minimizar la cantidad de mediciones, el largo del código ($l$) debe ser lo más corto positble. El número de 
 TRMs de la antena es el determinante de la cota inferior.
 
@@ -99,8 +99,40 @@ distintos niveles de granularidad de mediciones a saber.
 
 Este método a nivel panel y fila sirve para la caracterización del la configuración del apuntamiento de antena \cite{Br2007}.
 
+\subsection{Problemas y limitaciones}
 
+Este método como fue presentado, tiene el problema que para poder conocer la ganancia del lazo de transmisión o recepción 
+es necesario conocer la potencia de la señal de calibración, para sustraerla del resultado obtenido. El lazo de calibración 
+donde se realiza esta medición es el que se muestra en la imagen \ref{fig:classic_cal_scheme}, llamado \textbf{P3}. En esta 
+medición no se puede separar la potencia de generación de la atenuación del lazo, por lo tanto se opta por caracterizar en 
+tierra dichos componentes para las frecuencias y temperaturas de trabajo. Esta estrategia no es completamente correcta dado
+que, por envejecimiento de los materiales, el comportamiento es diferente.
 
-Para eliminar el error en la estimación de la ganancia del primer RM, es necesario que se evite la utilización de la 
-primer columna de la matriz de Hadamard \cite{Wang2010}.
+Como se calibra solo una parte de la antena por vez, transmisión o recepción en una u otra polarización (H o V), es necesario que 
+el lazo de calibración esté compuesto por la parte de la antena a calibrar junto a hardware dedicado (cables y switches) a esta 
+tarea. Logrando así, no solo que la construcción de la antena sea más compleja y que se tengan que caracterizar más componentes, 
+sino también que el defasaje y atenuación que este hardware dedicado posee se lo atribuye a los TRMs agregando así más 
+error en la medición. 
+
+Este método es sumamente susceptible a las variaciones de fase y potencia del generador entre pulsos de calibración. Por lo 
+tanto, es de vital importancia armar un generador que sea sumamente estable.
+
+Como hay componentes que están fuera del lazo de calibración, también se los caracteriza en tierra, por ejemplo los cables 
+que comunican el panel de módulos radiantes con los circuladores (como ejemplo ver figura \ref{fig:classic_cal_scheme}), 
+otra caracterización que se realiza es la del acoplamiento mutuo entre los RMs de la antena. Todas estas caracterizaciones
+se las realizan en una fase llamada campaña de calibración, y tiene la gran desventaja del tiempo y costo que lleva realizar 
+esta tarea.
+
+A la hora de elegir la longitud del código Walsh, es importante que siempre haya un módulo radiante virtual en la antena para
+evitar la primer columna de la matriz de códigos. En caso contrario el primer TRM siempre tendrá un error en la estimación 
+de su ganancia, para mayor información ver \cite{Wang2010}.
+
+\todo[inline]{este parrafo creo que hay uqe sacarlo dado que me parece que esto es para todas las calibracoines internas}
+Como limitación, esta calibración interna no puede medir las partes pasivas del sistema que están fuera del loop de 
+calibración interna, ni la ganancia absoluta, debido a la ausencia de un target standard de calibración \cite{Wang2010}.
+
+Como última limitación, el defasador cambia la fase de a pasos discretos, si este componente no llega a defasar en $\pm$90º
+por no ser múltiplo de dicho paso (defasaje utilizado para realizar el código para la calibración) o por variaciones en el 
+comportamiento del componente.
+
 
