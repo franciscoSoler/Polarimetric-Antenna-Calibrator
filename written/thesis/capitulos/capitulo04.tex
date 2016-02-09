@@ -141,116 +141,17 @@ acoplamientos mútuos, solamente la ganancia relativa entre dichos elementos. La
 de libertad, en otras palabras, para poder obtener la ganancia absoluta de todo el sistema, es necesario agregar dos ecuaciones
 más que definan un único valor pertenenciente a dos de los tres conjuntos de incógnitas.
 
-Si se asumen conocidos los acoplamientos mútuos o se reutilizan de una calibración anterior, las ecuaciones \ref{eq:tx_cal} 
-y \ref{eq:rx_cal} se simplifican, logrando que la cantidad de incógnitas se reduzca habilitando de esta forma los métodos
-rápidos y de planitud ideal.
+Si se asume que a misma distancia el acoplamiento es el mismo o si se los reutilizan de una calibración anterior, las 
+ecuaciones \ref{eq:tx_cal} y \ref{eq:rx_cal} se simplifican, logrando que la cantidad de incógnitas se reduzca habilitando 
+de esta forma los métodos rápidos y de planitud ideal.
 
 \todo{Poner las ecuaciones simplificadas y ver en el paper si pusieron algo mas como para robar muejeje}
 \todo{poner las estrategias en este caso}
 
-Como es necesaria una menor cantidad de lazos de calibración, se realizaron distintas estrategias para obtener una solucion de 
-compromiso entre la cantidad de lazos de calibración necesarios para poder utilizar el método y la cantidad de ecuaciones 
-redundantes que le da robustez al resultado.
-
-
-La ecuación \ref{eq:transfer_mn2} resulta en la relación que hay entre los caminos de recepción de los elementos $n$ y 
-$n+1$. Si al elemento $e_m$ se lo utiliza para recibir y a los elementos $e_n$ y $e_{n + 1}$ para transmitir, la ecuación que se 
-obtiene sirve para calibrar la antena en modo transmisión.
-
-\begin{equation}
-	W^{'}_{Tn,n + 1} = \dfrac{w_{Tn} u_{Tn}}{w_{Tn + 1} u_{Tn + 1}}
-\end{equation}
-
-El cálculo previo sirve solamente para el caso donde se conoce el acoplamiento mútuo entre distintos elementos. Para el caso 
-en que se desee obtener la planitud de la antena, es necesario trabajar de a pares de módulos radiantes como sigue. En la 
-ecuación siguiente se transmite con el elemento $e_m$ y se recibe con el $e_n$.
-
-\begin{equation}
-	C^{'}_{m,n} = w_{Tm} u_{Tm} C_{m,n} w_{Rn} u_{Rn}
-	\label{eq:transfer_mn22}
-\end{equation}
-
-
-Ahora, si se intercambian los roles, se recibe con el elemento $e_m$ y se transmite con el $e_n$, la transferencia resultante es,
-
-\begin{equation}
-	C^{'}_{n, m} = w_{Tn} u_{Tn} C_{n,m} w_{Rm} u_{Rm}
-	\label{eq:transfer_nm2}
-\end{equation}
-
-Tomando la relación de ambas transferencias \ref{eq:transfer_mn22} y \ref{eq:transfer_nm2},
-
-\begin{equation}
-	W^{'}_{Rn,m} = \dfrac{C^{'}_{m,n}}{C^{'}_{n, m}} = \dfrac{w_{Tm} u_{Tm} C_{m,n} w_{Rn} u_{Rn}}{w_{Tn} u_{Tn} C_{n,m} w_{Rm} u_{Rm}}
-	\label{eq:transfer_mn3}
-\end{equation}
-
-Y, como son las mismos elementos, el acoplamiento mútuo se cancela, resultando en.
-
-\begin{equation}
-	W^{'}_{Rn,m} = \dfrac{C^{'}_{m,n}}{C^{'}_{n, m}} = \dfrac{w_{Tm} u_{Tm} w_{Rn} u_{Rn}}{w_{Tn} u_{Tn} w_{Rm} u_{Rm}}
-	\label{eq:transfer_mn4}
-\end{equation}
-\todo[inline]{hasta aca llego con el tema para determinar la planitud de la antena}
-
-\todo{ahora tengo que continuar con el metodo normal}
-
-El Modo Completo requiere una enorme cantidad de mediciones para poder obtener resultados, por lo tanto, es necesario 
-complementarlo con un modo más rápido que no necesariamente obtenga todos los parámetros. Aprovechando que las variaciones 
-mecánicas son muchisimo más lentas que las eléctricas, entre calibración y calibración, se asume que los acoplamientos se 
-mantienen constantes. De esta forma, se calibra la antena utilizando el método rápido, en el cual se reutilizan los $C_{i, j}$. 
-
-Si la distancia entre los elementos $e_m$ y $e_n$ es la misma que la referente a los elementos $e_m$ $e_{n+1}$, o sea 
-$d_{m,n} = d_{m,n+1}$, resulta que $C_{m,n} = C_{m, n + 1}$, logrando simplificar la ecuación \ref{eq:transfer_mn1}.
-
-\begin{equation}
-	W^{'}_{Rn,n + 1} = \dfrac{w_{Rn} u_{Rn}}{w_{Rn + 1} u_{Rn + 1}}
-	\label{eq:transfer_mn2}
-\end{equation}
-
-La ecuación \ref{eq:transfer_mn2} resulta en la relación que hay entre los caminos de recepción de los elementos $n$ y 
-$n+1$. Si al elemento $e_m$ se lo utiliza para recibir y a los elementos $e_n$ y $e_{n + 1}$ para transmitir, la ecuación que se 
-obtiene sirve para calibrar la antena en modo transmisión.
-
-\begin{equation}
-	W^{'}_{Tn,n + 1} = \dfrac{w_{Tn} u_{Tn}}{w_{Tn + 1} u_{Tn + 1}}
-\end{equation}
-
-
-\todo{terminar diciendo que se programó el modo planitud ideal, porque iba mas alla del objeto de la tesis con las ecuaciones pertinentes}
-
-\subsection{Problemas y limitaciones}
-
-
-Una de las grandes ventajas de este método frente al método anterior es que no requiere hardware extra, logrando así 
-disminuir la complejidad de la antena, de esta forma se la puede construir de una forma más compacta.
-
-Tomando como $M$ la cantidad de filas de módulos radiantes por panel y $N$ la cantidad de paneles, las tres modalidades de 
-este método son:
-
-\begin{itemize}
-	\item \textbf{Modo completo:} En esta modalidad no solo se estima la ganancia en transmisión y recepción en ambas 
-		polarizaciones (H y V), sino que también se determina la planitud de la antena. La cantidad de ecuaciones necesarias es 
-		de $MN(MN + 7)/2$.
-	\item \textbf{Modo rápido:} En esta modalidad se estima la ganancia en transmisión y recepción em ambas polarizaciones
-		(H y V) utilizando el valor guardado de la planitud de la antena calculado previamente. La cantidad de ecuaciones necesarias
-		es de $4MN$.
-	\item \textbf{Modo planitud ideal:} Esta modalidad es igual al modo rápido, asuminedo que la antena es perfectamente plana. 
-		La cantidad de ecuaciones necesarias es de $4MN$.
-\end{itemize}
-
-El acoplamiento mútuo se lo modeliza como si fuese un cable pero con las propiedades de atenuación y defasaje de una onda en
-el vacío. Las cuales son:
-
-\todo{Poner que significa el alfa}
-\begin{equation}
-	c = \dfrac{e^{-2\alpha r}}{4\pi r^2}
-\end{equation}
-
-El modo planitud ideal cuenta con otra limitación que, si bien se asume que el acoplamiento mútuo es desconocido, se sabe que 
-a distancias iguales dicho acoplamiento es el mismo. Por lo tanto, para calibrar una antena de cualquier topología solo se 
-utilizan lazos de calibración simétricos con un módulo radiante común. Al restar ambos caminos, no solo se elimina el 
-camino común, que puede ser la parte de transmisión o recepción, sino que también se elimina el acoplamiento mútuo.
+Como es necesaria una menor cantidad de ecuaciones de calibración, la estrategia a encarar es la de utilizar lazos simétricos 
+con un elemento en común. Al restar ambos caminos, no solo se elimina la RFDN común, sino que también se elimina el 
+acoplamiento mútuo. La cantidad de estos lazos termina siendo determinada como una solución de compromiso entre la cantidad de
+mínima necesaria para poder utilizar el método y la cantidad de ecuaciones redundantes para darle robustez al resultado.
 
 Si el RM común se utiliza para transmitir la señal, se obtienen ecuaciones para calibrar la parte de recepción, en cambio, 
 si se lo utiliza para recibir la señal, se calibra transmisión. La figura \ref{fig:ideal_strategy} esquematiza esta estrategia.
@@ -266,12 +167,10 @@ si se lo utiliza para recibir la señal, se calibra transmisión. La figura \ref
 \end{figure}
 
 
+\subsection{Problemas y limitaciones}
 
-
-Aprovechando la realidad que las variaciones mecánicas son lentas frente a las variaciones eléctricas de los componentes,
-no es necesario correr el método de calibración en su máxima caracterización dado que requiere demasiada cantidad de 
-mediciones para determinar la planitud de la antena.
-
+Una de las grandes ventajas de este método frente al método anterior es que no requiere hardware extra, logrando así 
+disminuir la complejidad de la antena, de esta forma se la puede construir de una forma más compacta.
 
 Referencias a utilizar: 
 Shipley2000
@@ -282,32 +181,6 @@ Practical faliure compensation in active phased antennas (ni lo lei, pero muy in
 
 
 \todo{poner en algun lado que se sugiere para medir la fase de medir en un unico punto lo que defasa la antena punta a punta una unica vez y se lo carga al metodo}
-\todo[inline]{esto es texto viejo... el capitulo 5 tiene lo mismo}
-Una antena se calibra buscando que no solo todos los caminos de recepción atenúen y defasen exactamente lo mismo, sino que 
-también sea un valor conocido. Para transmisión se busca lo mismo, con la salvedad que se puede modificar la fase de la 
-señal que se emite en algunos RMs para modificar el lugar de apuntamiento de la antena.
-
-Hay distintos factores que hacen que los componentes dejen de comportarse de forma nominal, por ejemplo se puede nombrar el
-cambio de temperatura, el mero envejecimiento de los componentes al pasar el tiempo, que un mero cable se haya doblado más
-de la cuenta, interferencias electromagnéticas, radiadas o conducidas, o entre distintos componentes, etc. 
-
-Es importante que un patrón de antena posea los lóbulos secundarios lo más chicos posibles con respecto al lóbulo principal,
-que el lóbulo principal sea lo más angosto posible, con esto se aumenta la resolución espacial. Un factor que ocurre es el 
-de los targets ficticios.\todo{no se como se elimina}
-
-
-\todo{poner que factores hacen que cambie la ganancia de los componentes para calibrar la antena}
-\todo{poner que ocurre con el antnena pattern si no está correctamente calibrada, altura de lóbulos secundarios, ancho 
-de lóbulo principal, pico del lóbulo principal, etc}
-
-Para que el sistema tenga solución, la cantidad de ecuaciones debe ser mayor que la de incógnitas. Esta restricción solo 
-se cumple si se calibra toda la antena en un solo paso (Tx y Rx en ambas polarizaciones) porque es el único caso en que 
-cada acoplamiento mútuo aparezca más de una única vez. En caso contrario, habrían siempre más incógnitas que ecuaciones.
-
-\todo{tener en cuenta que por ahora el requerimiento es que la antena sea totalmente plana}
-
-
-
 
 \begin{comment}
 
