@@ -51,7 +51,8 @@ Por lo tanto, como $M$ y $N$ son números enteros, con que la antena tenga tres 
 La herramienta matemática utilizada para resolver el sistema de ecuaciones es el de los cuadrados mínimos, 
 \todo[inline]{ver apéndice tal }, con el cual se obtiene la aproximación que tenga menor error cuadrático medio. 
 
-Ante la posibilidad que no siempre se cuente con el tiempo necesario para generar todos los lazos de calibración necesarios para calibrar la antena en el modo presentado, tres modalidades serán presentadas para este método. 
+Ante la posibilidad que no siempre se cuente con el tiempo necesario para generar todos los lazos de calibración necesarios 
+para calibrar la antena en el modo presentado, tres modalidades serán presentadas para este método. 
 
 \begin{itemize}
 	\item \textbf{Modo completo:} En esta modalidad no solo se estima la ganancia en transmisión y recepción en ambas 
@@ -70,10 +71,17 @@ Ante la posibilidad que no siempre se cuente con el tiempo necesario para genera
 \subsection{Método}
 
 Asumiendo que se transmite desde el elemento $e_m$ y se recibe desde el $e_n$, la función de transferencia del lazo de 
-calibración está compuesta por la configuración de atenuación y defasaje de los defasadores y atenuadores tanto de 
-transmisión como de recepción, denotados como $w_{Tm}(i)$ y $w_{Rn}(j)$, donde $i$, $j$ son las diferentes posibles 
-configuraciones, y la atenuación y defasaje combinados por los cables, conectores, módulos radiantes y divisores de potencia,
-denotados como $u_{Tm}$ y $u_{Rn}$. Por lo tanto, la función de transferencia completa resulta,
+calibración está compuesta por:
+
+\begin{itemize}
+	\item La configuración de atenuación y defasaje de los defasadores y atenuadores, tanto de transmisión como de recepción, 
+		denotados como $w_{Tm}(i)$ y $w_{Rn}(j)$, donde $i$, $j$ son las diferentes posibles configuraciones. 
+	\item La atenuación y defasaje combinados por los cables, conectores, divisores y combinadores de potencia, módulos radiantes
+		y defasadores, denotados como $u_{Tm}$ y $u_{Rn}$. 
+	\item El acoplamiento mútuo entre los elementos participantes, denotado como $C_{m, n}$.
+\end{itemize}
+		
+Por lo tanto, la función de transferencia completa resulta,
 
 \begin{equation}
 	C^{'}_{m,n} = w_{Tm} u_{Tm} C_{m,n} w_{Rn} u_{Rn}
@@ -84,23 +92,66 @@ Si se transmite con el mismo elemento, $e_m$, pero se recibe con otro, $e_{n + 1
 
 \begin{equation}
 	C^{'}_{m,n + 1} = w_{Tm} u_{Tm} C_{m,n + 1} w_{Rn + 1} u_{Rn + 1}
-	\label{eq:transfer_mnn}
-\end{equation}
-
-Tomando la relación de ambas transferencias \ref{eq:transfer_mn} y \ref{eq:transfer_mnn},
-
-\begin{equation}
-	W^{'}_{Rn,n + 1} = \dfrac{C^{'}_{m,n}}{C^{'}_{m,n + 1}} = \dfrac{C_{m,n} w_{Rn} u_{Rn}}{C_{m,n + 1} w_{Rn + 1} u_{Rn + 1}}
 	\label{eq:transfer_mn1}
 \end{equation}
 
-Si la distancia entre los elementos $e_m$ y $e_n$ es la misma que la referente a los elementos $e_m$ $e_{n+1}$, o sea 
-$d_{m,n} = d_{m,n+1}$, resulta que $C_{m,n} = C_{m, n + 1}$, logrando simplificar la ecuación \ref{eq:transfer_mn1}.
+Tomando la relación de ambas transferencias \ref{eq:transfer_mn} y \ref{eq:transfer_mn1},
 
 \begin{equation}
-	W^{'}_{Rn,n + 1} = \dfrac{w_{Rn} u_{Rn}}{w_{Rn + 1} u_{Rn + 1}}
-	\label{eq:transfer_mn2}
+	W^{'}_{Rn,n + 1} = \dfrac{C^{'}_{m,n}}{C^{'}_{m,n + 1}} = \dfrac{C_{m,n} w_{Rn} u_{Rn}}{C_{m,n + 1} w_{Rn + 1} u_{Rn + 1}}
 \end{equation}
+
+\todo{seguramente hay que sacar este texto de aca y ponerlo en la introducción del método y posiblemente en las hipotesis}
+Se asume que el valor del acoplamiento depende de dos factores a saber. El primero es por comunicar los elementos utilizando
+polarizaciones cruzadas, y dicha atenuación es constante para cualquier elemento. El segundo, es debido a la atenuación y 
+defasaje de la señal que viaja en el vacío, por lo tanto, depende exclusivamente de la distancia que hay entre los elementos
+a comunicar.
+
+Ahora, si se transmite con $e_{n+1}$ y se recibe con el elemento $e_{n+2}$, la relación resultante es,
+
+\begin{equation}
+	W^{'}_{Rn + 1,n + 2} = \dfrac{C^{'}_{m,n+1}}{C^{'}_{m,n+2}} = \dfrac{C_{m,n+1} w_{Rn+1} u_{Rn+1}}{C_{m,n + 2} w_{Rn + 2} u_{Rn + 2}}
+\end{equation}
+
+Ahora, si se recibe con el elemento $e_{n+2}$ transmitiendo con $e_n$, la relación resultante es,
+
+\begin{equation}
+	W^{'}_{Rn,n + 2} = \dfrac{C^{'}_{m,n}}{C^{'}_{m,n + 2}}\cdot\dfrac{C^{'}_{m,n+1}}{C^{'}_{m,n+1}} = W^{'}_{Rn,n+1}\cdot W^{'}_{Rn+1,n + 2}
+\end{equation}
+
+Generalizando, se pueden obtener todos los lazos de calibración en función de uno se obtiene,
+\todo{puta madre.... ajajaj, no recuerdo cual es la mierda del producto}
+
+\begin{equation}
+	W^{'}_{R0,k} = W^{'}_{Rn,n+1}\cdot W^{'}_{Rn+1,n + 2}
+	\label{eq:rx_cal}
+\end{equation}
+
+Si se realiza la misma deducción, pero en vez de transmitir siempre con el mismo elemento, se lo utiliza para recibir, se obtiene 
+
+\todo{puta madre.... ajajaj, no recuerdo cual es la mierda del producto, poner y separar las dos productorias de cij y u,v ij}
+\begin{equation}
+	W^{'}_{T0,k} = W^{'}_{Rn,n+1}\cdot W^{'}_{Rn+1,n + 2}
+	\label{eq:tx_cal}
+\end{equation}
+
+Analizando las ecuaciones \ref{eq:tx_cal} y \ref{eq:rx_cal}, dos conclusiones inmediatas se deducen. La primera es que el 
+resultado no es único, por lo tanto, el método no puede devolver la ganancia absoluta de transmisión, recepción y de
+acoplamientos mútuos, solamente la ganancia relativa entre dichos elementos. La segunda, es que el sistema tiene dos grados 
+de libertad, en otras palabras, para poder obtener la ganancia absoluta de todo el sistema, es necesario agregar dos ecuaciones
+más que definan un único valor pertenenciente a dos de los tres conjuntos de incógnitas.
+
+Si se asumen conocidos los acoplamientos mútuos o se reutilizan de una calibración anterior, las ecuaciones \ref{eq:tx_cal} 
+y \ref{eq:rx_cal} se simplifican, logrando que la cantidad de incógnitas se reduzca habilitando de esta forma los métodos
+rápidos y de planitud ideal.
+
+\todo{Poner las ecuaciones simplificadas y ver en el paper si pusieron algo mas como para robar muejeje}
+\todo{poner las estrategias en este caso}
+
+Como es necesaria una menor cantidad de lazos de calibración, se realizaron distintas estrategias para obtener una solucion de 
+compromiso entre la cantidad de lazos de calibración necesarios para poder utilizar el método y la cantidad de ecuaciones 
+redundantes que le da robustez al resultado.
+
 
 La ecuación \ref{eq:transfer_mn2} resulta en la relación que hay entre los caminos de recepción de los elementos $n$ y 
 $n+1$. Si al elemento $e_m$ se lo utiliza para recibir y a los elementos $e_n$ y $e_{n + 1}$ para transmitir, la ecuación que se 
