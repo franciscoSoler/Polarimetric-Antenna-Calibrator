@@ -9,8 +9,12 @@ El método que utiliza los acoplamientos mútuos toma ventaja del acoplamiento m
 y recibiendo entre elementos adyacentes. Para llevar a cabo dicho método, este tipo de antenas debe cumplir un 
 requerimiento muy importante que es poder transmitir con un elemento y simultáneamente recibir con otro. 
 Ordinariamente, este requerimiento implica separar las redes de transmisión y recepción \cite{Gao2001}. Para antenas que no 
-cumplen la separación de la redes de transmisión y recepción se puede transmitir en una polarización y recibir en otra. 
+cumplen la separación de la redes de transmisión y recepción se puede transmitir en una polarización y recibir en otra. A 
+su vez, para evitar que los elementos que no conforman parte del lazo activo de calibración interfieran, inyectando ruido en 
+las redes de transmisión y/o recepción, se los debe poder configurar en modo alta impedancia (en este modo no se transmite ni recibe señal). 
 En la figura \ref{fig:mutual_general} se puede observar un ejemplo.
+
+
 
 \begin{figure}[H]
  \centering
@@ -19,20 +23,64 @@ En la figura \ref{fig:mutual_general} se puede observar un ejemplo.
  \label{fig:mutual_general}
 \end{figure}
 
+En la figura \ref{fig:mutual_general} se puede observar un ejemplo en donde se transmite utilizando el elemento $e_1$ en 
+polarización horizontal (H) y se recibe con el elemento $e_0$ en polarización vertical (V). Si se repite el proceso 
+secuencialmente con todos los elementos de recepción y luego con todos los elementos de transmisión, se puede determinar a 
+priori tanto la potencia de transmisión como la de recepción y lo que atenúa cada acoplamiento mútuo.
+
+Como un primer paso, se determina que la cantidad de incógnitas que tiene una antena de $m$ elementos por $n$ paneles. Como 
+se puede transmitir y recibir en dos polarizaciones (H y V), la antena cuenta con $4MN$ incógnitas de RFDN (2 por Tx en H/V y 
+otras 2 por Rx en H/V). A su vez, en el apéndice \ref{AppendixA} se realiza el cálculo de la cantidad de acoplamientos mutuos
+que posee una antena polarimétrica, particularmente, la ecuación \ref{eq:amountMutCoupling} muestra la cantidad de 
+incógnitas, que, para este caso, resulta ser de $MN(MN-1)/2$. Totalizando en $MN(MN + 7)/2$ incógnitas.
+
+Asumiendo que se transmite de a un RM por lazo de calibración, a priori, se dispone de un máximo de $(MN)^2$ ecuaciones por
+polarización a transmitir. Totalizando en $2(MN)^2$. Para que el sistema tenga solución, la cantidad de ecuaciones debe ser 
+mayor a la de las incógnitas, por lo tanto, la cantidad mínima de elementos radiantes es de
+
+$$
+\begin{aligned}
+	2(MN)^2 &\ge  \dfrac{MN(MN + 7)}{2} \\
+	4MN &- MN \ge7 \\
+	MN &\ge \dfrac{7}{3}
+\end{aligned}
+$$
+
+Por lo tanto, como $M$ y $N$ son números enteros, con que la antena tenga tres o más elementos radiantes, ya se puede utilizar el método.
+
+La herramienta matemática utilizada para resolver el sistema de ecuaciones es el de los cuadrados mínimos, 
+\todo[inline]{ver apéndice tal }, con el cual se obtiene la aproximación que tenga menor error cuadrático medio. 
+
+Ante la posibilidad que no siempre se cuente con el tiempo necesario para generar todos los lazos de calibración necesarios para calibrar la antena en el modo presentado, tres modalidades serán presentadas para este método. 
+
+\begin{itemize}
+	\item \textbf{Modo completo:} En esta modalidad no solo se estima la ganancia en transmisión y recepción en ambas 
+		polarizaciones (H y V), sino que también se determinan los acoplamientos mutuos de la antena. La cantidad de ecuaciones necesarias es 
+		de $MN(MN + 7)/2$.
+	\item \textbf{Modo rápido:} En esta modalidad se estima la ganancia en transmisión y recepción em ambas polarizaciones
+		(H y V) utilizando el valor guardado de la planitud de la antena calculado previamente. La cantidad de ecuaciones necesarias
+		es de $4MN$.
+	\item \textbf{Modo planitud ideal:} Esta modalidad es igual al modo rápido, asuminedo que la antena es perfectamente plana. 
+		La cantidad de ecuaciones necesarias es de $4MN$.
+\end{itemize}
+
+
+
+
 \subsection{Método}
 
-Asumiendo que se transmite desde el elemento $m$ y se recibe desde el $n$, la función de transferencia del lazo de 
+Asumiendo que se transmite desde el elemento $e_m$ y se recibe desde el $e_n$, la función de transferencia del lazo de 
 calibración está compuesta por la configuración de atenuación y defasaje de los defasadores y atenuadores tanto de 
 transmisión como de recepción, denotados como $w_{Tm}(i)$ y $w_{Rn}(j)$, donde $i$, $j$ son las diferentes posibles 
 configuraciones, y la atenuación y defasaje combinados por los cables, conectores, módulos radiantes y divisores de potencia,
-denotados como $u_{Tm}$ y $u_{Rn}$. Por lo tanto, la función de transferencia completa resulta.
+denotados como $u_{Tm}$ y $u_{Rn}$. Por lo tanto, la función de transferencia completa resulta,
 
 \begin{equation}
 	C^{'}_{m,n} = w_{Tm} u_{Tm} C_{m,n} w_{Rn} u_{Rn}
 	\label{eq:transfer_mn}
 \end{equation}
 
-Si se transmite con el mismo elemento, $m$, pero se recibe con otro, $n + 1$, la transferencia resulta
+Si se transmite con el mismo elemento, $e_m$, pero se recibe con otro, $e_{n + 1}$, la transferencia resulta
 
 \begin{equation}
 	C^{'}_{m,n + 1} = w_{Tm} u_{Tm} C_{m,n + 1} w_{Rn + 1} u_{Rn + 1}
@@ -46,8 +94,8 @@ Tomando la relación de ambas transferencias \ref{eq:transfer_mn} y \ref{eq:tran
 	\label{eq:transfer_mn1}
 \end{equation}
 
-Si la distancias entre los pares de elementos $m,n$ y $m,n+1$ es la misma, $C_{m,n} = C_{m, n + 1}$, simplificando la ecuación 
-\ref{eq:transfer_mn1}.
+Si la distancia entre los elementos $e_m$ y $e_n$ es la misma que la referente a los elementos $e_m$ $e_{n+1}$, o sea 
+$d_{m,n} = d_{m,n+1}$, resulta que $C_{m,n} = C_{m, n + 1}$, logrando simplificar la ecuación \ref{eq:transfer_mn1}.
 
 \begin{equation}
 	W^{'}_{Rn,n + 1} = \dfrac{w_{Rn} u_{Rn}}{w_{Rn + 1} u_{Rn + 1}}
@@ -55,16 +103,70 @@ Si la distancias entre los pares de elementos $m,n$ y $m,n+1$ es la misma, $C_{m
 \end{equation}
 
 La ecuación \ref{eq:transfer_mn2} resulta en la relación que hay entre los caminos de recepción de los elementos $n$ y 
-$n+1$. Si al elemento $m$ se lo utiliza para recibir y a los elementos $n$ y $n + 1$ para transmitir, la ecuación que se 
+$n+1$. Si al elemento $e_m$ se lo utiliza para recibir y a los elementos $e_n$ y $e_{n + 1}$ para transmitir, la ecuación que se 
 obtiene sirve para calibrar la antena en modo transmisión.
 
 \begin{equation}
 	W^{'}_{Tn,n + 1} = \dfrac{w_{Tn} u_{Tn}}{w_{Tn + 1} u_{Tn + 1}}
+\end{equation}
+
+El cálculo previo sirve solamente para el caso donde se conoce el acoplamiento mútuo entre distintos elementos. Para el caso 
+en que se desee obtener la planitud de la antena, es necesario trabajar de a pares de módulos radiantes como sigue. En la 
+ecuación siguiente se transmite con el elemento $e_m$ y se recibe con el $e_n$.
+
+\begin{equation}
+	C^{'}_{m,n} = w_{Tm} u_{Tm} C_{m,n} w_{Rn} u_{Rn}
+	\label{eq:transfer_mn22}
+\end{equation}
+
+
+Ahora, si se intercambian los roles, se recibe con el elemento $e_m$ y se transmite con el $e_n$, la transferencia resultante es,
+
+\begin{equation}
+	C^{'}_{n, m} = w_{Tn} u_{Tn} C_{n,m} w_{Rm} u_{Rm}
+	\label{eq:transfer_nm2}
+\end{equation}
+
+Tomando la relación de ambas transferencias \ref{eq:transfer_mn22} y \ref{eq:transfer_nm2},
+
+\begin{equation}
+	W^{'}_{Rn,m} = \dfrac{C^{'}_{m,n}}{C^{'}_{n, m}} = \dfrac{w_{Tm} u_{Tm} C_{m,n} w_{Rn} u_{Rn}}{w_{Tn} u_{Tn} C_{n,m} w_{Rm} u_{Rm}}
+	\label{eq:transfer_mn3}
+\end{equation}
+
+Y, como son las mismos elementos, el acoplamiento mútuo se cancela, resultando en.
+
+\begin{equation}
+	W^{'}_{Rn,m} = \dfrac{C^{'}_{m,n}}{C^{'}_{n, m}} = \dfrac{w_{Tm} u_{Tm} w_{Rn} u_{Rn}}{w_{Tn} u_{Tn} w_{Rm} u_{Rm}}
+	\label{eq:transfer_mn4}
+\end{equation}
+\todo[inline]{hasta aca llego con el tema para determinar la planitud de la antena}
+
+\todo{ahora tengo que continuar con el metodo normal}
+
+El Modo Completo requiere una enorme cantidad de mediciones para poder obtener resultados, por lo tanto, es necesario 
+complementarlo con un modo más rápido que no necesariamente obtenga todos los parámetros. Aprovechando que las variaciones 
+mecánicas son muchisimo más lentas que las eléctricas, entre calibración y calibración, se asume que los acoplamientos se 
+mantienen constantes. De esta forma, se calibra la antena utilizando el método rápido, en el cual se reutilizan los $C_{i, j}$. 
+
+Si la distancia entre los elementos $e_m$ y $e_n$ es la misma que la referente a los elementos $e_m$ $e_{n+1}$, o sea 
+$d_{m,n} = d_{m,n+1}$, resulta que $C_{m,n} = C_{m, n + 1}$, logrando simplificar la ecuación \ref{eq:transfer_mn1}.
+
+\begin{equation}
+	W^{'}_{Rn,n + 1} = \dfrac{w_{Rn} u_{Rn}}{w_{Rn + 1} u_{Rn + 1}}
 	\label{eq:transfer_mn2}
 \end{equation}
 
-El cálculo previo sirve solamente para el caso donde se conoce el acoplamiento mútuo entre 
+La ecuación \ref{eq:transfer_mn2} resulta en la relación que hay entre los caminos de recepción de los elementos $n$ y 
+$n+1$. Si al elemento $e_m$ se lo utiliza para recibir y a los elementos $e_n$ y $e_{n + 1}$ para transmitir, la ecuación que se 
+obtiene sirve para calibrar la antena en modo transmisión.
 
+\begin{equation}
+	W^{'}_{Tn,n + 1} = \dfrac{w_{Tn} u_{Tn}}{w_{Tn + 1} u_{Tn + 1}}
+\end{equation}
+
+
+\todo{terminar diciendo que se programó el modo planitud ideal, porque iba mas alla del objeto de la tesis con las ecuaciones pertinentes}
 
 \subsection{Problemas y limitaciones}
 
@@ -146,20 +248,6 @@ de los targets ficticios.\todo{no se como se elimina}
 \todo{poner que factores hacen que cambie la ganancia de los componentes para calibrar la antena}
 \todo{poner que ocurre con el antnena pattern si no está correctamente calibrada, altura de lóbulos secundarios, ancho 
 de lóbulo principal, pico del lóbulo principal, etc}
-
-Para poder calibrar esta antena polarimétrica haciendo uso de los acoplamientos mutuos, se cuenta con el uso de 
-cuadrados mínimos. La idea es realizar lazos de calibración transmitiendo en una polarización y recibiendo en la
-otra a la vez. Para esto, es necesario que no solo se pueda configurar algunos RMs em modo $T_x$ y otros en modo $R_x$ en 
-distintas polarizaciones, sino también poder configurar los módulos que no forman parte de dicho lazo en modo alta 
-impedancia (en este modo el módulo no transmite ni recibe nada, evitando así la inyección de ruido y señal en zonas 
-indeseadas de la antena). 
-
-Tomando como caso una antena rectangular de $M x N$ módulos radiantes y asumiendo que solo se transmite y recibe de a un 
-RM por lazo de calibración, a priori, se dispone de un máximo de $(MN)^2$ ecuaciones. La cantidad de incógnitas de todos
-los caminos de la RFDN, tanto transmisión como recepción en ambas polarizaciones (H y V), son $4MN$. A su vez, en el 
-apéndice \ref{AppendixA} se realiza el cálculo de la cantidad de acoplamientos mutuos que posee una antena polarimétrica,
-particularmente, la ecuación \ref{eq:amountMutCoupling} muestra la cantidad de incógnitas, que, para este caso, resulta 
-ser de $MN(MN-1)/2$. Totalizando en $MN(MN + 7)/2$ incógnitas.
 
 Para que el sistema tenga solución, la cantidad de ecuaciones debe ser mayor que la de incógnitas. Esta restricción solo 
 se cumple si se calibra toda la antena en un solo paso (Tx y Rx en ambas polarizaciones) porque es el único caso en que 
