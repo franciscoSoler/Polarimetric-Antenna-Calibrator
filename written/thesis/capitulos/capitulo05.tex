@@ -1,6 +1,182 @@
-\chapter{Método utilizando los acoplamientos mutuos}
-\label{ch:estado}
-\lhead{\emph{Método utilizando los acoplamientos mutuos}}
+\chapter{Modelización}
+\label{ch:modelizacion}
+\lhead{\emph{Modelización}}
+
+\todo[inline]{Aca viene todo sobre el modelo de la antena programado}
+
+\section{Modelización de los acoplamientos mútuos}
+
+Los acoplamientos mútuos fueron modelados como si fuese un cable
+
+\section{Modelo de la antena}
+
+El modelo de antena está programado de tal forma que se lo pueda utilizar para simular una antena con parámetros de RF,
+la misma está conformada por los siguientes componentes: cables, psc, trms, defasadores y elementos radiantes. Como es 
+requerido calibrar con dos métodos de calibración una misma antena en un estado determinado, para poder comparar los resultados
+obtenidos, se opta por guardar en archivos tanto la configuración como el comportamiento de la misma. 
+
+La modelizaci\'on de los componentes en RF es utilizando los par\'ametros S 
+En el apéndice 
+\ref{AppendixC} se muestra un ejemplo de estos archivos para una antena de dos módulos radiantes.
+
+El simulador es de dos etapas, la primera parte es la encargada de la modelización de la antena y sus componentes, y la 
+segunda, de calibrar dicho modelo. La figura \ref{fig:prog_inic} muestra de forma simplificada el flujo de ejecuci\'on del 
+programa.
+
+\begin{figure}
+ \centering
+ \includegraphics[width=10cm]{gfx/FlujoEjecucion.png}
+ \caption{Flujo de ejecuci\'on del modelo de antena.}
+ \label{fig:prog_inic}
+\end{figure}
+
+\subsection{Generador de Antena}
+
+En principio, una antena necesita que todos los caminos entre el punto donde se inyecta o recibe la se\~nal y los m\'odulos 
+radiantes sean iguales. Esta caracter\'istica es similar a la de un \'arbol balanceado. Por lo tanto, para definir la 
+estructura interna de la antena, se definen simplmenete los elementos que conforman dicho \'arbol y, para determinar el orden 
+de armado de la antena, se utiliza una lista. El orden es descendiente, si se para en un elemento de la lista, los de la 
+izquierda son ascendientes y los de la derecha son descendientes. En la figura \ref{fig:2RMAntenna} se muestra la antena que 
+se construye teniendo como configuración: [\enquote*{cable1}, \enquote*{psc12}, \enquote*{cable2}, \enquote*{trm}, 
+\enquote*{circulator}, \enquote*{cable3}, \enquote*{rm}].
+
+Es necesario definir cuales son las características físicas de cada uno de los componentes mencionados en la lista anterior. 
+La tabla \ref{tab:propertiesOfComponents} determina las propiedades de cada elemento contenido dentro de una antena. 
+
+\begin{table}[H]
+  \footnotesize
+  \centering
+  \begin{tabular}{|c|c|}
+	\hline
+	\textbf{Componente de Antena} & \textbf{Cacarcterísticas físicas} \tabularnewline \hline 
+	\multirow{2}{*}{cable} &  attenuation [db] \tabularnewline \cline{2-2}
+	 & length [m] \tabularnewline \hline 
+	\multirow{2}{*}{TRM} & gain [db]\tabularnewline \cline{2-2}
+	 & phaseShift [deg] \tabularnewline \hline 
+	PSC1$j$ & outputPorts = $j$ \tabularnewline \hline 
+	circulator & \tabularnewline \hline 
+	RM & \tabularnewline \hline 
+  \end{tabular}
+  \caption{Propiedades físicas de cada componente de una antena}
+  \label{tab:propertiesOfComponents}
+\end{table}
+
+\begin{figure}
+ \centering
+ \includegraphics[width=10cm]{gfx/RFDN.png}
+ \caption{Estructura interna de una de las polarizaciones de una antena con dos elementos radiantes.}
+ \label{fig:2RMAntenna}
+\end{figure}
+
+Con estos componentes, si bien está definida la cantidad de elementos radiantes, falta definir las dimensiones de la antena, 
+en otras palabras, la cantidad de paneles, la cantidad de elementos por panel y la separación, tanto horizontal como vertical,
+entre elementos. Los primeros se traducen a cantidad de columnas y filas de RMs. 
+
+Como dicha información es medianamente redundante y posiblemente incompatible con la definición de la estructura interna de 
+la antena, es necesario un chequeo de compatibilidad. La figura \ref{fig:frontAntenna} muestra el frente de una antena que se 
+construye teniendo como configuración: "quantityRows": 1, "quantityColumns": 2, "verticalSeparation": 0.2, 
+"horizontalSeparation": 0.2.
+
+\begin{figure}
+ \centering
+ \includegraphics[width=5cm]{gfx/FrontAntenna2.png}
+ \caption{Frente de antena de dos elementos radiantes.}
+ \label{fig:frontAntenna}
+\end{figure}
+
+Una vez obtenida la estructura de la antena, es necesario determinar que componentes van a tener desvíos en el comportamiento 
+deseado. Para ello, se agrega una lista indicando que componentes se desea que tengan errores. Los errores tienen una 
+distribución gaussiana con media 0. El desvío estandar es configurable.
+\todo[inline]{pablo, saco o dejo esta parte??}
+
+Para el caso en que se desee realizar la calibración en el modo Completo, se debería agregar errores de planitud de la antena.
+Para ello, los errores se verían reflejados en el archivo de la configuración del panel de la antena. De todas formas, a modo 
+como el modelo se realizó para validar el método, solamente se realizó el modelo de la planitud ideal.
+
+
+\todo{Poner un gráfico donde se defina una antena de 2 elementos radiantes}
+
+\todo{hacer grafico de clases del generador de antena}
+
+\subsection{Calibrador}
+
+A la hora de calibrar, la primer configuración es la del apuntamiento deseado. Para ello, se tienen que configurar la fase de 
+los defasadores de cada elemento radiante de la polarización a transmitir.
+elementos radiantes de la polarización a transmitir   
+
+
+\todo{hacer grafico de clases del calibrador de antena}
+
+
+
+Al tener cada componente de la antena caracterizado como se va a comportar, se puede determinar la matriz de parámetros de la
+totalidad de la antena, tanto para transmisión como recepción en la polarización deseada.
+
+\todo{agregar el grafico de la composicion de una antena}
+
+Como una misma antena se la podía llegar a calibrar con los dos métodos, se optó por utilizar archivos json. En los cuales 
+se guarda la configuración y propiedades físicas tanto del panel como de la RFDN. Las propiedades del primer grupo es 
+simplemente la distancia de todos a todos los elementos y las del segundo grupo, corresponden a la matriz de parámetros S y 
+que componente tienen conectado en los conectores de salida. En el anexo \ref{AppendixC} se puede observar un ejemplo de estos archivos
+para una antena con dos elementos radiantes.
+
+\subsection{Configuraciones del sistema}
+
+Las configuraciones que se le pueden realizar al modelo de antena para realizar los distintos ensayos están listados en la 
+tabla \ref{tab:conf_modelo_antena}.
+
+\begin{center}
+  \footnotesize
+  \centering
+  \begin{longtable}{|c|p{9cm}|}
+    \hline 
+	\multicolumn{2}{|c|}{\textbf{Parámetros de entrada}} \\ 
+	\hline
+    Frequencia		& Es la frecuenia central de trabajo en Hz \tabularnewline \hline 
+    Potencia		& Potencia con la que se alimenta la antena en db \tabularnewline \hline 
+    Fase			& Fase con la que se alimenta la antena en grados \tabularnewline \hline 
+    Row Steering	& Apuntamiento horizontal que se le quiere dar al beam de salida, en grados  \tabularnewline \hline 
+    Column Steering	& Apuntamiento vertical que se le quiere dar al beam de salida, en grados  \tabularnewline \hline 
+	\multicolumn{2}{|c|}{\textbf{Parámetros de calibración}} \\ 
+	\hline
+	potencia Tx deseada	& Potencia de transmisión deseada para calbirar  \tabularnewline \hline 
+	potencia Rx deseada	& Potencia de recepción deseada para calbirar  \tabularnewline \hline 
+	Errores	& Son los errores referentes a la hora de calibrar el modelo de antena. Pueden ser: interPulseGainChirpError, interPulsePhaseChirpError, gainChirpRepError, phaseChirpRepError, WalPhaseErrors  \tabularnewline \hline
+	\multicolumn{2}{|c|}{\textbf{Parámetros de Antena}} \\ 
+	\hline
+	Cantidad Filas	& Da la cantidad de módulos radiantes en dirección vertical \tabularnewline \hline 
+	Cantidad Columnas	& Da la cantidad de módulos radiantes en dirección horizontal \tabularnewline \hline 
+	Separación vertical & Es la separación vertical entre RMs \tabularnewline \hline 
+	Separación horizontal & Es la separación horizontal entre RMs \tabularnewline \hline 
+	Secuencia de componentes & Es la secuencia de componentes que conforma la RFDN, los mismos pueden ser: cables, psc, trm, circulador, rm \tabularnewline \hline 
+	Errores  & Son los componentes de la antena que pueden tener errores. Los mismos pueden ser: RMError, TRMError, CirculatorError, PSCError \tabularnewline \hline 
+	TRMs muertos & Es una lista que indica que trms están muertos en el panel de la antena. \tabularnewline \hline 
+	\multicolumn{2}{|c|}{\textbf{Componentes de Antena}} \\
+	\hline
+	$cable_i$ & Se pueden definir tantos cables como se deseen, los parámetros a definir son: attenuation [db], length [m], type = cable \tabularnewline \hline 
+	$trm_i$ & Se pueden definir tantos TRMs como se deseen, los parámetros a definir son: gain [db], phaseShift [deg], type = TRM \tabularnewline \hline 
+	$psc_{1j}$ & Se pueden definir tantos PSC como se deseen, los parámetros a definir son: outputPorts = $j$, type = PSC1$j$ \tabularnewline \hline 
+	circulator & aca se puede definir un circulador, el parámetro a definir es: type = circulator \tabularnewline \hline 
+	$rm$ & Se puede definir un RM, el parámetro a definir es: type = RM \tabularnewline \hline 
+	\multicolumn{2}{|c|}{\textbf{Desvío estandard del error}} \\
+	\hline
+	Error del cable & Desvío estandard de los cables. \tabularnewline \hline 
+	Error del circulador & Desvío estandard de los circuladores. \tabularnewline \hline 
+	Error del TRM & Desvío estandard de los TRMs. \tabularnewline \hline 
+	Error del PSC & Desvío estandard de los PSC. \tabularnewline \hline 
+	Error del RM & Desvío estandard de los RM. \tabularnewline \hline 
+	Error de ganancia entre pulsos & Desvío estandard de ganancia entre pulsos de calibración. \tabularnewline \hline 
+	Error de fase entre pulsos & Desvío estandard de fase entre pulsos de calibración. \tabularnewline \hline 
+	Error de ganancia de la chirp replica & Desvío estandard de ganancia de la chirp replica. \tabularnewline \hline 
+	Error de fase de la chirp replica & Desvío estandard de fase de la chirp replica. \tabularnewline \hline 
+	Error de fase del walsh & Desvío estandard de fase del seteo de los defasadores en calibración. \tabularnewline \hline 
+	\caption{Configuraciones del modelo de antena}
+  \end{longtable}
+  \label{tab:conf_modelo_antena}
+\end{center}
+
+A su vez, también se puede configurar que tipo de calibración se desea para poder obtener los resultados, se pueden graficar 
+los patrones de antena deseados en el corte de azimuth/rango deseados 
 
 El acoplamiento mútuo se lo modeliza como si fuese un cable pero con las propiedades de atenuación y defasaje de una onda en
 el vacío. Las cuales son:

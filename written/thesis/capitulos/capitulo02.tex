@@ -1,7 +1,7 @@
 % Chapter 2
 
 \chapter{Introducción a las antenas polarimétricas y sus problemas} % Chapter title
-\label{ch:motivacion}
+\label{ch:phasedArray}
 \lhead{\emph{Introducción a las antenas polarimétricas y sus problemas}}
 %----------------------------------------------------------------------------------------
 
@@ -210,6 +210,55 @@ Lamentablemente los errores del arreglo limitan los niveles que se pueden obtene
 Como es bien sabido, si se achican los lóbulos secundarios, tanto la directividad como el ancho del lóbulo principal son
 afectados. Para mantener ambas características invariantes, es necesario increentar el tamaño de la antena de arreglo de 
 fase \cite{Hsiao1985}.
+
+\subsection{Apuntamiento de una antena}
+
+Para que la suma de todas las señales emitidas con todos los elementos radiantes apunte a un mismo punto, es necesario que 
+todas las ondas lleguen al objetivo con la misma fase. Es por esto que se debe saber determinar cual es la fase individual que 
+debe tener cada uno de los elementos radiantes. 
+
+Como primer simplificación, se puede asumir que todas las rectas de cada uno de los elementos radiantes al punto lejano son 
+paralelas entre ellas. A su vez, como el camino recorrido desde cada elemento radiante al punto lejano es diferente, es 
+necesario calcular dicha diferencia para luego relacionarla con la fase. De esta forma, se puede retrasar la fase emitida de 
+los elementos más alejados al punto para que todas las señales lleguen en fase, logrando así, una onda plana.
+
+La figura \ref{fig:beamSteering} muestra como se realiza el apuntamiento de una antena de arreglo de fase en una sola dirección,
+para la dirección perpendicular, el razonamiento es totalmente análogo.
+
+\begin{figure}[H]
+ \centering
+ \includegraphics[width=10cm]{gfx/beamSteering.png}
+ \caption{Apuntamiento con una antena de arreglo de fase \cite{BeamSteering}.}
+ \label{fig:beamSteering}
+\end{figure}
+
+Como se puede observar en la figura \ref{fig:beamSteering}, la diferencia de fase entre dos elementos consecutivos, 
+$\Delta\varphi$, es constante y es llamada incremento de fase \cite{BeamSteering}. Se la puede relacionar con la diferencia 
+de distancia que tiene que recorrer el haz emitido por cada elemento radiante. Dicha diferencia de distancia se la calcula con 
+la siugiente relación matemática, 
+
+
+\begin{equation}
+	x = d\cdot \sin{\theta_s}
+	\label{eq:steering}
+\end{equation}
+
+Donde $d$ es la distancia entre dos módulos consecutivos y $\theta_s$ es el apuntamiento deseado del haz emitido. Para calcular
+el defasaje de una onda en una cierta distancia $x$, se debe tener en cuenta que es dependiente de su longitud de onda. 
+
+\begin{equation}
+	\dfrac{2\pi}{\Delta\varphi} = \dfrac{\lambda}{x}
+	\label{eq:dist2angle}
+\end{equation}
+
+Donde $\Delta\varphi$ es el incremento de fase entre módulos radiantes, $\lambda$ es la longitud de onda transmitida, 
+Utilizando las ecuaciones \ref{eq:steering} en \ref{eq:dist2angle} se puede obtener el incremento de fase entre módulos radiantes
+contiguos necesario para cumplir con el apuntamiento deseado. La ecuación matemática a continuación.
+
+\begin{equation}
+	\Delta\varphi = \dfrac{2\pi\cdot d\cdot\sin{\theta_s}}{\lambda}
+\end{equation}
+
 
 \section{Parámetros S}
 

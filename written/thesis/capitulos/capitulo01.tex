@@ -9,7 +9,10 @@
 En este capítulo se dará una breve introducción a la problemática a resolver. Las siguientes secciones tratarán la motivación,
 la definición del problema a trabajar y el plan de tesis.
 
-\section{Definiciones}
+\section{Definiciones previas}
+
+A continuación se introducen algunas definiciones previas necesarias para el desarrollo de la tesis.
+
 
 {\textbf{Antena:}} Es un objeto eléctrico el cual convierte potencia eléctrica en ondas de radio y viceversa. Usualmente es 
 utilizada con un transmisor o receptor de radio. En transmisión, el transmisor provee una corriente eléctrica oscilando en 
@@ -17,12 +20,12 @@ RF en los terminales de la antena, y la antena radía dicha energía como ondas 
 recepción, una antena intercepta parte de la onda electromagnética en orden de producir una mínima tensión en sus terminales,
 que es aplicado al receptor a ser amplificado \cite{AntennaWiki}.
 
-{\textbf{Polarización:}} La polarización de una antena hace referencia a la orientación del campo eléctrico (plano-E) de la 
-onda de radio con respecto a la superficie terrestre y es determiada por la estructura física de la antena y por su 
-orientación. Por lo tanto, una antena que sea simplemente un cable recto poseerá una polarización cuando se la monta 
-verticalmente, y otra diferente cuando sea horizontalmente. Como una onda transversal, el campo magnético de una onda de 
-radio es perpendicular al eléctrico, pero, por convención, la polarización hace referencia a la dirección del campo 
-eléctrico \cite{AntennaWiki}.
+{\textbf{Polarización:}} La polarización de una onda de radio en general hace referencia a la orientación del campo 
+eléctrico (plano-E) de la onda de radio con respecto a la superficie terrestre. La antena que la genera determina, de acuerdo
+con su estructura física y orientación, qué tipo de polarización tendrá la onda emitida. Por dar un ejemplo, una antena que
+sea simplemente un cable recto poseerá una polarización cuando se la monta verticalmente, y otra diferente cuando sea 
+horizontalmente. Como una onda transversal, el campo magnético de una onda de radio es perpendicular al eléctrico en campo 
+lejano, pero, por convención, la polarización hace referencia a la dirección del campo eléctrico \cite{AntennaWiki}.
 
 \todo{agregar ROE y SWR como definición}
 
@@ -97,10 +100,10 @@ especificación (o conjunto de especificaciones) o que un producto cumple con su
 
 \section{Contexto}
 
-Una antena es un transductor que transforma la energía eléctrica en electromagnética 
-en forma de ondas de radio transmitida en el aire o en el medio en que está la antena. A su vez, también sirve como 
-receptor de dichas señales del medio. Hay una amplia variedad de antenas en la actualidad, los principales grupos y usos 
-se los presentan en la tabla \ref{tab:type_antennas}.
+Una antena es un transductor que transforma la energía eléctrica conducida en energía electromagnética radiada cuando 
+trabaja como transmisora, o viceversa cuando actúa como receptora.
+
+Hay una amplia variedad de antenas en la actualidad, se realiza una agrupación simplificada en la tabla \ref{tab:type_antennas}.
 
 \begin{table}[H]
   \footnotesize
@@ -125,28 +128,33 @@ se los presentan en la tabla \ref{tab:type_antennas}.
   \label{tab:type_antennas}
 \end{table}
 
-La presente tesis se enfoca en el tipo arreglo de antena de fase contorlada, en particular sobre su calibración. Otras aplicaciones para 
-las cuales son utilizadas es en comunicaciones móviles \cite{Chen2012}, aéreas \cite{MHong1989} y espaciales 
-\cite{Shimada1995}\cite{Makhoul2012}. 
+La presente tesis se enfoca en el tipo \enquote*{arreglo de antena de fase controlada de manera electrónica}, en inglés 
+sería \enquote*{phase array electronically controlled antenna}. Este tipo de antenas son utilizadas en aplicaciones donde 
+es necesario realizar apuntamientos en diferentes direcciones y con altas velocidades. Por ejemplo, comunicaciones móviles 
+\cite{Chen2012}, aéreas \cite{MHong1989} y espaciales \cite{Shimada1995}\cite{Makhoul2012}. En el capítulo 
+\ref{ch:phasedArray} se explica el principio de funcionamiento básico de este tipo de antena. 
 
-Para generar diversos productos, por ejemplo imágenes satelitales en radares SAR \cite{Freeman1992}, es necesario que estén 
-correctamente calibradas \cite{Luscombe1990}\cite{Seifert1996}\cite{Dall1994}. Esto implica, que las tolerancias de fases y
-amplitudes se mantengan en el tiempo y/o sus valores sean bien conocidas para cada elemento del arreglo.
+Para generar diversos productos, por ejemplo imágenes satelitales en radares SAR \cite{Freeman1992}, es necesario que la 
+antena se encuentre correctamente calibrada \cite{Luscombe1990}\cite{Seifert1996}\cite{Dall1994}. Esto implica, que las 
+tolerancias de fases y amplitud se mantengan en el tiempo y/o sus valores sean bien conocidas para cada elemento del arreglo. 
+En el capítulo \ref{ch:classicalCalibration} se introduce el concepto de calibración y en particular se hace foco en la 
+calibración interna que es el objeto de estudio de esta tesis.
 
-Generalmente, este tipo de antenas son calibradas en tierra utilizando fuentes 
-externas de campo lejano o cercano \cite{Agrawal2003}. Sin embargo, en 
-aplicaciones aéreas o espaciales, la utilización de dichas fuentes es impráctica
-o difícil de implementar \cite{Aumann1989}. Resulta fundamental un esquema de
-calibración interna que permita tener bajo control estas variables. 
+Se explica el método de calibración clásica (en el capítulo \ref{ch:classicalCalibration}), el cual presenta una serie de 
+limitaciones. Por ello es que generalmente, este tipo de antenas son calibradas en tierra utilizando fuentes externas de campo 
+lejano o cercano \cite{Agrawal2003}. Sin embargo, en aplicaciones aéreas o espaciales, la utilización de dichas fuentes es 
+impráctica o difícil de implementar \cite{Aumann1989}. Resulta fundamental un esquema de calibración interna que permita 
+tener bajo control estas variables y en el cual el método clásico presenta las limitaciones que se comentan. 
 
 Como consideración a la problemática que ninguno de los métodos a ser presentados de calibración interna pueden determinar
 la potencia absoluta de transmisión de la antena como elemento único, se introducen los dos principales métodos de 
-calibración externa para complementar esta falencia. 
+calibración externa para complementar esta falencia \todo[inline]{(En el capítulo HHH)}. 
 
 Calibración utilizando blancos puntuales: Los blancos puntuales son dispositivos construidos por el hombre, generalmente son
 corner reflectors, transponders, generadores de tono o receptores. La característica de estos dispositivos es que no solo 
 son muy chicos con respecto a la mínia área de observación de una antena y que el eco de la señal de dichos dispositivos 
-posee mucha más intensidad que dicha área, sino que el reflejo es bien conocido. Por lo tanto, con su uso se puede deducir la potencia transmitida.
+posee mucha más intensidad que dicha área, sino que el reflejo es bien conocido. Por lo tanto, con su uso se puede deducir la 
+potencia transmitida.
 
 Calibración utilizando blancos distribuidos: Se refiere a la utilización de blancos naturales de largas áreas con 
 propiedades de backscattering homogéneas. Se utiliza la suposición que estas propiedades son estables o que su variación es 
