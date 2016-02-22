@@ -211,7 +211,8 @@ Como es bien sabido, si se achican los lóbulos secundarios, tanto la directivid
 afectados. Para mantener ambas características invariantes, es necesario increentar el tamaño de la antena de arreglo de 
 fase \cite{Hsiao1985}.
 
-\subsection{Apuntamiento de una antena}
+
+\subsection{Apuntamiento de una antena}\label{ssec:beamSteering}
 
 Para que la suma de todas las señales emitidas con todos los elementos radiantes apunte a un mismo punto, es necesario que 
 todas las ondas lleguen al objetivo con la misma fase. Es por esto que se debe saber determinar cual es la fase individual que 
@@ -376,7 +377,8 @@ conectada a un generador de impedancia de salida $Z_0$ (Figura \ref{fig:esquema_
 S_{11} = \dfrac{b_1}{a_1}\bigg|_{a_2=0} = \dfrac{U_1 - I_1Z_0}{U_1 + I_1Z_0} = \dfrac{Z_L - Z_0}{Z_L + Z_0} = \Gamma 
 \end{equation}
 
-\subsection{La matriz de transferencia}
+
+\subsection{La matriz de transferencia} \label{ssec:transMatrix}
 
 Resulta muy conveiente la utilización de la matriz de parámetros S para describir una red de n polos en términos de ondas y 
 para mediciones. Pero, no es muy conveniente su utilización para caracterizar la respuesta de una cascada de redes de 2 
@@ -395,7 +397,7 @@ la matriz de parámetros T no. La matriz resultante de parámetros T de una casc
 \mathbf{T_M=T_1T_2...T_m}
 \end{equation}
 
-\subsection{Conversión entre parámetros T y S}
+\subsection{Conversión entre parámetros T y S} \label{ssec:conversion}
 
 Como la matriz de transferencia (T) simplemente relaciona las ondas de entrada y salidas de una forma diferente a la matriz de 
 scattering, partiendo de una matriz se puede llegar a la otra y viceversa.
