@@ -208,7 +208,7 @@ de una antena de arreglo de fase \cite{Hsiao1985}.
 Lamentablemente los errores del arreglo limitan los niveles que se pueden obtener de los lóbulos secundarios \cite{Hsiao1985}.
 
 Como es bien sabido, si se achican los lóbulos secundarios, tanto la directividad como el ancho del lóbulo principal son
-afectados. Para mantener ambas características invariantes, es necesario increentar el tamaño de la antena de arreglo de 
+afectados. Para mantener ambas características invariantes, es necesario incrementar el tamaño de la antena de arreglo de 
 fase \cite{Hsiao1985}.
 
 
@@ -260,6 +260,18 @@ contiguos necesario para cumplir con el apuntamiento deseado. La ecuación matem
 	\Delta\varphi = \dfrac{2\pi\cdot d\cdot\sin{\theta_s}}{\lambda}
 \end{equation}
 
+\subsection{Calibración interna de una antena polarimétrica}
+
+No solo la respuesta de los componentes varía por el envejecimiento de los mismos al pasar del tiempo, haciendo que dejen de
+comportarse de forma nominal, sino que, también lo hacen a causa de variaciones en la temperatura de operación, que hayan sido
+utilizados de forma imprudente, por interferencias electromagnéticas (radiadas o conducidas), etc. Es por esta razón que se 
+tienen que corregir dichas variaciones, buscando que no solo todos los caminos de recepción atenúen y defasen exactamente lo
+mismo, sino que también sea un valor conocido. En transmisión el objetivo es el mismo, con la salvedad que la fase de cada 
+elemento depende del apuntamiento deseado y la ganancia de si algún componente deja de emitir por destrucción parcial de alguna
+parte de la antena.
+
+\todo{poner que ocurre con el antnena pattern si no está correctamente calibrada, altura de lóbulos secundarios, ancho 
+de lóbulo principal, pico del lóbulo principal, etc}
 
 \section{Parámetros S}
 
