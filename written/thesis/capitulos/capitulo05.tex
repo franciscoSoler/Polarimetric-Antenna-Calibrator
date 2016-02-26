@@ -186,50 +186,77 @@ Para obtener los distintos lazos de calibración se desarrollaron varias estrate
 
 \begin{itemize}
 	\item \textbf{LinearBuilder:} Esta estrategia construye ecuaciones utilizando la resta de dos lazos que tengan un elemento en 
-		común, llamado central.Estos lazos tienen distancias equidistantes al elemento en común siguendo la regla quchas distancias
-		constituyen una misma recta de unión. La figura \ref{fig:linealBuilder} muestra varios ejemplos de esta estrategia.
+		común, llamado central. Dicho módulo puede ser utilizado para transmitir o recibir, dependiendo si se desea obtener una 
+        ecuación de la resta de las ramas de Rx o Tx respectivamente. El método requiere que las distancias del elemento en común
+        al resto sean iguales para poder eliminar los acoplamientos mútuos y que los tres componentes estén alineados entre sí.
+         
+		Para ejemplificar, en la figura \ref{fig:linealBuilder} se pueden observar dos pares de lazos de calibración. Si se resta el
+        azul con el verde, aprovechando que $C_{14} = C_{74}$, se obtiene una ecuación de la rama de transmisión; en cambio, 
+        si se resta el rojo con el amarillo, aprovechando que $C_{53} = C_{57}$, se obtiene una ecuación de la rama de 
+        recepción de la antena.
 			
 		\begin{figure}[H]
 		 \centering
-		 \includegraphics[width=2cm]{gfx/FrontAntenna2.png}
-		 \caption{Estrategia LinearBuilder.}
+		 \includegraphics[width=8cm]{gfx/linearBuilder.png}
+		 \caption{Estrategia LinearBuilder. Restar azul con verde para transmisión y restar rojo con amarillo para recepción.}
 		 \label{fig:linealBuilder}
 		\end{figure}
 
 	\item \textbf{CrossBuilder:} Esta estrategia construye ecuaciones utilizando la resta de dos lazos que tengan un elemento en 
-		común, llamado central. Estos lazos tienen distancias equidistantes al elemento en común siguiendo la regla que dichas 
-		distancias son perpendiculares entre sí. La figura \ref{fig:crossBuilder} muestra varios ejemplos de esta estrategia.
-			
+		común, llamado central. Dicho módulo puede ser utilizado para transmitir o recibir como en el LinearBuilder. La única 
+        diferencia es que en vez de requerir que los tres elementos estén alineados, tienen que formar una L. En otras palabras,
+        las rectas de unión deben ser perpendicularesi entre sí.
+		
+        Para ejemplificar, en la figura \ref{fig:crossBuilder} se pueden observar dos pares de lazos de calibración. Si se resta el
+        azul con el verde, aprovechando que $C_{12} = C_{14}$, se obtiene una ecuación de la rama de recepción; en cambio, 
+        si se resta el rojo con el amarillo, aprovechando que $C_{53} = C_{59}$, se obtiene una ecuación de la rama de 
+        transmisión de la antena.
+
 		\begin{figure}[H]
 		 \centering
-		 \includegraphics[width=2cm]{gfx/FrontAntenna2.png}
+		 \includegraphics[width=8cm]{gfx/crossBuilder.png}
 		 \caption{Estrategia CrossBuilder.}
 		 \label{fig:crossBuilder}
 		\end{figure}
 
-	\item \textbf{TinyBuilder:} Esta estrategia construye ecuaciones solamente si la antena tiene dos elementos como filas o 
-		columnas y utiliza los cuatro lazos de calibración de los elementos que consituyen dicha fila/columna sumando los 
-		transmitidos de un elemento al otro y restando los del otro al primero. De esta forma se obtiene la doble diferencia de los 
-		elementos el Tx o Rx. La figura \ref{fig:tinyBuilder} muestra un ejemplo de esta estrategia.
+	\item \textbf{TinyBuilder:} Esta estrategia construye ecuaciones solamente si la cantidad de elementos en alguna dirección, 
+        horizontal o vertical, es igual a dos. El modo de operación es, utilizando los cuatro lazos de calibración posibles por
+        cada par de elementos que hay en la dirección previamente mencionada, se restan los lazos transmitidos por un elemento
+        con los del otro. El resultado es la resta de las dos ramas de transmisión. Para obtener ecuaciones de la resta en 
+        recepción el razonamiento es análogo, se deben restar los lazos recibidos de uno con los del otro elemento.
+
+        Para ejemplificar, la figura \ref{fig:tinyBuilder} muestra una antena de dos elementos en configuración vertical. En 
+        esta estrategia se restan los caminos azules con los verdes aprovechando que $C_{11} = C_{22}$ y que $C_{12} = C_{21}$.
 		
 		\begin{figure}[H]
 		 \centering
-		 \includegraphics[width=2cm]{gfx/FrontAntenna2.png}
+		 \includegraphics[width=9cm]{gfx/tinyBuilder.png}
 		 \caption{Estrategia TinyBuilder.}
 		 \label{fig:tinyBuilder}
 		\end{figure}
 
-	\item \textbf{DoubleBuilder:} Esta estrategia construye ecuaciones solamente si la antena no tiene dos elementos en ninguna de 
-		sus dimensiones y no solo utiliza los cuatro lazos de calibración que hay entre todos los pares de elementos que constituyen
-		la antena (en línea vertical y horizontal), sino que también utiliza todos los pares de elementos incluídos en la línea que 
-		une los primeros dos que sean equidistantes al primer par. La figura \ref{fig:doubleBuilder} muestra un ejemplo de esta estrategia.
+        Nota: En la figura \ref{fig:tinyBuilder} se puede llegar a la interpretación que hay 4 módulos radiantes en vez 
+        de 2. Cada elemento fue duplicado para enfatizar que se la polarización de transmisión es diferente a la de recepción.
+
+	\item \textbf{DoubleBuilder:} Esta estrategia construye ecuaciones solamente si la cantidad de elementos radiantes de la 
+        antena, en cualquiera de sus direcciones, es distinta de dos. A diferencia de la estrategia TinyBuilder, también se 
+        utilizan las ramas de recepción de elementos que tengan las mismas distancias a los elementos transmisores.
+        
+        Para ejemplificar, se tiene una antena de 5 elementos en 
+        configuración vertical, como se muestra en la figura \ref{fig:doubleBuilder}. Esta estrategia resta los caminos azules 
+        con los verdes aprovechando que $C_{12} = C_{54}$ y que $C_{14} = C_{52}$ (por simetría de la antena), dando como 
+        resultado dos veces la resta de las ramas de transmisión.
 		
 		\begin{figure}[H]
 		 \centering
-		 \includegraphics[width=2cm]{gfx/FrontAntenna2.png}
-		 \caption{Estrategia DoubleBuilder.}
+		 \includegraphics[width=8cm]{gfx/doubleBuilder.png}
+		 \caption{Estrategia DoubleBuilder. Al restar los lazos azules con los verdes, queda solo la resta de la cadena en 
+         transmisión.}
 		 \label{fig:doubleBuilder}
 		\end{figure}
+
+        Nota: En la figura \ref{fig:doubleBuilder} se puede llegar a la interpretación que hay 10 módulos radiantes en vez 
+        de 5. Cada elemento fue duplicado para enfatizar que se la polarización de transmisión es diferente a la de recepción.
 
 	\item \textbf{DefaultBuilder:} Esta estrategia se la utiliza para agregar las ecuaciones donde se mide la potencia 
 		transmitida/recibida para que el resultado del método sea único. Por ejemplo, puede ser el resultado de la medición de un 
@@ -245,9 +272,6 @@ ecuaciones previamente mencionadas, sino el resultado obtenido no va a ser el co
 Para realizar la corrección de fase, se utiliza el valor obtenido con la caracterización de lo que se defasa la señal al ser 
 transmitida/recibida con la antena. Este valor, junto al defasaje configurado de cada defasador, son utilizados para obtener el
 resultado que debería asemejarse cada resultado de las ecuaciones a las que se le va a aplicar cuadrados mínimos. 
-
-\todo{agregar el grafico de la composicion de una antena}
-
 
 \subsection{Configuraciones del sistema}
 
@@ -308,7 +332,7 @@ A su vez, también se puede configurar que tipo de calibración se desea correr 
 graficar tanto los patrones de antena obtenidos en algún corte corte de azimuth/rango o el arreglo de ganancias y fases con 
 respecto al valor ideal. La figura \ref{fig:visualPackage} muestra el diagrama de clases del visualizador.
 
-\begin{figure}
+\begin{figure}[H]
  \centering
  \includegraphics[width=11cm]{gfx/visualPackage.png}
  \caption{Diagrama de clases de los visualizadores.}
