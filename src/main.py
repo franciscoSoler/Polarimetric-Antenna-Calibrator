@@ -121,6 +121,7 @@ class Simulator:
 
     def __create_antenna(self):
         quantity_columns = self.__config[Common.Conf_ant][Common.Conf_qtty_cols]
+        quantity_rows = self.__config[Common.Conf_ant][Common.Conf_qtty_rows]
         row_separation = self.__config[Common.Conf_ant][Common.Conf_vert_sep]
         col_separation = self.__config[Common.Conf_ant][Common.Conf_horiz_sep]
         row_steering = self.__config[Common.Conf_in_param][Common.Conf_row_steer]
@@ -134,7 +135,7 @@ class Simulator:
         sequence_items = self.__build_sequence(wavelength)
         component_errors = self.__build_component_errors()
 
-        creator = AntennaCreator.AntennaCreator(quantity_columns, row_separation, col_separation)
+        creator = AntennaCreator.AntennaCreator(quantity_rows, quantity_columns, row_separation, col_separation)
         creator.add_errors(component_errors)
         creator.create_structure(filename, sequence_items, row_steering, column_steering, dead_trms)
 

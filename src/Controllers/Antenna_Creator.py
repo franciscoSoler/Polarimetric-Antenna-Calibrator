@@ -12,7 +12,7 @@ import Utilities.Scattering_Parameters as ScatteringParameters
 
 class AntennaCreator:
 
-    def __init__(self, cols, dist_rows, dist_columns, row_shift=False):
+    def __init__(self, rows, cols, dist_rows, dist_columns, row_shift=False):
         """
 
         :param cols: quantity of rm in a row
@@ -39,7 +39,7 @@ class AntennaCreator:
         psc_handler.initialize()
 
         self.__quantity_cols = cols
-        self.__quantity_rows = 0
+        self.__quantity_rows = rows
         self.__dist_rows = dist_rows
         self.__dist_columns = dist_columns
         self.__row_shift = row_shift
@@ -213,10 +213,10 @@ class AntennaCreator:
                                      AntennaCommon.is_psc(component[0])]
 
         quantity_rms = functools.reduce(lambda x, y: x*y, quantity_signal_splitters)
-        if quantity_rms % self.__quantity_cols != 0:
-            raise Exception("quantity of rms: {0} is not multiple of row length: {1}".format(quantity_rms,
-                                                                                             self.__quantity_cols))
-        self.__quantity_rows = int(quantity_rms / self.__quantity_cols)
+        print(quantity_rms)
+        if quantity_rms != self.__quantity_cols * self.__quantity_rows:
+            raise Exception("quantity of rms from RFDN: {0} is different from the front of the antenna: {1}".format(
+                                                            quantity_rms, self.__quantity_cols*self.__quantity_rows))
 
         trms_dead = [False] * quantity_rms
         if dead_trms:
