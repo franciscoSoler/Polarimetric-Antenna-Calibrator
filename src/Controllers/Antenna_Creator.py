@@ -6,8 +6,8 @@ import functools
 import math
 import numpy as np
 
-import src.Utilities.Antenna_Common as AntennaCommon
-import src.Utilities.Scattering_Parameters as ScatteringParameters
+import Utilities.Antenna_Common as AntennaCommon
+import Utilities.Scattering_Parameters as ScatteringParameters
 
 
 class AntennaCreator:
@@ -96,7 +96,8 @@ class AntennaCreator:
 
         with open(filename + "_panel", "w") as f:
             f.write(json.dumps(front_panel, sort_keys=False, indent=4, separators=(',', ': ')))
-
+    '''
+    DEPRECATED
     def __calculate_distances_between_rms(self):
         """
         This method calculates all the distances of every radiant module to the one positioned in the upper left antenna
@@ -173,7 +174,8 @@ class AntennaCreator:
             # instead of adding the distance, I must check if this value is equal
             # to another distance.
             self.__append_next_distance(j, j2+1, rm_used, matrix_distances, distances, pos_calculator, dist_calculator)
-
+    '''
+    
     def __build_rfdn_structure(self, sequence, rm_iterator, trm_state_iterator):
         # el TRM se comporta igual que el cable, no tengo que distinguirlos realmente,
         # los diferentes son los PSC y los RM

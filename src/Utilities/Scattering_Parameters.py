@@ -1,6 +1,6 @@
 __author__ = 'francisco'
 from abc import ABCMeta, abstractmethod
-import src.Utilities.Antenna_Common as AntennaCommon
+import Utilities.Antenna_Common as AntennaCommon
 import numpy as np
 import random
 

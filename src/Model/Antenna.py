@@ -2,7 +2,7 @@ __author__ = 'fsoler'
 import json
 import numpy as np
 import re
-import src.Utilities.Antenna_Common as AntennaCommon
+import Utilities.Antenna_Common as AntennaCommon
 
 
 class Antenna:
@@ -58,7 +58,7 @@ class Antenna:
     def get_qtty_antennas(self):
         return self.__get_qtty_antennas(next(iter(self.__json_rfdn.values())))
 
-    def __get_attenuation_paths(self, structure, mode):
+    def __get_attenuation_paths(self, structure, mode, complete, fix_s_param=False):
         """
 
         :param structure:
@@ -72,9 +72,12 @@ class Antenna:
 
         children = []
         if AntennaCommon.is_psc(component):
-            [children.extend(self.__get_attenuation_paths(extreme, mode)) for extreme in value[AntennaCommon.Extreme]]
+            [children.extend(self.__get_attenuation_paths(extreme, mode, complete, fix_s_param)) for extreme in value[AntennaCommon.Extreme]]
         else:
-            children.extend(self.__get_attenuation_paths(value[AntennaCommon.Extreme], mode))
+            fix_param = fix_s_param
+            if AntennaCommon.is_trm(component) and not complete:
+                fix_param = True
+            children.extend(self.__get_attenuation_paths(value[AntennaCommon.Extreme], mode, complete, fix_param))
 
         # section to obtain the correct PSC port number
         out_ports = AntennaCommon.get_qtty_output_ports(component)
@@ -82,13 +85,14 @@ class Antenna:
         f = lambda x: int((idx(x) * out_ports / len(children)) % out_ports)
 
         # convert the S parameters of the component in complex values
-        parameters = [list(map(complex, si)) for si in value[AntennaCommon.SParams]]
+        parameters = np.identity(2).tolist() if fix_s_param else \
+                     [list(map(complex, si)) for si in value[AntennaCommon.SParams]]
         build_cascade = lambda x, y: x * y if mode == AntennaCommon.Transmission else y * x
         return [[rm_pos, build_cascade(AntennaCommon.s2t_parameters(AntennaCommon.get_s2p(component, parameters, mode,
                                                                                           f(rm_pos))), child_param)]
                 for rm_pos, child_param in children]
 
-    def get_gain_paths(self, pol_mode):
+    def get_gain_paths(self, pol_mode, complete=True):
         """
         :keyword parameters:
         pol_mode -- must be one of the available modes: TxH, TxV, RxH, RxV, TxH-RxV or TxV-RxH
@@ -104,7 +108,7 @@ class Antenna:
         f = lambda x, y: [AntennaCommon.t2s_parameters(matrix[1]) for matrix in sorted(x, key=lambda z: z[0])]
         format_list = lambda x: list(map(lambda y: x[self.__quantity_columns * y: self.__quantity_columns * (y+1)],
                                          range(self.__quantity_rows)))
-        return [format_list(f(self.__get_attenuation_paths(self.__json_rfdn[mode[1]], mode[0]),
+        return [format_list(f(self.__get_attenuation_paths(self.__json_rfdn[mode[1]], mode[0], complete),
                               mode[0])) for mode in modes]
 
     def get_mutual_coupling_front_panel(self):

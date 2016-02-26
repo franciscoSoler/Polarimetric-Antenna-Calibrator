@@ -2,7 +2,7 @@
 calPaths = characterizeAntenna(0,5);
 
 %[diffTrans diffRec] = test( calPaths );
-[diffTrans1 diffRec1] = getSignalShift( calPaths );
+[diffTrans, diffRec] = getSignalShift( calPaths );
 [idealGainPhaseTrans, realGainPhaseTrans] = calibrateAntenna( diffTrans );
 [idealGainPhaseRec, realGainPhaseRec] = calibrateAntenna( diffRec );
 showCalibrationResults( idealGainPhaseTrans,realGainPhaseTrans,idealGainPhaseRec,realGainPhaseRec )

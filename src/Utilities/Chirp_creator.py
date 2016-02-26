@@ -1,6 +1,6 @@
 __author__ = 'fsoler'
 
-import src.Utilities.Antenna_Common as AntennaCommon
+import Utilities.Antenna_Common as AntennaCommon
 import numpy as np
 
 

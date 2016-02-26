@@ -2,6 +2,7 @@ import re
 import numpy as np
 import math
 import cmath
+import enum
 
 # configurationFile tags
 Conf_in_param = 'inputParameters'
@@ -75,6 +76,11 @@ Amplifier = 'amplifier'
 
 c = 299792458       # [m/seg]
 f = 1275000000      # [Hz]
+
+
+class CalibratorType(enum.Enum):
+    Classical = 1
+    Mutual = 2
 
 
 def is_cable(component):

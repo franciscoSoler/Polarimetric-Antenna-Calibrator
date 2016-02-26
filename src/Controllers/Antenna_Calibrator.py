@@ -1,10 +1,10 @@
 __author__ = 'fsoler'
 
-import src.Model.Antenna as Antenna
-import src.Utilities.Antenna_Common as AntennaCommon
-import src.Controllers.Matrix_Calibrator_builder as MatrixBuilder
-import src.Utilities.Walsh_mtx_creator as WalshCreator
-import src.Utilities.Chirp_creator as ChirpCreator
+import Model.Antenna as Antenna
+import Utilities.Antenna_Common as AntennaCommon
+import Controllers.Matrix_Calibrator_builder as MatrixBuilder
+import Utilities.Walsh_mtx_creator as WalshCreator
+import Utilities.Chirp_creator as ChirpCreator
 import numpy as np
 from abc import ABCMeta, abstractmethod
 import random
@@ -14,8 +14,9 @@ class AntennaCalibrator(object):
     __metaclass__ = ABCMeta
     _Available_calibration_modes = ("TxH-RxV", "TxV-RxH")
 
-    def __init__(self, input_power, input_phase, dist_rows, dist_columns,
+    def __init__(self, calibrationType, input_power, input_phase, dist_rows, dist_columns,
                  filename="antenna"):
+        self.__complete_calibration = False if calibrationType == AntennaCommon.CalibratorType.Classical else True
         self._antenna = Antenna.Antenna()
         self._antenna.initialize(dist_rows, dist_columns, filename)
 
@@ -82,7 +83,7 @@ class AntennaCalibrator(object):
     def get_antenna_gain_paths(self):
         f = lambda x: [list(map(lambda z: AntennaCommon.v2db(abs(z.item(1, 0))), y)) for y in x]
         g = lambda x: [list(map(lambda z: np.angle(z.item(1, 0), deg=True), y)) for y in x]
-        tx_signal, rx_signal = self._antenna.get_gain_paths(self._pol_mode)
+        tx_signal, rx_signal = self._antenna.get_gain_paths(self._pol_mode, self.__complete_calibration)
         return f(tx_signal), g(tx_signal), f(rx_signal), g(rx_signal)
 
     def get_reception_power(self):
@@ -127,7 +128,8 @@ class ClassicCalibrator(AntennaCalibrator):
     __Swl = 2*AntennaCommon.tp  # sampling window length [sec]
 
     def __init__(self, input_power, input_phase, dist_rows, dist_columns, filename):
-        super(ClassicCalibrator, self).__init__(input_power, input_phase, dist_rows, dist_columns, filename)
+        super(ClassicCalibrator, self).__init__(AntennaCommon.CalibratorType.Classical, input_power, input_phase, dist_rows, 
+                                                dist_columns, filename)
         self.__walsh_creator = WalshCreator.WalshMatrixCreator()
         self.__chirp_creator = ChirpCreator.ChirpCreator(self._input_power, self._input_phase)
         self.__quantity_elements = self._antenna.get_qtty_antennas()
@@ -197,7 +199,8 @@ class ClassicCalibrator(AntennaCalibrator):
 
 class MutualCalibrator(AntennaCalibrator):
     def __init__(self, input_power, input_phase, row_steering, column_steering, dist_rows, dist_columns, filename):
-        super(MutualCalibrator, self).__init__(input_power, input_phase, dist_rows, dist_columns, filename)
+        super(MutualCalibrator, self).__init__(AntennaCommon.CalibratorType.Mutual, input_power, input_phase, 
+                                               dist_rows, dist_columns, filename)
 
         f = lambda row, col: (row * row_steering + col * column_steering + 41 + 180) % 360 - 180
         self.__trm_setting = np.array([f(row, col) for row in range(self._antenna.quantity_rows)

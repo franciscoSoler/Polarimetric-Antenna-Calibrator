@@ -1,15 +1,16 @@
+#!/usr/bin/python3.4
 __author__ = 'fsoler'
 
 import sys
-import src.Visual_Comparator.Visual_Comparator as VisualComparator
-import src.Pattern_Generator.Pattern_Generator as PatternGenerator
+import Visual_Comparator.Visual_Comparator as VisualComparator
+import Pattern_Generator.Pattern_Generator as PatternGenerator
 import matplotlib.pyplot as plt
 import numpy as np
 import glob
 import os
-import src.Controllers.Antenna_Creator as AntennaCreator
-import src.Controllers.Antenna_Calibrator as AntennaCalibrator
-import src.Utilities.Antenna_Common as Common
+import Controllers.Antenna_Creator as AntennaCreator
+import Controllers.Antenna_Calibrator as AntennaCalibrator
+import Utilities.Antenna_Common as Common
 import json
 
 
@@ -222,7 +223,7 @@ class Simulator:
 
         visual_comparator.show_graphics()
 
-        self.__remove_antenna()
+        #self.__remove_antenna()
 
         return 0
 

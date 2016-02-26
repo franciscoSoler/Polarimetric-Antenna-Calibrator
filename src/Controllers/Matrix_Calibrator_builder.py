@@ -3,7 +3,7 @@ __author__ = 'fsoler'
 from abc import ABCMeta, abstractmethod
 import numpy as np
 import math
-import src.Utilities.Antenna_Common as Common
+import Utilities.Antenna_Common as Common
 
 
 class MatrixCalibratorBuilder(object):

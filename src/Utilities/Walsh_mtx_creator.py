@@ -1,7 +1,7 @@
 __author__ = 'francisco'
 
 import numpy as np
-import src.Utilities.Antenna_Common as AntennaCommon
+import Utilities.Antenna_Common as AntennaCommon
 
 
 class WalshMatrixCreator:
