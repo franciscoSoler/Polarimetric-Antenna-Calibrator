@@ -7,10 +7,98 @@
 \lhead{Appendix B. \emph{Definiciones Matemáticas}} % Change X to a consecutive letter; this is for the header on each page - perhaps a shortened title
 
 \section{Propiedades de las Matrices}
-\todo{poner definicion de rango y cosas asi}
+
+A continuación se muestran las definiciones básicas de las matrices que serán utilizadas para las simulaciones.
+
+\subsection{Dependencia e independencia lineal}
+
+Dado un conjunto finito de vectores $\mathbf{v}_1, \mathbf{v}_2,\cdots, \mathbf{v}_n$, se dice que dichos vectores son linealmente
+independientes si existen números $a_1$, $a_2$, $\cdots$, $a_n$, donde la ecuación
+$$
+ a_1 \mathbf{v}_1 + a_2 \mathbf{v}_2 + \cdots + a_n \mathbf{v}_n = \mathbf{0} 
+$$
+se satisface únicamente cuando $a_1, a_2,\cdots, a_n$ son todos cero. En caso contrario, se dice que son linealmente dependientes.
+
+Nótese que el símbolo a la derecha del signo igual no es cero, sino que simboliza al vector nulo $\mathbf{0}$. El conjunto de
+vectores nulos forma la matriz nula. Si tales números no existen, entonces los vectores son linealmente independientes. La 
+definición anterior también puede extenderse a un conjunto infinito de vectores, concretamente un conjunto cualquiera de 
+vectores es linealmente dependiente si contiene un conjunto finito que sea linealmente dependiente.
+
+Utilizando conceptos de espacios vectoriales se puede redefinir la independencia lineal de la siguiente forma:
+
+Un conjunto de vectores $\textbf{U}$ de un espacio vectorial es linealmente independiente si 
+$\forall u \in U, u \notin \langle U - u \rangle$
+
+Esta idea es importante dado que los conjuntos de vectores que son linealmente independientes generan un espacio vectorial y 
+forman una base para dicho espacio. Entre las propiedades de los vectores linealmente dependientes e independientes se pueden 
+listar:
+\begin{enumerate}
+   \item Un conjunto de vectores es linealmente dependiente si y solamente si alguno de los vectores es combinación lineal de 
+        los demás.
+    \item Si un conjunto de vectores es linealmente independiente cualquier subconjunto suyo también lo es.
+    \item Si un conjunto de vectores es linealmente dependiente, también lo es todo conjunto que lo contenga.
+    \item Un conjunto de vectores son linealmente dependientes si y sólo si son paralelos.
+    \item Un conjunto de vectores son linealmente dependientes si los componentes entre ellos son proporcionales, bien sea 
+        directa o inversamente proporcional. Ya que un conjunto de vectores es linealmente dependiente si y solo si tiene algún
+        vector que es combinación lineal de los demás \cite{MatrixDep}.
+\end{enumerate}
+
+\subsection{Rango de una matriz}
+
+En álgebra lineal, el rango de una matriz es el número máximo de columnas (filas respectivamente) que son linealmente 
+independientes. El rango fila y el rango columna siempre son iguales: este número es llamado simplemente rango de A.
+Comúnmente se expresa como $rg(A)$ \cite{MatrixRg}.
+
+El número de columnas independientes de una matriz $A$ de $m$ filas y $n$ columnas es igual a la dimensión del espacio columna
+de $A$. También la dimensión del espacio fila determina el rango. El rango de A será, por tanto, un número no negativo, menor
+o igual que el mínimo entre m y n:
+
+\begin{equation}
+    A \in M_{mxn} \Rightarrow 0 \le rg(A) \le min(m, n)
+\end{equation}
+
+\subsection{Determinate de una Matriz}
+
+Para una matriz cuadrada $\mathbf{A}[n,n]$, el determinante de $\mathbf{A}$, abreviado $det(\mathbf{A})$, es un escalar definido
+como la suma de $n!$ términos involucrando el producto de $n$ elementos de la matriz, cada uno proveniente exactamente de una 
+fila y columna diferente. Además, cada término de la suma está multiplicado por $-1$ ó $+1$ dependiendo del número de 
+permutaciones del orden de las columnas que contenga.
+
+\subsubsection{Propiedades}
+
+A continuación se listan las propiedades del determinante de las matrices cuadradas.
+\begin{enumerate}
+    \item $det(\mathbf{AB}) = det(\mathbf{A})det(\mathbf{B})$. Nota: esta propiedad vale solo si \textbf{A} y \textbf{B} son 
+        matrices cuadradas.
+    \item $det(\mathbf{A}^T) = det(\mathbf{A})$.
+    \item $det(\mathbf{A}^H) = conj(det(\mathbf{A}))$, en donde $\mathbf{A}^H$ es la transpuesta conjugada (Hermítica) de \textbf{A}.
+    \item $det(c\mathbf{A}) = cn\cdot det(\mathbf{A})$.
+    \item Intercambiando cualquier par de columnas (filas) de una matriz se multiplica su determinante por $-1$.
+    \item Multiplicando cualquier columna (fila) de una matriz por $c$ multiplica su determinante por $c$.
+    \item Agregando cualquier múltiplo de una columna (fila) de una matriz a otra no altera su determinante.
+    \item $det(\mathbf{A}) <> 0$ si y sólo si \textbf{A} no es singular, en otras palabras si es una matriz invertible \cite{MatrixDet}.
+\end{enumerate}
 
 \section{Cuadrados mínimos} \label{sec:meanSquare}
-\todo{dejar toda la definición encontrada de los cuadrados mínimos}
+Esta sección describe una estrategia de resolución para cuando un problema, del tipo $\mathbf{Ax} = \mathbf{b}$, no tienen solución. 
+La solución encontrada devuelve una \textbf{x} que deje a \textbf{Ax} tan cercana a \textbf{b} como sea posible.  
+
+Si \textbf{A} es de $m x n$ y \textbf{b} está en $\mathds{R}^m$, una solución por mínimos cuadrados de $\mathbf{Ax} = \mathbf{b}$
+es una $\hat{x}$ en $\mathds{R}^n$ tal que
+
+$$
+\parallel \mathbf{b} - \mathbf{A\hat{x}}\parallel \le \parallel\mathbf{b}-\mathbf{Ax} \parallel
+$$
+
+para toda \textbf{x} en $\mathds{R}^n$.
+
+El aspecto más importante del problema de mínimos cuadrados es que no importa cuál \textbf{x} se elija, el vector \textbf{Ax}
+necesariamente estará en el espacio de columnas. Así que se busca un \textbf{x} adecuado para convertir a \textbf{Ax} en el 
+punto de Col \textbf{A} más cercano a \textbf{b}. (Por supuesto, si sucede que \textbf{b} está en Col \textbf{A}, entonces 
+\textbf{b} es \textbf{Ax} para algún \textbf{x}, y tal \textbf{x} es una “solución por mínimos cuadrados”.)
+
+El conjunto de soluciones por mínimos cuadrados de $\mathbf{Ax} = \mathbf{b}$ coincide con el conjunto no vacío de soluciones
+de las ecuaciones normales $\mathbf{A}^T\mathbf{Ax} = \mathbf{A}^T\mathbf{b}$ \cite{MatrixMin}.
 
 \section{Matriz Hadamard}
 Esta matriz fue descubierta por el matemático Jacques Hadamard, es una matriz cuadrada con valores $1$ o $-1$ y sus columnas 
