@@ -236,7 +236,7 @@ class AntennaCreator:
         print(trm_state)
         structure = collections.OrderedDict()
 
-        g = lambda: [" "+str((row, col)) for col in range(self.__quantity_cols) for row in range(self.__quantity_rows)]
+        g = lambda: [" "+str((row, col)) for row in range(self.__quantity_rows) for col in range(self.__quantity_cols)]
         rm_iterator = iter(g())
         steering_iterator = iter(trm_state)
         structure[AntennaCommon.Rfdn_v_pol] = self.__build_rfdn_structure(sequence, rm_iterator, steering_iterator)
