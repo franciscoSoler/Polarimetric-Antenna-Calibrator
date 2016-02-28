@@ -2,9 +2,105 @@
 \lhead{\emph{Simulaciones}}
 
 En este capítulo se presentan las mediciones y ensayos realizados para estudiar y comparar como se comportan ambos métodos de
-calibración, clásica y utilizando acoplamientos mútuos.   
+calibración, clásica y utilizando acoplamientos mútuos.
+
+La configuración de la antena a utilizar para todos los ensayos está especificada en la tabla \ref{tab:configurationUsed} y 
+consta de 70 elementos radiantes. Las especificaciones de las propiedades físicas de cada componente están definidas en la 
+tabla \ref{tab:configurationOfComponents}.
+\begin{table}[H]
+  \footnotesize
+  \centering
+  \begin{tabular}{|c|c|}
+	\hline
+	\textbf{Componente de Antena} & \textbf{Configuración} \tabularnewline \hline 
+	freq &  1275000000 [Hz] \tabularnewline\hline 
+	power & 0 [dB] \tabularnewline \hline 
+	phase & 0 [deg] \tabularnewline \hline 
+	desiredTxPower & 20 [dB] \tabularnewline \hline 
+	desiredRxPower & 0 [dB] \tabularnewline \hline 
+	quantityRows & 7 \tabularnewline \hline 
+	quantityColumns & 10 \tabularnewline \hline 
+	verticalSeparation & 0.2 [m] \tabularnewline \hline 
+	hotizontalSeparation & 0.2 [m] \tabularnewline \hline 
+	componentSequence & [cable1, psc17, cable1, psc15, cable2, psc12, trm, circulator, cable3, rm] \tabularnewline \hline 
+  \end{tabular}
+  \caption{Configuración de la antena común para todos los ensayos.}
+  \label{tab:configurationUsed}
+\end{table}
+\begin{table}[H]
+  \footnotesize
+  \centering
+  \begin{tabular}{|c|c|c|}
+	\hline
+	\textbf{Componente de Antena} & \textbf{Cacarcterísticas físicas} & \textbf{Configuración} \tabularnewline \hline 
+	\multirow{2}{*}{cable1} &  attenuation [db] & 0.1\tabularnewline \cline{2-3}
+	 & length [m] & 0.45\tabularnewline \hline 
+	\multirow{2}{*}{cable2} &  attenuation [db] & 0.1\tabularnewline \cline{2-3}
+	 & length [m] & 8\tabularnewline \hline 
+	\multirow{2}{*}{cable3} &  attenuation [db] & 0.1\tabularnewline \cline{2-3}
+	 & length [m] & 0.5\tabularnewline \hline 
+	psc17 & outputPorts & 7\tabularnewline \hline
+	psc15 & outputPorts & 5\tabularnewline \hline
+	psc12 & outputPorts & 2\tabularnewline \hline
+	\multirow{2}{*}{TRM} & gain [db] & 10\tabularnewline \cline{2-3}
+	 & phaseShift [deg] & 10\tabularnewline \hline 
+	circulator & & \tabularnewline \hline 
+	RM & & \tabularnewline \hline 
+  \end{tabular}
+  \caption{Configuración de las propiedades físicas de cada componente de la antena utilizada en todos los ensayos.}
+  \label{tab:configurationOfComponents}
+\end{table}
+La numeración de los elementos tiene un orden de izquierda a derecha y de forma descendiente, de tal forma que el elemnto cero 
+es el superior izquierdo de la antena.
 
 \section{Sin errores}
+
+Los ensayos de esta sección tienen las siguientes caracterísiticas,
+\begin{itemize}
+	\item Ensayar ambos métodos de calibración con diferentes apuntamientos de la antena.
+	\item Los distintos apuntamientos utilizados son: Uniforme, 10 grados en la dirección horizontal y 10 grados en la dirección 
+		vertical.
+	\item Los componentes de antena no tienen ningún prolema de funcionamiento ni hay desadaptaciones.
+	\item No hay errores de calibración.
+	\item No hay errores en la señal.
+\end{itemize}
+
+\subsection{Utilizando la calibración clásica}
+\todo{:D}
+\subsection{Utilizando la calibración con acoplamientos mútuos}
+
+En los siguientes gráficos se puede observar que el método funciona correctamente, en la figura A, la fase se mantiene i
+constante e igual a cero para todos los elementos radiantes. En la figura b se observa que 
+
+\begin{figure}[H]
+	\centering
+ 	\subfloat[]{
+		\includegraphics[width=10cm]{gfx/nonErrMutual0deg.png}}
+ 	
+	\subfloat[]{
+		\includegraphics[width=8cm]{gfx/nonErrMutual10degCol.png}}
+	\subfloat[]{
+		\includegraphics[width=8cm]{gfx/nonErrMutual10degRow.png}}
+		\caption{Antena calibrada con distintos apuntamientos utilizando acoplamientos mútuos. (a) 0 grados. (b) 10 grados en 
+		dirección horizontal. (c) 10 grados en dirección vertical.}
+	\label{fig:nonErrorMutual}
+\end{figure}
+
+
+\begin{figure}
+ \centering
+ \includegraphics[width=10cm]{gfx/panelBase.png}
+ \caption{Flujo de ejecuci\'on del modelo de antena.}
+\end{figure}
+
+\begin{figure}
+ \centering
+ \includegraphics[width=10cm]{gfx/panelBase.png}
+ \caption{Flujo de ejecuci\'on del modelo de antena.}
+\end{figure}
+
+
+
 \section{Rotura de un TRM}
 \section{Errores de comportamiento de elementos}
 

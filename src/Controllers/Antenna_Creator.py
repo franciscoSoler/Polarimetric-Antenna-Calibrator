@@ -175,7 +175,7 @@ class AntennaCreator:
             # to another distance.
             self.__append_next_distance(j, j2+1, rm_used, matrix_distances, distances, pos_calculator, dist_calculator)
     '''
-    
+
     def __build_rfdn_structure(self, sequence, rm_iterator, trm_state_iterator):
         # el TRM se comporta igual que el cable, no tengo que distinguirlos realmente,
         # los diferentes son los PSC y los RM
@@ -229,10 +229,11 @@ class AntennaCreator:
         f = lambda row, col: row * row_steering + col * column_steering
         # delta_steering = -f(self.__quantity_rows-1, self.__quantity_cols-1)/2
         # steering_angle = [f(row, col) + delta_steering-39 for col in range(self.__quantity_cols) for row in range(self.__quantity_rows)]
-        steering_angle = [f(row, col) for col in range(self.__quantity_cols) for row in range(self.__quantity_rows)]
+        steering_angle = [f(row, col) for row in range(self.__quantity_rows) for col in range(self.__quantity_cols)]
         # print(steering_angle)
 
         trm_state = list(zip(trms_dead, steering_angle))
+        print(trm_state)
         structure = collections.OrderedDict()
 
         g = lambda: [" "+str((row, col)) for col in range(self.__quantity_cols) for row in range(self.__quantity_rows)]
