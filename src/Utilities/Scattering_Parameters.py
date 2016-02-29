@@ -2,7 +2,6 @@ __author__ = 'francisco'
 from abc import ABCMeta, abstractmethod
 import Utilities.Antenna_Common as AntennaCommon
 import numpy as np
-import random
 
 
 class ScatteringParametersHandler(object):
@@ -16,7 +15,6 @@ class ScatteringParametersHandler(object):
         self.__check_component = check_component
 
     def initialize(self, add_errors=False, delta=0):
-        random.seed(None)
         self.__errors = add_errors
         self.__delta_gain = abs(delta)
         self.__delta_phase = abs(np.angle(delta))
