@@ -14,12 +14,15 @@ class ScatteringParametersHandler(object):
         self.__delta_phase = 0
         self.__check_component = check_component
 
-    def initialize(self, add_errors=False, delta=0):
+    def initialize(self, add_errors=False, delta=[0,0]):
+
         self.__errors = add_errors
-        self.__delta_gain = abs(delta)
-        self.__delta_phase = abs(np.angle(delta))
+        self.__delta_gain = delta[0]
+        self.__delta_phase = delta[1]
 
     def _add_error(self, param):
+        if param == 0:
+            return param
         module = np.random.normal(abs(param), self.__delta_gain) if self.__delta_gain else abs(param)
         angle = np.random.normal(np.angle(param), self.__delta_phase) if self.__delta_phase else np.angle(param)
         return module * np.exp(1j * angle) if self.__errors else param

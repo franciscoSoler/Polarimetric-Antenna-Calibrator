@@ -128,7 +128,7 @@ class ClassicCalibrator(AntennaCalibrator):
     __Swl = 2*AntennaCommon.tp  # sampling window length [sec]
 
     def __init__(self, input_power, input_phase, dist_rows, dist_columns, filename):
-        super(ClassicCalibrator, self).__init__(AntennaCommon.CalibratorType.Classical, input_power, input_phase, dist_rows, 
+        super(ClassicCalibrator, self).__init__(AntennaCommon.CalibratorType.Classical, input_power, input_phase, dist_rows,
                                                 dist_columns, filename)
         self.__walsh_creator = WalshCreator.WalshMatrixCreator()
         self.__chirp_creator = ChirpCreator.ChirpCreator(self._input_power, self._input_phase)
@@ -199,7 +199,7 @@ class ClassicCalibrator(AntennaCalibrator):
 
 class MutualCalibrator(AntennaCalibrator):
     def __init__(self, input_power, input_phase, row_steering, column_steering, dist_rows, dist_columns, filename):
-        super(MutualCalibrator, self).__init__(AntennaCommon.CalibratorType.Mutual, input_power, input_phase, 
+        super(MutualCalibrator, self).__init__(AntennaCommon.CalibratorType.Mutual, input_power, input_phase,
                                                dist_rows, dist_columns, filename)
 
         f = lambda row, col: (row * row_steering + col * column_steering + 41 + 180) % 360 - 180
@@ -413,7 +413,7 @@ class MutualCalibrator(AntennaCalibrator):
         #exit()
         """
         return new_phase
-                    
+
 
 def every_one_to_one_path_strategy(antenna, tx_network, rm_coupling, rx_network):
     """
@@ -436,7 +436,7 @@ def every_one_to_one_path_strategy(antenna, tx_network, rm_coupling, rx_network)
             (antenna.row_col_to_index(tx_row, tx_col),
              antenna.row_col_to_index(rx_row, rx_col))] for rx_row in rows for rx_col in columns
            for tx_col in columns for tx_row in rows]
-    unique_path = [[t2s(tx_network[0][0]), (antenna.row_col_to_index(0, 0), None)]]
+    unique_path = [[t2s(tx_network[0][0]), (antenna.row_col_to_index(0, 0), None)], [t2s(rx_network[0][0]), (None, antenna.row_col_to_index(0, 0))]]
     return list(zip(*(out + unique_path)))
 
 
