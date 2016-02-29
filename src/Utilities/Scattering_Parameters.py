@@ -11,17 +11,19 @@ class ScatteringParametersHandler(object):
     def __init__(self, check_component):
         self._successor = None
         self.__errors = False
-        self._delta = 0
+        self.__delta_gain = 0
+        self.__delta_phase = 0
         self.__check_component = check_component
 
     def initialize(self, add_errors=False, delta=0):
         random.seed(None)
         self.__errors = add_errors
-        self._delta = delta
+        self.__delta_gain = abs(delta)
+        self.__delta_phase = abs(np.angle(delta))
 
     def _add_error(self, param):
-        module = abs(param) * (1 + random.uniform(0, self._delta))
-        angle = np.angle(param) * (1 + random.uniform(0, self._delta))
+        module = np.random.normal(abs(param), self.__delta_gain) if self.__delta_gain else abs(param)
+        angle = np.random.normal(np.angle(param), self.__delta_phase) if self.__delta_phase else np.angle(param)
         return module * np.exp(1j * angle) if self.__errors else param
 
     @abstractmethod

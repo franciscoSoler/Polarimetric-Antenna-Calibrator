@@ -233,7 +233,6 @@ class AntennaCreator:
         # print(steering_angle)
 
         trm_state = list(zip(trms_dead, steering_angle))
-        print(trm_state)
         structure = collections.OrderedDict()
 
         g = lambda: [" "+str((row, col)) for row in range(self.__quantity_rows) for col in range(self.__quantity_cols)]
