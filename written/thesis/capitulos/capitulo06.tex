@@ -69,9 +69,12 @@ Los ensayos de esta sección tienen las siguientes caracterísiticas,
 \todo{:D}
 \subsection{Utilizando la calibración con acoplamientos mútuos}
 
-En los siguientes gráficos se puede observar que el método funciona correctamente, en la figura A, la fase se mantiene i
-constante e igual a cero para todos los elementos radiantes. En la figura b se observa que 
+En la figura \ref{fig:nonErrorMutual} se puede observar que el método funciona correctamente. La subfigura a muestra un 
+apuntamiento de cero grados, la b, de 10 grados en dirección horizontal, y la tercera de 10 grados en dirección vertical.
 
+Se puede verificar que el apuntamiento es el correcto por los defasajes observados, como hay 10 elementos radiantes por fila,
+al apuntar verticalmente, cada fila posee un defasaje diferente, es por esta razón que la tercer fila se ve un gráfico estilo 
+una escalera con siete escalones (que es la cantidad de columnas de la antena). 
 \begin{figure}[H]
 	\centering
  	\subfloat[]{
@@ -87,25 +90,79 @@ constante e igual a cero para todos los elementos radiantes. En la figura b se o
 \end{figure}
 
 
-\begin{figure}
- \centering
- \includegraphics[width=10cm]{gfx/panelBase.png}
- \caption{Flujo de ejecuci\'on del modelo de antena.}
+\section{Rotura de varios TRMs}
+
+Los ensayos de esta sección tienen las siguientes caracterísiticas,
+\begin{itemize}
+	\item Ensayar ambos métodos de calibración con diferentes apuntamientos de la antena.
+	\item Los distintos apuntamientos utilizados son: Uniforme, 10 grados en la dirección horizontal y 10 grados en la dirección 
+		vertical.
+	\item Salvo tres TRMs que están rotos, el resto de los componentes de antena no tienen ningún prolema de funcionamiento ni 
+		desadaptaciones. Las posiciones de los TRMs son: [1,0], [3,4] y [5,5]. La nomenclatura de lectura es [fila, columna] con 
+		valores desde 0.
+	\item No hay errores de calibración.
+	\item No hay errores en la señal.
+\end{itemize}
+
+\subsection{Utilizando la calibración clásica}
+\todo{:D}
+\subsection{Utilizando la calibración con acoplamientos mútuos}
+
+En la figura \ref{fig:deadTRMsMutual} se puede observar que independientemente de que se hayan destruído varios TRMs, el 
+método puede calibrar los lazos, obteniendo los valores deseados, tanto de fase como de ganancia del resto de los elementos.
+La subfigura (a) muestra un apuntamiento de cero grados, la (b), de 10 grados en dirección horizontal, y la tercera de 10 grados
+en dirección vertical.
+
+\begin{figure}[H]
+	\centering
+ 	\subfloat[]{
+		\includegraphics[width=10cm]{gfx/deadTRMsMutual0deg.png}}
+ 	
+	\subfloat[]{
+		\includegraphics[width=8cm]{gfx/deadTRMsMutual10degCol.png}}
+	\subfloat[]{
+		\includegraphics[width=8cm]{gfx/deadTRMsMutual10degRow.png}}
+		\caption{Antena calibrada con distintos apuntamientos utilizando acoplamientos mútuos. (a) 0 grados. (b) 10 grados en 
+		dirección horizontal. (c) 10 grados en dirección vertical.}
+	\label{fig:deadTRMsMutual}
 \end{figure}
 
-\begin{figure}
- \centering
- \includegraphics[width=10cm]{gfx/panelBase.png}
- \caption{Flujo de ejecuci\'on del modelo de antena.}
+
+\section{Errores en comportamiento de componentes de la antena}
+
+Los ensayos de esta sección tienen las siguientes caracterísiticas,
+\begin{itemize}
+	\item Ensayar ambos métodos de calibración con diferentes apuntamientos de la antena.
+	\item Los distintos apuntamientos utilizados son: Uniforme, 10 grados en la dirección horizontal y 10 grados en la dirección 
+		vertical.
+	\item Hay dispersiones de comportamiento en los siguientes componentes de la antena: circuladores, TRMs, PSCs y RMs.
+	\item No hay errores de calibración.
+	\item No hay errores en la señal.
+\end{itemize}
+
+\subsection{Utilizando la calibración clásica}
+\todo{:D}
+\subsection{Utilizando la calibración con acoplamientos mútuos}
+
+En la figura \ref{fig:deadTRMsMutual} se puede observar que independientemente de que se hayan destruído varios TRMs, el 
+método puede calibrar los lazos, obteniendo los valores deseados, tanto de fase como de ganancia del resto de los elementos.
+La subfigura (a) muestra un apuntamiento de cero grados, la (b), de 10 grados en dirección horizontal, y la tercera de 10 grados
+en dirección vertical.
+
+\begin{figure}[H]
+	\centering
+ 	\subfloat[]{
+		\includegraphics[width=10cm]{gfx/deadTRMsMutual0deg.png}}
+ 	
+	\subfloat[]{
+		\includegraphics[width=8cm]{gfx/deadTRMsMutual10degCol.png}}
+	\subfloat[]{
+		\includegraphics[width=8cm]{gfx/deadTRMsMutual10degRow.png}}
+		\caption{Antena calibrada con distintos apuntamientos utilizando acoplamientos mútuos. (a) 0 grados. (b) 10 grados en 
+		dirección horizontal. (c) 10 grados en dirección vertical.}
+	\label{fig:deadTRMsMutual}
 \end{figure}
 
-
-
-\section{Rotura de un TRM}
-\section{Errores de comportamiento de elementos}
-
-En esta simulación se agregan errores en el comportamiento de siguientes componentes: circuladores, TRMs, PSCs y RMs. Se adopta
-un error con un desvío standard de 1 para cada uno de ellos.
 
 \section{Errores de ganancia entre pulsos}
 \section{Errores de fase entre pulsos}
