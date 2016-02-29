@@ -24,7 +24,8 @@ class ScatteringParametersHandler(object):
         if param == 0:
             return param
         module = np.random.normal(abs(param), self.__delta_gain) if self.__delta_gain else abs(param)
-        angle = np.random.normal(np.angle(param), self.__delta_phase) if self.__delta_phase else np.angle(param)
+        angle = AntennaCommon.deg2rad(np.random.normal(np.angle(param, deg=True), self.__delta_phase)) \
+                    if self.__delta_phase else np.angle(param)
         return module * np.exp(1j * angle) if self.__errors else param
 
     @abstractmethod
