@@ -298,7 +298,7 @@ class MutualCalibrator(AntennaCalibrator):
         # self._rx_phase = format_phase(least_squares(a, format_phase(rx_phase)))
         # self._rx_phase = AntennaCommon.rad2deg(least_squares(a, format_phase(rx_phase)))
 
-        self.__fix_rx_power_and_phase()
+        #self.__fix_rx_power_and_phase()
 
     def calibrate_antenna(self, desired_tx_power, desired_tx_phase, desired_rx_power, desired_rx_phase):
         self._calibrate_antenna(desired_tx_power, desired_tx_phase, desired_rx_power, desired_rx_phase)
