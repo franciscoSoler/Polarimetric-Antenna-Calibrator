@@ -281,7 +281,9 @@ class MutualCalibrator(AntennaCalibrator):
 
         a, tx_gain, tx_phase = self.__matrix_builder.get_tx_matrix()
         self._tx_power = least_squares(a, tx_gain)
-        self._tx_phase = least_squares(a, self.__correct_phase(a, format_phase(tx_phase)))
+        #self._tx_phase = least_squares(a, self.__correct_phase(a, tx_phase))
+        self._tx_phase = format_phase(least_squares(a, self.__correct_phase(a, tx_phase)))
+        # self._tx_phase = least_squares(a, self.__correct_phase(a, format_phase(tx_phase)))
         # self._tx_phase = least_squares(a, format_phase(tx_phase))
         # self._tx_phase = format_phase(least_squares(a, format_phase(tx_phase)))
         # self._tx_phase = AntennaCommon.rad2deg(least_squares(a, format_phase(tx_phase)))
@@ -293,7 +295,9 @@ class MutualCalibrator(AntennaCalibrator):
         """
         a, rx_gain, rx_phase = self.__matrix_builder.get_rx_matrix()
         self._rx_power = least_squares(a, rx_gain)
-        self._rx_phase = least_squares(a, self.__correct_phase(a, format_phase(rx_phase)))
+        #self._rx_phase = least_squares(a, self.__correct_phase(a, rx_phase))
+        self._rx_phase = format_phase(least_squares(a, self.__correct_phase(a, rx_phase)))
+        # self._rx_phase = least_squares(a, self.__correct_phase(a, format_phase(rx_phase)))
         # self._rx_phase = least_squares(a, format_phase(rx_phase))
         # self._rx_phase = format_phase(least_squares(a, format_phase(rx_phase)))
         # self._rx_phase = AntennaCommon.rad2deg(least_squares(a, format_phase(rx_phase)))
@@ -319,99 +323,6 @@ class MutualCalibrator(AntennaCalibrator):
         print(new_phase)
         """
         # exit()
-        """
-        # index = dict((val, np.where(phase == val)[0]) for val in np.unique(phase))
-        index = [np.where(phase == val)[0] for val in np.unique(phase[:-2])]
-        # dict[new_key] = dict.pop(old_key)
-        min_residual = np.linalg.lstsq(a, phase)[1]
-        last_min = 0
-        print(phase)
-        while min_residual > 0.1:
-            print("1", min_residual)
-            if last_min == min_residual:
-                break
-
-            increment = 360
-            last_min = min_residual
-            change_index = []
-            change_increment = 0
-            for idxs in index:
-                self.__change_values(phase, idxs, increment)
-                res_add = np.linalg.lstsq(a, phase)[1]
-                self.__change_values(phase, idxs, -2*increment)
-                res_sub = np.linalg.lstsq(a, phase)[1]
-                self.__change_values(phase, idxs, increment)
-                if res_add < res_sub and res_add < min_residual:
-                    change_increment = increment
-                    change_index = idxs
-                    min_residual = res_add
-                elif res_sub < min_residual:
-                    change_increment = -increment
-                    change_index = idxs
-                    min_residual = res_sub
-
-            self.__change_values(phase, change_index, change_increment)
-
-        last_min = 0
-        while min_residual > 0.1:
-            print("2", min_residual)
-            if last_min == min_residual:
-                break
-
-            increment = 2*360
-            last_min = min_residual
-            change_index = []
-            change_increment = 0
-            for idxs in index:
-                self.__change_values(phase, idxs, increment)
-                res_add = np.linalg.lstsq(a, phase)[1]
-                self.__change_values(phase, idxs, -2*increment)
-                res_sub = np.linalg.lstsq(a, phase)[1]
-                self.__change_values(phase, idxs, increment)
-                if res_add < res_sub and res_add < min_residual:
-                    change_increment = increment
-                    change_index = idxs
-                    min_residual = res_add
-                elif res_sub < min_residual:
-                    change_increment = -increment
-                    change_index = idxs
-                    min_residual = res_sub
-
-            self.__change_values(phase, change_index, change_increment)
-
-        last_min = 0
-        while min_residual > 0.1:
-            print("3", min_residual)
-            if last_min == min_residual:
-                break
-
-            increment = 360
-            last_min = min_residual
-            change_index = []
-            change_increment = 0
-            for idxs in index:
-                self.__change_values(phase, idxs, increment)
-                res_add = np.linalg.lstsq(a, phase)[1]
-                self.__change_values(phase, idxs, -2*increment)
-                res_sub = np.linalg.lstsq(a, phase)[1]
-                self.__change_values(phase, idxs, increment)
-                if res_add < res_sub and res_add < min_residual:
-                    change_increment = increment
-                    change_index = idxs
-                    min_residual = res_add
-                elif res_sub < min_residual:
-                    change_increment = -increment
-                    change_index = idxs
-                    min_residual = res_sub
-
-            self.__change_values(phase, change_index, change_increment)
-        f = lambda x: np.array([list(map(lambda z: np.angle(z.item(1, 0), deg=True), y)) for y in x]).reshape(-1)
-        print(f(self._antenna.get_gain_paths("TxH")[0]))
-        # print(np.array(np.dot(a, f(self._antenna.get_gain_paths("TxH")[0]))).reshape(-1))
-        # print(phase)
-        print()
-        #exit()
-        """
         return new_phase
 
 
