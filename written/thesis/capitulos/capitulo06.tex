@@ -135,7 +135,24 @@ Los ensayos de esta sección tienen las siguientes caracterísiticas,
 	\item Ensayar ambos métodos de calibración con diferentes apuntamientos de la antena.
 	\item Los distintos apuntamientos utilizados son: Uniforme, 10 grados en la dirección horizontal y 10 grados en la dirección 
 		vertical.
-	\item Hay dispersiones de comportamiento en los siguientes componentes de la antena: circuladores, TRMs, PSCs y RMs.
+	\item Hay dispersiones de comportamiento en los siguientes componentes de la antena: circuladores, TRMs, PSCs y RMs. Las 
+		magnitudes están especificadas en la tabla \ref{tab:errorReferences}.
+		\begin{table}[H]
+		  \footnotesize
+		  \centering
+		  \begin{tabular}{|c|c|}
+			\hline
+			\textbf{Error de componente} & \textbf{Desvío estandar} \tabularnewline \hline 
+			Error de ganancia del circulador &  0.2 [dB] \tabularnewline\hline 
+			Error de fase del circulador &  10 [deg] \tabularnewline\hline 
+			Error de ganancia del TRM &  0.2 [dB] \tabularnewline\hline 
+			Error de fase del TRM &  10 [deg] \tabularnewline\hline 
+			Error de ganancia del PSC &  0.1 [dB] \tabularnewline\hline 
+			Error de fase del PSC &  10 [deg] \tabularnewline\hline 
+		  \end{tabular}
+		  \caption{Configuración de los errores de componentes.}
+		  \label{tab:errorReferences}
+		\end{table}
 	\item No hay errores de calibración.
 	\item No hay errores en la señal.
 \end{itemize}
@@ -144,30 +161,40 @@ Los ensayos de esta sección tienen las siguientes caracterísiticas,
 \todo{:D}
 \subsection{Utilizando la calibración con acoplamientos mútuos}
 
-En la figura \ref{fig:deadTRMsMutual} se puede observar que independientemente de que se hayan destruído varios TRMs, el 
-método puede calibrar los lazos, obteniendo los valores deseados, tanto de fase como de ganancia del resto de los elementos.
-La subfigura (a) muestra un apuntamiento de cero grados, la (b), de 10 grados en dirección horizontal, y la tercera de 10 grados
-en dirección vertical.
+En la figura \ref{fig:componentErrorsMutual} se puede observar que si bien, en algunos ensayos el método no corrige 
+perfectamente la fase por el error agregado de todos los componentes de la RFDN a la vez, en una segunda iteración se logra 
+llegar a dicho valor. La subfigura (a) muestra un apuntamiento de cero grados, la (b), de 10 grados en 
+dirección horizontal, y la tercera de 10 grados en dirección vertical.
 
 \begin{figure}[H]
 	\centering
  	\subfloat[]{
-		\includegraphics[width=10cm]{gfx/deadTRMsMutual0deg.png}}
+		\includegraphics[width=10cm]{gfx/compErrMutual0deg.png}}
  	
 	\subfloat[]{
-		\includegraphics[width=8cm]{gfx/deadTRMsMutual10degCol.png}}
+		\includegraphics[width=8cm]{gfx/compErrMutual10degCol.png}}
 	\subfloat[]{
-		\includegraphics[width=8cm]{gfx/deadTRMsMutual10degRow.png}}
+		\includegraphics[width=8cm]{gfx/compErrMutual10degRow.png}}
 		\caption{Antena calibrada con distintos apuntamientos utilizando acoplamientos mútuos. (a) 0 grados. (b) 10 grados en 
 		dirección horizontal. (c) 10 grados en dirección vertical.}
-	\label{fig:deadTRMsMutual}
+	\label{fig:componentErrorsMutual}
 \end{figure}
 
 
 \section{Errores de ganancia entre pulsos}
 \section{Errores de fase entre pulsos}
 \section{Error de ganancia de la chirp réplica}
+
+Como la chirp réplica es simplemente utilizada en la calibración clásica, en esta simulación no se podrán comparar 
+resultados, pero sirve para determinar que tan robusto es el método para esta clase de erorres.
+
+
 \section{Error de fase de la chirp réplica}
+
+Como la chirp réplica es simplemente utilizada en la calibración clásica, en esta simulación no se podrán comparar 
+resultados, pero sirve para determinar que tan robusto es el método para esta clase de erorres.
+
+
 \section{Error de fase del Walsh}
 
 Como los códigos walsh son solamente utilizados en la calibración clásica, en esta simulación no se podrán comparar 
