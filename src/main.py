@@ -167,7 +167,14 @@ class Simulator:
                                                                        self.__tx_ini_ant_phase), limits, phi)
         angles, ideal_pattern = generator.generate_pattern(self.__create_ideal_output_power(), limits, phi)
         _, cal_pattern = generator.generate_pattern(Common.pol2rec(tx_power, tx_phase), limits, phi)
-        visual_comparator.compare_patterns_against_ideal(angles, non_cal_pattern, cal_pattern, ideal_pattern, title)
+        visual_comparator.compare_patterns_against_ideal(angles, non_cal_pattern, cal_pattern, ideal_pattern, title + "horizontal cut")
+
+        phi = 90
+        _, non_cal_pattern = generator.generate_pattern(Common.pol2rec(self.__tx_ini_ant_power,
+                                                                       self.__tx_ini_ant_phase), limits, phi)
+        angles, ideal_pattern = generator.generate_pattern(self.__create_ideal_output_power(), limits, phi)
+        _, cal_pattern = generator.generate_pattern(Common.pol2rec(tx_power, tx_phase), limits, phi)
+        visual_comparator.compare_patterns_against_ideal(angles, non_cal_pattern, cal_pattern, ideal_pattern, title + "vertical cut")
 
     def __compare_final_gain_against_initial(self, calibrator, visual_comparator, title):
         quantity_rows = self.__config[Common.Conf_ant][Common.Conf_qtty_rows]

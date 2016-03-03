@@ -1,14 +1,6 @@
 __author__ = 'fsoler'
-import math
 import numpy as np
-
-
-def deg_to_rad(deg):
-    return deg * math.pi / 180
-
-
-def rad_to_deg(rad):
-    return rad * 180 / math.pi
+import Utilities.Antenna_Common as common
 
 
 class PatternGenerator:
@@ -35,11 +27,11 @@ class PatternGenerator:
         the directivity pattern
         """
 
-        k = 2 * math.pi * self.__freq / PatternGenerator.C_0
+        k = 2 * np.pi * self.__freq / PatternGenerator.C_0
 
         # n is the quantity of rows.
         # m is the quantity of columns.
-        f = lambda x: np.array(range(int(-x/2), math.ceil(x/2)))
+        f = lambda x: np.array(range(int(-x/2), int(np.ceil(x/2))))
 
         n = f(len(amn))
         m = f(len(amn[0]))
@@ -47,11 +39,11 @@ class PatternGenerator:
         # u is the length in x direction
         # v is the length in y direction
         # w is the length in z direction
-        u = np.matrix([[math.sin(deg_to_rad(ang)) * math.cos(deg_to_rad(phi))] for ang in theta])
-        v = np.matrix([[math.sin(deg_to_rad(ang)) * math.sin(deg_to_rad(phi))] for ang in theta])
-        # w = np.array(math.cos(theta))
-        angle_x = u * k * m * self.__d_x
-        angle_y = v * k * n * self.__d_y
+        u = np.matrix(np.sin(common.deg2rad(theta)) * np.cos(common.deg2rad(phi)))
+        v = np.matrix(np.sin(common.deg2rad(theta)) * np.sin(common.deg2rad(phi)))
+        # w = np.array(np.cos(theta))
+        angle_x = u.T * k * m * self.__d_x
+        angle_y = v.T * k * n * self.__d_y
 
         # angle is a list of matrix
         g = lambda x, y, z: np.repeat(x, len(y), axis=z)
@@ -77,8 +69,7 @@ class PatternGenerator:
         eps = 0.000001
         step = 0.1
         decimals = 2
-        angle_range = [round(x, decimals) for x in np.arange(start_stop_angle[0], start_stop_angle[1] + eps,
-                                                             step).tolist()]
+        angle_range = [round(x, decimals) for x in np.arange(start_stop_angle[0], start_stop_angle[1] + eps, step)]
 
         b = self.__calculate_directivity_pattern(output_power, angle_range, phi)
         return angle_range, b
