@@ -45,8 +45,7 @@ swst = 0e-6     # sampling window start time [sec]
 fs = 120e6      # frequency sampling [Hz]
 
 # Errors
-Inter_pulse_phase_err = 'interPulsePhaseChirpError'
-Inter_pulse_power_err = 'interPulseGainChirpError'
+Inter_pulse_gain_err = 'interPulseGainChirpError'
 Gain_chirp_rep_err = 'gainChirpRepError'
 Phase_chirp_rep_err = 'phaseChirpRepError'
 Walsh_phase_err = 'WalPhaseErrors'
@@ -170,7 +169,7 @@ def rad2deg(rad):
 
 
 def deg2rad(deg):
-    return deg*cmath.pi/180
+    return np.multiply(deg, cmath.pi/180)
 
 
 def pol2rec(module, angle):

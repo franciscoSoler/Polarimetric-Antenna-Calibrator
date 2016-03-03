@@ -158,8 +158,8 @@ class VisualComparator:
         if f(pattern_one) or f(pattern_two):
             raise Exception("both patterns must have the same length")
 
-        first_pattern = map(lambda x: abs(x), pattern_one)
-        second_pattern = map(lambda x: abs(x), pattern_two)
+        first_pattern = list(map(lambda x: abs(x), pattern_one))
+        second_pattern = list(map(lambda x: abs(x), pattern_two))
 
         plt.figure(self.__get_figure_number())
         p2, = plt.plot(angles, first_pattern, "g")
@@ -186,9 +186,9 @@ class VisualComparator:
         if f(non_calibrated) or f(calibrated) or f(ideal):
             raise Exception("the signals must have the same length")
 
-        ideal_pattern = map(lambda x: abs(x), ideal)
-        cal_pattern = map(lambda x: abs(x), calibrated)
-        non_cal_pattern = map(lambda x: abs(x), non_calibrated)
+        ideal_pattern = list(map(lambda x: abs(x), ideal))
+        cal_pattern = list(map(lambda x: abs(x), calibrated))
+        non_cal_pattern = list(map(lambda x: abs(x), non_calibrated))
 
         plt.figure(self.__get_figure_number())
         p1, = plt.plot(angles, ideal_pattern, "k")

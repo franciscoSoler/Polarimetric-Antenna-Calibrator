@@ -14,21 +14,6 @@ import Utilities.Antenna_Common as Common
 import json
 
 
-def generate_pattern():
-    """
-    l_band_freq = 1275MHz
-    s_band_freq = 2GHz
-    x_band_freq = 8 GHz
-    :return:
-    """
-    generator = PatternGenerator.PatternGenerator(1275000000, 0.127, 0.110)
-    weights = [[1 for _ in range(20)]for _ in range(1)]
-
-    angles, power = generator.generate_pattern(weights, [-30, 30], 0)
-    plt.plot(angles, 20*np.log10([abs(p) for p in power]))
-    plt.show()
-
-
 def create_antenna2(filename):
     with open("base_rfdn") as f:
         with open(filename + "_rfdn", "w") as g:
@@ -149,7 +134,6 @@ class Simulator:
         filename = self.__config[Common.Conf_ant][Common.Conf_filename]
 
         calibration_errors = self.__build_calibration_errors()
-
         calibrator = AntennaCalibrator.MutualCalibrator(in_power, in_phase, row_steering, column_steering,
                                                         row_separation, col_separation, filename)
         # calibrator.add_calibration_errors(calibration_errors)
@@ -168,6 +152,41 @@ class Simulator:
 
         desired_signals = [desired_tx_power, desired_phase, desired_rx_power, desired_phase]
         calibrator.calibrate_antenna(*desired_signals)
+
+    def __compare_final_pattern_against_initial(self, calibrator, visual_comparator, title):
+        row_separation = self.__config[Common.Conf_ant][Common.Conf_vert_sep]
+        col_separation = self.__config[Common.Conf_ant][Common.Conf_horiz_sep]
+        f = self.__config[Common.Conf_in_param][Common.Conf_freq]
+        limits = [-100, 100]
+        phi = 0
+
+        generator = PatternGenerator.PatternGenerator(f, col_separation, row_separation)
+        tx_power, tx_phase, _, _ = calibrator.get_antenna_gain_paths()
+
+        _, non_cal_pattern = generator.generate_pattern(Common.pol2rec(self.__tx_ini_ant_power,
+                                                                       self.__tx_ini_ant_phase), limits, phi)
+        angles, ideal_pattern = generator.generate_pattern(self.__create_ideal_output_power(), limits, phi)
+        _, cal_pattern = generator.generate_pattern(Common.pol2rec(tx_power, tx_phase), limits, phi)
+        visual_comparator.compare_patterns_against_ideal(angles, non_cal_pattern, cal_pattern, ideal_pattern, title)
+
+    def __compare_final_gain_against_initial(self, calibrator, visual_comparator, title):
+        quantity_rows = self.__config[Common.Conf_ant][Common.Conf_qtty_rows]
+        quantity_columns = self.__config[Common.Conf_ant][Common.Conf_qtty_cols]
+
+        desired_tx_power = self.__config[Common.Conf_cal_param][Common.Conf_id_tx_power]
+
+        tx_signals = []
+        append_signal_into_signals(tx_signals, self.__tx_ini_ant_power, self.__tx_ini_ant_phase)
+
+        tx_ant_power, tx_ant_phase, _, _ = calibrator.get_antenna_gain_paths()
+        append_signal_into_signals(tx_signals, tx_ant_power, tx_ant_phase)
+
+        tx_ideal_power = [[desired_tx_power] * quantity_columns] * quantity_rows
+        ideal_phase = self.__get_desired_phases()
+
+        append_signal_into_signals(tx_signals, tx_ideal_power, ideal_phase)
+
+        visual_comparator.compare_signals_against_ideal(*tx_signals, title="{}: Tx chain".format(title))
 
     def __compare_estimated_gains_against_ideal(self, calibrator, visual_comparator, title):
         quantity_rows = self.__config[Common.Conf_ant][Common.Conf_qtty_rows]
@@ -209,18 +228,30 @@ class Simulator:
         for filename in glob.glob(filename + "_*"):
             os.remove(filename)
 
+    def __create_ideal_output_power(self):
+        quantity_rows = self.__config[Common.Conf_ant][Common.Conf_qtty_rows]
+        quantity_columns = self.__config[Common.Conf_ant][Common.Conf_qtty_cols]
+
+        ideal_power = self.__config[Common.Conf_cal_param][Common.Conf_id_tx_power]
+        ideal_phase = self.__get_desired_phases()
+        return Common.pol2rec(ideal_power, ideal_phase)
+
     def run(self):
         visual_comparator = VisualComparator.VisualComparator()
 
         self.__create_antenna()
 
         calibrator = self.__create_calibrator()
-        compare_estimated_gains_against_real(calibrator, visual_comparator, "BEFORE CALIBRATION")
+        self.__tx_ini_ant_power, self.__tx_ini_ant_phase, _, _ = calibrator.get_antenna_gain_paths()
+        #compare_estimated_gains_against_real(calibrator, visual_comparator, "BEFORE CALIBRATION")
 
         self.__calibrate_antenna(calibrator)
 
-        compare_estimated_gains_against_real(calibrator, visual_comparator, "AFTER CALIBRATION")
-        self.__compare_estimated_gains_against_ideal(calibrator, visual_comparator, "")
+        #compare_estimated_gains_against_real(calibrator, visual_comparator, "AFTER CALIBRATION")
+        #self.__compare_estimated_gains_against_ideal(calibrator, visual_comparator, "")
+        self.__compare_final_gain_against_initial(calibrator, visual_comparator, "RESULTS")
+
+        self.__compare_final_pattern_against_initial(calibrator, visual_comparator, "patterns")
 
         visual_comparator.show_graphics()
 
