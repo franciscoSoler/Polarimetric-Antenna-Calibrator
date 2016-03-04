@@ -162,7 +162,6 @@ class ClassicCalibrator(AntennaCalibrator):
         # added phase per loop (real setting + walsh coding, with phase shift errors)
         phi0 = np.tile(ph_rad, sequences) + walsh_phi_m_err[:self.__quantity_elements, :]
         # Built of every loop signal and summed among them
-        print(np.dot(amp.T, np.exp(1j * phi0)).T.shape, np.array(chirp).shape)
         acq = np.multiply(np.dot(amp.T, np.exp(1j * phi0)).T, chirp)
 
         """
