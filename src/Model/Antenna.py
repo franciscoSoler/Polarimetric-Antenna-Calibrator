@@ -85,8 +85,9 @@ class Antenna:
         f = lambda x: int((idx(x) * out_ports / len(children)) % out_ports)
 
         # convert the S parameters of the component in complex values
-        parameters = np.identity(2).tolist() if fix_s_param else \
-                     [list(map(complex, si)) for si in value[AntennaCommon.SParams]]
+        parameters = [list(map(complex, si)) for si in value[AntennaCommon.SParams]]
+        if fix_s_param:
+            paramaters = [[0, 0, 1], [1, 0, 0], [0, 1, 0]] if AntennaCommon.is_circulator(component) else [[0, 1], [1, 0]]
         build_cascade = lambda x, y: x * y if mode == AntennaCommon.Transmission else y * x
         return [[rm_pos, build_cascade(AntennaCommon.s2t_parameters(AntennaCommon.get_s2p(component, parameters, mode,
                                                                                           f(rm_pos))), child_param)]
