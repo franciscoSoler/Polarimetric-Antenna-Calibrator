@@ -7,7 +7,7 @@ import Utilities.Walsh_mtx_creator as WalshCreator
 import Utilities.Chirp_creator as ChirpCreator
 import numpy as np
 from abc import ABCMeta, abstractmethod
-import random
+import itertools
 
 
 class AntennaCalibrator(object):
@@ -203,7 +203,7 @@ class MutualCalibrator(AntennaCalibrator):
                                                                self._antenna.quantity_columns,
                                                                self._antenna.quantity_rows, dist_columns, dist_rows,
                                                                AntennaCommon.f)
-        
+        self.__trm_setting = list(itertools.chain.from_iterable(self.__trm_setting))
         self.__matrix_builder = MatrixBuilder.LinearBuilder()
         cross = MatrixBuilder.CrossBuilder()
         double = MatrixBuilder.DoubleBuilder()

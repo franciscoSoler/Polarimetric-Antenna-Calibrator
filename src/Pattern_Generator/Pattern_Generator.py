@@ -53,7 +53,7 @@ class PatternGenerator:
 
         rows = range(len(amn))
         cols = range(len(amn[0]))
-        return [sum([amn[row][col] * ang[row][col] for row in rows for col in cols]) for ang in angle]
+        return [sum([amn[row][col] * ang[row][col] for row in rows for col in cols]) for ang in angle][::-1]
 
     def generate_pattern(self, output_power, start_stop_angle, phi=0):
         """
