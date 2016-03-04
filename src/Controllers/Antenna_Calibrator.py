@@ -199,10 +199,11 @@ class MutualCalibrator(AntennaCalibrator):
     def __init__(self, input_power, input_phase, row_steering, column_steering, dist_rows, dist_columns, filename):
         super(MutualCalibrator, self).__init__(input_power, input_phase, dist_rows, dist_columns, filename)
 
-        f = lambda row, col: (row * row_steering + col * column_steering + 41 + 180) % 360 - 180
-        self.__trm_setting = np.array([f(row, col) for row in range(self._antenna.quantity_rows)
-                                       for col in range(self._antenna.quantity_columns)])
-
+        self.__trm_setting = AntennaCommon.obtain_shift_phases(column_steering, row_steering,
+                                                               self._antenna.quantity_columns,
+                                                               self._antenna.quantity_rows, dist_columns, dist_rows,
+                                                               AntennaCommon.f)
+        
         self.__matrix_builder = MatrixBuilder.LinearBuilder()
         cross = MatrixBuilder.CrossBuilder()
         double = MatrixBuilder.DoubleBuilder()

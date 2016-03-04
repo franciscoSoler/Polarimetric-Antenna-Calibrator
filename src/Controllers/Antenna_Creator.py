@@ -2,6 +2,7 @@
 
 import json
 import collections
+import itertools
 import functools
 import math
 import numpy as np
@@ -78,7 +79,7 @@ class AntennaCreator:
         (matrix_distances, distances) = AntennaCommon.calculate_distances_between_rms(*parameters)
 
         att = 0.1
-        wavelength = AntennaCommon.c / AntennaCommon.f
+        wavelength = AntennaCommon.C / AntennaCommon.f
 
         dispersion_params = list(map(lambda x: self.__scattering_handler.get_scattering_matrix("cable",
                                                                                                [att, x, wavelength]),
@@ -147,13 +148,11 @@ class AntennaCreator:
             for idx in [self.__row_col_to_index(*pair) for pair in dead_trms]:
                 trms_dead[idx] = True
 
-        f = lambda row, col: row * row_steering + col * column_steering
-        # delta_steering = -f(self.__quantity_rows-1, self.__quantity_cols-1)/2
-        # steering_angle = [f(row, col) + delta_steering-39 for col in range(self.__quantity_cols) for row in range(self.__quantity_rows)]
-        steering_angle = [f(row, col) for row in range(self.__quantity_rows) for col in range(self.__quantity_cols)]
-        # print(steering_angle)
+        steering_angle = AntennaCommon.obtain_shift_phases(column_steering, row_steering, self.__quantity_cols,
+                                                           self.__quantity_rows, self.__dist_columns, self.__dist_rows,
+                                                           AntennaCommon.f)
 
-        trm_state = list(zip(trms_dead, steering_angle))
+        trm_state = list(zip(trms_dead, list(itertools.chain.from_iterable(steering_angle))))
         structure = collections.OrderedDict()
 
         g = lambda: [" "+str((row, col)) for row in range(self.__quantity_rows) for col in range(self.__quantity_cols)]

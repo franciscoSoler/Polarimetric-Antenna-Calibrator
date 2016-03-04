@@ -98,11 +98,16 @@ class Simulator:
         quantity_rows = self.__config[Common.Conf_ant][Common.Conf_qtty_rows]
         quantity_columns = self.__config[Common.Conf_ant][Common.Conf_qtty_cols]
 
+        row_separation = self.__config[Common.Conf_ant][Common.Conf_vert_sep]
+        col_separation = self.__config[Common.Conf_ant][Common.Conf_horiz_sep]
+
         row_steering = self.__config[Common.Conf_in_param][Common.Conf_row_steer]
         column_steering = self.__config[Common.Conf_in_param][Common.Conf_col_steer]
 
-        f = lambda row, col: np.mod(row * row_steering + col * column_steering + 180, 360) - 180
-        return [[f(row, col) for col in range(quantity_columns)] for row in range(quantity_rows)]
+        freq = self.__config[Common.Conf_in_param][Common.Conf_freq]      # [Hz]
+
+        return Common.obtain_shift_phases(column_steering, row_steering, quantity_columns, quantity_rows,
+                                          col_separation, row_separation, freq)
 
     def __create_antenna(self):
         quantity_columns = self.__config[Common.Conf_ant][Common.Conf_qtty_cols]
@@ -113,9 +118,8 @@ class Simulator:
         column_steering = self.__config[Common.Conf_in_param][Common.Conf_col_steer]
         filename = self.__config[Common.Conf_ant][Common.Conf_filename]
         dead_trms = self.__config[Common.Conf_ant][Common.Conf_dead_trm]
-        c = 299792458       # [m/seg]
         f = self.__config[Common.Conf_in_param][Common.Conf_freq]      # [Hz]
-        wavelength = c/f    # [m]
+        wavelength = Common.C/f    # [m]
 
         sequence_items = self.__build_sequence(wavelength)
         component_errors = self.__build_component_errors()
@@ -134,6 +138,7 @@ class Simulator:
         filename = self.__config[Common.Conf_ant][Common.Conf_filename]
 
         calibration_errors = self.__build_calibration_errors()
+        """
         calibrator = AntennaCalibrator.MutualCalibrator(in_power, in_phase, row_steering, column_steering,
                                                         row_separation, col_separation, filename)
         # calibrator.add_calibration_errors(calibration_errors)
@@ -141,7 +146,7 @@ class Simulator:
         """
         calibrator = AntennaCalibrator.ClassicCalibrator(in_power, in_phase, row_separation, col_separation, filename)
         # calibrator.add_calibration_errors(calibration_errors)
-        """
+
         return calibrator
 
     def __calibrate_antenna(self, calibrator):
@@ -250,12 +255,12 @@ class Simulator:
 
         calibrator = self.__create_calibrator()
         self.__tx_ini_ant_power, self.__tx_ini_ant_phase, _, _ = calibrator.get_antenna_gain_paths()
-        #compare_estimated_gains_against_real(calibrator, visual_comparator, "BEFORE CALIBRATION")
+        # compare_estimated_gains_against_real(calibrator, visual_comparator, "BEFORE CALIBRATION")
 
         self.__calibrate_antenna(calibrator)
 
-        #compare_estimated_gains_against_real(calibrator, visual_comparator, "AFTER CALIBRATION")
-        #self.__compare_estimated_gains_against_ideal(calibrator, visual_comparator, "")
+        # compare_estimated_gains_against_real(calibrator, visual_comparator, "AFTER CALIBRATION")
+        # self.__compare_estimated_gains_against_ideal(calibrator, visual_comparator, "")
         self.__compare_final_gain_against_initial(calibrator, visual_comparator, "RESULTS")
 
         self.__compare_final_pattern_against_initial(calibrator, visual_comparator, "patterns")

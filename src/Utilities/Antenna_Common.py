@@ -73,7 +73,7 @@ Psc = 'PSC'
 Ph_shifter = 'phase_shifter'
 Amplifier = 'amplifier'
 
-c = 299792458       # [m/seg]
+C = 299792458       # [m/seg]
 f = 1275000000      # [Hz]
 
 
@@ -192,6 +192,21 @@ def parse_polarization_mode(mode):
     modes = re.findall("(\w)x(\w)", mode)
     g = lambda x: Rfdn_h_pol if x == H_pol else Rfdn_v_pol
     return [[mode[0], g(mode[1])]for mode in modes]
+
+
+def steering2delta_angle(steering, distance, frequency):
+    return 360*frequency*distance*np.sin(deg2rad(steering))/C
+
+
+def obtain_shift_phases(col_steering, row_steering, quantity_cols, quantity_rows, dist_col, dist_row, freq):
+    delta_row = quantity_rows/2
+    delta_column = quantity_cols/2
+
+    row_d_steer = steering2delta_angle(row_steering, dist_row, freq)
+    col_d_steer = steering2delta_angle(col_steering, dist_col, freq)
+
+    f = lambda row, col: np.mod((row - delta_row)*row_d_steer + (col - delta_column)*col_d_steer + 180, 360) - 180
+    return [[f(row, col) for col in range(quantity_cols)] for row in range(quantity_rows)]
 
 
 def calculate_distances_between_rms(quantity_rows, quantity_columns, dist_rows, dist_columns, row_shift):

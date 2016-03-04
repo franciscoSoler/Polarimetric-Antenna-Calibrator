@@ -50,10 +50,14 @@ tabla \ref{tab:configurationOfComponents}.
   \caption{Configuración de las propiedades físicas de cada componente de la antena utilizada en todos los ensayos.}
   \label{tab:configurationOfComponents}
 \end{table}
-La numeración de los elementos tiene un orden de izquierda a derecha y de forma descendiente, de tal forma que el elemnto cero 
+La numeración de los elementos tiene un orden de izquierda a derecha y de arriba hacia abajo, de tal forma que el elemnto cero 
 es el superior izquierdo de la antena.
 
-\section{Sin errores}
+Para una mayor claridad, todos los gráficos representan cómo ambos métodos calibran la antena en un estado puntual. No se 
+realizaron ensayos utilizando el método montecarlo dado que no se agregaron incertidumbres en el instrumento de medición de las 
+distintas señales recibidas de los lazos de calibración.
+
+\section{Sin dispersiones}
 
 Los ensayos de esta sección tienen las siguientes caracterísiticas,
 \begin{itemize}
@@ -128,7 +132,7 @@ en dirección vertical.
 \end{figure}
 
 
-\section{Errores en comportamiento de componentes de la antena}
+\section{Dispersiones en comportamiento de componentes de la antena}
 
 Los ensayos de esta sección tienen las siguientes caracterísiticas,
 \begin{itemize}
@@ -143,12 +147,12 @@ Los ensayos de esta sección tienen las siguientes caracterísiticas,
 		  \begin{tabular}{|c|c|}
 			\hline
 			\textbf{Error de componente} & \textbf{Desvío estandar} \tabularnewline \hline 
-			Error de ganancia del circulador &  0.2 [dB] \tabularnewline\hline 
-			Error de fase del circulador &  10 [deg] \tabularnewline\hline 
-			Error de ganancia del TRM &  0.2 [dB] \tabularnewline\hline 
-			Error de fase del TRM &  10 [deg] \tabularnewline\hline 
-			Error de ganancia del PSC &  0.1 [dB] \tabularnewline\hline 
-			Error de fase del PSC &  10 [deg] \tabularnewline\hline 
+			Dispersión de ganancia del circulador &  0.2 [dB] \tabularnewline\hline 
+			Dispersión de fase del circulador &  10 [deg] \tabularnewline\hline 
+			Dispersión de ganancia del TRM &  0.2 [dB] \tabularnewline\hline 
+			Dispersión de fase del TRM &  10 [deg] \tabularnewline\hline 
+			Dispersión de ganancia del PSC &  0.1 [dB] \tabularnewline\hline 
+			Dispersión de fase del PSC &  10 [deg] \tabularnewline\hline 
 		  \end{tabular}
 		  \caption{Configuración de los errores de componentes.}
 		  \label{tab:errorReferences}
@@ -181,21 +185,21 @@ dirección horizontal, y la tercera de 10 grados en dirección vertical.
 \end{figure}
 
 
-\section{Errores de ganancia entre pulsos}
-\section{Errores de fase entre pulsos}
-\section{Error de ganancia de la chirp réplica}
+\section{Dispersiones de ganancia entre pulsos}
+\section{Dispersiones de fase entre pulsos}
+\section{Dispersión de ganancia de la chirp réplica}
 
 Como la chirp réplica es simplemente utilizada en la calibración clásica, en esta simulación no se podrán comparar 
 resultados, pero sirve para determinar que tan robusto es el método para esta clase de erorres.
 
 
-\section{Error de fase de la chirp réplica}
+\section{Dispersión de fase de la chirp réplica}
 
 Como la chirp réplica es simplemente utilizada en la calibración clásica, en esta simulación no se podrán comparar 
 resultados, pero sirve para determinar que tan robusto es el método para esta clase de erorres.
 
 
-\section{Error de fase del Walsh}
+\section{Dispersión de fase del Walsh}
 
 Como los códigos walsh son solamente utilizados en la calibración clásica, en esta simulación no se podrán comparar 
 resultados, pero sirve para determinar que tan robusto es el método para esta clase de erorres.
