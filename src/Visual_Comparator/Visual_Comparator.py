@@ -189,14 +189,10 @@ class VisualComparator:
         if f(non_calibrated) or f(calibrated) or f(ideal):
             raise Exception("the signals must have the same length")
 
-        ideal_pattern = list(map(lambda x: abs(x), ideal))
-        cal_pattern = list(map(lambda x: abs(x), calibrated))
-        non_cal_pattern = list(map(lambda x: abs(x), non_calibrated))
-
         plt.figure(self.__get_figure_number())
-        p1, = plt.plot(angles, ideal_pattern, "k")
-        p2, = plt.plot(angles, cal_pattern, "g")
-        p3, = plt.plot(angles, non_cal_pattern, "b")
+        p1, = plt.plot(angles, ideal, "k")
+        p2, = plt.plot(angles, calibrated, "g")
+        p3, = plt.plot(angles, non_calibrated, "b")
         plt.title(title)
         plt.ylabel("Gain [dB]")
         plt.xlabel("Angle [deg]")

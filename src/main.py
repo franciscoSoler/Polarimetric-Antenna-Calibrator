@@ -164,18 +164,23 @@ class Simulator:
     def __compare_final_pattern_against_initial(self, calibrator, visual_comparator, title, filename):
         row_separation = self.__config[Common.Conf_ant][Common.Conf_vert_sep]
         col_separation = self.__config[Common.Conf_ant][Common.Conf_horiz_sep]
-        f = self.__config[Common.Conf_in_param][Common.Conf_freq]
+        freq = self.__config[Common.Conf_in_param][Common.Conf_freq]
         limits = [-100, 100]
         phi = 0
 
-        generator = PatternGenerator.PatternGenerator(f, col_separation, row_separation)
+
+        def f(pattern):
+            absolute = np.abs(pattern)
+            return Common.p2db(absolute/ np.max(absolute))
+
+        generator = PatternGenerator.PatternGenerator(freq, col_separation, row_separation)
         tx_power, tx_phase, _, _ = calibrator.get_antenna_gain_paths()
 
         _, non_cal_pattern = generator.generate_pattern(Common.pol2rec(self.__tx_ini_ant_power,
                                                                        self.__tx_ini_ant_phase), limits, phi)
         angles, ideal_pattern = generator.generate_pattern(self.__create_ideal_output_power(), limits, phi)
         _, cal_pattern = generator.generate_pattern(Common.pol2rec(tx_power, tx_phase), limits, phi)
-        visual_comparator.compare_patterns_against_ideal(angles, non_cal_pattern, cal_pattern, ideal_pattern,
+        visual_comparator.compare_patterns_against_ideal(angles, f(non_cal_pattern), f(cal_pattern), f(ideal_pattern),
                                                          title + "Corte horizontal", filename + "AzCut")
 
         phi = 90
@@ -183,7 +188,7 @@ class Simulator:
                                                                        self.__tx_ini_ant_phase), limits, phi)
         angles, ideal_pattern = generator.generate_pattern(self.__create_ideal_output_power(), limits, phi)
         _, cal_pattern = generator.generate_pattern(Common.pol2rec(tx_power, tx_phase), limits, phi)
-        visual_comparator.compare_patterns_against_ideal(angles, non_cal_pattern, cal_pattern, ideal_pattern,
+        visual_comparator.compare_patterns_against_ideal(angles, f(non_cal_pattern), f(cal_pattern), f(ideal_pattern),
                                                          title + "Corte vertical", filename + "ElCut")
 
     def __compare_final_gain_against_initial(self, calibrator, visual_comparator, title, filename):
@@ -276,8 +281,6 @@ class Simulator:
 
         calibrator = self.__create_calibrator()
         prefix = self.__get_error_name() + self.__calibrator + self.__get_angle()
-        print(prefix)
-        exit()
 
         self.__tx_ini_ant_power, self.__tx_ini_ant_phase, _, _ = calibrator.get_antenna_gain_paths()
         # compare_estimated_gains_against_real(calibrator, visual_comparator, "BEFORE CALIBRATION")
