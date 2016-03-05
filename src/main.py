@@ -228,13 +228,7 @@ class Simulator:
         tx_ideal_power = [[desired_tx_power] * quantity_columns] * quantity_rows
         rx_ideal_power = [[desired_rx_power] * quantity_columns] * quantity_rows
         ideal_phase = self.__get_desired_phases()
-        """
-        tx_ideal_phase = [[desired_tx_phase] * quantity_columns] * quantity_rows
-        rx_ideal_phase = [[desired_rx_phase] * quantity_columns] * quantity_rows
 
-        append_signal_into_signals(tx_signals, tx_ideal_power, tx_ideal_phase)
-        append_signal_into_signals(rx_signals, rx_ideal_power, rx_ideal_phase)
-        """
         append_signal_into_signals(tx_signals, tx_ideal_power, ideal_phase)
         append_signal_into_signals(rx_signals, rx_ideal_power, ideal_phase)
 
@@ -254,6 +248,17 @@ class Simulator:
         ideal_phase = self.__get_desired_phases()
         return Common.pol2rec(ideal_power, ideal_phase)
 
+    def __get_error_name(self):
+        cal_errors = self.__config[Common.Conf_cal_param][Common.Conf_errors]
+        if len(cal_errors) == 1:
+            err = cal_errors.pop()
+            return "chirpErr" if err == "interPulseGainChirpError" else "chirpErr" if err == "chirpRepError" else "walErr"
+        dead_trms = self.__config[Common.Conf_ant][Common.Conf_dead_trm]
+        if dead_trms:
+            return "deatTRMs"
+        ant_errors = self.__config[Common.Conf_ant][Common.Conf_errors]
+        return "compErr"  if ant_errors else "nonErr"
+
     def __get_angle(self):
         row_steering = self.__config[Common.Conf_in_param][Common.Conf_row_steer]
         column_steering = self.__config[Common.Conf_in_param][Common.Conf_col_steer]
@@ -265,13 +270,15 @@ class Simulator:
         return f(column_steering, "Col") if column_steering else f(row_steering, "Row") if row_steering else f(0)
 
     def run(self):
-        prefix = "chirpErrMutual" + self.__calibrator + self.__get_angle()
-
         visual_comparator = VisualComparator.VisualComparator()
 
         self.__create_antenna()
 
         calibrator = self.__create_calibrator()
+        prefix = self.__get_error_name() + self.__calibrator + self.__get_angle()
+        print(prefix)
+        exit()
+
         self.__tx_ini_ant_power, self.__tx_ini_ant_phase, _, _ = calibrator.get_antenna_gain_paths()
         # compare_estimated_gains_against_real(calibrator, visual_comparator, "BEFORE CALIBRATION")
 
