@@ -67,6 +67,7 @@ def compare_estimated_gains_against_real(calibrator, visual_comparator, title):
 class Simulator:
     def __init__(self):
         self.__config = ""
+        self.__calibrator = ""
         with open("configurationFile") as f:
             self.__config = json.load(f)
 
@@ -138,15 +139,17 @@ class Simulator:
         filename = self.__config[Common.Conf_ant][Common.Conf_filename]
 
         calibration_errors = self.__build_calibration_errors()
-        """
+
+        self.__calibrator = "Mutual"
         calibrator = AntennaCalibrator.MutualCalibrator(in_power, in_phase, row_steering, column_steering,
                                                         row_separation, col_separation, filename)
-        # calibrator.add_calibration_errors(calibration_errors)
         calibrator.generate_cal_paths(AntennaCalibrator.every_one_to_one_path_strategy)
         """
+        self.__calibrator = "Classical"
         calibrator = AntennaCalibrator.ClassicCalibrator(in_power, in_phase, row_separation, col_separation, filename)
-        # calibrator.add_calibration_errors(calibration_errors)
-
+        """
+        if calibration_errors:
+            calibrator.add_calibration_errors(calibration_errors)
         return calibrator
 
     def __calibrate_antenna(self, calibrator):
@@ -158,7 +161,7 @@ class Simulator:
         desired_signals = [desired_tx_power, desired_phase, desired_rx_power, desired_phase]
         calibrator.calibrate_antenna(*desired_signals)
 
-    def __compare_final_pattern_against_initial(self, calibrator, visual_comparator, title):
+    def __compare_final_pattern_against_initial(self, calibrator, visual_comparator, title, filename):
         row_separation = self.__config[Common.Conf_ant][Common.Conf_vert_sep]
         col_separation = self.__config[Common.Conf_ant][Common.Conf_horiz_sep]
         f = self.__config[Common.Conf_in_param][Common.Conf_freq]
@@ -172,16 +175,18 @@ class Simulator:
                                                                        self.__tx_ini_ant_phase), limits, phi)
         angles, ideal_pattern = generator.generate_pattern(self.__create_ideal_output_power(), limits, phi)
         _, cal_pattern = generator.generate_pattern(Common.pol2rec(tx_power, tx_phase), limits, phi)
-        visual_comparator.compare_patterns_against_ideal(angles, non_cal_pattern, cal_pattern, ideal_pattern, title + "horizontal cut")
+        visual_comparator.compare_patterns_against_ideal(angles, non_cal_pattern, cal_pattern, ideal_pattern,
+                                                         title + "Corte horizontal", filename + "AzCut")
 
         phi = 90
         _, non_cal_pattern = generator.generate_pattern(Common.pol2rec(self.__tx_ini_ant_power,
                                                                        self.__tx_ini_ant_phase), limits, phi)
         angles, ideal_pattern = generator.generate_pattern(self.__create_ideal_output_power(), limits, phi)
         _, cal_pattern = generator.generate_pattern(Common.pol2rec(tx_power, tx_phase), limits, phi)
-        visual_comparator.compare_patterns_against_ideal(angles, non_cal_pattern, cal_pattern, ideal_pattern, title + "vertical cut")
+        visual_comparator.compare_patterns_against_ideal(angles, non_cal_pattern, cal_pattern, ideal_pattern,
+                                                         title + "Corte vertical", filename + "ElCut")
 
-    def __compare_final_gain_against_initial(self, calibrator, visual_comparator, title):
+    def __compare_final_gain_against_initial(self, calibrator, visual_comparator, title, filename):
         quantity_rows = self.__config[Common.Conf_ant][Common.Conf_qtty_rows]
         quantity_columns = self.__config[Common.Conf_ant][Common.Conf_qtty_cols]
 
@@ -198,7 +203,8 @@ class Simulator:
 
         append_signal_into_signals(tx_signals, tx_ideal_power, ideal_phase)
 
-        visual_comparator.compare_signals_against_ideal(*tx_signals, title="{}: Tx chain".format(title))
+        visual_comparator.compare_signals_against_ideal(*tx_signals, title="{}: Tx chain".format(title),
+                                                        filename=filename)
 
     def __compare_estimated_gains_against_ideal(self, calibrator, visual_comparator, title):
         quantity_rows = self.__config[Common.Conf_ant][Common.Conf_qtty_rows]
@@ -248,7 +254,19 @@ class Simulator:
         ideal_phase = self.__get_desired_phases()
         return Common.pol2rec(ideal_power, ideal_phase)
 
+    def __get_angle(self):
+        row_steering = self.__config[Common.Conf_in_param][Common.Conf_row_steer]
+        column_steering = self.__config[Common.Conf_in_param][Common.Conf_col_steer]
+
+
+        def f(x, y=''):
+            return str(x) + "deg" + y
+
+        return f(column_steering, "Col") if column_steering else f(row_steering, "Row") if row_steering else f(0)
+
     def run(self):
+        prefix = "chirpErrMutual" + self.__calibrator + self.__get_angle()
+
         visual_comparator = VisualComparator.VisualComparator()
 
         self.__create_antenna()
@@ -261,9 +279,9 @@ class Simulator:
 
         # compare_estimated_gains_against_real(calibrator, visual_comparator, "AFTER CALIBRATION")
         # self.__compare_estimated_gains_against_ideal(calibrator, visual_comparator, "")
-        self.__compare_final_gain_against_initial(calibrator, visual_comparator, "RESULTS")
+        self.__compare_final_gain_against_initial(calibrator, visual_comparator, "RESULTS", prefix)
 
-        self.__compare_final_pattern_against_initial(calibrator, visual_comparator, "patterns")
+        self.__compare_final_pattern_against_initial(calibrator, visual_comparator, "patterns", prefix)
 
         visual_comparator.show_graphics()
 

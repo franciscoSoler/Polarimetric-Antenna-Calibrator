@@ -71,7 +71,7 @@ class PatternGenerator:
         decimals = 2
         angle_range = [round(x, decimals) for x in np.arange(start_stop_angle[0], start_stop_angle[1] + eps, step)]
 
-        volts = common.db2v(abs(output_power))
-        b = self.__calculate_directivity_pattern(common.pol2rec(volts, np.angle(output_power, deg=True)), angle_range, phi)
+        power = common.db2p(abs(output_power)/6)
+        b = self.__calculate_directivity_pattern(common.pol2rec(power, np.angle(output_power, deg=True)), angle_range, phi)
         return angle_range, b
-        return angle_range, common.pol2rec(common.v2db(abs(b)), np.angle(b, deg=True))
+        return angle_range, common.pol2rec(common.p2db(abs(b)), np.angle(b, deg=True))

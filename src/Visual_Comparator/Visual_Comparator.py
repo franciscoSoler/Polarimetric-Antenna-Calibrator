@@ -3,6 +3,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import itertools
 import cmath
+import os
 
 
 def rad2deg(rad):
@@ -25,6 +26,7 @@ class VisualComparator:
         self.__upper_ph_limit = None
         self.__lower_att_limit = None
         self.__lower_ph_limit = None
+        self.__paht_to_save = '/media/francisco/Datos/francisco/Documents/mutual/written/thesis/gfx'
 
     def __get_figure_number(self):
         self.__figure_number += 1
@@ -69,7 +71,7 @@ class VisualComparator:
         self.__lower_att_limit = self.__upper_att_limit - 2 * self.__att_delta
         self.__lower_ph_limit = self.__upper_ph_limit - 2 * self.__ph_delta
 
-    def compare_signals_against_ideal(self, power_one, phase_one, power_two, phase_two, id_power, id_phase, title=""):
+    def compare_signals_against_ideal(self, power_one, phase_one, power_two, phase_two, id_power, id_phase, title="", filename=""):
 
         power = self.__format_signal(power_one)
         cal_power = self.__format_signal(power_two)
@@ -107,6 +109,7 @@ class VisualComparator:
         plt.plot(antennas, self.__lower_ph_limit, "r--")
         legends = ["non_cal_ph", "cal_ph", "ideal_ph", "upper_lower_limit"]
         self.__set_plot_environment(title, "Phase [deg]", "RMs", [p1, p2, p3, p4], legends)
+        plt.savefig(os.path.join(self.__paht_to_save, filename + ".png"), bbox_inches='tight')
 
     def compare_signals(self, power_one, phase_one, power_two, phase_two, title=""):
         """
@@ -171,7 +174,7 @@ class VisualComparator:
                    bbox_to_anchor=(0., 1.02, 1., .102), loc=3, ncol=4, borderaxespad=0., prop={'size': 8})
         plt.grid(True)
 
-    def compare_patterns_against_ideal(self, angles, non_calibrated, calibrated, ideal, title):
+    def compare_patterns_against_ideal(self, angles, non_calibrated, calibrated, ideal, title, filename):
         """
         plots the three signals in order to get a visual comparison.
         :param angles:
@@ -200,6 +203,7 @@ class VisualComparator:
         plt.legend([p1, p2, p3], ["ideal pat", "cal pat", "non-cal pat"],
                    bbox_to_anchor=(0., 1.02, 1., .102), loc=3, ncol=4, borderaxespad=0., prop={'size': 8})
         plt.grid(True)
+        plt.savefig(os.path.join(self.__paht_to_save, filename + ".png"), bbox_inches='tight')
 
     @staticmethod
     def show_graphics():

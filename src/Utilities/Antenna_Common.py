@@ -163,6 +163,14 @@ def v2db(voltage):
     return 20*np.log10(abs(voltage))
 
 
+def db2p(decibel):
+    return np.power(10, decibel/20)
+
+
+def p2db(voltage):
+    return 20*np.log10(abs(voltage))
+
+
 def rad2deg(rad):
     cut = 180
     return np.mod(rad*180/cmath.pi + cut, 360) - cut
