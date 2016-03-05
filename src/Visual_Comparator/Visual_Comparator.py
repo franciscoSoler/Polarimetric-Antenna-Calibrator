@@ -103,7 +103,7 @@ class VisualComparator:
         p3, = plt.plot(antennas[::4], ideal_power[::4], color="k", marker="*", linewidth=2, markersize=15)
         plt.plot(antennas, cal_power, "g", linewidth=2)
 
-        self.__set_plot_environment(title, "Power [dB]", "RMs", 4)
+        self.__set_plot_environment(title, "Power [dBm]", "RMs", 4)
 
         plt.subplot(212)
         plt.plot(antennas, phase, "bo")

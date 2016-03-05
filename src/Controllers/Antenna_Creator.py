@@ -135,7 +135,6 @@ class AntennaCreator:
                                      AntennaCommon.is_psc(component[0])]
 
         quantity_rms = functools.reduce(lambda x, y: x*y, quantity_signal_splitters)
-        print(quantity_rms)
         if quantity_rms != self.__quantity_cols * self.__quantity_rows:
             raise Exception("quantity of rms from RFDN: {0} is different from the front of the antenna: {1}".format(
                                                             quantity_rms, self.__quantity_cols*self.__quantity_rows))

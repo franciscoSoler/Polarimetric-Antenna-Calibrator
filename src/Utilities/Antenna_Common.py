@@ -46,8 +46,7 @@ fs = 120e6      # frequency sampling [Hz]
 
 # Errors
 Inter_pulse_gain_err = 'interPulseGainChirpError'
-Gain_chirp_rep_err = 'gainChirpRepError'
-Phase_chirp_rep_err = 'phaseChirpRepError'
+Chirp_rep_err = 'chirpRepError'
 Walsh_phase_err = 'WalPhaseErrors'
 
 Cable_error = 'CableError'
