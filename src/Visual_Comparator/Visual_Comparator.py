@@ -57,12 +57,20 @@ class VisualComparator:
         return zip(*map(lambda x: cmath.polar(x), signal))
 
     @staticmethod
-    def __set_plot_environment(title, y_label, x_label, plots, legends):
+    def __set_plot_environment(title, y_label, x_label, locc=None):
         plt.title(title)
         plt.ylabel(y_label)
         plt.xlabel(x_label)
-        plt.legend(plots, legends, bbox_to_anchor=(0., 1.02, 1., .102), loc=3, ncol=4, borderaxespad=0.,
+
+        p1, = plt.plot([], [], label="non-cal", color="b", marker="o")
+        p2, = plt.plot([], [], label="cal", color="g", marker="^", markersize=8)
+        p3, = plt.plot([], [], label="ideal", color="k", marker="*", linewidth=2, markersize=15)
+
+        if locc is None:
+            plt.legend(handles=[p1, p2, p3], bbox_to_anchor=(0., 1.02, 1., .102), loc=3, ncol=4, borderaxespad=0.,
                    prop={'size': 8})
+        else:
+            plt.legend(handles=[p1, p2, p3], loc=locc)
         plt.grid(True)
 
     def __set_limits(self, ideal_att, ideal_ph):
@@ -90,25 +98,22 @@ class VisualComparator:
         plt.figure(self.__get_figure_number())
         plt.subplot(211)
         p1, = plt.plot(antennas, power, "bo")
-        plt.plot(antennas, power, "b")
-        p2, = plt.plot(antennas, cal_power, "g^")
-        plt.plot(antennas, cal_power, "g")
-        p3, = plt.plot(antennas, ideal_power, "k")
-        p4, = plt.plot(antennas, self.__upper_att_limit, "r--")
-        plt.plot(antennas, self.__lower_att_limit, "r--")
-        legends = ["non_cal_att", "cal_att", "ideal_att", "upper_lower_limit"]
-        self.__set_plot_environment(title, "Power [dB]", "RMs", [p1, p2, p3, p4], legends)
+        plt.plot(antennas, power, "b", linewidth=2)
+        p2, = plt.plot(antennas[::2], cal_power[::2], "g^", markersize=8)
+        p3, = plt.plot(antennas[::4], ideal_power[::4], color="k", marker="*", linewidth=2, markersize=15)
+        plt.plot(antennas, cal_power, "g", linewidth=2)
+
+        self.__set_plot_environment(title, "Power [dB]", "RMs", 4)
 
         plt.subplot(212)
-        p1, = plt.plot(antennas, phase, "bo")
-        plt.plot(antennas, phase, "b")
-        p2, = plt.plot(antennas, cal_phase, "g^")
-        plt.plot(antennas, cal_phase, "g")
-        p3, = plt.plot(antennas, ideal_phase, "k")
-        p4, = plt.plot(antennas, self.__upper_ph_limit, "r--")
-        plt.plot(antennas, self.__lower_ph_limit, "r--")
-        legends = ["non_cal_ph", "cal_ph", "ideal_ph", "upper_lower_limit"]
-        self.__set_plot_environment(title, "Phase [deg]", "RMs", [p1, p2, p3, p4], legends)
+        plt.plot(antennas, phase, "bo")
+        plt.plot(antennas, phase, "b", linewidth=2)
+        plt.plot(antennas, ideal_phase, "k", linewidth=2)
+        plt.plot(antennas[::2], cal_phase[::2], "g^", markersize=8)
+        plt.plot(antennas[::5], ideal_phase[::5], "k*", markersize=15)
+        plt.plot(antennas, cal_phase, "g", linewidth=2)
+
+        self.__set_plot_environment(title, "Phase [deg]", "RMs", 4)
         plt.savefig(os.path.join(self.__paht_to_save, filename + ".png"), bbox_inches='tight')
 
     def compare_signals(self, power_one, phase_one, power_two, phase_two, title=""):
@@ -165,8 +170,8 @@ class VisualComparator:
         second_pattern = list(map(lambda x: abs(x), pattern_two))
 
         plt.figure(self.__get_figure_number())
-        p2, = plt.plot(angles, first_pattern, "g")
-        p3, = plt.plot(angles, second_pattern, "b")
+        p2, = plt.plot(angles, first_pattern, "g^")
+        p3, = plt.plot(angles, second_pattern, "bo")
         plt.title(title)
         plt.ylabel("Gain [dB]")
         plt.xlabel("Angle [deg]")
@@ -190,14 +195,13 @@ class VisualComparator:
             raise Exception("the signals must have the same length")
 
         plt.figure(self.__get_figure_number())
-        p1, = plt.plot(angles, ideal, "k")
-        p2, = plt.plot(angles, calibrated, "g")
-        p3, = plt.plot(angles, non_calibrated, "b")
+        p1, = plt.plot(angles, ideal, "k", label="ideal", linewidth=2)
+        p2, = plt.plot(angles, calibrated, "g", label="cal", linewidth=2)
+        p3, = plt.plot(angles, non_calibrated, "b", label="non-cal", linewidth=2)
         plt.title(title)
         plt.ylabel("Gain [dB]")
         plt.xlabel("Angle [deg]")
-        plt.legend([p1, p2, p3], ["ideal pat", "cal pat", "non-cal pat"],
-                   bbox_to_anchor=(0., 1.02, 1., .102), loc=3, ncol=4, borderaxespad=0., prop={'size': 8})
+        plt.legend(handles=[p1, p2, p3], loc=4)
         plt.grid(True)
         plt.savefig(os.path.join(self.__paht_to_save, filename + ".png"), bbox_inches='tight')
 
