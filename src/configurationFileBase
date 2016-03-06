@@ -1,0 +1,96 @@
+{
+  "inputParameters": {
+    "freq": 1275000000,
+    "power": 0,
+    "phase": 0,
+    "rowSteering": 0,
+    "columnSteering": 10
+  },
+  "calibrationParameters": {
+    "desiredTxPower": 6,
+    "desiredRxPower": 0,
+    "errors": []
+  },
+  "antenna": {
+    "fileName": "test",
+    "quantityRows": 7,
+    "quantityColumns": 10,
+    "verticalSeparation": 0.1,
+    "horizontalSeparation": 0.1,
+    "componentSequence": ["cable1", "psc17", "cable1", "psc15", "cable2", "psc12", "trm", "circulator", "cable3", "rm"],
+    "errors": [],
+    "deadTrms": []
+  },
+  "components": {
+    "cable1": {
+      "attenuation": 0.1,
+      "length": 0.45,
+      "type": "cable"
+    },
+    "cable2": {
+      "attenuation": 0.1,
+      "length": 8,
+      "type": "cable"
+    },
+    "cable3": {
+      "attenuation": 0.1,
+      "length": 0.5,
+      "type": "cable"
+    },
+    "trm": {
+      "gain": 10,
+      "phaseShift": 10,
+      "type": "TRM"
+    },
+    "psc12": {
+      "outputPorts": 2,
+      "type": "PSC12"
+    },
+    "psc13": {
+      "outputPorts": 3,
+      "type": "PSC13"
+    },
+    "psc14": {
+      "outputPorts": 4,
+      "type": "PSC14"
+    },
+    "psc15": {
+      "outputPorts": 5,
+      "type": "PSC15"
+    },
+    "psc17": {
+      "outputPorts": 7,
+      "type": "PSC17"
+    },
+    "psc19": {
+      "outputPorts": 9,
+      "type": "PSC19"
+    },
+
+    "psc110": {
+      "outputPorts": 10,
+      "type": "PSC110"
+    },
+    "psc125": {
+      "outputPorts": 25,
+      "type": "PSC125"
+    },
+    "circulator": {
+      "type": "circulator"
+    },
+    "rm": {
+      "type": "RM"
+    }
+  },
+  "standardDeviationErrors": {
+    "CableError": [0.1, 100],
+    "CirculatorError": [0.2, 20],
+    "TRMError": [0.2, 10],
+    "PSCError": [0.1, 10],
+    "RMError": [0.1, 0.1],
+
+    "interPulseGainChirpError": [0, 0],
+    "chirpRepError": [1, 5],
+    "WalPhaseErrors": 10
+  }
+}

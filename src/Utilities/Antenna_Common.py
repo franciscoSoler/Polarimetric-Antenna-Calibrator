@@ -4,6 +4,9 @@ import math
 import cmath
 import enum
 
+MutualCal = 'Mutual'
+ClassicCal = 'Classical'
+
 # configurationFile tags
 Conf_in_param = 'inputParameters'
 Conf_freq = 'freq'

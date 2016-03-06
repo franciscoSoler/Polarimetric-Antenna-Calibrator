@@ -75,7 +75,7 @@ class AntennaCalibrator(object):
     def add_calibration_errors(self, errors):
         if not isinstance(errors, list) or len(errors) == 0 or [True for error in errors if len(error) != 2]:
             raise Exception('errors are not well created')
-        if [True for error in errors if error[0] == AntennaCommon.Walsh_phase_err]:
+        if [True for error in errors if error[0] == AntennaCommon.Inter_pulse_gain_err]:
             self._input_delta_power, self._input_delta_phase = [err[1] for err in errors
                                                                 if err[0] == AntennaCommon.Inter_pulse_gain_err].pop()
         self._add_calibration_errors(errors)
