@@ -17,6 +17,7 @@ def deg2rad(deg):
 class VisualComparator:
 
     def __init__(self):
+        plt.close('all')
         self.__figure_number = 0
         self.__att_delta = 5 / 2
         self.__ph_delta = 5.625 / 2

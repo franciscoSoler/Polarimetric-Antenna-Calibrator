@@ -31,7 +31,8 @@ def create_config_file(row_steering, column_steering, key, value):
     config[common.Conf_in_param][common.Conf_row_steer] = row_steering
     config[common.Conf_in_param][common.Conf_col_steer] = column_steering
 
-    config[key[0]][key[1]] = value
+    if key is not None:
+        config[key[0]][key[1]] = value
     save_file(config_filename, config)
 
     simm = simulator.Simulator()
@@ -39,12 +40,15 @@ def create_config_file(row_steering, column_steering, key, value):
 
 
 def add_errors(row_steering, column_steering):
-    errors = {((common.Conf_cal_param), (common.Conf_errors)): [common.Inter_pulse_gain_err],
-              ((common.Conf_cal_param), (common.Conf_errors)): [common.Chirp_rep_err],
-              ((common.Conf_cal_param), (common.Conf_errors)): [common.Walsh_phase_err],
-              ((common.Conf_ant), (common.Conf_errors)): [common.Circulator_error, common.Trm_error, common.Psc_error],
-              ((common.Conf_ant), (common.Conf_dead_trm)): [[1, 0], [3, 4], [5, 5]]}
-    [create_config_file(row_steering, column_steering, key, value) for key, value in errors.items()]
+    if row_steering and column_steering:
+        return
+    errors = [[((common.Conf_cal_param), (common.Conf_errors)), [common.Inter_pulse_gain_err]],
+              [((common.Conf_cal_param), (common.Conf_errors)), [common.Chirp_rep_err]],
+              [((common.Conf_cal_param), (common.Conf_errors)), [common.Walsh_phase_err]],
+              [((common.Conf_ant), (common.Conf_errors)), [common.Circulator_error, common.Trm_error, common.Psc_error]],
+              [((common.Conf_ant), (common.Conf_dead_trm)), [[1, 0], [3, 4], [5, 5]]]]
+    [create_config_file(row_steering, column_steering, item[0], item[1]) for item in errors]
+    create_config_file(row_steering, column_steering, None, "")
 
 
 def main():

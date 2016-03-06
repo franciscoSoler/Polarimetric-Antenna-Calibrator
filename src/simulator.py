@@ -254,15 +254,18 @@ class Simulator:
         return Common.pol2rec(ideal_power, ideal_phase)
 
     def __get_error_name(self):
+        names = {Common.Inter_pulse_gain_err: "chirpErr", Common.Chirp_rep_err: "chirpRepErr",
+                 Common.Walsh_phase_err: "wallErr"}
         cal_errors = self.__config[Common.Conf_cal_param][Common.Conf_errors]
+
         if len(cal_errors) == 1:
-            err = cal_errors.pop()
-            return "chirpErr" if err == "interPulseGainChirpError" else "chirpErr" if err == "chirpRepError" else "walErr"
-        dead_trms = self.__config[Common.Conf_ant][Common.Conf_dead_trm]
-        if dead_trms:
-            return "deatTRMs"
-        ant_errors = self.__config[Common.Conf_ant][Common.Conf_errors]
-        return "compErr"  if ant_errors else "nonErr"
+            return names[cal_errors[0]]
+        elif self.__config[Common.Conf_ant][Common.Conf_dead_trm]:
+            return "deadTRMs"
+        elif self.__config[Common.Conf_ant][Common.Conf_errors]:
+            return "compErr"
+        else:
+            return "nonErr"
 
     def __get_angle(self):
         row_steering = self.__config[Common.Conf_in_param][Common.Conf_row_steer]
@@ -278,7 +281,6 @@ class Simulator:
         visual_comparator = VisualComparator.VisualComparator()
 
         # self.create_antenna()
-
         calibrator = self.__create_calibrator(calibr)
         prefix = self.__get_error_name() + self.__calibrator + self.__get_angle()
 
@@ -294,7 +296,7 @@ class Simulator:
         self.__compare_final_pattern_against_initial(calibrator, visual_comparator, "patterns", prefix)
 
         # visual_comparator.show_graphics()
-
+        
         #self.__remove_antenna()
 
         return 0
