@@ -16,7 +16,7 @@ tabla \ref{tab:configurationOfComponents}.
 	freq &  1275000000 [Hz] \tabularnewline\hline 
 	power & 0 [dB] \tabularnewline \hline 
 	phase & 0 [deg] \tabularnewline \hline 
-	desiredTxPower & 20 [dB] \tabularnewline \hline 
+	desiredTxPower & 6 [dB] \tabularnewline \hline 
 	desiredRxPower & 0 [dB] \tabularnewline \hline 
 	quantityRows & 7 \tabularnewline \hline 
 	quantityColumns & 10 \tabularnewline \hline 
@@ -57,28 +57,69 @@ Para una mayor claridad, todos los gráficos representan cómo ambos métodos ca
 realizaron ensayos utilizando el método montecarlo dado que no se agregaron incertidumbres en el instrumento de medición de las 
 distintas señales recibidas de los lazos de calibración.
 
+Todos los ensayos de las siguientes secciones poseen las siguientes característicias:
+\begin{itemize}
+	\item Se utilizan diferentes apuntamientos de la antena. Los cuales son uniforme, 10 grados en la dirección horizontal y 10 
+		grados en la dirección vertical.
+	\item Se muestra un gráfico de la potencia y fase transmitida para cada apuntamiento utilizado. En los cuales se observan las
+		señales sin calibrar, calibrada e ideal. 
+	\item Se grafican los patrones de antena para los cortes horizontal y vertical de las señales transmitidas sin calibrar, 
+		calibradas e ideales.
+\end{itemize}
+
+
 \section{Sin dispersiones}
 
 Los ensayos de esta sección tienen las siguientes caracterísiticas,
 \begin{itemize}
-	\item Ensayar ambos métodos de calibración con diferentes apuntamientos de la antena.
-	\item Los distintos apuntamientos utilizados son: Uniforme, 10 grados en la dirección horizontal y 10 grados en la dirección 
-		vertical.
 	\item Los componentes de antena no tienen ningún prolema de funcionamiento ni hay desadaptaciones.
 	\item No hay errores de calibración.
 	\item No hay errores en la señal.
 \end{itemize}
 
 \subsection{Utilizando la calibración clásica}
-\todo{:D}
+\todo{ver el porque de las dispersiones en fase y ganancia de este metodo...}
+\begin{figure}[H]
+	\centering
+ 	\subfloat[]{
+		\includegraphics[width=10cm]{gfx/nonErrClassical0deg.png}}
+ 	
+	\subfloat[]{
+		\includegraphics[width=8cm]{gfx/nonErrClassical10degCol.png}}
+	\subfloat[]{
+		\includegraphics[width=8cm]{gfx/nonErrClassical10degRow.png}}
+		\caption{Ganancia transmitida utilizando calibración clásica. (a) 0 grados. (b) 10 grados en 
+		dirección horizontal. (c) 10 grados en dirección vertical.}
+	\label{fig:nonErrorClassical}
+\end{figure}
+\begin{figure}[H]
+	\centering
+ 	\subfloat[]{
+		\includegraphics[width=8cm]{gfx/nonErrClassical0degAzCut.png}}
+ 	\subfloat[]{
+		\includegraphics[width=8cm]{gfx/nonErrClassical0degElCut.png}}
+ 	
+	\subfloat[]{
+		\includegraphics[width=8cm]{gfx/nonErrClassical10degColAzCut.png}}
+	\subfloat[]{
+		\includegraphics[width=8cm]{gfx/nonErrClassical10degColElCut.png}}
+
+	\subfloat[]{
+		\includegraphics[width=8cm]{gfx/nonErrClassical10degRowAzCut.png}}
+	\subfloat[]{
+		\includegraphics[width=8cm]{gfx/nonErrClassical10degRowElCut.png}}
+		\caption{Patrones de antena transmitida utilizando calibración clásica. (a) uniforme - Corte Horizontal. (b) uniforme - 
+			Corte Vertical. (c) 10 grados dir. horizontal. - Corte Horizontal. (d) 10 grados dir. horizontal. - Corte Vertical. (e) 10 
+			grados dir. vertical - Corte Horizontal. (f) 10 grados dir. vertical - Corte Vertical.}
+	\label{fig:nonErrorClassicalPat}
+\end{figure}
+
+
 \subsection{Utilizando la calibración con acoplamientos mútuos}
 
-En la figura \ref{fig:nonErrorMutual} se puede observar que el método funciona correctamente. La subfigura a muestra un 
-apuntamiento de cero grados, la b, de 10 grados en dirección horizontal, y la tercera de 10 grados en dirección vertical.
-
-Se puede verificar que el apuntamiento es el correcto por los defasajes observados, como hay 10 elementos radiantes por fila,
-al apuntar verticalmente, cada fila posee un defasaje diferente, es por esta razón que la tercer fila se ve un gráfico estilo 
-una escalera con siete escalones (que es la cantidad de columnas de la antena). 
+En la figura \ref{fig:nonErrorMutual} se puede verificar que el apuntamiento es el correcto por los defasajes observados, como 
+hay 10 elementos radiantes por fila, al apuntar verticalmente, cada fila posee un defasaje diferente, es por esta razón que la
+tercer fila se ve un gráfico estilo una escalera con siete escalones (que es la cantidad de columnas de la antena). 
 \begin{figure}[H]
 	\centering
  	\subfloat[]{
@@ -88,19 +129,38 @@ una escalera con siete escalones (que es la cantidad de columnas de la antena).
 		\includegraphics[width=8cm]{gfx/nonErrMutual10degCol.png}}
 	\subfloat[]{
 		\includegraphics[width=8cm]{gfx/nonErrMutual10degRow.png}}
-		\caption{Antena calibrada con distintos apuntamientos utilizando acoplamientos mútuos. (a) 0 grados. (b) 10 grados en 
+		\caption{Ganancia transmitida utilizando calibración con acoplamientos mútuos. (a) 0 grados. (b) 10 grados en 
 		dirección horizontal. (c) 10 grados en dirección vertical.}
 	\label{fig:nonErrorMutual}
 \end{figure}
+\begin{figure}[H]
+	\centering
+ 	\subfloat[]{
+		\includegraphics[width=8cm]{gfx/nonErrMutual0degAzCut.png}}
+ 	\subfloat[]{
+		\includegraphics[width=8cm]{gfx/nonErrMutual0degElCut.png}}
+ 	
+	\subfloat[]{
+		\includegraphics[width=8cm]{gfx/nonErrMutual10degColAzCut.png}}
+	\subfloat[]{
+		\includegraphics[width=8cm]{gfx/nonErrMutual10degColElCut.png}}
+
+	\subfloat[]{
+		\includegraphics[width=8cm]{gfx/nonErrMutual10degRowAzCut.png}}
+	\subfloat[]{
+		\includegraphics[width=8cm]{gfx/nonErrMutual10degRowElCut.png}}
+		\caption{Patrones de antena transmitida utilizando calibración con acoplamientos mútuos. (a) uniforme - Corte Horizontal.
+			(b) uniforme - Corte Vertical. (c) 10 grados dir. horizontal. - Corte Horizontal. (d) 10 grados dir. horizontal. - Corte 
+			Vertical. (e) 10 grados dir. vertical - Corte Horizontal. (f) 10 grados dir. vertical - Corte Vertical.}
+	\label{fig:nonErrorMutualPat}
+\end{figure}
+
 
 
 \section{Rotura de varios TRMs}
 
 Los ensayos de esta sección tienen las siguientes caracterísiticas,
 \begin{itemize}
-	\item Ensayar ambos métodos de calibración con diferentes apuntamientos de la antena.
-	\item Los distintos apuntamientos utilizados son: Uniforme, 10 grados en la dirección horizontal y 10 grados en la dirección 
-		vertical.
 	\item Salvo tres TRMs que están rotos, el resto de los componentes de antena no tienen ningún prolema de funcionamiento ni 
 		desadaptaciones. Las posiciones de los TRMs son: [1,0], [3,4] y [5,5]. La nomenclatura de lectura es [fila, columna] con 
 		valores desde 0.
@@ -109,14 +169,48 @@ Los ensayos de esta sección tienen las siguientes caracterísiticas,
 \end{itemize}
 
 \subsection{Utilizando la calibración clásica}
-\todo{:D}
+\begin{figure}[H]
+	\centering
+ 	\subfloat[]{
+		\includegraphics[width=10cm]{gfx/deadTRMsClassical0deg.png}}
+ 	
+	\subfloat[]{
+		\includegraphics[width=8cm]{gfx/deadTRMsClassical10degCol.png}}
+	\subfloat[]{
+		\includegraphics[width=8cm]{gfx/deadTRMsClassical10degRow.png}}
+		\caption{Ganancia transmitida utilizando calibración clásica. (a) 0 grados. (b) 10 grados en 
+		dirección horizontal. (c) 10 grados en dirección vertical.}
+	\label{fig:deadTRMsClassical}
+\end{figure}
+\begin{figure}[H]
+	\centering
+ 	\subfloat[]{
+		\includegraphics[width=8cm]{gfx/deadTRMsClassical0degAzCut.png}}
+ 	\subfloat[]{
+		\includegraphics[width=8cm]{gfx/deadTRMsClassical0degElCut.png}}
+ 	
+	\subfloat[]{
+		\includegraphics[width=8cm]{gfx/deadTRMsClassical10degColAzCut.png}}
+	\subfloat[]{
+		\includegraphics[width=8cm]{gfx/deadTRMsClassical10degColElCut.png}}
+
+	\subfloat[]{
+		\includegraphics[width=8cm]{gfx/deadTRMsClassical10degRowAzCut.png}}
+	\subfloat[]{
+		\includegraphics[width=8cm]{gfx/deadTRMsClassical10degRowElCut.png}}
+		\caption{Patrones de antena transmitida utilizando calibración clásica. (a) uniforme - Corte Horizontal. (b) uniforme - 
+			Corte Vertical. (c) 10 grados dir. horizontal. - Corte Horizontal. (d) 10 grados dir. horizontal. - Corte Vertical. (e) 10 
+			grados dir. vertical - Corte Horizontal. (f) 10 grados dir. vertical - Corte Vertical.}
+	\label{fig:deadTRMsClassicalPat}
+\end{figure}
+
+
 \subsection{Utilizando la calibración con acoplamientos mútuos}
 
 En la figura \ref{fig:deadTRMsMutual} se puede observar que independientemente de que se hayan destruído varios TRMs, el 
 método puede calibrar los lazos, obteniendo los valores deseados, tanto de fase como de ganancia del resto de los elementos.
 La subfigura (a) muestra un apuntamiento de cero grados, la (b), de 10 grados en dirección horizontal, y la tercera de 10 grados
 en dirección vertical.
-
 \begin{figure}[H]
 	\centering
  	\subfloat[]{
@@ -126,9 +220,30 @@ en dirección vertical.
 		\includegraphics[width=8cm]{gfx/deadTRMsMutual10degCol.png}}
 	\subfloat[]{
 		\includegraphics[width=8cm]{gfx/deadTRMsMutual10degRow.png}}
-		\caption{Antena calibrada con distintos apuntamientos utilizando acoplamientos mútuos. (a) 0 grados. (b) 10 grados en 
+		\caption{Ganancia transmitida utilizando calibración con acoplamientos mútuos. (a) 0 grados. (b) 10 grados en 
 		dirección horizontal. (c) 10 grados en dirección vertical.}
 	\label{fig:deadTRMsMutual}
+\end{figure}
+\begin{figure}[H]
+	\centering
+ 	\subfloat[]{
+		\includegraphics[width=8cm]{gfx/deadTRMsMutual0degAzCut.png}}
+ 	\subfloat[]{
+		\includegraphics[width=8cm]{gfx/deadTRMsMutual0degElCut.png}}
+ 	
+	\subfloat[]{
+		\includegraphics[width=8cm]{gfx/deadTRMsMutual10degColAzCut.png}}
+	\subfloat[]{
+		\includegraphics[width=8cm]{gfx/deadTRMsMutual10degColElCut.png}}
+
+	\subfloat[]{
+		\includegraphics[width=8cm]{gfx/deadTRMsMutual10degRowAzCut.png}}
+	\subfloat[]{
+		\includegraphics[width=8cm]{gfx/deadTRMsMutual10degRowElCut.png}}
+		\caption{Patrones de antena transmitida utilizando calibración con acoplamientos mútuos. (a) uniforme - Corte Horizontal.
+			(b) uniforme - Corte Vertical. (c) 10 grados dir. horizontal. - Corte Horizontal. (d) 10 grados dir. horizontal. - Corte 
+			Vertical. (e) 10 grados dir. vertical - Corte Horizontal. (f) 10 grados dir. vertical - Corte Vertical.}
+	\label{fig:deadTRMsMutualPat}
 \end{figure}
 
 
@@ -136,9 +251,6 @@ en dirección vertical.
 
 Los ensayos de esta sección tienen las siguientes caracterísiticas,
 \begin{itemize}
-	\item Ensayar ambos métodos de calibración con diferentes apuntamientos de la antena.
-	\item Los distintos apuntamientos utilizados son: Uniforme, 10 grados en la dirección horizontal y 10 grados en la dirección 
-		vertical.
 	\item Hay dispersiones de comportamiento en los siguientes componentes de la antena: circuladores, TRMs, PSCs y RMs. Las 
 		magnitudes están especificadas en la tabla \ref{tab:errorReferences}.
 		\begin{table}[H]
@@ -162,14 +274,48 @@ Los ensayos de esta sección tienen las siguientes caracterísiticas,
 \end{itemize}
 
 \subsection{Utilizando la calibración clásica}
-\todo{:D}
+\begin{figure}[H]
+	\centering
+ 	\subfloat[]{
+		\includegraphics[width=10cm]{gfx/compErrClassical0deg.png}}
+ 	
+	\subfloat[]{
+		\includegraphics[width=8cm]{gfx/compErrClassical10degCol.png}}
+	\subfloat[]{
+		\includegraphics[width=8cm]{gfx/compErrClassical10degRow.png}}
+		\caption{Ganancia transmitida utilizando calibración clásica. (a) 0 grados. (b) 10 grados en 
+		dirección horizontal. (c) 10 grados en dirección vertical.}
+	\label{fig:compErrorClassical}
+\end{figure}
+\begin{figure}[H]
+	\centering
+ 	\subfloat[]{
+		\includegraphics[width=8cm]{gfx/compErrClassical0degAzCut.png}}
+ 	\subfloat[]{
+		\includegraphics[width=8cm]{gfx/compErrClassical0degElCut.png}}
+ 	
+	\subfloat[]{
+		\includegraphics[width=8cm]{gfx/compErrClassical10degColAzCut.png}}
+	\subfloat[]{
+		\includegraphics[width=8cm]{gfx/compErrClassical10degColElCut.png}}
+
+	\subfloat[]{
+		\includegraphics[width=8cm]{gfx/compErrClassical10degRowAzCut.png}}
+	\subfloat[]{
+		\includegraphics[width=8cm]{gfx/compErrClassical10degRowElCut.png}}
+		\caption{Patrones de antena transmitida utilizando calibración clásica. (a) uniforme - Corte Horizontal. (b) uniforme - 
+			Corte Vertical. (c) 10 grados dir. horizontal. - Corte Horizontal. (d) 10 grados dir. horizontal. - Corte Vertical. (e) 10 
+			grados dir. vertical - Corte Horizontal. (f) 10 grados dir. vertical - Corte Vertical.}
+	\label{fig:compErrorClassicalPat}
+\end{figure}
+
+
 \subsection{Utilizando la calibración con acoplamientos mútuos}
 
-En la figura \ref{fig:componentErrorsMutual} se puede observar que si bien, en algunos ensayos el método no corrige 
+En la figura \ref{fig:compErrorMutual} se puede observar que si bien, en algunos ensayos el método no corrige 
 perfectamente la fase por el error agregado de todos los componentes de la RFDN a la vez, en una segunda iteración se logra 
 llegar a dicho valor. La subfigura (a) muestra un apuntamiento de cero grados, la (b), de 10 grados en 
 dirección horizontal, y la tercera de 10 grados en dirección vertical.
-
 \begin{figure}[H]
 	\centering
  	\subfloat[]{
@@ -179,27 +325,185 @@ dirección horizontal, y la tercera de 10 grados en dirección vertical.
 		\includegraphics[width=8cm]{gfx/compErrMutual10degCol.png}}
 	\subfloat[]{
 		\includegraphics[width=8cm]{gfx/compErrMutual10degRow.png}}
-		\caption{Antena calibrada con distintos apuntamientos utilizando acoplamientos mútuos. (a) 0 grados. (b) 10 grados en 
+		\caption{Ganancia transmitida utilizando calibración con acoplamientos mútuos. (a) 0 grados. (b) 10 grados en 
 		dirección horizontal. (c) 10 grados en dirección vertical.}
-	\label{fig:componentErrorsMutual}
+	\label{fig:compErrorMutual}
+\end{figure}
+\begin{figure}[H]
+	\centering
+ 	\subfloat[]{
+		\includegraphics[width=8cm]{gfx/compErrMutual0degAzCut.png}}
+ 	\subfloat[]{
+		\includegraphics[width=8cm]{gfx/compErrMutual0degElCut.png}}
+ 	
+	\subfloat[]{
+		\includegraphics[width=8cm]{gfx/compErrMutual10degColAzCut.png}}
+	\subfloat[]{
+		\includegraphics[width=8cm]{gfx/compErrMutual10degColElCut.png}}
+
+	\subfloat[]{
+		\includegraphics[width=8cm]{gfx/compErrMutual10degRowAzCut.png}}
+	\subfloat[]{
+		\includegraphics[width=8cm]{gfx/compErrMutual10degRowElCut.png}}
+		\caption{Patrones de antena transmitida utilizando calibración con acoplamientos mútuos. (a) uniforme - Corte Horizontal.
+			(b) uniforme - Corte Vertical. (c) 10 grados dir. horizontal. - Corte Horizontal. (d) 10 grados dir. horizontal. - Corte 
+			Vertical. (e) 10 grados dir. vertical - Corte Horizontal. (f) 10 grados dir. vertical - Corte Vertical.}
+	\label{fig:compErrorMutualPat}
 \end{figure}
 
 
 \section{Dispersiones de ganancia entre pulsos}
-\section{Dispersiones de fase entre pulsos}
+
+\subsection{Utilizando la calibración clásica}
+\begin{figure}[H]
+	\centering
+ 	\subfloat[]{
+		\includegraphics[width=10cm]{gfx/chirpErrClassical0deg.png}}
+ 	
+	\subfloat[]{
+		\includegraphics[width=8cm]{gfx/chirpErrClassical10degCol.png}}
+	\subfloat[]{
+		\includegraphics[width=8cm]{gfx/chirpErrClassical10degRow.png}}
+		\caption{Ganancia transmitida utilizando calibración clásica. (a) 0 grados. (b) 10 grados en 
+		dirección horizontal. (c) 10 grados en dirección vertical.}
+	\label{fig:chirpErrorClassical}
+\end{figure}
+\begin{figure}[H]
+	\centering
+ 	\subfloat[]{
+		\includegraphics[width=8cm]{gfx/chirpErrClassical0degAzCut.png}}
+ 	\subfloat[]{
+		\includegraphics[width=8cm]{gfx/chirpErrClassical0degElCut.png}}
+ 	
+	\subfloat[]{
+		\includegraphics[width=8cm]{gfx/chirpErrClassical10degColAzCut.png}}
+	\subfloat[]{
+		\includegraphics[width=8cm]{gfx/chirpErrClassical10degColElCut.png}}
+
+	\subfloat[]{
+		\includegraphics[width=8cm]{gfx/chirpErrClassical10degRowAzCut.png}}
+	\subfloat[]{
+		\includegraphics[width=8cm]{gfx/chirpErrClassical10degRowElCut.png}}
+		\caption{Patrones de antena transmitida utilizando calibración clásica. (a) uniforme - Corte Horizontal. (b) uniforme - 
+			Corte Vertical. (c) 10 grados dir. horizontal. - Corte Horizontal. (d) 10 grados dir. horizontal. - Corte Vertical. (e) 10 
+			grados dir. vertical - Corte Horizontal. (f) 10 grados dir. vertical - Corte Vertical.}
+	\label{fig:chirpErrorClassicalPat}
+\end{figure}
+
+
+\subsection{Utilizando la calibración con acoplamientos mútuos}
+
+\begin{figure}[H]
+	\centering
+ 	\subfloat[]{
+		\includegraphics[width=10cm]{gfx/chirpErrMutual0deg.png}}
+ 	
+	\subfloat[]{
+		\includegraphics[width=8cm]{gfx/chirpErrMutual10degCol.png}}
+	\subfloat[]{
+		\includegraphics[width=8cm]{gfx/chirpErrMutual10degRow.png}}
+		\caption{Ganancia transmitida utilizando calibración con acoplamientos mútuos. (a) 0 grados. (b) 10 grados en 
+		dirección horizontal. (c) 10 grados en dirección vertical.}
+	\label{fig:chirpErrorMutual}
+\end{figure}
+\begin{figure}[H]
+	\centering
+ 	\subfloat[]{
+		\includegraphics[width=8cm]{gfx/chirpErrMutual0degAzCut.png}}
+ 	\subfloat[]{
+		\includegraphics[width=8cm]{gfx/chirpErrMutual0degElCut.png}}
+ 	
+	\subfloat[]{
+		\includegraphics[width=8cm]{gfx/chirpErrMutual10degColAzCut.png}}
+	\subfloat[]{
+		\includegraphics[width=8cm]{gfx/chirpErrMutual10degColElCut.png}}
+
+	\subfloat[]{
+		\includegraphics[width=8cm]{gfx/chirpErrMutual10degRowAzCut.png}}
+	\subfloat[]{
+		\includegraphics[width=8cm]{gfx/chirpErrMutual10degRowElCut.png}}
+		\caption{Patrones de antena transmitida utilizando calibración con acoplamientos mútuos. (a) uniforme - Corte Horizontal.
+			(b) uniforme - Corte Vertical. (c) 10 grados dir. horizontal. - Corte Horizontal. (d) 10 grados dir. horizontal. - Corte 
+			Vertical. (e) 10 grados dir. vertical - Corte Horizontal. (f) 10 grados dir. vertical - Corte Vertical.}
+	\label{fig:chirpErrorMutualPat}
+\end{figure}
+
 \section{Dispersión de ganancia de la chirp réplica}
 
 Como la chirp réplica es simplemente utilizada en la calibración clásica, en esta simulación no se podrán comparar 
 resultados, pero sirve para determinar que tan robusto es el método para esta clase de erorres.
+\begin{figure}[H]
+	\centering
+ 	\subfloat[]{
+		\includegraphics[width=10cm]{gfx/chirpRepErrClassical0deg.png}}
+ 	
+	\subfloat[]{
+		\includegraphics[width=8cm]{gfx/chirpRepErrClassical10degCol.png}}
+	\subfloat[]{
+		\includegraphics[width=8cm]{gfx/chirpRepErrClassical10degRow.png}}
+		\caption{Ganancia transmitida utilizando calibración clásica. (a) 0 grados. (b) 10 grados en 
+		dirección horizontal. (c) 10 grados en dirección vertical.}
+	\label{fig:chirpRepErrorClassical}
+\end{figure}
+\begin{figure}[H]
+	\centering
+ 	\subfloat[]{
+		\includegraphics[width=8cm]{gfx/chirpRepErrClassical0degAzCut.png}}
+ 	\subfloat[]{
+		\includegraphics[width=8cm]{gfx/chirpRepErrClassical0degElCut.png}}
+ 	
+	\subfloat[]{
+		\includegraphics[width=8cm]{gfx/chirpRepErrClassical10degColAzCut.png}}
+	\subfloat[]{
+		\includegraphics[width=8cm]{gfx/chirpRepErrClassical10degColElCut.png}}
 
-
-\section{Dispersión de fase de la chirp réplica}
-
-Como la chirp réplica es simplemente utilizada en la calibración clásica, en esta simulación no se podrán comparar 
-resultados, pero sirve para determinar que tan robusto es el método para esta clase de erorres.
+	\subfloat[]{
+		\includegraphics[width=8cm]{gfx/chirpRepErrClassical10degRowAzCut.png}}
+	\subfloat[]{
+		\includegraphics[width=8cm]{gfx/chirpRepErrClassical10degRowElCut.png}}
+		\caption{Patrones de antena transmitida utilizando calibración clásica. (a) uniforme - Corte Horizontal. (b) uniforme - 
+			Corte Vertical. (c) 10 grados dir. horizontal. - Corte Horizontal. (d) 10 grados dir. horizontal. - Corte Vertical. (e) 10 
+			grados dir. vertical - Corte Horizontal. (f) 10 grados dir. vertical - Corte Vertical.}
+	\label{fig:chirpRepErrorClassicalPat}
+\end{figure}
 
 
 \section{Dispersión de fase del Walsh}
 
 Como los códigos walsh son solamente utilizados en la calibración clásica, en esta simulación no se podrán comparar 
 resultados, pero sirve para determinar que tan robusto es el método para esta clase de erorres.
+\begin{figure}[H]
+	\centering
+ 	\subfloat[]{
+		\includegraphics[width=10cm]{gfx/wallErrClassical0deg.png}}
+ 	
+	\subfloat[]{
+		\includegraphics[width=8cm]{gfx/wallErrClassical10degCol.png}}
+	\subfloat[]{
+		\includegraphics[width=8cm]{gfx/wallErrClassical10degRow.png}}
+		\caption{Ganancia transmitida utilizando calibración clásica. (a) 0 grados. (b) 10 grados en 
+		dirección horizontal. (c) 10 grados en dirección vertical.}
+	\label{fig:wallErrorClassical}
+\end{figure}
+\begin{figure}[H]
+	\centering
+ 	\subfloat[]{
+		\includegraphics[width=8cm]{gfx/wallErrClassical0degAzCut.png}}
+ 	\subfloat[]{
+		\includegraphics[width=8cm]{gfx/wallErrClassical0degElCut.png}}
+ 	
+	\subfloat[]{
+		\includegraphics[width=8cm]{gfx/wallErrClassical10degColAzCut.png}}
+	\subfloat[]{
+		\includegraphics[width=8cm]{gfx/wallErrClassical10degColElCut.png}}
+
+	\subfloat[]{
+		\includegraphics[width=8cm]{gfx/wallErrClassical10degRowAzCut.png}}
+	\subfloat[]{
+		\includegraphics[width=8cm]{gfx/wallErrClassical10degRowElCut.png}}
+		\caption{Patrones de antena transmitida utilizando calibración clásica. (a) uniforme - Corte Horizontal. (b) uniforme - 
+			Corte Vertical. (c) 10 grados dir. horizontal. - Corte Horizontal. (d) 10 grados dir. horizontal. - Corte Vertical. (e) 10 
+			grados dir. vertical - Corte Horizontal. (f) 10 grados dir. vertical - Corte Vertical.}
+	\label{fig:wallErrorClassicalPat}
+\end{figure}
+
