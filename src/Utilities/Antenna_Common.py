@@ -158,7 +158,7 @@ def get_s2p(component, sxp_matrix, mode, idx):
 
 
 def db2v(decibel):
-    return np.power(10, decibel/20)
+    return np.power(10, np.array(decibel)/20)
 
 
 def v2db(voltage):
@@ -166,11 +166,11 @@ def v2db(voltage):
 
 
 def db2p(decibel):
-    return np.power(10, decibel/20)
+    return np.power(10, np.array(decibel)/10)
 
 
-def p2db(voltage):
-    return 20*np.log10(abs(voltage))
+def p2db(power):
+    return 10*np.log10(abs(power))
 
 
 def rad2deg(rad):

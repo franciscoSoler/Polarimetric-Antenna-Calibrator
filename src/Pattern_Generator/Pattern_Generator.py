@@ -26,7 +26,6 @@ class PatternGenerator:
         :return:
         the directivity pattern
         """
-
         k = 2 * np.pi * self.__freq / PatternGenerator.C_0
 
         # n is the quantity of rows.
@@ -55,7 +54,7 @@ class PatternGenerator:
         cols = range(len(amn[0]))
         return [sum([amn[row][col] * ang[row][col] for row in rows for col in cols]) for ang in angle][::-1]
 
-    def generate_pattern(self, output_power, start_stop_angle, phi=0):
+    def generate_pattern(self, output_power, output_phase, start_stop_angle=[], phi=0):
         """
         This function generates the beam pattern from the antenna matrix.
         :param output_power: is the matrix of gain-phase transmitted pairs. The format is, the global list represent the
@@ -70,6 +69,5 @@ class PatternGenerator:
         step = 0.1
         decimals = 2
         angle_range = [round(x, decimals) for x in np.arange(start_stop_angle[0], start_stop_angle[1] + eps, step)]
-
-        return angle_range, self.__calculate_directivity_pattern(common.pol2rec(common.db2p(abs(output_power)),
-                                                                 np.angle(output_power, deg=True)), angle_range, phi)
+        return angle_range, self.__calculate_directivity_pattern(common.pol2rec(common.db2p(output_power),
+                                                                 output_phase), angle_range, phi)

@@ -281,12 +281,8 @@ class MutualCalibrator(AntennaCalibrator):
 
         a, tx_gain, tx_phase = self.__matrix_builder.get_tx_matrix()
         self._tx_power = least_squares(a, tx_gain)
-        #self._tx_phase = least_squares(a, self.__correct_phase(a, tx_phase))
         self._tx_phase = format_phase(least_squares(a, self.__correct_phase(a, tx_phase)))
-        # self._tx_phase = least_squares(a, self.__correct_phase(a, format_phase(tx_phase)))
-        # self._tx_phase = least_squares(a, format_phase(tx_phase))
-        # self._tx_phase = format_phase(least_squares(a, format_phase(tx_phase)))
-        # self._tx_phase = AntennaCommon.rad2deg(least_squares(a, format_phase(tx_phase)))
+
         """
         print(a)
         print(tx_phase)
@@ -295,12 +291,7 @@ class MutualCalibrator(AntennaCalibrator):
         """
         a, rx_gain, rx_phase = self.__matrix_builder.get_rx_matrix()
         self._rx_power = least_squares(a, rx_gain)
-        #self._rx_phase = least_squares(a, self.__correct_phase(a, rx_phase))
         self._rx_phase = format_phase(least_squares(a, self.__correct_phase(a, rx_phase)))
-        # self._rx_phase = least_squares(a, self.__correct_phase(a, format_phase(rx_phase)))
-        # self._rx_phase = least_squares(a, format_phase(rx_phase))
-        # self._rx_phase = format_phase(least_squares(a, format_phase(rx_phase)))
-        # self._rx_phase = AntennaCommon.rad2deg(least_squares(a, format_phase(rx_phase)))
 
         #self.__fix_rx_power_and_phase()
 

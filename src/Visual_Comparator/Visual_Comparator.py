@@ -143,7 +143,7 @@ class VisualComparator:
         p2, = plt.plot(antennas, cal_power, "g^")
         plt.plot(antennas, cal_power, "g")
         legends = ["non_cal_power", "cal_power"]
-        self.__set_plot_environment(title, "Power [dB]", "RMs", [p1, p2], legends)
+        self.__set_plot_environment(title, "Power [dB]", "RMs", locc=4)
 
         plt.subplot(212)
         p1, = plt.plot(antennas, phase, "bo")
@@ -151,7 +151,7 @@ class VisualComparator:
         p2, = plt.plot(antennas, cal_phase, "g^")
         plt.plot(antennas, cal_phase, "g")
         legends = ["non_cal_ph", "cal_ph"]
-        self.__set_plot_environment("", "Phase [deg]", "RMs", [p1, p2], legends)
+        self.__set_plot_environment("", "Phase [deg]", "RMs", locc=4)
 
     def compare_patterns(self, angles, pattern_one, pattern_two, title):
         """

@@ -1,3 +1,4 @@
+#!/usr/bin/python3.4
 __author__ = 'fsoler'
 
 import sys
@@ -171,23 +172,23 @@ class Simulator:
 
         def f(pattern):
             absolute = np.abs(pattern)
-            return Common.p2db(absolute/ np.max(absolute))
+            return Common.p2db(absolute)
 
         generator = PatternGenerator.PatternGenerator(freq, col_separation, row_separation)
         tx_power, tx_phase, _, _ = calibrator.get_antenna_gain_paths()
 
-        _, non_cal_pattern = generator.generate_pattern(Common.pol2rec(self.__tx_ini_ant_power,
-                                                                       self.__tx_ini_ant_phase), limits, phi)
-        angles, ideal_pattern = generator.generate_pattern(self.__create_ideal_output_power(), limits, phi)
-        _, cal_pattern = generator.generate_pattern(Common.pol2rec(tx_power, tx_phase), limits, phi)
+        _, non_cal_pattern = generator.generate_pattern(self.__tx_ini_ant_power, self.__tx_ini_ant_phase, limits, phi)
+        angles, ideal_pattern = generator.generate_pattern(*self.__create_ideal_output_power(),
+                                                           start_stop_angle=limits, phi=phi)
+        _, cal_pattern = generator.generate_pattern(tx_power, tx_phase, limits, phi)
         visual_comparator.compare_patterns_against_ideal(angles, f(non_cal_pattern), f(cal_pattern), f(ideal_pattern),
                                                          title + "Corte horizontal", filename + "AzCut")
 
         phi = 90
-        _, non_cal_pattern = generator.generate_pattern(Common.pol2rec(self.__tx_ini_ant_power,
-                                                                       self.__tx_ini_ant_phase), limits, phi)
-        angles, ideal_pattern = generator.generate_pattern(self.__create_ideal_output_power(), limits, phi)
-        _, cal_pattern = generator.generate_pattern(Common.pol2rec(tx_power, tx_phase), limits, phi)
+        _, non_cal_pattern = generator.generate_pattern(self.__tx_ini_ant_power, self.__tx_ini_ant_phase, limits, phi)
+        angles, ideal_pattern = generator.generate_pattern(*self.__create_ideal_output_power(),
+                                                           start_stop_angle=limits, phi=phi)
+        _, cal_pattern = generator.generate_pattern(tx_power, tx_phase, limits, phi)
         visual_comparator.compare_patterns_against_ideal(angles, f(non_cal_pattern), f(cal_pattern), f(ideal_pattern),
                                                          title + "Corte vertical", filename + "ElCut")
 
@@ -251,7 +252,7 @@ class Simulator:
 
         ideal_power = self.__config[Common.Conf_cal_param][Common.Conf_id_tx_power]
         ideal_phase = self.__get_desired_phases()
-        return Common.pol2rec(ideal_power, ideal_phase)
+        return ideal_power, ideal_phase
 
     def __get_error_name(self):
         names = {Common.Inter_pulse_gain_err: "chirpErr", Common.Chirp_rep_err: "chirpRepErr",
@@ -296,11 +297,14 @@ class Simulator:
         self.__compare_final_pattern_against_initial(calibrator, visual_comparator, "patterns", prefix)
 
         # visual_comparator.show_graphics()
-        
+
         #self.__remove_antenna()
 
         return 0
 
 
 if __name__ == "__main__":
-    sys.exit(Simulator().run())
+    sim = Simulator()
+    sim.create_antenna()
+    #sys.exit(sim.run(Common.ClassicCal))
+    sys.exit(sim.run(Common.MutualCal))
