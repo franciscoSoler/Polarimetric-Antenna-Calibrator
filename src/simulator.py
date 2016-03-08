@@ -172,7 +172,7 @@ class Simulator:
 
         def f(pattern):
             absolute = np.abs(pattern)
-            return Common.p2db(absolute)
+            return Common.v2db(absolute)
 
         generator = PatternGenerator.PatternGenerator(freq, col_separation, row_separation)
         tx_power, tx_phase, _, _ = calibrator.get_antenna_gain_paths()

@@ -69,5 +69,5 @@ class PatternGenerator:
         step = 0.1
         decimals = 2
         angle_range = [round(x, decimals) for x in np.arange(start_stop_angle[0], start_stop_angle[1] + eps, step)]
-        return angle_range, self.__calculate_directivity_pattern(common.pol2rec(common.db2p(output_power),
+        return angle_range, self.__calculate_directivity_pattern(common.pol2rec(common.db2v(output_power),
                                                                  output_phase), angle_range, phi)
