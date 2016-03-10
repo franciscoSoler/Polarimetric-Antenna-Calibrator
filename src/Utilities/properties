@@ -1,0 +1,17 @@
+@5
+\begin{table}[H]
+  \footnotesize
+  \centering
+  \begin{tabular}{|c|c|c|c|c|}
+    \cline{2-4}
+    \multicolumn{1}{c|}{} & \textbf{Potencia del lóbulo secundario izquierdo} & \textbf{Potencia del lóbulo principal} &
+    \textbf{Potencia del lóbulo secundario derecho} & \textbf{Ancho del lóbulo principal} \tabularnewline\hline
+    \textbf{patrón sin calibrar} & @0 \tabularnewline\hline
+    \textbf{Patrón calibrada} & @1 \tabularnewline\hline
+    \textbf{Patrón ideal} & @2 \tabularnewline\hline
+    \textbf{Diferencia sin calibrar} & @3 \tabularnewline\hline
+    \textbf{Diferencia calibrada} & @4 \tabularnewline\hline
+  \end{tabular}
+  \caption{Propiedades de los patrones calibrados y sin calibrar comparados con el ideal.}
+  \label{tab:configurationUsed}
+\end{table}

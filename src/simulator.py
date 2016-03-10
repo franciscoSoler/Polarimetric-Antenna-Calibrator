@@ -68,6 +68,7 @@ class Simulator:
     def __init__(self):
         self.__config = ""
         self.__calibrator = ""
+        self.__properties = "propertiesOut"
         with open("configurationFile") as f:
             self.__config = json.load(f)
 
@@ -162,6 +163,37 @@ class Simulator:
         desired_signals = [desired_tx_power, desired_phase, desired_rx_power, desired_phase]
         calibrator.calibrate_antenna(*desired_signals)
 
+    @staticmethod
+    def __get_pattern_properties(non_cal_pat, cal_pat, ideal_pat):
+        return [non_cal_pat.get_pattern_properties(), cal_pat.get_pattern_properties(), ideal_pat.get_pattern_properties()]
+
+    def clear_configuration(self):
+        os.remove(self.__properties)
+
+    def __save_pattern_properties(self, non_cal_pat0, cal_pat0, ideal_pat0, name0, non_cal_pat90, cal_pat90,
+                                  ideal_pat90, name90):
+        name = "properties"
+        with open("Utilities/" + name) as f:
+            text = f.read()
+
+        t = text.replace("@0", "{} & {} & {} & {}".format(*non_cal_pat0))
+        t = t.replace("@1", "{} & {} & {} & {}".format(*cal_pat0))
+        t = t.replace("@2", "{} & {} & {} & {}".format(*ideal_pat0))
+        t = t.replace("@3", "{} & {} & {} & {}".format(*map(lambda x,y: x-y, non_cal_pat0, ideal_pat0)))
+        t = t.replace("@4", "{} & {} & {} & {}".format(*map(lambda x,y: x-y, cal_pat0, ideal_pat0)))
+        t = t.replace("@5", name0)
+
+        t1 = text.replace("@0", "{} & {} & {} & {}".format(*non_cal_pat90))
+        t1 = t1.replace("@1", "{} & {} & {} & {}".format(*cal_pat90))
+        t1 = t1.replace("@2", "{} & {} & {} & {}".format(*ideal_pat90))
+        t1 = t1.replace("@3", "{} & {} & {} & {}".format(*map(lambda x,y: x-y, non_cal_pat90, ideal_pat90)))
+        t1 = t1.replace("@4", "{} & {} & {} & {}".format(*map(lambda x,y: x-y, cal_pat90, ideal_pat90)))
+        t1 = t1.replace("@5", name90)
+
+        with open(self.__properties, "a") as f:
+            f.write(t)
+            f.write(t1)
+
     def __compare_final_pattern_against_initial(self, calibrator, visual_comparator, title, filename):
         row_separation = self.__config[Common.Conf_ant][Common.Conf_vert_sep]
         col_separation = self.__config[Common.Conf_ant][Common.Conf_horiz_sep]
@@ -170,27 +202,30 @@ class Simulator:
         phi = 0
 
 
-        def f(pattern):
-            absolute = np.abs(pattern)
-            return Common.v2db(absolute)
-
         generator = PatternGenerator.PatternGenerator(freq, col_separation, row_separation)
         tx_power, tx_phase, _, _ = calibrator.get_antenna_gain_paths()
 
-        _, non_cal_pattern = generator.generate_pattern(self.__tx_ini_ant_power, self.__tx_ini_ant_phase, limits, phi)
-        angles, ideal_pattern = generator.generate_pattern(*self.__create_ideal_output_power(),
+        non_cal_pattern = generator.generate_pattern(self.__tx_ini_ant_power, self.__tx_ini_ant_phase, limits, phi)
+        ideal_pattern = generator.generate_pattern(*self.__create_ideal_output_power(),
                                                            start_stop_angle=limits, phi=phi)
-        _, cal_pattern = generator.generate_pattern(tx_power, tx_phase, limits, phi)
-        visual_comparator.compare_patterns_against_ideal(angles, f(non_cal_pattern), f(cal_pattern), f(ideal_pattern),
-                                                         title + "Corte horizontal", filename + "AzCut")
-
+        cal_pattern = generator.generate_pattern(tx_power, tx_phase, limits, phi)
+        angles = cal_pattern.angles
+        name = filename + "AzCut"
+        visual_comparator.compare_patterns_against_ideal(angles, non_cal_pattern.get_db(), cal_pattern.get_db(),
+                                                         ideal_pattern.get_db(), title + "Corte horizontal", name)
+        props = self.__get_pattern_properties(non_cal_pattern, cal_pattern, ideal_pattern)
+        props.append(name)
         phi = 90
-        _, non_cal_pattern = generator.generate_pattern(self.__tx_ini_ant_power, self.__tx_ini_ant_phase, limits, phi)
-        angles, ideal_pattern = generator.generate_pattern(*self.__create_ideal_output_power(),
+        non_cal_pattern = generator.generate_pattern(self.__tx_ini_ant_power, self.__tx_ini_ant_phase, limits, phi)
+        ideal_pattern = generator.generate_pattern(*self.__create_ideal_output_power(),
                                                            start_stop_angle=limits, phi=phi)
-        _, cal_pattern = generator.generate_pattern(tx_power, tx_phase, limits, phi)
-        visual_comparator.compare_patterns_against_ideal(angles, f(non_cal_pattern), f(cal_pattern), f(ideal_pattern),
-                                                         title + "Corte vertical", filename + "ElCut")
+        cal_pattern = generator.generate_pattern(tx_power, tx_phase, limits, phi)
+        name = filename + "ElCut"
+        visual_comparator.compare_patterns_against_ideal(angles, non_cal_pattern.get_db(), cal_pattern.get_db(),
+                                                         ideal_pattern.get_db(), title + "Corte vertical", name)
+        props.extend(self.__get_pattern_properties(non_cal_pattern, cal_pattern, ideal_pattern))
+        props.append(name)
+        self.__save_pattern_properties(*props)
 
     def __compare_final_gain_against_initial(self, calibrator, visual_comparator, title, filename):
         quantity_rows = self.__config[Common.Conf_ant][Common.Conf_qtty_rows]
@@ -294,7 +329,7 @@ class Simulator:
         # self.__compare_estimated_gains_against_ideal(calibrator, visual_comparator, "")
         self.__compare_final_gain_against_initial(calibrator, visual_comparator, "RESULTS", prefix)
 
-        self.__compare_final_pattern_against_initial(calibrator, visual_comparator, "patterns", prefix)
+        self.__compare_final_pattern_against_initial(calibrator, visual_comparator, "patterns ", prefix)
 
         # visual_comparator.show_graphics()
 

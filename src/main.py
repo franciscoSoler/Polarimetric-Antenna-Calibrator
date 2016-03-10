@@ -54,7 +54,8 @@ def add_errors(row_steering, column_steering):
 def main():
     row_steering = [0, 10]
     column_steering = [0, 10]
-
+    sim = simulator.Simulator()
+    sim.clear_configuration()
     [add_errors(r_steer, c_steer) for r_steer in row_steering for c_steer in column_steering]
 
 
