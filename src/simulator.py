@@ -8,6 +8,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 import glob
 import os
+import re
 import Controllers.Antenna_Creator as AntennaCreator
 import Controllers.Antenna_Calibrator as AntennaCalibrator
 import Utilities.Antenna_Common as Common
@@ -68,7 +69,8 @@ class Simulator:
     def __init__(self):
         self.__config = ""
         self.__calibrator = ""
-        self.__properties = "propertiesOut"
+        self.__properties = "../written/thesis/capitulos/capitulo06.tex"
+        #self.__properties = "testFindReplace"
         with open("configurationFile") as f:
             self.__config = json.load(f)
 
@@ -170,29 +172,33 @@ class Simulator:
     def clear_configuration(self):
         os.remove(self.__properties)
 
-    def __save_pattern_properties(self, non_cal_pat0, cal_pat0, ideal_pat0, name0, non_cal_pat90, cal_pat90,
-                                  ideal_pat90, name90):
-        name = "properties"
-        with open("Utilities/" + name) as f:
+    def __save_properties(self, text, label):
+        patt = r"\\begin{table}.*((?:\n.+(?!begin{table}))+(?:\n.*\\label{%s}))" %label
+        with open(self.__properties, "r+") as f:
+            tex = f.read()
+            f.seek(0)
+            f.write(re.sub(patt, repr(text[:-1])[1:-1], tex, flags=re.M))
+
+    def __save_pattern_properties(self, non_cal_pat0, cal_pat0, ideal_pat0, non_cal_pat90, cal_pat90,
+                                  ideal_pat90, name):
+        decimals = 2
+        namee = "properties"
+        with open("Utilities/" + namee) as f:
             text = f.read()
 
         t = text.replace("@0", "{} & {} & {} & {}".format(*non_cal_pat0))
-        t = t.replace("@1", "{} & {} & {} & {}".format(*cal_pat0))
-        t = t.replace("@2", "{} & {} & {} & {}".format(*ideal_pat0))
-        t = t.replace("@3", "{} & {} & {} & {}".format(*map(lambda x,y: x-y, non_cal_pat0, ideal_pat0)))
-        t = t.replace("@4", "{} & {} & {} & {}".format(*map(lambda x,y: x-y, cal_pat0, ideal_pat0)))
-        t = t.replace("@5", name0)
+        t = t.replace("@1", "{} & {} & {} & {}".format(*non_cal_pat90))
+        t = t.replace("@2", "{} & {} & {} & {}".format(*cal_pat0))
+        t = t.replace("@3", "{} & {} & {} & {}".format(*cal_pat90))
+        t = t.replace("@4", "{} & {} & {} & {}".format(*ideal_pat0))
+        t = t.replace("@5", "{} & {} & {} & {}".format(*ideal_pat90))
+        t = t.replace("@6", "{} & {} & {} & {}".format(*map(lambda x,y: round(x-y, decimals), non_cal_pat0, ideal_pat0)))
+        t = t.replace("@7", "{} & {} & {} & {}".format(*map(lambda x,y: round(x-y, decimals), non_cal_pat90, ideal_pat90)))
+        t = t.replace("@8", "{} & {} & {} & {}".format(*map(lambda x,y: round(x-y, decimals), cal_pat0, ideal_pat0)))
+        t = t.replace("@9", "{} & {} & {} & {}".format(*map(lambda x,y: round(x-y, decimals), cal_pat90, ideal_pat90)))
+        t = t.replace("@a", name)
+        self.__save_properties(t, "tab:{}".format(name))
 
-        t1 = text.replace("@0", "{} & {} & {} & {}".format(*non_cal_pat90))
-        t1 = t1.replace("@1", "{} & {} & {} & {}".format(*cal_pat90))
-        t1 = t1.replace("@2", "{} & {} & {} & {}".format(*ideal_pat90))
-        t1 = t1.replace("@3", "{} & {} & {} & {}".format(*map(lambda x,y: x-y, non_cal_pat90, ideal_pat90)))
-        t1 = t1.replace("@4", "{} & {} & {} & {}".format(*map(lambda x,y: x-y, cal_pat90, ideal_pat90)))
-        t1 = t1.replace("@5", name90)
-
-        with open(self.__properties, "a") as f:
-            f.write(t)
-            f.write(t1)
 
     def __compare_final_pattern_against_initial(self, calibrator, visual_comparator, title, filename):
         row_separation = self.__config[Common.Conf_ant][Common.Conf_vert_sep]
@@ -214,7 +220,7 @@ class Simulator:
         visual_comparator.compare_patterns_against_ideal(angles, non_cal_pattern.get_db(), cal_pattern.get_db(),
                                                          ideal_pattern.get_db(), title + "Corte horizontal", name)
         props = self.__get_pattern_properties(non_cal_pattern, cal_pattern, ideal_pattern)
-        props.append(name)
+
         phi = 90
         non_cal_pattern = generator.generate_pattern(self.__tx_ini_ant_power, self.__tx_ini_ant_phase, limits, phi)
         ideal_pattern = generator.generate_pattern(*self.__create_ideal_output_power(),
@@ -224,7 +230,9 @@ class Simulator:
         visual_comparator.compare_patterns_against_ideal(angles, non_cal_pattern.get_db(), cal_pattern.get_db(),
                                                          ideal_pattern.get_db(), title + "Corte vertical", name)
         props.extend(self.__get_pattern_properties(non_cal_pattern, cal_pattern, ideal_pattern))
-        props.append(name)
+        decimals = 2
+        props = list(map(lambda x: list(map(lambda y: round(y, decimals), x)), props))
+        props.append(filename)
         self.__save_pattern_properties(*props)
 
     def __compare_final_gain_against_initial(self, calibrator, visual_comparator, title, filename):
