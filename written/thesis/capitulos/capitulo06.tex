@@ -73,12 +73,16 @@ Todos los ensayos de las siguientes secciones poseen las siguientes característ
 Los ensayos de esta sección tienen las siguientes caracterísiticas,
 \begin{itemize}
 	\item Los componentes de antena no tienen ningún prolema de funcionamiento ni hay desadaptaciones.
-	\item No hay errores de calibración.
-	\item No hay errores en la señal.
+	\item No hay dispersiones de calibración.
+	\item No hay dispersiones en la señal.
 \end{itemize}
 
 \subsection{Utilizando la calibración clásica}
-\todo{ver el porque de las dispersiones en fase y ganancia de este metodo...}
+
+En las figuras \ref{fig:nonErrClassical} muestran los resultados de la calibración clásica con una antena sin dispersiones. 
+Se puede apreciar que, si bien la antena tiene un comportamiento ideal, las mediciones no son completamente correctas. Dicha 
+dispersión se debe a que el método no abarca la totalidad de la antena.
+
 \begin{figure}[H]
 	\centering
  	\subfloat[]{
@@ -90,8 +94,11 @@ Los ensayos de esta sección tienen las siguientes caracterísiticas,
 		\includegraphics[width=8cm]{gfx/nonErrClassical10degRow.png}}
 		\caption{Ganancia transmitida utilizando calibración clásica. (a) 0 grados. (b) 10 grados en 
 		dirección horizontal. (c) 10 grados en dirección vertical.}
-	\label{fig:nonErrorClassical}
+	\label{fig:nonErrClassical}
 \end{figure}
+
+En las figuras \ref{fig:nonErrClassicalPat} se observan los cortes de los patrones de antena horizontales y 
+verticales. Si bien dichos patrones son iguales a los ideales, la potencia absoluta de los mismos no es la misma.
 \begin{figure}[H]
 	\centering
  	\subfloat[]{
@@ -111,15 +118,38 @@ Los ensayos de esta sección tienen las siguientes caracterísiticas,
 		\caption{Patrones de antena transmitida utilizando calibración clásica. (a) uniforme - Corte Horizontal. (b) uniforme - 
 			Corte Vertical. (c) 10 grados dir. horizontal. - Corte Horizontal. (d) 10 grados dir. horizontal. - Corte Vertical. (e) 10 
 			grados dir. vertical - Corte Horizontal. (f) 10 grados dir. vertical - Corte Vertical.}
-	\label{fig:nonErrorClassicalPat}
+	\label{fig:nonErrClassicalPat}
 \end{figure}
+
+\begin{table}[H]
+	\footnotesize
+	\centering
+	\begin{tabular}{|c|c|p{2cm}|p{2cm}|p{2cm}|p{2cm}|}
+		\cline{2-6}
+		\multicolumn{1}{c|}{} & \textbf{Corte} & \textbf{Potencia - lóbulo sec. izquierdo} & \textbf{Potencia - lóbulo principal} &
+		\textbf{Potencia - lóbulo sec. derecho} & \textbf{Ancho - lóbulo principal} \tabularnewline\hline
+		\multirow{2}{*}{\textbf{patrón sin calibrar}} & H & 26.37 & 39.34 & 26.37 & 12.0 \tabularnewline\cline{2-6}
+		& V & 30.83 & 43.48 & 30.83 & 17.8 \tabularnewline\hline
+		\multirow{2}{*}{\textbf{Patrón calibrado}} & H & 25.79 & 38.76 & 25.79 & 12.0 \tabularnewline\cline{2-6}
+		& V & 30.25 & 42.9 & 30.25 & 17.8 \tabularnewline\hline
+		\multirow{2}{*}{\textbf{Patrón ideal}} & H & 25.79 & 38.76 & 25.79 & 12.0 \tabularnewline\cline{2-6}
+		& V & 30.25 & 42.9 & 30.25 & 17.8 \tabularnewline\hline
+		\multirow{2}{*}{\textbf{Diferencia sin calibrar}} & H & 1.0 & 1.0 & 1.0 & 0.0\tabularnewline\cline{2-6}
+		& V & 1.0 & 1.0 & 1.0 & 0.0 \tabularnewline\hline
+		\multirow{2}{*}{\textbf{Diferencia calibrada}} & H & 0.0 & 0.0 & 0.0 & 0.0 \tabularnewline\cline{2-6}
+		& V & 0.0 & 0.0 & 0.0 & 0.0 \tabularnewline\hline
+		\end{tabular}
+		\caption{Propiedades de los patrones calibrados y sin calibrar comparados con el ideal.}
+	\label{tab:nonErrMutual10degRow}
+\end{table}
 
 
 \subsection{Utilizando la calibración con acoplamientos mútuos}
 
-En la figura \ref{fig:nonErrorMutual} se puede verificar que el apuntamiento es el correcto por los defasajes observados, como 
+En la figuras \ref{fig:nonErrMutual} se puede verificar que el apuntamiento es el correcto por los defasajes observados, como 
 hay 10 elementos radiantes por fila, al apuntar verticalmente, cada fila posee un defasaje diferente, es por esta razón que la
-tercer fila se ve un gráfico estilo una escalera con siete escalones (que es la cantidad de columnas de la antena). 
+tercer fila se ve un gráfico estilo una escalera con siete escalones (que es la cantidad de columnas de la antena). A su vez, 
+se aprecia que el calibrador lleva tanto la potencia como la fase transmitida al valor deseado.
 \begin{figure}[H]
 	\centering
  	\subfloat[]{
@@ -131,8 +161,11 @@ tercer fila se ve un gráfico estilo una escalera con siete escalones (que es la
 		\includegraphics[width=8cm]{gfx/nonErrMutual10degRow.png}}
 		\caption{Ganancia transmitida utilizando calibración con acoplamientos mútuos. (a) 0 grados. (b) 10 grados en 
 		dirección horizontal. (c) 10 grados en dirección vertical.}
-	\label{fig:nonErrorMutual}
+	\label{fig:nonErrMutual}
 \end{figure}
+
+En las figuras \ref{fig:non:ErrMutualPat} se observan los cortes de los patrones de antena horizontales y 
+verticales. Dichos patrones son iguales a los ideales. 
 \begin{figure}[H]
 	\centering
  	\subfloat[]{
@@ -152,13 +185,13 @@ tercer fila se ve un gráfico estilo una escalera con siete escalones (que es la
 		\caption{Patrones de antena transmitida utilizando calibración con acoplamientos mútuos. (a) uniforme - Corte Horizontal.
 			(b) uniforme - Corte Vertical. (c) 10 grados dir. horizontal. - Corte Horizontal. (d) 10 grados dir. horizontal. - Corte 
 			Vertical. (e) 10 grados dir. vertical - Corte Horizontal. (f) 10 grados dir. vertical - Corte Vertical.}
-	\label{fig:nonErrorMutualPat}
+	\label{fig:nonErrMutualPat}
 \end{figure}
 
 
 
 \section{Rotura de varios TRMs}
-
+\todo{ver el porque el patron de la antena no sigue los 10 grados cuando hay apuntamiento}
 Los ensayos de esta sección tienen las siguientes caracterísiticas,
 \begin{itemize}
 	\item Salvo tres TRMs que están rotos, el resto de los componentes de antena no tienen ningún prolema de funcionamiento ni 
@@ -169,6 +202,9 @@ Los ensayos de esta sección tienen las siguientes caracterísiticas,
 \end{itemize}
 
 \subsection{Utilizando la calibración clásica}
+
+En las figuras \ref{fig:deadTRMsClassical} muestran los resultados de la calibración clásica para una antena con algunos TRMs destruidos. 
+Se puede apreciar que no hay modificaciones en el comportamiento del método al calibrar el resto de los elementos.
 \begin{figure}[H]
 	\centering
  	\subfloat[]{
@@ -182,6 +218,9 @@ Los ensayos de esta sección tienen las siguientes caracterísiticas,
 		dirección horizontal. (c) 10 grados en dirección vertical.}
 	\label{fig:deadTRMsClassical}
 \end{figure}
+En las figuras \ref{fig:deadTRMsClassicalPat} se observan los cortes de los patrones de antena horizontales y 
+verticales. Si bien hay tres TRMs sin funcionar correctamente, se puede determinar que el patrón no se deforma 
+significativamente. 
 \begin{figure}[H]
 	\centering
  	\subfloat[]{
@@ -207,10 +246,8 @@ Los ensayos de esta sección tienen las siguientes caracterísiticas,
 
 \subsection{Utilizando la calibración con acoplamientos mútuos}
 
-En la figura \ref{fig:deadTRMsMutual} se puede observar que independientemente de que se hayan destruído varios TRMs, el 
+En las figuras \ref{fig:deadTRMsMutual} se puede observar que independientemente de que se hayan destruído varios TRMs, el 
 método puede calibrar los lazos, obteniendo los valores deseados, tanto de fase como de ganancia del resto de los elementos.
-La subfigura (a) muestra un apuntamiento de cero grados, la (b), de 10 grados en dirección horizontal, y la tercera de 10 grados
-en dirección vertical.
 \begin{figure}[H]
 	\centering
  	\subfloat[]{
@@ -224,6 +261,7 @@ en dirección vertical.
 		dirección horizontal. (c) 10 grados en dirección vertical.}
 	\label{fig:deadTRMsMutual}
 \end{figure}
+\todo{ver que onda con el patrón de antena aca....}
 \begin{figure}[H]
 	\centering
  	\subfloat[]{
