@@ -3,8 +3,8 @@
   \centering
   \begin{tabular}{|c|c|p{2cm}|p{2cm}|p{2cm}|p{2cm}|}
     \cline{2-6}
-    \multicolumn{1}{c|}{} & \textbf{Corte} & \textbf{Potencia del lóbulo secundario izquierdo} & \textbf{Potencia del lóbulo principal} &
-    \textbf{Potencia del lóbulo secundario derecho} & \textbf{Ancho del lóbulo principal} \tabularnewline\hline
+    \multicolumn{1}{c|}{} & \textbf{Corte} & \textbf{Potencia - lóbulo izquierdo} & \textbf{Potencia - lóbulo central} &
+    \textbf{Potencia - lóbulo derecho} & \textbf{Ancho - lóbulo central} \tabularnewline\hline
     \multirow{2}{*}{\textbf{patrón sin calibrar}} & H & @0 \tabularnewline\cline{2-6}
      & V & @1 \tabularnewline\hline
     \multirow{2}{*}{\textbf{Patrón calibrada}} & H & @2 \tabularnewline\cline{2-6}
