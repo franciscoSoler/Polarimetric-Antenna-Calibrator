@@ -153,7 +153,7 @@ class VisualComparator:
         legends = ["non_cal_ph", "cal_ph"]
         self.__set_plot_environment("", "Phase [deg]", "RMs", locc=4)
 
-    def compare_patterns(self, angles, pattern_one, pattern_two, title):
+    def compare_patterns(self, angles, pattern_one, pattern_two, title, filename):
         """
         plots both patterns in order to get a visual comparison.
         :param angles:
@@ -167,17 +167,14 @@ class VisualComparator:
         if f(pattern_one) or f(pattern_two):
             raise Exception("both patterns must have the same length")
 
-        first_pattern = list(map(lambda x: abs(x), pattern_one))
-        second_pattern = list(map(lambda x: abs(x), pattern_two))
-
         plt.figure(self.__get_figure_number())
-        p2, = plt.plot(angles, first_pattern, "g^")
-        p3, = plt.plot(angles, second_pattern, "bo")
+        p2, = plt.plot(angles, pattern_one, "b", linewidth=2)
+        p3, = plt.plot(angles, pattern_two, "k", linewidth=2)
+        plt.plot(angles, pattern_two+2.5, "r--", linewidth=1)
+        plt.plot(angles, pattern_two-2.5, "r--", linewidth=1)
         plt.title(title)
         plt.ylabel("Gain [dB]")
         plt.xlabel("Angle [deg]")
-        plt.legend([p2, p3], ["pat1", "pat2"],
-                   bbox_to_anchor=(0., 1.02, 1., .102), loc=3, ncol=4, borderaxespad=0., prop={'size': 8})
         plt.grid(True)
 
     def compare_patterns_against_ideal(self, angles, non_calibrated, calibrated, ideal, title, filename):
@@ -195,10 +192,21 @@ class VisualComparator:
         if f(non_calibrated) or f(calibrated) or f(ideal):
             raise Exception("the signals must have the same length")
 
+        cut = -10
+        p_ideal = [p if p > cut else cut for p in ideal]
+        p_calibrated = [p if p > cut else cut for p in calibrated]
+        p_non_calibrated = [p if p > cut else cut for p in non_calibrated]
+
+        delta = 2
+        sup = [p if p > cut else cut for p in ideal + delta]
+        inf = [p if p > cut else cut for p in ideal - delta]
+
         plt.figure(self.__get_figure_number())
-        p1, = plt.plot(angles, ideal, "k", label="ideal", linewidth=2)
-        p2, = plt.plot(angles, calibrated, "g", label="cal", linewidth=2)
-        p3, = plt.plot(angles, non_calibrated, "b", label="non-cal", linewidth=2)
+        p1, = plt.plot(angles, p_ideal, "k", label="ideal", linewidth=2)
+        p2, = plt.plot(angles, p_calibrated, "g", label="cal", linewidth=2)
+        p3, = plt.plot(angles, p_non_calibrated, "b", label="non-cal", linewidth=2)
+        plt.plot(angles, sup, "r--", linewidth=1)
+        plt.plot(angles, inf, "r--", linewidth=1)
         plt.title(title)
         plt.ylabel("Gain [dB]")
         plt.xlabel("Angle [deg]")

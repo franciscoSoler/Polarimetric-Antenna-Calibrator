@@ -204,7 +204,8 @@ class Simulator:
         row_separation = self.__config[Common.Conf_ant][Common.Conf_vert_sep]
         col_separation = self.__config[Common.Conf_ant][Common.Conf_horiz_sep]
         freq = self.__config[Common.Conf_in_param][Common.Conf_freq]
-        limits = [-100, 100]
+        # limits = [-100, 100]
+        limits = [-60, 60]
         phi = 0
 
 
@@ -219,6 +220,10 @@ class Simulator:
         name = filename + "AzCut"
         visual_comparator.compare_patterns_against_ideal(angles, non_cal_pattern.get_db(), cal_pattern.get_db(),
                                                          ideal_pattern.get_db(), title + "Corte horizontal", name)
+
+        # visual_comparator.compare_patterns(angles, non_cal_pattern.get_db(), ideal_pattern.get_db(), title + "Corte vertical", name)
+        # visual_comparator.compare_patterns(angles, cal_pattern.get_db(), ideal_pattern.get_db(), title + "Corte vertical", name)
+
         props = self.__get_pattern_properties(non_cal_pattern, cal_pattern, ideal_pattern)
 
         phi = 90
@@ -229,6 +234,10 @@ class Simulator:
         name = filename + "ElCut"
         visual_comparator.compare_patterns_against_ideal(angles, non_cal_pattern.get_db(), cal_pattern.get_db(),
                                                          ideal_pattern.get_db(), title + "Corte vertical", name)
+
+        # visual_comparator.compare_patterns(angles, non_cal_pattern.get_db(), ideal_pattern.get_db(), title + "Corte vertical", name)
+        # visual_comparator.compare_patterns(angles, cal_pattern.get_db(), ideal_pattern.get_db(), title + "Corte vertical", name)
+
         props.extend(self.__get_pattern_properties(non_cal_pattern, cal_pattern, ideal_pattern))
         decimals = 2
         props = list(map(lambda x: list(map(lambda y: round(y, decimals), x)), props))

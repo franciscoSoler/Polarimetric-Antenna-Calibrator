@@ -79,46 +79,26 @@ Los ensayos de esta sección tienen las siguientes caracterísiticas,
 
 \subsection{Utilizando la calibración clásica}
 
-En las figuras \ref{fig:nonErrClassical} muestran los resultados de la calibración clásica con una antena sin dispersiones. 
-Se puede apreciar que, si bien la antena tiene un comportamiento ideal, las mediciones no son completamente correctas. Dicha 
-dispersión se debe a que el método no abarca la totalidad de la antena.
+En las figuras \ref{fig:nonErrClassical0deg}, \ref{fig:nonErrClassical10degCol} y \ref{fig:nonErrClassical10degRow} se muestran
+los resultados de la calibración clásica con una antena sin dispersiones. Se puede apreciar que, si bien la antena tiene un 
+comportamiento ideal, las mediciones no son completamente correctas. Dicha dispersión se debe a que el método no abarca la 
+totalidad de la antena.
+
+
+\subsubsection{Apuntamiento uniforme}
 
 \begin{figure}[H]
 	\centering
  	\subfloat[]{
 		\includegraphics[width=10cm]{gfx/nonErrClassical0deg.png}}
- 	
-	\subfloat[]{
-		\includegraphics[width=8cm]{gfx/nonErrClassical10degCol.png}}
-	\subfloat[]{
-		\includegraphics[width=8cm]{gfx/nonErrClassical10degRow.png}}
-		\caption{Ganancia transmitida utilizando calibración clásica. (a) 0 grados. (b) 10 grados en 
-		dirección horizontal. (c) 10 grados en dirección vertical.}
-	\label{fig:nonErrClassical}
-\end{figure}
 
-En las figuras \ref{fig:nonErrClassicalPat} se observan los cortes de los patrones de antena horizontales y 
-verticales. Si bien dichos patrones son iguales a los ideales, la potencia absoluta de los mismos no es la misma.
-\begin{figure}[H]
-	\centering
- 	\subfloat[]{
+	\subfloat[]{
 		\includegraphics[width=8cm]{gfx/nonErrClassical0degAzCut.png}}
  	\subfloat[]{
 		\includegraphics[width=8cm]{gfx/nonErrClassical0degElCut.png}}
- 	
-	\subfloat[]{
-		\includegraphics[width=8cm]{gfx/nonErrClassical10degColAzCut.png}}
-	\subfloat[]{
-		\includegraphics[width=8cm]{gfx/nonErrClassical10degColElCut.png}}
-
-	\subfloat[]{
-		\includegraphics[width=8cm]{gfx/nonErrClassical10degRowAzCut.png}}
-	\subfloat[]{
-		\includegraphics[width=8cm]{gfx/nonErrClassical10degRowElCut.png}}
-		\caption{Patrones de antena transmitida utilizando calibración clásica. (a) uniforme - Corte Horizontal. (b) uniforme - 
-			Corte Vertical. (c) 10 grados dir. horizontal. - Corte Horizontal. (d) 10 grados dir. horizontal. - Corte Vertical. (e) 10 
-			grados dir. vertical - Corte Horizontal. (f) 10 grados dir. vertical - Corte Vertical.}
-	\label{fig:nonErrClassicalPat}
+	\caption{Correcciones de la señal transmitida utilizando calibración clásica. (a) ganancia y fase transmitida por módulos
+		radiantes. (b) corte horizontal del patrón transmitido y (c) corte vertical del patrón transmitido.}
+	\label{fig:nonErrClassical0deg}
 \end{figure}
 
 \begin{table}[H]
@@ -126,18 +106,96 @@ verticales. Si bien dichos patrones son iguales a los ideales, la potencia absol
   \centering
   \begin{tabular}{|c|c|p{2cm}|p{2cm}|p{2cm}|p{2cm}|}
     \cline{2-6}
-    \multicolumn{1}{c|}{} & \textbf{Corte} & \textbf{Potencia del lóbulo secundario izquierdo} & \textbf{Potencia del lóbulo principal} &
-    \textbf{Potencia del lóbulo secundario derecho} & \textbf{Ancho del lóbulo principal} \tabularnewline\hline
+    \multicolumn{1}{c|}{} & \textbf{Corte} & \textbf{Potencia - lóbulo izquierdo} & \textbf{Potencia - lóbulo central} &
+    \textbf{Potencia - lóbulo derecho} & \textbf{Ancho - lóbulo central} \tabularnewline\hline
     \multirow{2}{*}{\textbf{patrón sin calibrar}} & H & 26.37 & 39.34 & 26.37 & 12.0 \tabularnewline\cline{2-6}
      & V & 30.83 & 43.48 & 30.83 & 17.8 \tabularnewline\hline
-    \multirow{2}{*}{\textbf{Patrón calibrada}} & H & 25.79 & 38.76 & 25.79 & 12.0 \tabularnewline\cline{2-6}
-     & V & 30.25 & 42.9 & 30.25 & 17.8 \tabularnewline\hline
+    \multirow{2}{*}{\textbf{Patrón calibrada}} & H & 26.22 & 39.19 & 26.22 & 12.0 \tabularnewline\cline{2-6}
+     & V & 30.68 & 43.34 & 30.68 & 17.8 \tabularnewline\hline
     \multirow{2}{*}{\textbf{Patrón ideal}} & H & 25.79 & 38.76 & 25.79 & 12.0 \tabularnewline\cline{2-6}
      & V & 30.25 & 42.9 & 30.25 & 17.8 \tabularnewline\hline
     \multirow{2}{*}{\textbf{Diferencia sin calibrar}} & H & 0.58 & 0.58 & 0.58 & 0.0\tabularnewline\cline{2-6}
      & V & 0.58 & 0.58 & 0.58 & 0.0 \tabularnewline\hline
-    \multirow{2}{*}{\textbf{Diferencia calibrada}} & H & 0.0 & 0.0 & 0.0 & 0.0 \tabularnewline\cline{2-6}
-     & V & 0.0 & 0.0 & 0.0 & 0.0 \tabularnewline\hline
+    \multirow{2}{*}{\textbf{Diferencia calibrada}} & H & 0.43 & 0.43 & 0.43 & 0.0 \tabularnewline\cline{2-6}
+     & V & 0.43 & 0.44 & 0.43 & 0.0 \tabularnewline\hline
+  \end{tabular}
+  \caption{Propiedades de los patrones calibrados y sin calibrar comparados con el ideal.}
+  \label{tab:nonErrClassical0deg}
+\end{table}
+
+
+\subsubsection{Apuntamiento 10 grados en dirección horizontal}
+
+\begin{figure}[H]
+	\centering
+ 	\subfloat[]{
+		\includegraphics[width=10cm]{gfx/nonErrClassical10degCol.png}}
+
+	\subfloat[]{
+		\includegraphics[width=8cm]{gfx/nonErrClassical10degColAzCut.png}}
+ 	\subfloat[]{
+		\includegraphics[width=8cm]{gfx/nonErrClassical10degColElCut.png}}
+	\caption{Correcciones de la señal transmitida utilizando calibración clásica. (a) ganancia y fase transmitida por módulos
+		radiantes. (b) corte horizontal del patrón transmitido y (c) corte vertical del patrón transmitido.}
+	\label{fig:nonErrClassical10degCol}
+\end{figure}
+
+\begin{table}[H]
+  \footnotesize
+  \centering
+  \begin{tabular}{|c|c|p{2cm}|p{2cm}|p{2cm}|p{2cm}|}
+    \cline{2-6}
+    \multicolumn{1}{c|}{} & \textbf{Corte} & \textbf{Potencia - lóbulo izquierdo} & \textbf{Potencia - lóbulo central} &
+    \textbf{Potencia - lóbulo derecho} & \textbf{Ancho - lóbulo central} \tabularnewline\hline
+    \multirow{2}{*}{\textbf{patrón sin calibrar}} & H & 26.37 & 39.34 & 26.37 & 12.0 \tabularnewline\cline{2-6}
+     & V & 30.83 & 43.48 & 30.83 & 17.8 \tabularnewline\hline
+    \multirow{2}{*}{\textbf{Patrón calibrada}} & H & 26.22 & 39.19 & 26.22 & 12.0 \tabularnewline\cline{2-6}
+     & V & 30.68 & 43.34 & 30.68 & 17.8 \tabularnewline\hline
+    \multirow{2}{*}{\textbf{Patrón ideal}} & H & 25.79 & 38.76 & 25.79 & 12.0 \tabularnewline\cline{2-6}
+     & V & 30.25 & 42.9 & 30.25 & 17.8 \tabularnewline\hline
+    \multirow{2}{*}{\textbf{Diferencia sin calibrar}} & H & 0.58 & 0.58 & 0.58 & 0.0\tabularnewline\cline{2-6}
+     & V & 0.58 & 0.58 & 0.58 & 0.0 \tabularnewline\hline
+    \multirow{2}{*}{\textbf{Diferencia calibrada}} & H & 0.43 & 0.43 & 0.43 & 0.0 \tabularnewline\cline{2-6}
+     & V & 0.43 & 0.44 & 0.43 & 0.0 \tabularnewline\hline
+  \end{tabular}
+  \caption{Propiedades de los patrones calibrados y sin calibrar comparados con el ideal.}
+  \label{tab:nonErrClassical10degCol}
+\end{table}
+
+
+\subsubsection{Apuntamiento 10 grados en dirección vertical}
+
+\begin{figure}[H]
+	\centering
+ 	\subfloat[]{
+		\includegraphics[width=10cm]{gfx/nonErrClassical10degRow.png}}
+
+	\subfloat[]{
+		\includegraphics[width=8cm]{gfx/nonErrClassical10degRowAzCut.png}}
+ 	\subfloat[]{
+		\includegraphics[width=8cm]{gfx/nonErrClassical10degRowElCut.png}}
+	\caption{Correcciones de la señal transmitida utilizando calibración clásica. (a) ganancia y fase transmitida por módulos
+		radiantes. (b) corte horizontal del patrón transmitido y (c) corte vertical del patrón transmitido.}
+	\label{fig:nonErrClassical10degRow}
+\end{figure}
+
+\begin{table}[H]
+  \footnotesize
+  \centering
+  \begin{tabular}{|c|c|p{2cm}|p{2cm}|p{2cm}|p{2cm}|}
+    \cline{2-6}
+    \multicolumn{1}{c|}{} & \textbf{Corte} & \textbf{Potencia - lóbulo izquierdo} & \textbf{Potencia - lóbulo central} &
+    \textbf{Potencia - lóbulo derecho} & \textbf{Ancho - lóbulo central} \tabularnewline\hline
+    \multirow{2}{*}{\textbf{patrón sin calibrar}} & H & 26.37 & 39.34 & 26.37 & 12.0 \tabularnewline\cline{2-6}
+     & V & 30.83 & 43.48 & 30.83 & 17.8 \tabularnewline\hline
+    \multirow{2}{*}{\textbf{Patrón calibrada}} & H & 26.22 & 39.19 & 26.22 & 12.0 \tabularnewline\cline{2-6}
+     & V & 30.68 & 43.34 & 30.68 & 17.8 \tabularnewline\hline
+    \multirow{2}{*}{\textbf{Patrón ideal}} & H & 25.79 & 38.76 & 25.79 & 12.0 \tabularnewline\cline{2-6}
+     & V & 30.25 & 42.9 & 30.25 & 17.8 \tabularnewline\hline
+    \multirow{2}{*}{\textbf{Diferencia sin calibrar}} & H & 0.58 & 0.58 & 0.58 & 0.0\tabularnewline\cline{2-6}
+     & V & 0.58 & 0.58 & 0.58 & 0.0 \tabularnewline\hline
+    \multirow{2}{*}{\textbf{Diferencia calibrada}} & H & 0.43 & 0.43 & 0.43 & 0.0 \tabularnewline\cline{2-6}
+     & V & 0.43 & 0.44 & 0.43 & 0.0 \tabularnewline\hline
   \end{tabular}
   \caption{Propiedades de los patrones calibrados y sin calibrar comparados con el ideal.}
   \label{tab:nonErrClassical10degRow}
@@ -146,46 +204,21 @@ verticales. Si bien dichos patrones son iguales a los ideales, la potencia absol
 
 \subsection{Utilizando la calibración con acoplamientos mútuos}
 
-En la figuras \ref{fig:nonErrMutual} se puede verificar que el apuntamiento es el correcto por los defasajes observados, como 
-hay 10 elementos radiantes por fila, al apuntar verticalmente, cada fila posee un defasaje diferente, es por esta razón que la
-tercer fila se ve un gráfico estilo una escalera con siete escalones (que es la cantidad de columnas de la antena). A su vez, 
-se aprecia que el calibrador lleva tanto la potencia como la fase transmitida al valor deseado.
+
+\subsubsection{Apuntamiento uniforme}
+
 \begin{figure}[H]
 	\centering
  	\subfloat[]{
 		\includegraphics[width=10cm]{gfx/nonErrMutual0deg.png}}
- 	
-	\subfloat[]{
-		\includegraphics[width=8cm]{gfx/nonErrMutual10degCol.png}}
-	\subfloat[]{
-		\includegraphics[width=8cm]{gfx/nonErrMutual10degRow.png}}
-		\caption{Ganancia transmitida utilizando calibración con acoplamientos mútuos. (a) 0 grados. (b) 10 grados en 
-		dirección horizontal. (c) 10 grados en dirección vertical.}
-	\label{fig:nonErrMutual}
-\end{figure}
 
-En las figuras \ref{fig:non:ErrMutualPat} se observan los cortes de los patrones de antena horizontales y 
-verticales. Dichos patrones son iguales a los ideales. 
-\begin{figure}[H]
-	\centering
- 	\subfloat[]{
+	\subfloat[]{
 		\includegraphics[width=8cm]{gfx/nonErrMutual0degAzCut.png}}
  	\subfloat[]{
 		\includegraphics[width=8cm]{gfx/nonErrMutual0degElCut.png}}
- 	
-	\subfloat[]{
-		\includegraphics[width=8cm]{gfx/nonErrMutual10degColAzCut.png}}
-	\subfloat[]{
-		\includegraphics[width=8cm]{gfx/nonErrMutual10degColElCut.png}}
-
-	\subfloat[]{
-		\includegraphics[width=8cm]{gfx/nonErrMutual10degRowAzCut.png}}
-	\subfloat[]{
-		\includegraphics[width=8cm]{gfx/nonErrMutual10degRowElCut.png}}
-		\caption{Patrones de antena transmitida utilizando calibración con acoplamientos mútuos. (a) uniforme - Corte Horizontal.
-			(b) uniforme - Corte Vertical. (c) 10 grados dir. horizontal. - Corte Horizontal. (d) 10 grados dir. horizontal. - Corte 
-			Vertical. (e) 10 grados dir. vertical - Corte Horizontal. (f) 10 grados dir. vertical - Corte Vertical.}
-	\label{fig:nonErrMutualPat}
+	\caption{Correcciones de la señal transmitida utilizando calibración por acoplamientos mutuos. (a) ganancia y fase transmitida por módulos
+		radiantes. (b) corte horizontal del patrón transmitido y (c) corte vertical del patrón transmitido.}
+	\label{fig:nonErrMutual0deg}
 \end{figure}
 
 \begin{table}[H]
@@ -193,23 +226,104 @@ verticales. Dichos patrones son iguales a los ideales.
   \centering
   \begin{tabular}{|c|c|p{2cm}|p{2cm}|p{2cm}|p{2cm}|}
     \cline{2-6}
-    \multicolumn{1}{c|}{} & \textbf{Corte} & \textbf{Potencia del lóbulo secundario izquierdo} & \textbf{Potencia del lóbulo principal} &
-    \textbf{Potencia del lóbulo secundario derecho} & \textbf{Ancho del lóbulo principal} \tabularnewline\hline
+    \multicolumn{1}{c|}{} & \textbf{Corte} & \textbf{Potencia - lóbulo izquierdo} & \textbf{Potencia - lóbulo central} &
+    \textbf{Potencia - lóbulo derecho} & \textbf{Ancho - lóbulo central} \tabularnewline\hline
     \multirow{2}{*}{\textbf{patrón sin calibrar}} & H & 26.37 & 39.34 & 26.37 & 12.0 \tabularnewline\cline{2-6}
      & V & 30.83 & 43.48 & 30.83 & 17.8 \tabularnewline\hline
-    \multirow{2}{*}{\textbf{Patrón calibrada}} & H & 25.79 & 38.76 & 25.79 & 12.0 \tabularnewline\cline{2-6}
-     & V & 30.25 & 42.9 & 30.25 & 17.8 \tabularnewline\hline
+    \multirow{2}{*}{\textbf{Patrón calibrada}} & H & 26.22 & 39.19 & 26.22 & 12.0 \tabularnewline\cline{2-6}
+     & V & 30.68 & 43.34 & 30.68 & 17.8 \tabularnewline\hline
     \multirow{2}{*}{\textbf{Patrón ideal}} & H & 25.79 & 38.76 & 25.79 & 12.0 \tabularnewline\cline{2-6}
      & V & 30.25 & 42.9 & 30.25 & 17.8 \tabularnewline\hline
     \multirow{2}{*}{\textbf{Diferencia sin calibrar}} & H & 0.58 & 0.58 & 0.58 & 0.0\tabularnewline\cline{2-6}
      & V & 0.58 & 0.58 & 0.58 & 0.0 \tabularnewline\hline
-    \multirow{2}{*}{\textbf{Diferencia calibrada}} & H & 0.0 & 0.0 & 0.0 & 0.0 \tabularnewline\cline{2-6}
-     & V & 0.0 & 0.0 & 0.0 & 0.0 \tabularnewline\hline
+    \multirow{2}{*}{\textbf{Diferencia calibrada}} & H & 0.43 & 0.43 & 0.43 & 0.0 \tabularnewline\cline{2-6}
+     & V & 0.43 & 0.44 & 0.43 & 0.0 \tabularnewline\hline
+  \end{tabular}
+  \caption{Propiedades de los patrones calibrados y sin calibrar comparados con el ideal.}
+  \label{tab:nonErrMutual0deg}
+\end{table}
+
+
+\subsubsection{Apuntamiento 10 grados en dirección horizontal}
+
+\begin{figure}[H]
+	\centering
+ 	\subfloat[]{
+		\includegraphics[width=10cm]{gfx/nonErrMutual10degCol.png}}
+
+	\subfloat[]{
+		\includegraphics[width=8cm]{gfx/nonErrMutual10degColAzCut.png}}
+ 	\subfloat[]{
+		\includegraphics[width=8cm]{gfx/nonErrMutual10degColElCut.png}}
+	\caption{Correcciones de la señal transmitida utilizando calibración por acoplamientos mutuos. (a) ganancia y fase 
+		transmitida por módulos radiantes. (b) corte horizontal del patrón transmitido y (c) corte vertical del patrón transmitido.}
+	\label{fig:nonErrMutual10degCol}
+\end{figure}
+
+\begin{table}[H]
+  \footnotesize
+  \centering
+  \begin{tabular}{|c|c|p{2cm}|p{2cm}|p{2cm}|p{2cm}|}
+    \cline{2-6}
+    \multicolumn{1}{c|}{} & \textbf{Corte} & \textbf{Potencia - lóbulo izquierdo} & \textbf{Potencia - lóbulo central} &
+    \textbf{Potencia - lóbulo derecho} & \textbf{Ancho - lóbulo central} \tabularnewline\hline
+    \multirow{2}{*}{\textbf{patrón sin calibrar}} & H & 26.37 & 39.34 & 26.37 & 12.0 \tabularnewline\cline{2-6}
+     & V & 30.83 & 43.48 & 30.83 & 17.8 \tabularnewline\hline
+    \multirow{2}{*}{\textbf{Patrón calibrada}} & H & 26.22 & 39.19 & 26.22 & 12.0 \tabularnewline\cline{2-6}
+     & V & 30.68 & 43.34 & 30.68 & 17.8 \tabularnewline\hline
+    \multirow{2}{*}{\textbf{Patrón ideal}} & H & 25.79 & 38.76 & 25.79 & 12.0 \tabularnewline\cline{2-6}
+     & V & 30.25 & 42.9 & 30.25 & 17.8 \tabularnewline\hline
+    \multirow{2}{*}{\textbf{Diferencia sin calibrar}} & H & 0.58 & 0.58 & 0.58 & 0.0\tabularnewline\cline{2-6}
+     & V & 0.58 & 0.58 & 0.58 & 0.0 \tabularnewline\hline
+    \multirow{2}{*}{\textbf{Diferencia calibrada}} & H & 0.43 & 0.43 & 0.43 & 0.0 \tabularnewline\cline{2-6}
+     & V & 0.43 & 0.44 & 0.43 & 0.0 \tabularnewline\hline
+  \end{tabular}
+  \caption{Propiedades de los patrones calibrados y sin calibrar comparados con el ideal.}
+  \label{tab:nonErrMutual10degCol}
+\end{table}
+
+
+\subsubsection{Apuntamiento 10 grados en dirección vertical}
+
+En la figuras \ref{fig:nonErrMutual10degRow} se puede verificar que el apuntamiento es el correcto por los defasajes observados, 
+como hay 10 elementos radiantes por fila, al apuntar verticalmente, cada fila posee un defasaje diferente, es por esta razón que 
+la tercer fila se ve un gráfico estilo una escalera con siete escalones (que es la cantidad de columnas de la antena). A su vez, 
+se aprecia que el calibrador lleva tanto la potencia como la fase transmitida al valor deseado.
+\begin{figure}[H]
+	\centering
+ 	\subfloat[]{
+		\includegraphics[width=10cm]{gfx/nonErrMutual10degRow.png}}
+
+	\subfloat[]{
+		\includegraphics[width=8cm]{gfx/nonErrMutual10degRowAzCut.png}}
+ 	\subfloat[]{
+		\includegraphics[width=8cm]{gfx/nonErrMutual10degRowElCut.png}}
+	\caption{Correcciones de la señal transmitida utilizando calibración por acoplamientos mutuos. (a) ganancia y fase 
+		transmitida por módulos radiantes. (b) corte horizontal del patrón transmitido y (c) corte vertical del patrón transmitido.}
+	\label{fig:nonErrMutual10degRow}
+\end{figure}
+
+\begin{table}[H]
+  \footnotesize
+  \centering
+  \begin{tabular}{|c|c|p{2cm}|p{2cm}|p{2cm}|p{2cm}|}
+    \cline{2-6}
+    \multicolumn{1}{c|}{} & \textbf{Corte} & \textbf{Potencia - lóbulo izquierdo} & \textbf{Potencia - lóbulo central} &
+    \textbf{Potencia - lóbulo derecho} & \textbf{Ancho - lóbulo central} \tabularnewline\hline
+    \multirow{2}{*}{\textbf{patrón sin calibrar}} & H & 26.37 & 39.34 & 26.37 & 12.0 \tabularnewline\cline{2-6}
+     & V & 30.83 & 43.48 & 30.83 & 17.8 \tabularnewline\hline
+    \multirow{2}{*}{\textbf{Patrón calibrada}} & H & 26.22 & 39.19 & 26.22 & 12.0 \tabularnewline\cline{2-6}
+     & V & 30.68 & 43.34 & 30.68 & 17.8 \tabularnewline\hline
+    \multirow{2}{*}{\textbf{Patrón ideal}} & H & 25.79 & 38.76 & 25.79 & 12.0 \tabularnewline\cline{2-6}
+     & V & 30.25 & 42.9 & 30.25 & 17.8 \tabularnewline\hline
+    \multirow{2}{*}{\textbf{Diferencia sin calibrar}} & H & 0.58 & 0.58 & 0.58 & 0.0\tabularnewline\cline{2-6}
+     & V & 0.58 & 0.58 & 0.58 & 0.0 \tabularnewline\hline
+    \multirow{2}{*}{\textbf{Diferencia calibrada}} & H & 0.43 & 0.43 & 0.43 & 0.0 \tabularnewline\cline{2-6}
+     & V & 0.43 & 0.44 & 0.43 & 0.0 \tabularnewline\hline
   \end{tabular}
   \caption{Propiedades de los patrones calibrados y sin calibrar comparados con el ideal.}
   \label{tab:nonErrMutual10degRow}
 \end{table}
-
 
 
 \section{Rotura de varios TRMs}
@@ -223,6 +337,13 @@ Los ensayos de esta sección tienen las siguientes caracterísiticas,
 \end{itemize}
 
 \subsection{Utilizando la calibración clásica}
+
+\subsubsection{Uniforme}
+
+\subsubsection{Apuntamiento 10 grados en dirección horizontal}
+
+\subsubsection{Apuntamiento 10 grados en dirección vertical}
+
 
 En las figuras \ref{fig:deadTRMsClassical} muestran los resultados de la calibración clásica para una antena con algunos TRMs destruidos. 
 Se puede apreciar que no hay modificaciones en el comportamiento del método al calibrar el resto de los elementos.
@@ -269,18 +390,18 @@ significativamente.
   \centering
   \begin{tabular}{|c|c|p{2cm}|p{2cm}|p{2cm}|p{2cm}|}
     \cline{2-6}
-    \multicolumn{1}{c|}{} & \textbf{Corte} & \textbf{Potencia del lóbulo secundario izquierdo} & \textbf{Potencia del lóbulo principal} &
-    \textbf{Potencia del lóbulo secundario derecho} & \textbf{Ancho del lóbulo principal} \tabularnewline\hline
-    \multirow{2}{*}{\textbf{patrón sin calibrar}} & H & 26.37 & 39.34 & 26.37 & 12.0 \tabularnewline\cline{2-6}
-     & V & 30.83 & 43.48 & 30.83 & 17.8 \tabularnewline\hline
-    \multirow{2}{*}{\textbf{Patrón calibrada}} & H & 25.79 & 38.76 & 25.79 & 12.0 \tabularnewline\cline{2-6}
-     & V & 30.25 & 42.9 & 30.25 & 17.8 \tabularnewline\hline
+    \multicolumn{1}{c|}{} & \textbf{Corte} & \textbf{Potencia - lóbulo izquierdo} & \textbf{Potencia - lóbulo central} &
+    \textbf{Potencia - lóbulo derecho} & \textbf{Ancho - lóbulo central} \tabularnewline\hline
+    \multirow{2}{*}{\textbf{patrón sin calibrar}} & H & 27.6 & 38.89 & 27.08 & 12.0 \tabularnewline\cline{2-6}
+     & V & 30.46 & 43.1 & 30.46 & 17.8 \tabularnewline\hline
+    \multirow{2}{*}{\textbf{Patrón calibrada}} & H & 27.45 & 38.74 & 26.93 & 12.0 \tabularnewline\cline{2-6}
+     & V & 30.31 & 42.96 & 30.31 & 17.8 \tabularnewline\hline
     \multirow{2}{*}{\textbf{Patrón ideal}} & H & 25.79 & 38.76 & 25.79 & 12.0 \tabularnewline\cline{2-6}
      & V & 30.25 & 42.9 & 30.25 & 17.8 \tabularnewline\hline
-    \multirow{2}{*}{\textbf{Diferencia sin calibrar}} & H & 0.58 & 0.58 & 0.58 & 0.0\tabularnewline\cline{2-6}
-     & V & 0.58 & 0.58 & 0.58 & 0.0 \tabularnewline\hline
-    \multirow{2}{*}{\textbf{Diferencia calibrada}} & H & 0.0 & 0.0 & 0.0 & 0.0 \tabularnewline\cline{2-6}
-     & V & 0.0 & 0.0 & 0.0 & 0.0 \tabularnewline\hline
+    \multirow{2}{*}{\textbf{Diferencia sin calibrar}} & H & 1.81 & 0.13 & 1.29 & 0.0\tabularnewline\cline{2-6}
+     & V & 0.21 & 0.2 & 0.21 & 0.0 \tabularnewline\hline
+    \multirow{2}{*}{\textbf{Diferencia calibrada}} & H & 1.66 & -0.02 & 1.14 & 0.0 \tabularnewline\cline{2-6}
+     & V & 0.06 & 0.06 & 0.06 & 0.0 \tabularnewline\hline
   \end{tabular}
   \caption{Propiedades de los patrones calibrados y sin calibrar comparados con el ideal.}
   \label{tab:deadTRMsClassical10degRow}
@@ -289,6 +410,13 @@ significativamente.
 
 
 \subsection{Utilizando la calibración con acoplamientos mútuos}
+
+\subsubsection{Uniforme}
+
+\subsubsection{Apuntamiento 10 grados en dirección horizontal}
+
+\subsubsection{Apuntamiento 10 grados en dirección vertical}
+
 
 En las figuras \ref{fig:deadTRMsMutual} se puede observar que independientemente de que se hayan destruído varios TRMs, el 
 método puede calibrar los lazos, obteniendo los valores deseados, tanto de fase como de ganancia del resto de los elementos.
@@ -333,18 +461,18 @@ método puede calibrar los lazos, obteniendo los valores deseados, tanto de fase
   \centering
   \begin{tabular}{|c|c|p{2cm}|p{2cm}|p{2cm}|p{2cm}|}
     \cline{2-6}
-    \multicolumn{1}{c|}{} & \textbf{Corte} & \textbf{Potencia del lóbulo secundario izquierdo} & \textbf{Potencia del lóbulo principal} &
-    \textbf{Potencia del lóbulo secundario derecho} & \textbf{Ancho del lóbulo principal} \tabularnewline\hline
-    \multirow{2}{*}{\textbf{patrón sin calibrar}} & H & 26.37 & 39.34 & 26.37 & 12.0 \tabularnewline\cline{2-6}
-     & V & 30.83 & 43.48 & 30.83 & 17.8 \tabularnewline\hline
-    \multirow{2}{*}{\textbf{Patrón calibrada}} & H & 25.79 & 38.76 & 25.79 & 12.0 \tabularnewline\cline{2-6}
-     & V & 30.25 & 42.9 & 30.25 & 17.8 \tabularnewline\hline
+    \multicolumn{1}{c|}{} & \textbf{Corte} & \textbf{Potencia - lóbulo izquierdo} & \textbf{Potencia - lóbulo central} &
+    \textbf{Potencia - lóbulo derecho} & \textbf{Ancho - lóbulo central} \tabularnewline\hline
+    \multirow{2}{*}{\textbf{patrón sin calibrar}} & H & 27.6 & 38.89 & 27.08 & 12.0 \tabularnewline\cline{2-6}
+     & V & 30.46 & 43.1 & 30.46 & 17.8 \tabularnewline\hline
+    \multirow{2}{*}{\textbf{Patrón calibrada}} & H & 27.02 & 38.31 & 26.5 & 12.0 \tabularnewline\cline{2-6}
+     & V & 29.88 & 42.52 & 29.88 & 17.8 \tabularnewline\hline
     \multirow{2}{*}{\textbf{Patrón ideal}} & H & 25.79 & 38.76 & 25.79 & 12.0 \tabularnewline\cline{2-6}
      & V & 30.25 & 42.9 & 30.25 & 17.8 \tabularnewline\hline
-    \multirow{2}{*}{\textbf{Diferencia sin calibrar}} & H & 0.58 & 0.58 & 0.58 & 0.0\tabularnewline\cline{2-6}
-     & V & 0.58 & 0.58 & 0.58 & 0.0 \tabularnewline\hline
-    \multirow{2}{*}{\textbf{Diferencia calibrada}} & H & 0.0 & 0.0 & 0.0 & 0.0 \tabularnewline\cline{2-6}
-     & V & 0.0 & 0.0 & 0.0 & 0.0 \tabularnewline\hline
+    \multirow{2}{*}{\textbf{Diferencia sin calibrar}} & H & 1.81 & 0.13 & 1.29 & 0.0\tabularnewline\cline{2-6}
+     & V & 0.21 & 0.2 & 0.21 & 0.0 \tabularnewline\hline
+    \multirow{2}{*}{\textbf{Diferencia calibrada}} & H & 1.23 & -0.45 & 0.71 & 0.0 \tabularnewline\cline{2-6}
+     & V & -0.37 & -0.38 & -0.37 & 0.0 \tabularnewline\hline
   \end{tabular}
   \caption{Propiedades de los patrones calibrados y sin calibrar comparados con el ideal.}
   \label{tab:deadTRMsMutual10degRow}
@@ -378,6 +506,14 @@ Los ensayos de esta sección tienen las siguientes caracterísiticas,
 \end{itemize}
 
 \subsection{Utilizando la calibración clásica}
+
+\subsubsection{Uniforme}
+
+\subsubsection{Apuntamiento 10 grados en dirección horizontal}
+
+\subsubsection{Apuntamiento 10 grados en dirección vertical}
+
+
 \begin{figure}[H]
 	\centering
  	\subfloat[]{
@@ -418,18 +554,18 @@ Los ensayos de esta sección tienen las siguientes caracterísiticas,
   \centering
   \begin{tabular}{|c|c|p{2cm}|p{2cm}|p{2cm}|p{2cm}|}
     \cline{2-6}
-    \multicolumn{1}{c|}{} & \textbf{Corte} & \textbf{Potencia del lóbulo secundario izquierdo} & \textbf{Potencia del lóbulo principal} &
-    \textbf{Potencia del lóbulo secundario derecho} & \textbf{Ancho del lóbulo principal} \tabularnewline\hline
-    \multirow{2}{*}{\textbf{patrón sin calibrar}} & H & 26.37 & 39.34 & 26.37 & 12.0 \tabularnewline\cline{2-6}
-     & V & 30.83 & 43.48 & 30.83 & 17.8 \tabularnewline\hline
-    \multirow{2}{*}{\textbf{Patrón calibrada}} & H & 25.79 & 38.76 & 25.79 & 12.0 \tabularnewline\cline{2-6}
-     & V & 30.25 & 42.9 & 30.25 & 17.8 \tabularnewline\hline
+    \multicolumn{1}{c|}{} & \textbf{Corte} & \textbf{Potencia - lóbulo izquierdo} & \textbf{Potencia - lóbulo central} &
+    \textbf{Potencia - lóbulo derecho} & \textbf{Ancho - lóbulo central} \tabularnewline\hline
+    \multirow{2}{*}{\textbf{patrón sin calibrar}} & H & 27.09 & 38.77 & 29.26 & 11.4 \tabularnewline\cline{2-6}
+     & V & 32.95 & 41.49 & 32.59 & 16.8 \tabularnewline\hline
+    \multirow{2}{*}{\textbf{Patrón calibrada}} & H & 26.62 & 38.88 & 27.41 & 12.0 \tabularnewline\cline{2-6}
+     & V & 32.18 & 42.72 & 28.34 & 18.0 \tabularnewline\hline
     \multirow{2}{*}{\textbf{Patrón ideal}} & H & 25.79 & 38.76 & 25.79 & 12.0 \tabularnewline\cline{2-6}
      & V & 30.25 & 42.9 & 30.25 & 17.8 \tabularnewline\hline
-    \multirow{2}{*}{\textbf{Diferencia sin calibrar}} & H & 0.58 & 0.58 & 0.58 & 0.0\tabularnewline\cline{2-6}
-     & V & 0.58 & 0.58 & 0.58 & 0.0 \tabularnewline\hline
-    \multirow{2}{*}{\textbf{Diferencia calibrada}} & H & 0.0 & 0.0 & 0.0 & 0.0 \tabularnewline\cline{2-6}
-     & V & 0.0 & 0.0 & 0.0 & 0.0 \tabularnewline\hline
+    \multirow{2}{*}{\textbf{Diferencia sin calibrar}} & H & 1.3 & 0.01 & 3.47 & -0.6\tabularnewline\cline{2-6}
+     & V & 2.7 & -1.41 & 2.34 & -1.0 \tabularnewline\hline
+    \multirow{2}{*}{\textbf{Diferencia calibrada}} & H & 0.83 & 0.12 & 1.62 & 0.0 \tabularnewline\cline{2-6}
+     & V & 1.93 & -0.18 & -1.91 & 0.2 \tabularnewline\hline
   \end{tabular}
   \caption{Propiedades de los patrones calibrados y sin calibrar comparados con el ideal.}
   \label{tab:compErrClassical10degRow}
@@ -437,6 +573,13 @@ Los ensayos de esta sección tienen las siguientes caracterísiticas,
 
 
 \subsection{Utilizando la calibración con acoplamientos mútuos}
+
+\subsubsection{Uniforme}
+
+\subsubsection{Apuntamiento 10 grados en dirección horizontal}
+
+\subsubsection{Apuntamiento 10 grados en dirección vertical}
+
 
 En la figura \ref{fig:compErrMutual} se puede observar que si bien, en algunos ensayos el método no corrige 
 perfectamente la fase por el error agregado de todos los componentes de la RFDN a la vez, en una segunda iteración se logra 
@@ -503,6 +646,14 @@ dirección horizontal, y la tercera de 10 grados en dirección vertical.
 \section{Dispersiones de ganancia entre pulsos}
 
 \subsection{Utilizando la calibración clásica}
+
+\subsubsection{Uniforme}
+
+\subsubsection{Apuntamiento 10 grados en dirección horizontal}
+
+\subsubsection{Apuntamiento 10 grados en dirección vertical}
+
+
 \begin{figure}[H]
 	\centering
  	\subfloat[]{
@@ -543,18 +694,18 @@ dirección horizontal, y la tercera de 10 grados en dirección vertical.
   \centering
   \begin{tabular}{|c|c|p{2cm}|p{2cm}|p{2cm}|p{2cm}|}
     \cline{2-6}
-    \multicolumn{1}{c|}{} & \textbf{Corte} & \textbf{Potencia del lóbulo secundario izquierdo} & \textbf{Potencia del lóbulo principal} &
-    \textbf{Potencia del lóbulo secundario derecho} & \textbf{Ancho del lóbulo principal} \tabularnewline\hline
+    \multicolumn{1}{c|}{} & \textbf{Corte} & \textbf{Potencia - lóbulo izquierdo} & \textbf{Potencia - lóbulo central} &
+    \textbf{Potencia - lóbulo derecho} & \textbf{Ancho - lóbulo central} \tabularnewline\hline
     \multirow{2}{*}{\textbf{patrón sin calibrar}} & H & 26.37 & 39.34 & 26.37 & 12.0 \tabularnewline\cline{2-6}
      & V & 30.83 & 43.48 & 30.83 & 17.8 \tabularnewline\hline
-    \multirow{2}{*}{\textbf{Patrón calibrada}} & H & 25.79 & 38.76 & 25.79 & 12.0 \tabularnewline\cline{2-6}
-     & V & 30.25 & 42.9 & 30.25 & 17.8 \tabularnewline\hline
+    \multirow{2}{*}{\textbf{Patrón calibrada}} & H & 15.15 & 23.47 & 14.44 & 11.8 \tabularnewline\cline{2-6}
+     & V & 25.82 & 38.8 & 0 & 27.6 \tabularnewline\hline
     \multirow{2}{*}{\textbf{Patrón ideal}} & H & 25.79 & 38.76 & 25.79 & 12.0 \tabularnewline\cline{2-6}
      & V & 30.25 & 42.9 & 30.25 & 17.8 \tabularnewline\hline
     \multirow{2}{*}{\textbf{Diferencia sin calibrar}} & H & 0.58 & 0.58 & 0.58 & 0.0\tabularnewline\cline{2-6}
      & V & 0.58 & 0.58 & 0.58 & 0.0 \tabularnewline\hline
-    \multirow{2}{*}{\textbf{Diferencia calibrada}} & H & 0.0 & 0.0 & 0.0 & 0.0 \tabularnewline\cline{2-6}
-     & V & 0.0 & 0.0 & 0.0 & 0.0 \tabularnewline\hline
+    \multirow{2}{*}{\textbf{Diferencia calibrada}} & H & -10.64 & -15.29 & -11.35 & -0.2 \tabularnewline\cline{2-6}
+     & V & -4.43 & -4.1 & -30.25 & 9.8 \tabularnewline\hline
   \end{tabular}
   \caption{Propiedades de los patrones calibrados y sin calibrar comparados con el ideal.}
   \label{tab:chirpErrClassical10degRow}
@@ -562,6 +713,13 @@ dirección horizontal, y la tercera de 10 grados en dirección vertical.
 
 
 \subsection{Utilizando la calibración con acoplamientos mútuos}
+
+\subsubsection{Uniforme}
+
+\subsubsection{Apuntamiento 10 grados en dirección horizontal}
+
+\subsubsection{Apuntamiento 10 grados en dirección vertical}
+
 
 \begin{figure}[H]
 	\centering
@@ -603,8 +761,8 @@ dirección horizontal, y la tercera de 10 grados en dirección vertical.
   \centering
   \begin{tabular}{|c|c|p{2cm}|p{2cm}|p{2cm}|p{2cm}|}
     \cline{2-6}
-    \multicolumn{1}{c|}{} & \textbf{Corte} & \textbf{Potencia del lóbulo secundario izquierdo} & \textbf{Potencia del lóbulo principal} &
-    \textbf{Potencia del lóbulo secundario derecho} & \textbf{Ancho del lóbulo principal} \tabularnewline\hline
+    \multicolumn{1}{c|}{} & \textbf{Corte} & \textbf{Potencia - lóbulo izquierdo} & \textbf{Potencia - lóbulo central} &
+    \textbf{Potencia - lóbulo derecho} & \textbf{Ancho - lóbulo central} \tabularnewline\hline
     \multirow{2}{*}{\textbf{patrón sin calibrar}} & H & 26.37 & 39.34 & 26.37 & 12.0 \tabularnewline\cline{2-6}
      & V & 30.83 & 43.48 & 30.83 & 17.8 \tabularnewline\hline
     \multirow{2}{*}{\textbf{Patrón calibrada}} & H & 25.79 & 38.76 & 25.79 & 12.0 \tabularnewline\cline{2-6}
@@ -665,21 +823,21 @@ resultados, pero sirve para determinar que tan robusto es el método para esta c
   \centering
   \begin{tabular}{|c|c|p{2cm}|p{2cm}|p{2cm}|p{2cm}|}
     \cline{2-6}
-    \multicolumn{1}{c|}{} & \textbf{Corte} & \textbf{Potencia del lóbulo secundario izquierdo} & \textbf{Potencia del lóbulo principal} &
-    \textbf{Potencia del lóbulo secundario derecho} & \textbf{Ancho del lóbulo principal} \tabularnewline\hline
+    \multicolumn{1}{c|}{} & \textbf{Corte} & \textbf{Potencia - lóbulo izquierdo} & \textbf{Potencia - lóbulo central} &
+    \textbf{Potencia - lóbulo derecho} & \textbf{Ancho - lóbulo central} \tabularnewline\hline
     \multirow{2}{*}{\textbf{patrón sin calibrar}} & H & 26.37 & 39.34 & 26.37 & 12.0 \tabularnewline\cline{2-6}
      & V & 30.83 & 43.48 & 30.83 & 17.8 \tabularnewline\hline
-    \multirow{2}{*}{\textbf{Patrón calibrada}} & H & 25.79 & 38.76 & 25.79 & 12.0 \tabularnewline\cline{2-6}
-     & V & 30.25 & 42.9 & 30.25 & 17.8 \tabularnewline\hline
+    \multirow{2}{*}{\textbf{Patrón calibrada}} & H & 19.69 & 32.65 & 19.69 & 12.0 \tabularnewline\cline{2-6}
+     & V & 24.15 & 36.8 & 24.15 & 17.8 \tabularnewline\hline
     \multirow{2}{*}{\textbf{Patrón ideal}} & H & 25.79 & 38.76 & 25.79 & 12.0 \tabularnewline\cline{2-6}
      & V & 30.25 & 42.9 & 30.25 & 17.8 \tabularnewline\hline
     \multirow{2}{*}{\textbf{Diferencia sin calibrar}} & H & 0.58 & 0.58 & 0.58 & 0.0\tabularnewline\cline{2-6}
      & V & 0.58 & 0.58 & 0.58 & 0.0 \tabularnewline\hline
-    \multirow{2}{*}{\textbf{Diferencia calibrada}} & H & 0.0 & 0.0 & 0.0 & 0.0 \tabularnewline\cline{2-6}
-     & V & 0.0 & 0.0 & 0.0 & 0.0 \tabularnewline\hline
+    \multirow{2}{*}{\textbf{Diferencia calibrada}} & H & -6.1 & -6.11 & -6.1 & 0.0 \tabularnewline\cline{2-6}
+     & V & -6.1 & -6.1 & -6.1 & 0.0 \tabularnewline\hline
   \end{tabular}
   \caption{Propiedades de los patrones calibrados y sin calibrar comparados con el ideal.}
-	  \label{tab:chirpRepErrClassical10degRow}
+  \label{tab:chirpRepErrClassical10degRow}
 \end{table}
 
 
@@ -727,21 +885,19 @@ resultados, pero sirve para determinar que tan robusto es el método para esta c
   \centering
   \begin{tabular}{|c|c|p{2cm}|p{2cm}|p{2cm}|p{2cm}|}
     \cline{2-6}
-    \multicolumn{1}{c|}{} & \textbf{Corte} & \textbf{Potencia del lóbulo secundario izquierdo} & \textbf{Potencia del lóbulo principal} &
-    \textbf{Potencia del lóbulo secundario derecho} & \textbf{Ancho del lóbulo principal} \tabularnewline\hline
+    \multicolumn{1}{c|}{} & \textbf{Corte} & \textbf{Potencia - lóbulo izquierdo} & \textbf{Potencia - lóbulo central} &
+    \textbf{Potencia - lóbulo derecho} & \textbf{Ancho - lóbulo central} \tabularnewline\hline
     \multirow{2}{*}{\textbf{patrón sin calibrar}} & H & 26.37 & 39.34 & 26.37 & 12.0 \tabularnewline\cline{2-6}
      & V & 30.83 & 43.48 & 30.83 & 17.8 \tabularnewline\hline
-    \multirow{2}{*}{\textbf{Patrón calibrada}} & H & 25.79 & 38.76 & 25.79 & 12.0 \tabularnewline\cline{2-6}
-     & V & 30.25 & 42.9 & 30.25 & 17.8 \tabularnewline\hline
+    \multirow{2}{*}{\textbf{Patrón calibrada}} & H & 26.96 & 39.24 & 26.3 & 12.2 \tabularnewline\cline{2-6}
+     & V & 30.28 & 43.22 & 30.57 & 17.8 \tabularnewline\hline
     \multirow{2}{*}{\textbf{Patrón ideal}} & H & 25.79 & 38.76 & 25.79 & 12.0 \tabularnewline\cline{2-6}
      & V & 30.25 & 42.9 & 30.25 & 17.8 \tabularnewline\hline
     \multirow{2}{*}{\textbf{Diferencia sin calibrar}} & H & 0.58 & 0.58 & 0.58 & 0.0\tabularnewline\cline{2-6}
      & V & 0.58 & 0.58 & 0.58 & 0.0 \tabularnewline\hline
-    \multirow{2}{*}{\textbf{Diferencia calibrada}} & H & 0.0 & 0.0 & 0.0 & 0.0 \tabularnewline\cline{2-6}
-     & V & 0.0 & 0.0 & 0.0 & 0.0 \tabularnewline\hline
+    \multirow{2}{*}{\textbf{Diferencia calibrada}} & H & 1.17 & 0.48 & 0.51 & 0.2 \tabularnewline\cline{2-6}
+     & V & 0.03 & 0.32 & 0.32 & 0.0 \tabularnewline\hline
   \end{tabular}
   \caption{Propiedades de los patrones calibrados y sin calibrar comparados con el ideal.}
   \label{tab:wallErrClassical10degRow}
 \end{table}
-
-

@@ -60,8 +60,8 @@ aeronaves militares debido a su capacidad de seguir múltiples objetivos. El pri
 el primer caza, el MiG-31 ruso.\\
 
 {\textbf{Calibración:}} Operación que, bajo determinadas condiciones, en un primer paso, establece una relación entre 
-valores cuantitativos con incertidumbres de medición provistas por estandares de medición e indicaciones correspondientes
-con incertidumbres asociadas (del instrumento calibrado o estandar secundario) y, en un segundo paso, usa
+valores cuantitativos con incertidumbres de medición provistas por estándares de medición e indicaciones correspondientes
+con incertidumbres asociadas (del instrumento calibrado o estándar secundario) y, en un segundo paso, usa
 esta información para establecer una relación para obtener un resultado de una medición desde una indicación \cite{CalDef}.
 
 {\textbf{Calibración interna:}} Las mediciones obtenidas utilizando este sistema son útiles solamente al utilizarlas en 
@@ -265,64 +265,72 @@ La presente tesis tiene varios objetivos:
 
 \section{Especificaciones del problema}
 
-\begin{itemize}
-    \item La aplicación debera reproducir el comportamiento en RF de los elementos individuales: cables, psc, TRM, elementos 
-			radiantes.
+Para poder aplicar e implementar el método de acoplamientos mútuos se deben cumplir las siguinetes hipótesis de base, que a su 
+vez son consideradas las especificaciones del problema.
 
-    \item La aplicación deberá reproducir el comportamiento del sistema el cual será LTI (lineal e invariante en el tiempo).
-    
-    \item La antena debe estar compuesta por defasadores, atenuadores, cables, divisores de potencia y módulos radiantes.
-    
-    \item Se deben poder utilizar distintos divisores/combinadores de potencia. La diferencia entre ellos es la cantidad de 
-			puertos de salida.
-    
-    \item Los componentes de la antena deben caracterizarse utilizando parámetros de alta frecuencia.
-    
-    \item Se debe tener en cuenta el efecto que impone un componente al resto de la antena.
+\todo{cambiar numeros por SP}
 
-    \item Se debe poder configurar la dimensión de la antena.
-    \item Se debe poder configurar la distancia entre elementos radiantes.
-    \item Se debe poder configurar los atributos que afecten la modelización de cada componente de la antena. 
+\begin{enumerate}
+    \item Modularización de los componentes de la antena: La antena debe estar compuesta por defasadores, atenuadores, cables, 
+		divisores de potencia y módulos radiantes.
     
-    \item Se debe poder configurar el largo de los cables.
-    \item Se debe poder configurar la atenuación de los cables.
-    
-    \item Se debe poder configurar el error de comportamiento de cada componente de la antena de forma independiente.
+	\item Modelización de los componentes en RF: Los componentes de la antena deben caracterizarse utilizando parámetros de alta 
+		frecuencia.
 
-    \item Se deben poder configurar los atenuadores y defasadores a la hora de realizar la calibración. 
+    \item Sistemas LTI: La aplicación deberá reproducir el comportamiento del sistema, el cual será LTI (lineal e invariante 
+		en el tiempo).
+    
+    \item Variabilidad para determinados componentes: Se deben poder utilizar distintos divisores/combinadores de potencia. 
+		La diferencia entre ellos es la cantidad de puertos de salida.
+    
+    \item Dimensión de antena: Se debe poder configurar la dimensión de la antena.
+    \item Distancia entre elementos radiantes: Se debe poder configurar la distancia entre elementos radiantes.
+    \item Configuración individual de componentes: Se debe poder configurar los atributos que afecten la modelización de cada 
+		componente de la antena. Largo, atenuación y defasaje por metro de cables. 
+    
+    \item Modelizaciones dispersiones: Se debe poder configurar la dispersión en el comportamiento de cada componente de la 
+		antena de forma independiente.
 
-    \item La aplicación debe poder calibrar una antena polarimétrica con el método de calibración convencional.
+    \item Introducción de elementos de control en el lazo de calibración: Se deben poder configurar los atenuadores y 
+		defasadores a la hora de realizar la calibración. 
+
+    \item Calibración clásica: La aplicación debe poder calibrar una antena polarimétrica con el método de calibración convencional.
     
-    \item La aplicación debe poder calibrar una antena polarimétrica con el método de calibración alternativo.
+    \item Calibración alternativa: La aplicación debe poder calibrar una antena polarimétrica con el método de calibración alternativo.
     
-    \item La aplicación debe poder calibrar la potencia de transmisión y recepción.
+    \item Calibración ganancia: La aplicación debe poder calibrar la ganancia de transmisión y recepción.
     
-    \item La aplicación debe poder calibrar la fase de transmisión y recepción.
+    \item Calibración fase: La aplicación debe poder calibrar la fase de transmisión y recepción.
     
-    \item La aplicación debe poder calibrar en ambas polarizaciones: horizontal y vertical.
+    \item Cal. pol. horizontal: La aplicación debe poder calibrar en la polarización horizontal. 
+    \item Cal. pol. vertical: La aplicación debe poder calibrar en la polarización vertical. 
+    \item Cal. Tx: La aplicación debe poder calibrar en transmisión. 
+    \item Cal Rx: La aplicación debe poder calibrar en recepción. 
     
-    \item Se debe poder alcanzar el estado de calibración deseado partiendo cualquier estado inicial en los defasadores y 
-			atenuadores.
+    \item Calibración independiente del estado inicial: Se debe poder alcanzar el estado de calibración deseado partiendo 
+		cualquier estado inicial en los defasadores y atenuadores.
     
-    \item No se puede calibrar en la misma polarización transmisión y recepción a la vez.
+    \item Transmisión vs recepción por polarizaciones cruzadas: Para calibrar se debe transmitir y recibir en polarizaciones 
+		diferentes.
     
-    \item La antena tiene que ser perfectamente plana. No deben haber imperfecciones.
+    \item Planitud de antena: La antena tiene que ser perfectamente plana. No deben haber imperfecciones.
            
-    \item Se debe poder configurar la frecuencia de trabajo.
+    \item Frecuencia de RF: Se debe poder configurar la frecuencia de trabajo.
 	
-	\item No se toma en cuenta la incertidumbre de la medición de la potencia de la señal recibida en cada lazo de calibración.
+	\item Receptor ideal: El receptor se lo considera ideal. La medición que se obtiene del mismo no posee incertidumbre.
 
-    \item Se debe poder configurar los parámetros de dispersión (desvío estandar) para la ganancia y fase de la chirp 
-		utilizada entre pulsos.
+    \item Dispersión señal de calibración entre pulsos: Se debe poder configurar los parámetros de dispersión (desvío estándar) para 
+		la ganancia y fase de la chirp utilizada entre pulsos.
 
-    \item Se debe poder configurar los parámetros de dispersión (desvío estandar) para la ganancia y fase de la chirp réplica
-		utilizada a la hora de realizar la calibración convencional.
+    \item Dispersión chirp réplica: Se debe poder configurar los parámetros de dispersión (desvío estándar) para la 
+		ganancia y fase de la chirp réplica utilizada a la hora de realizar la calibración convencional.
     
-    \item Se debe poder configurar los parámetros de dispersión (desvío estandar) para la fase de la codificación utilizada 
-		a la hora de realizar la calibración convencional.
+    \item Dispersión walsh: Se debe poder configurar los parámetros de dispersión (desvío estándar) para la fase de la 
+		codificación utilizada a la hora de realizar la calibración convencional.
 
-    \item Se debe poder simular, configurar la destrucción total de elementos de la antena SAR como ser los TRMs.
-\end{itemize}
+    \item Simulación falla componente: Se debe poder simular, configurar la destrucción total de elementos de la antena SAR 
+		como ser los TRMs.
+\end{enumerate}
 
 
 \section{Metodología de la tesis}
