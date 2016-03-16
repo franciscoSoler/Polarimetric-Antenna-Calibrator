@@ -197,21 +197,23 @@ class VisualComparator:
         p_calibrated = [p if p > cut else cut for p in calibrated]
         p_non_calibrated = [p if p > cut else cut for p in non_calibrated]
 
-        delta = 2
+        delta = 1
         sup = [p if p > cut else cut for p in ideal + delta]
         inf = [p if p > cut else cut for p in ideal - delta]
 
         plt.figure(self.__get_figure_number())
-        p1, = plt.plot(angles, p_ideal, "k", label="ideal", linewidth=2)
-        p2, = plt.plot(angles, p_calibrated, "g", label="cal", linewidth=2)
-        p3, = plt.plot(angles, p_non_calibrated, "b", label="non-cal", linewidth=2)
+        plt.plot(angles, p_ideal, "k", label="ideal", linewidth=2)
+        plt.plot(angles, p_calibrated, "g", label="cal", linewidth=2)
+        plt.plot(angles, p_non_calibrated, "b", label="non-cal", linewidth=2)
+
+        plt.plot(angles[::125], p_ideal[::125], "k*", markersize=13)
+        plt.plot(angles[::150], p_calibrated[::150], "g^", markersize=10)
+        plt.plot(angles[::175], p_non_calibrated[::175], "bo", markersize=8)
+
         plt.plot(angles, sup, "r--", linewidth=1)
         plt.plot(angles, inf, "r--", linewidth=1)
-        plt.title(title)
-        plt.ylabel("Gain [dB]")
-        plt.xlabel("Angle [deg]")
-        plt.legend(handles=[p1, p2, p3], loc=4)
-        plt.grid(True)
+
+        self.__set_plot_environment(title, "Gain [dB]", "Angle [deg]", 4)
         plt.savefig(os.path.join(self.__paht_to_save, filename + ".png"), bbox_inches='tight')
 
     @staticmethod

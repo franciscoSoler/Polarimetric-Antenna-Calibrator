@@ -148,12 +148,15 @@ class Simulator:
         if calibr == Common.MutualCal:
             calibrator = AntennaCalibrator.MutualCalibrator(in_power, in_phase, row_steering, column_steering,
                                                             row_separation, col_separation, filename)
-            calibrator.generate_cal_paths(AntennaCalibrator.every_one_to_one_path_strategy)
         else:
             calibrator = AntennaCalibrator.ClassicCalibrator(in_power, in_phase, row_separation, col_separation, filename)
 
         if calibration_errors:
             calibrator.add_calibration_errors(calibration_errors)
+
+        if calibr == Common.MutualCal:
+            calibrator.generate_cal_paths(AntennaCalibrator.every_one_to_one_path_strategy)
+
         return calibrator
 
     def __calibrate_antenna(self, calibrator):
@@ -204,8 +207,8 @@ class Simulator:
         row_separation = self.__config[Common.Conf_ant][Common.Conf_vert_sep]
         col_separation = self.__config[Common.Conf_ant][Common.Conf_horiz_sep]
         freq = self.__config[Common.Conf_in_param][Common.Conf_freq]
-        # limits = [-100, 100]
-        limits = [-60, 60]
+        limits = [-100, 100]
+        # limits = [-60, 60]
         phi = 0
 
 

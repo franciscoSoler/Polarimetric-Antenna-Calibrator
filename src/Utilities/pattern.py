@@ -76,9 +76,10 @@ class Pattern():
         """
         pat = common.v2db(abs(self.__pattern))
         idx_max = np.argmax(pat)
+        peak = np.max(pat)
 
-        return [self.__search_next_max_idx(pat, idx_max, -1), np.max(pat), self.__search_next_max_idx(pat, idx_max, 1),
-                self.__get_width_lobe(pat, idx_max)]
+        return [peak - self.__search_next_max_idx(pat, idx_max, -1), peak,
+                peak - self.__search_next_max_idx(pat, idx_max, 1), self.__get_width_lobe(pat, idx_max)]
 
     def get_db(self):
         return common.v2db(abs(self.__pattern))
