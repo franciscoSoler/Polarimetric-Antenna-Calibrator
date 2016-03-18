@@ -111,7 +111,7 @@ class AntennaCreator:
         if AntennaCommon.is_trm(component):
             is_dead, steering_shift = next(trm_state_iterator)
             parameters = list(parameters)
-            parameters[1] = np.mod(parameters[1] + steering_shift, 360)
+            parameters[1] = np.mod(parameters[1] + steering_shift + 180, 360) - 180
             parameters.append(is_dead)
             structure[AntennaCommon.Dead] = str(is_dead)
 

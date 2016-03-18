@@ -1,96 +1,126 @@
 {
-  "inputParameters": {
-    "freq": 1275000000,
-    "power": 0,
-    "phase": 0,
-    "rowSteering": 120,
-    "columnSteering": 99
-  },
-  "calibrationParameters": {
-    "desiredTxPower": 20,
-    "desiredRxPower": 0,
-    "errors": ["interPulseGainChirpError", "interPulsePhaseChirpError",
-      "gainChirpRepError", "phaseChirpRepError", "WalPhaseErrors"]
-  },
-  "antenna": {
-    "fileName": "test",
-    "quantityRows": 5,
-    "quantityColumns": 5,
-    "verticalSeparation": 0.2,
-    "horizontalSeparation": 0.2,
-    "componentSequence": ["cable1", "psc15", "cable2", "psc15", "cable2", "trm",
-      "circulator", "cable3", "rm"],
-    "errors": ["RMError", "TRMError", "CirculatorError", "PSCError"],
-    "deadTrms": []
-  },
-  "components": {
-    "cable1": {
-      "attenuation": 0.1,
-      "length": 0.45,
-      "type": "cable"
+    "standardDeviationErrors": {
+        "RMError": [
+            0.1,
+            0.1
+        ],
+        "WalPhaseErrors": 5,
+        "interPulseGainChirpError": [
+            1,
+            5
+        ],
+        "CableError": [
+            0.1,
+            100
+        ],
+        "TRMError": [
+            0.2,
+            10
+        ],
+        "CirculatorError": [
+            0.2,
+            10
+        ],
+        "PSCError": [
+            0.1,
+            10
+        ],
+        "chirpRepError": [
+            1,
+            5
+        ]
     },
-    "cable2": {
-      "attenuation": 0.1,
-      "length": 8,
-      "type": "cable"
+    "antenna": {
+        "quantityColumns": 10,
+        "componentSequence": [
+            "cable1",
+            "psc110",
+            "cable1",
+            "psc15",
+            "cable2",
+            "psc13",
+            "trm",
+            "circulator",
+            "cable3",
+            "rm"
+        ],
+        "fileName": "test",
+        "quantityRows": 15,
+        "errors": [],
+        "deadTrms": [],
+        "verticalSeparation": 0.1,
+        "horizontalSeparation": 0.1
     },
-    "cable3": {
-      "attenuation": 0.1,
-      "length": 0.5,
-      "type": "cable"
+    "components": {
+        "psc13": {
+            "type": "PSC13",
+            "outputPorts": 3
+        },
+        "psc12": {
+            "type": "PSC12",
+            "outputPorts": 2
+        },
+        "psc14": {
+            "type": "PSC14",
+            "outputPorts": 4
+        },
+        "cable1": {
+            "attenuation": 0.1,
+            "type": "cable",
+            "length": 0.45
+        },
+        "psc110": {
+            "type": "PSC110",
+            "outputPorts": 10
+        },
+        "psc125": {
+            "type": "PSC125",
+            "outputPorts": 25
+        },
+        "circulator": {
+            "type": "circulator"
+        },
+        "cable3": {
+            "attenuation": 0.1,
+            "type": "cable",
+            "length": 0.5
+        },
+        "cable2": {
+            "attenuation": 0.1,
+            "type": "cable",
+            "length": 8
+        },
+        "trm": {
+            "type": "TRM",
+            "phaseShift": 0,
+            "gain": 10
+        },
+        "psc19": {
+            "type": "PSC19",
+            "outputPorts": 9
+        },
+        "psc15": {
+            "type": "PSC15",
+            "outputPorts": 5
+        },
+        "rm": {
+            "type": "RM"
+        },
+        "psc17": {
+            "type": "PSC17",
+            "outputPorts": 7
+        }
     },
-    "trm": {
-      "gain": 10,
-      "phaseShift": 10,
-      "type": "TRM"
+    "calibrationParameters": {
+        "errors": [],
+        "desiredRxPower": 0,
+        "desiredTxPower": 6
     },
-    "psc12": {
-      "outputPorts": 2,
-      "type": "PSC12"
-    },
-    "psc13": {
-      "outputPorts": 3,
-      "type": "PSC13"
-    },
-    "psc14": {
-      "outputPorts": 4,
-      "type": "PSC14"
-    },
-    "psc15": {
-      "outputPorts": 5,
-      "type": "PSC15"
-    },
-    "psc19": {
-      "outputPorts": 9,
-      "type": "PSC19"
-    },
-
-    "psc110": {
-      "outputPorts": 10,
-      "type": "PSC110"
-    },
-    "psc125": {
-      "outputPorts": 25,
-      "type": "PSC125"
-    },
-    "circulator": {
-      "type": "circulator"
-    },
-    "rm": {
-      "type": "RM"
+    "inputParameters": {
+        "power": 0,
+        "phase": 0,
+        "freq": 1275000000,
+        "rowSteering": 10,
+        "columnSteering": 0
     }
-  },
-  "standardDeviationErrors": {
-    "CableError": 0.1,
-    "CirculatorError": 0.5,
-    "TRMError": 0.2,
-    "PSCError": 0.5,
-    "RMError": 0.1,
-
-    "interPulseGainChirpError": 0.5,
-    "interPulsePhaseChirpError": 5,
-    "gainChirpRepError": 1,
-    "phaseChirpRepError": 5,
-    "WalPhaseErrors": 0
-  }
 }

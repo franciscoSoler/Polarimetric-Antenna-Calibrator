@@ -205,6 +205,7 @@ class MutualCalibrator(AntennaCalibrator):
                                                                self._antenna.quantity_columns,
                                                                self._antenna.quantity_rows, dist_columns, dist_rows,
                                                                AntennaCommon.f)
+        print(self.__trm_setting)
         self.__trm_setting = list(itertools.chain.from_iterable(self.__trm_setting))
         self.__matrix_builder = MatrixBuilder.LinearBuilder()
         cross = MatrixBuilder.CrossBuilder()
@@ -304,7 +305,12 @@ class MutualCalibrator(AntennaCalibrator):
             phase[idx] += increment
 
     def __correct_phase(self, a, phase):
-        ideal_phase = np.array(np.dot(a, self.__trm_setting)).reshape(-1)
+        print()
+        print(self.get_antenna_gain_paths()[1])
+        print(np.array(self.__trm_setting) - 8.043)
+        print()
+        exit()
+        ideal_phase = np.array(np.dot(a, np.array(self.__trm_setting) - 8)).reshape(-1)
 
         increment = 360
         new_phase = np.round((ideal_phase - phase) / increment) * increment + phase
@@ -338,8 +344,15 @@ def every_one_to_one_path_strategy(antenna, tx_network, rm_coupling, rx_network)
             (antenna.row_col_to_index(tx_row, tx_col),
              antenna.row_col_to_index(rx_row, rx_col))] for rx_row in rows for rx_col in columns
            for tx_col in columns for tx_row in rows]
-    unique_path = [[t2s(tx_network[0][0]), (antenna.row_col_to_index(0, 0), None)], [t2s(rx_network[0][0]), (None, antenna.row_col_to_index(0, 0))]]
-    return list(zip(*(out + unique_path)))
+    half_row = last_row // 2
+    half_col= last_col // 2
+    unique_path = [[t2s(tx_network[half_col][half_row]), (antenna.row_col_to_index(half_col, half_row), None)],
+                   [t2s(rx_network[half_col][half_row]), (None, antenna.row_col_to_index(half_col, half_row))]]
+
+    unique_path2 = [[t2s(tx_network[1][1]), (antenna.row_col_to_index(1, 1), None)],
+                   [t2s(rx_network[1][1]), (None, antenna.row_col_to_index(1, 1))]]
+
+    return list(zip(*(out + unique_path + unique_path2)))
 
 
 def strategy_2(antenna, tx_network, rm_coupling, rx_network):

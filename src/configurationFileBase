@@ -84,13 +84,13 @@
   },
   "standardDeviationErrors": {
     "CableError": [0.1, 100],
-    "CirculatorError": [0.2, 20],
+    "CirculatorError": [0.2, 10],
     "TRMError": [0.2, 10],
     "PSCError": [0.1, 10],
     "RMError": [0.1, 0.1],
 
-    "interPulseGainChirpError": [0, 0],
+    "interPulseGainChirpError": [1, 5],
     "chirpRepError": [1, 5],
-    "WalPhaseErrors": 10
+    "WalPhaseErrors": 5
   }
 }
