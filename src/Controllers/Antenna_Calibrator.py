@@ -205,7 +205,7 @@ class MutualCalibrator(AntennaCalibrator):
                                                                self._antenna.quantity_columns,
                                                                self._antenna.quantity_rows, dist_columns, dist_rows,
                                                                AntennaCommon.f)
-        print(self.__trm_setting)
+
         self.__trm_setting = list(itertools.chain.from_iterable(self.__trm_setting))
         self.__matrix_builder = MatrixBuilder.LinearBuilder()
         cross = MatrixBuilder.CrossBuilder()
@@ -305,12 +305,7 @@ class MutualCalibrator(AntennaCalibrator):
             phase[idx] += increment
 
     def __correct_phase(self, a, phase):
-        print()
-        print(self.get_antenna_gain_paths()[1])
-        print(np.array(self.__trm_setting) - 8.043)
-        print()
-        exit()
-        ideal_phase = np.array(np.dot(a, np.array(self.__trm_setting) - 8)).reshape(-1)
+        ideal_phase = np.array(np.dot(a, self.__trm_setting)).reshape(-1)
 
         increment = 360
         new_phase = np.round((ideal_phase - phase) / increment) * increment + phase

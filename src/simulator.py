@@ -341,7 +341,7 @@ class Simulator:
         prefix = self.__get_error_name() + self.__calibrator + self.__get_angle()
 
         self.__tx_ini_ant_power, self.__tx_ini_ant_phase, _, _ = calibrator.get_antenna_gain_paths()
-        compare_estimated_gains_against_real(calibrator, visual_comparator, "BEFORE CALIBRATION")
+        # compare_estimated_gains_against_real(calibrator, visual_comparator, "BEFORE CALIBRATION")
 
         self.__calibrate_antenna(calibrator)
 

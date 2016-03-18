@@ -90,16 +90,6 @@ class Antenna:
             parameters = [[0, 0, 1], [1, 0, 0], [0, 1, 0]] if AntennaCommon.is_circulator(component) else [[0, 1], [1, 0]]
         build_cascade = lambda x, y: x * y if mode == AntennaCommon.Transmission else y * x
 
-
-        # if AntennaCommon.is_trm(component):
-        if AntennaCommon.is_psc(component) and len(value[AntennaCommon.Extreme]) == 5:
-            print(children[0][0])
-            h = lambda x: np.angle(x, deg=True)
-            print("children gain", h(AntennaCommon.t2s_parameters(children[0][1])[1,0]))
-            print("trm gain", h(AntennaCommon.t2s_parameters(AntennaCommon.s2t_parameters(AntennaCommon.get_s2p(component, parameters, mode, f(children[0][0]))))[1,0]))
-            print(h(AntennaCommon.t2s_parameters(build_cascade(AntennaCommon.s2t_parameters(AntennaCommon.get_s2p(component, parameters, mode, f(children[0][0]))), children[0][1]))[1,0]))
-            #exit()
-
         return [[rm_pos, build_cascade(AntennaCommon.s2t_parameters(AntennaCommon.get_s2p(component, parameters, mode,
                                                                                           f(rm_pos))), child_param)]
                 for rm_pos, child_param in children]
@@ -117,15 +107,10 @@ class Antenna:
 
         modes = AntennaCommon.parse_polarization_mode(pol_mode)
 
-        f = lambda x, y: [AntennaCommon.t2s_parameters(matrix[1]) for matrix in sorted(x, key=lambda z: z[0])]
+        f = lambda x: [AntennaCommon.t2s_parameters(matrix[1]) for matrix in x]
         format_list = lambda x: list(map(lambda y: x[self.__quantity_columns * y: self.__quantity_columns * (y+1)],
                                          range(self.__quantity_rows)))
-        mode = modes[0]
-        print(format_list(f(self.__get_attenuation_paths(self.__json_rfdn[mode[1]], mode[0], complete),
-                              mode[0])))
-        exit()
-        return [format_list(f(self.__get_attenuation_paths(self.__json_rfdn[mode[1]], mode[0], complete),
-                              mode[0])) for mode in modes]
+        return [format_list(f(self.__get_attenuation_paths(self.__json_rfdn[mode[1]], mode[0], complete))) for mode in modes]
 
     def get_mutual_coupling_front_panel(self):
         """
