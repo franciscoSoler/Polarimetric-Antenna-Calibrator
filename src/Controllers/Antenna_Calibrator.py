@@ -341,13 +341,10 @@ def every_one_to_one_path_strategy(antenna, tx_network, rm_coupling, rx_network)
            for tx_col in columns for tx_row in rows]
     half_row = last_row // 2
     half_col= last_col // 2
-    unique_path = [[t2s(tx_network[half_col][half_row]), (antenna.row_col_to_index(half_col, half_row), None)],
-                   [t2s(rx_network[half_col][half_row]), (None, antenna.row_col_to_index(half_col, half_row))]]
+    unique_path = [[t2s(tx_network[half_row][half_col]), (antenna.row_col_to_index(half_row, half_col), None)],
+                   [t2s(rx_network[half_row][half_col]), (None, antenna.row_col_to_index(half_row, half_col))]]
 
-    unique_path2 = [[t2s(tx_network[1][1]), (antenna.row_col_to_index(1, 1), None)],
-                   [t2s(rx_network[1][1]), (None, antenna.row_col_to_index(1, 1))]]
-
-    return list(zip(*(out + unique_path + unique_path2)))
+    return list(zip(*(out + unique_path)))
 
 
 def strategy_2(antenna, tx_network, rm_coupling, rx_network):
