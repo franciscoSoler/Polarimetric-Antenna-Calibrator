@@ -84,7 +84,7 @@ TRMs de la antena es el determinante de la cota inferior.
 	l = 2^i \ge N \cdot M
 \end{equation}
 
-Siendo $N$ la cantidad de filas y $M$ la cantidad de paneles, o columnas, que tiene el array de antena. No es necesario que 
+Siendo $N$ la cantidad de filas y $M$ la cantidad de paneles, o columnas, que tiene el conjunto de antena. No es necesario que 
 se calibren todos los TRMs de una. Hay tres estrategias que se utilizan con este método de calibración para obtener 
 distintos niveles de granularidad de mediciones a saber.
 
@@ -102,42 +102,37 @@ Este método a nivel panel y fila sirve para la caracterización del la configur
 \subsection{Problemas y limitaciones}
 
 \begin{itemize}
-	\item Caracterización prefvia de los elementos de antena: Para poder conocer la ganancia del lazo de transmisión o recepción
+	\item Caracterización previa de los elementos de antena: Para poder conocer la ganancia del lazo de transmisión o recepción
 es necesario conocer la potencia de la señal de calibración, para sustraerla del resultado obtenido. El lazo de calibración 
 donde se realiza esta medición es el que se muestra en la imagen \ref{fig:classic_cal_scheme}, llamado \textbf{P3}. En esta 
-medición no se puede separar la potencia de generación de la atenuación del lazo, por lo tanto se opta por caracterizar en 
-tierra dichos componentes para las frecuencias y temperaturas de trabajo. Esta estrategia no es completamente correcta dado
-que, por envejecimiento de los materiales, el comportamiento es diferente.
-\begin{itemize}
-	\item bla
+medición no se puede determinar cuanto atenúa el lazo, por lo tanto se opta por caracterizar en tierra dichos componentes 
+para las frecuencias y temperaturas de trabajo. 
+	\begin{itemize}
+		\item Costo de materiales: Comprar materiales que ya vengan caracterizados en temperatura valen el doble que los no 
+			caracterizados.
+		\item Costo de recursos: La campaña de caracterización puede durar meses, con equipos de trabajo dedicados, lo cual implica
+			un gasto de dinero muy importante. 
+		\item Comportamiento de materiales: Como el material envejece, cambia sus propiedades, por lo tanto las mediciones realizadas 
+			en la campaña de caracterización dejan de tener tanta validez.
 	\end{itemize}
+	\item Complejidad del hardware de la antena: Como se calibra solo una parte de la antena por vez, transmisión o recepción en 
+		una u otra polarización (H o V), es necesario que el lazo de calibración esté compuesto por la parte de la antena a 
+		calibrar junto a hardware dedicado (cables y switches) a esta tarea. Logrando así, no solo que la construcción de la antena 
+		sea más compleja y que se tengan que caracterizar más componentes, sino también que el defasaje y atenuación que este 
+		hardware dedicado posee se lo atribuye a los TRMs agregando así más error en la medición. 
+	\begin{itemize}
+		\item Acoplamiento: Como hay hardware agregado, el diseño tiene que se más complicado dado que se incrementan los posibles 
+			acoplamientos entre componentes.
+	\end{itemize}
+	\item Inestabilidad del generador: Este método es sumamente susceptible a las variaciones de fase y potencia del generador 
+		entre pulsos de calibración. Por lo tanto, es de vital importancia armar un generador que sea sumamente estable.
+	\item Sistema incompleto: Como hay componentes que están fuera de los lazos de calibración, con el método nunca se puede 
+		determinar de forma totalmente correcta la ganacia de la antena en cualquiera de sus modos.
+	\item A la hora de elegir la longitud del código Walsh, es importante que siempre haya un módulo radiante virtual en la 
+		antena para evitar la primer columna de la matriz de códigos. En caso contrario el primer TRM siempre tendrá un error en 
+		la estimación de su ganancia, para mayor información ver \cite{Wang2010}.
+	\item Pérdida de ortogonalidad en el código utilizado por comportamiento de defasadores: Si el defasador no tiene un 
+		comportamiento exactamente igual al configurado a la hora de realizar la calibración, los códigos walsh pierden 
+		ortogonalidad y, por ende, se logra obtener una mala estimación de los valores de ganancia de la antena. 
 \end{itemize}
-
-Como se calibra solo una parte de la antena por vez, transmisión o recepción en una u otra polarización (H o V), es necesario que 
-el lazo de calibración esté compuesto por la parte de la antena a calibrar junto a hardware dedicado (cables y switches) a esta 
-tarea. Logrando así, no solo que la construcción de la antena sea más compleja y que se tengan que caracterizar más componentes, 
-sino también que el defasaje y atenuación que este hardware dedicado posee se lo atribuye a los TRMs agregando así más 
-error en la medición. 
-
-Este método es sumamente susceptible a las variaciones de fase y potencia del generador entre pulsos de calibración. Por lo 
-tanto, es de vital importancia armar un generador que sea sumamente estable.
-
-Como hay componentes que están fuera del lazo de calibración, también se los caracteriza en tierra, por ejemplo los cables 
-que comunican el panel de módulos radiantes con los circuladores (como ejemplo ver figura \ref{fig:classic_cal_scheme}), 
-otra caracterización que se realiza es la del acoplamiento mutuo entre los RMs de la antena. Todas estas caracterizaciones
-se las realizan en una fase llamada campaña de calibración, y tiene la gran desventaja del tiempo y costo que lleva realizar 
-esta tarea.
-
-A la hora de elegir la longitud del código Walsh, es importante que siempre haya un módulo radiante virtual en la antena para
-evitar la primer columna de la matriz de códigos. En caso contrario el primer TRM siempre tendrá un error en la estimación 
-de su ganancia, para mayor información ver \cite{Wang2010}.
-
-\todo[inline]{este parrafo creo que hay uqe sacarlo dado que me parece que esto es para todas las calibracoines internas}
-Como limitación, esta calibración interna no puede medir las partes pasivas del sistema que están fuera del loop de 
-calibración interna, ni la ganancia absoluta, debido a la ausencia de un target standard de calibración \cite{Wang2010}.
-
-Como última limitación, el defasador cambia la fase de a pasos discretos, si este componente no llega a defasar en $\pm$90º
-por no ser múltiplo de dicho paso (defasaje utilizado para realizar el código para la calibración) o por variaciones en el 
-comportamiento del componente.
-
 

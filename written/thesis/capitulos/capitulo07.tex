@@ -7,13 +7,44 @@ conclusiones y se propone las diferentes lineas de ampliación del trabajo que s
 
 A continuación se listan los resultados obtenidos de los ensayos realizados.
 \begin{itemize}
-	\item dasdf
+	\item El método de calibración por acoplamientos mútuos es mucho más robusto que el clásico ante fallas en el generador 
+		de las señales a calibrar, tanto de ganancia como de fase.
+	\item Comparando los desvíos de todos los set de datos, se aprecia una peor respuesta cuando se realizan apuntamientos 
+		en dirección horizontal, esto es, en la dirección donde se encuentra la mayor cantidad de elementos radiantes.
+	\item Por no abarcar todo el sistema de transmisión/recepción de la antena, el método de calibración clásico no solo no 
+		puede calibrar correctamente, sino que también puede llevar el estado de la señal a uno que se aleja más al ideal.
+	\item El método de calibración convencional tiene más puntos de falla que el de calibración por acoplamientos mútuos.
+	\item La falta de ortogonalidad generados por desvíos en la configuración de los defasadores afecta principalmente a la 
+		estimación de la ganancia de los elementos radiantes.
 \end{itemize}
-Se puede realizar una modificación al algoritmo de calibración para que pueda medir la planitud de la antena. Para esto, va a ser
-necesaria una gran cantidad de mediciones.
 
-Se podría agregar la limitación de la potencia máxima y mínima que hay entre módulos radiantes para limitar la cantidad de 
-ecuaciones para calibrar la antena.
+\section{Líneas futuras}
 
-Se podría realizar un ensayo de medición de como se debe modificar el seteo de las ganancias y defasajes en los TRMs en caso 
-que uno muera para corregir el patrón de antena.
+Este trabajo es la base para varias posibles líneas de trabajo futuras, a saber:
+\begin{itemize}
+	\item Para un ensayo más realista, se puede introducir la limitación de la potencia máxima y mínima que soporta el lazo 
+		de recepción de una antena. El efecto de esta limitación es la de limitar la cantidad de lazos de calibración interna, 
+		por ende, la cantidad de ecuaciones para calibrar la antena.
+	\item Para el caso de destrucción de componentes, por ejemplo los TRMs, sobre el modelo de antena se pueden realizar ensayos 
+		de las estrategias a tomar para corregir el diagrama de radiación configurando los atenuadores y defasadores cercanos al 
+		elemento dañado.
+	\item Se puede modificar el algoritmo del método de calibración por acoplamientos mútuos para la detección y medición de 
+		la planitud de antena. Hay varias consideraciones a tener en cuenta, la primera es que el método no puede determinar 
+		unívocamente el estado de la antena (por la naturaleza del mismo, hay dos posibles soluciones), se debe hace uso de algún 
+		sistema externo para determinar cual de las dos posibles soluciones es la real. La segunda es que, para poder determinar
+		la cantidad de acoplamientos que hay en el panel y para disminuir la incertidumbre en los mismos, se deben calibrar la 
+		antena en todos sus modos a la vez.
+\end{itemize}
+
+\section{Conclusiones}
+
+En la presente tesis se introdujeron los conceptos básicos de los tipos de antenas y en particular de las polarimétricas. De 
+la dificultades presentes a la hora de calibrar las mismas y su necesidad de calibración.
+
+A su vez, se presentaron los principales conjuntos de métodos de calibración, explicando cuales son los usos y 
+ventajas/desventajas de cada uno. Para luego introducir como actúa el método de calibración interna clásico, mostrando sus 
+virtudes y deficiencias. 
+
+Se desarrolló un método alternativo que complementa muchas de las falencias del método previamente mencionado. Para ensayar 
+y comparar el comportamiento de ambos métodos de calibración se implementó un modelo de antena que sea representativo en RF.
+ensayó con distintos tipos de desvíos que puede sufrir una antena a lo largo de su vida útil.

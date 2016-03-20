@@ -27,24 +27,23 @@ sea simplemente un cable recto poseerá una polarización cuando se la monta ver
 horizontalmente. Como una onda transversal, el campo magnético de una onda de radio es perpendicular al eléctrico en campo 
 lejano, pero, por convención, la polarización hace referencia a la dirección del campo eléctrico \cite{AntennaWiki}.
 
+{\textbf{Directividad:}} Es una figura de mérito de una antena. Es el cociente entre la densidad de pontencia radiada en la 
+dirección de máxima emisión y la densidad de potencia radiada utilizando un radiador isotrópico (el cual emite uniformemente
+en toda dirección) \cite{DirectivityWiki}.
+
 \todo{agregar ROE y SWR como definición}
 
 {\textbf{Adaptación de impedancias:}} La máxima transferencia de potencia requiere que la impedancia de un sistema de 
-antena esté adaptada al conjugado complejo de la impedancia del transmisor o receptor. En el caso de un transmisor, 
+antena esté adaptada al complejo conjugado de la impedancia del transmisor o receptor. En el caso de un transmisor, 
 la impedancia adaptada deseada no necesariamente corresponde a la impedancia de salida dinámica del transmisor analizado
-como una fuente de impedancia sino al valor de diseño (típicamente de $50 \Omega$) requerido para una operación eficiente
+como una impedancia sino al valor de diseño (típicamente de $50 \Omega$) requerido para una operación eficiente
 y segura del circuito de transmisión. Normalmente, la impedancia deseada es resistiva pero un transmisor (y algunos receptores)
 pueden tener ajustes adicionales para cancelar una cierta cantidad de reactancia en orden de obtener dicha adaptación. Cuando
-una linea de transmisión es usada entre la antena y el transmisor (o receptor) uno generalmente desearía un sistema de antena
-con una impedancia resistiva y cercana a la impedancia característica de dicha línea de transmisión, para minimizar el SWR \todo{buscar que es el swl}
+una linea de transmisión es utilizada entre la antena y el transmisor (o receptor) uno generalmente desearía un sistema de antena
+con una impedancia resistiva cercana a la impedancia característica de dicha línea de transmisión, para minimizar el SWR 
 e incrementar la transmisión \cite{AntennaWiki}. 
 
-
-Maximum power transfer requires matching the impedance of an antenna system (as seen looking into the transmission line) to the complex conjugate of the impedance of the receiver or transmitter. In the case of a transmitter, however, the desired matching impedance might not correspond to the dynamic output impedance of the transmitter as analyzed as a source impedance but rather the design value (typically 50 ohms) required for efficient and safe operation of the transmitting circuitry. The intended impedance is normally resistive but a transmitter (and some receivers) may have additional adjustments to cancel a certain amount of reactance in order to "tweak" the match. When a transmission line is used in between the antenna and the transmitter (or receiver) one generally would like an antenna system whose impedance is resistive and near the characteristic impedance of that transmission line in order to minimize the standing wave ratio (SWR) and the increase in transmission line losses it entails, in addition to supplying a good match at the transmitter or receiver itself.
-
-
-
-{\textbf{Antena de arreglo de fase:}} \todo{poner referencias en esta definicion} (en inglés: phased array) es un conjunto de antenas en que las fases relativas de las 
+{\textbf{Antena de conjunto de fase:}} \todo{poner referencias en esta definicion} (en inglés: phased array) es un conjunto de antenas en que las fases relativas de las 
 señales con que se alimenta cada antena se varían intencionadamente con objeto de alterar el diagrama de radiación del 
 conjunto. Lo normal es reforzar la radiación en una dirección concreta y suprimirla en direcciones indeseadas. Si todos los 
 elementos del arreglo de fase están contenidos en el mismo plano y la señal con que se alimentan es de la misma fase, 
@@ -72,10 +71,10 @@ E-ERS-1 y el SIR-C.
 Los tests realizados en tierra para dichos sistemas complejos son sobre la electrónica de RF, la electrónica digital y la 
 antena sobre temperatura; para los cuales es preferible realizarlos, cuando sea posible, en un ambiente al vacío. Los 
 parámetros clave del sistema, como: potencia transmitida, pérdidas de transmisión o recepción, ganancia de recepción, 
-ganancia y patrón de la antena, linealidad de la electrónica digital/RF, rango dinámico, y fase/amplitud vs estabilidad de la 
-frecuencia son medidos en función de la temperatura para cada seteo de ganancia del radar y PRF (Pulse Repetition Frequency). 
-Los elementos de calibración, como medidores de temperatura, de corriente y de potencia, podrán permitir la determinación de 
-la performance del sistema en función de la variación de dichos parámetros.
+ganancia y diagrama de radiación de la antena, linealidad de la electrónica digital/RF, rango dinámico, y fase/amplitud vs 
+estabilidad de la frecuencia son medidos en función de la temperatura para cada seteo de ganancia del radar y PRF (Pulse 
+Repetition Frequency). Los elementos de calibración, como medidores de temperatura, de corriente y de potencia, podrán 
+permitir la determinación dela modela en RF. la performance del sistema en función de la variación de dichos parámetros.
     
 Esta técnica asume que la variación en la performance del sistema puede ser modelada en función de los parámetros observables. 
 También, se asume que los componentes de calibración están correctamente calibrados y son estables en el paso del tiempo. 
@@ -191,6 +190,7 @@ como recepción a la vez, para ello, se transmite en una polarización y se reci
 Una ventaja que tiene frente a los otros métodos realizados es que no solo calibra la antena en su totalidad, sino también 
 sirve para determinar si hay módulos radiantes quemados.
 
+\begin{comment}
 \todo[inline]{pablo, la parte que está debajo del comentario la dejo??? la saco?? donde la pongo}
 En esta tesis se realizarán las siguientes tareas:
 
@@ -203,7 +203,7 @@ En esta tesis se realizarán las siguientes tareas:
 			permitan analizar su comportamiento.
     \item Se realizará un modelo de calibración que será implementado algoritimicamente.
 \end{enumerate}
-
+\end{comment}
 
 
 \section{Motivación}
@@ -267,8 +267,6 @@ La presente tesis tiene varios objetivos:
 
 Para poder aplicar e implementar el método de acoplamientos mútuos se deben cumplir las siguinetes hipótesis de base, que a su 
 vez son consideradas las especificaciones del problema.
-
-\todo{cambiar numeros por SP}
 
 \begin{enumerate}
     \item Modularización de los componentes de la antena: La antena debe estar compuesta por defasadores, atenuadores, cables, 
@@ -363,52 +361,20 @@ que posee y que tan compatibles son entre ambos.
 
 \section{Estructura de la Tesis}
 
- (1) Seccion "Tipos de calibracion. En particular calibracion externa". (1 hoja)
- Explicar como es. Transponders, corner reflectors. Explicar el problema que trae depender de algo externo. Revisitas espaciadas. Mantenimiento en tierra de estos lugares de calibracion. etc.
- De alguna manera decir que es la mas sencilla pero no alcanza y los problemas que tiene.
-
- (2) Sección "Calibración Interna Clásica". (5 hojas).
- Explicar como es. Referenciar varios satelites con antenas que la han usado (en Curlander aparecen).
- Explicar para que sirve (solo para ver si un TRM se rompio o no. Enumerar los defectos que tiene si se la quiere usar para lo que no fue pensada (deja cosas fuera del lazo, hay que caracterizar un monton de cosas, si hay falta de planitud no sirve para nada, etc).
- La idea es tirarla abajo. Por recursos necesarios para implementarla (tiempo, gente). Porque depende de las caracterizaciones internas (que puedn tener errores). Porque las cosas no siempre envejecen como uno espera. Porque no incluye a los elementos radiantes (no sabemos si uno se rompio). Porqe no incluye a los circuladores (Que pueden tener variaciones). POrque depende de una planitud perfecfta. etc etc. Se busca un metodo que permita trascender esto. Ademas se busca simularlo, probarlo, ver las hipotesis necesarias a la hora del diseño para poder implementarlo.
- 
- (3) Seccion "Propuestas alternativas superadoras al metodo clasico". (5 hojas)
- POrque se es conciente de estas limitaciones y cada vez se le pide mas en cuanto a requerimientos de fase y atenuacion a las antenas de arreglo de fase. Discriminar mejor estos valores permite poder tener mas aplicaciones mucho mas exigentes.
- Mencionar agregar antenas externas como un metodo. Problema de agregar hadware cuando no hay espacio. Perdida de robustez.
- Mencionar otros metodos. Mencionar el metodo de acoplamientos mutuos general.
- Mencionar cosas que no se encuentran en la bibliografia: no se habla de la fase.
- Mencionar que no estan listadas las hipotesis de base. No existe un algoritmo mostrando como aplicarlo a una antena electronica.  No se analiza en profundidad topologias para aumentar el numero de ecuaciones y reducir el numero de incognitas.
- 
- (4) Aca arranca el aporte 1: Seccion "Listado de Hipotesis de base necesarias" p/aplicar el metodo de acoplamientos mutuos a una antena polarimetrica con apuntamiento electronico". (10 hojas)
- Para aplicar el metodo de acoplamientos mutuos antena arreglo de fase polarimetrica controlada de manera electronica, y que RESUELVA lo que el METODO CLASICO NO RESUELVE. Punto a punto mostrar de que manera lo resuelve. Esta es la innovacion. Es el 1er centro de la tesis. El listado de estas hipotesis de manera ordenada. Esto yo no lo vi en nigun paper ni en ningun lado.
- 
- (5) Aca sigue el aporte 2: Seccion "Algoritmo de capa 1".  (30 hojas)
- Para poder probar el metodo consturuis vos (que antes no existia) un modelo en base a algoritmo.
- Propuesta de modelos en parametros S (breve introduccion a parametros S). Modularización. Descripcion de los módulos individualmente, entrada, salida, internamente. Interconexion entre modulos que permiten formar la red. Facilidad para cambiar las topologias y probar diferentes para ver ventajas y desventajas (se pueden poner dos de ejemplo y hacer una comprarcion) Pruebas para validarlo punta a punta.
- Propuesta de un par de topologias. Se escoge una de ellas porque genera mas ecuaciones que incognitas. Ventajas y desventajas de usar una RFDN mas o menos subdividida.
- 
- (6) Aca sigue el aporte 3: Seccion "Algoritmo de capa 2". (30 hojas)
- Que es lo que se desea simular.
- Metodo clasico para calibrar. PCC.
- Metodo innovador utilizando matrices y aprovechando la SUPERPOSICION de caminos y simplificaciones.
- 
- (7) Aca sigue el aporte 4: Seccion "Conclusiones del uso del algoritmo" (10 hojas).
- Este metodo supera al clasico, lo complementa. Solo se requiere tener las hipotesis de base (aporte1). Se require ademas un algoritmo para probarlo de capa fisicia (aporte 2). Luego el algoritmo funcional que corre sobre el fisico (aporte 3).
- 
- (8) Seccion trabajo a futuro. (2 hojas con cosas que se podrian seguir investigando).
- 
- (9) Apendices
-
-
 Los siguientes capítulos se organizan de la siguiente manera: 
-\begin{itemize}
-	\item En el capítulo dos se presenta y detalla lo que es una antena, un patrón de antena y como se la modela en RF.
-	\item En el capítulo tres se detalla la calibración clásica con sus ventajas y desventajas.
-	\item En el capítulo cuatro se detalla la calibración utilizando los acoplamientos mútuos con sus desventajas y desventajas.
-	\item En el capítulo cinco se detalla la modelización de la problemática a resolver. 
-	\item En el capítulo seis se presentan los resultados obtenidos y los trabajos futuros 
-	\item En el capítulo siete se presentan las conclusiones obtenidas.
-\end{itemize}
+
+\begin{enumerate}
+	\item Capítulo 2: Se presenta y detalla lo que es una antena polarimétrica, un diagrama de radiación y como se realiza su 
+		modelización en RF.
+	\item Capítulo 3: Se presenta y detalla el método de calibración clásica plantenado sus ventajas y desventajas.
+	\item Capítulo 4: Se presenta y detalla el método de calibración por acoplamientos mutuos planteando sus desventajas y 
+		desventajas.
+	\item Capítulo 5: Se detalla la modelización y estructura del modelo de la antena implementado para realizar los ensayos.
+	\item Capítulo 6: Se presentan los ensayos realizados sobre el modelo de antena utilizando distintos factores de errores y 
+		comparando los resultados obtenidos con ambos calibradores.
+	\item Capítulo 7: Se presentan los resultados obtenidos, conclusiones y posibles trabajos futuros a realizar.
+	\item Apéndices
+\end{enumerate}
 
 \todo[inline]{Pablo, supongo que el capítulo que está debajo también lo saco no???}
 
@@ -431,7 +397,7 @@ Las distintas estrategias que resuelven la problemática de calibración interna
 El primer método es el convencional, el cual calibra los lazos internos de transmisión y recepción de la antena de forma 
 independiente. Para esto, se mide la señal recibida luego de ser transmitida por todos los caminos posibles de la RFDN
 y se los compara con la potencia transmitida. Estas diferencias, tanto de fase como de potencia, determinan cuanto atenúa
-y defasa cada camino de la antena. \todo{mejorar última oración}
+y defasa cada camino de la antena.
 
 Otro método utilizado es el llamado método REV, el cual calibra de a un módulo radiante a la vez utilizando una antena externa
 al panel como receptora. El proceso de calibración es el siguiente, se transmite por un módulo radiante y se va variando la 
@@ -453,5 +419,7 @@ conforman.
 Para poder contrastar los resultados obtenidos con el método de calibración utilizando los acoplamientos mutuos, en el modelo 
 de antena también se programó el método convencional y se corrieron los mismos set de pruebas.
 
-\todo{poner resultados luego de simularlos}
-
+\begin{comment}
+Poner una seccion con lo siguiente, que es un m\'etodo que puede determinar la fase independientemente del estado en que estan los defasadores, 
+y que puede calibrar transmisi\'on y recepci\'on de un solo saque, independientemente de que es lo que diga el flaco ese del paper de los 96 elementos radiantes
+\end{comment}

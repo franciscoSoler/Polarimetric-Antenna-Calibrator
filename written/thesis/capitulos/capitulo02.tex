@@ -64,8 +64,8 @@ espacial.
 
 \subsection{Composición de una antena}
 
-Un array de de una antena polarimétrica es una colección de N módulos radiantes espaciados. Todos los elementos poseen los
-mismos patrones de radiación y están orientados en el mismo sentido y dirección en un ambiente tridimensional. No es 
+Un conjunto de de una antena polarimétrica es una colección de N módulos radiantes espaciados. Todos los elementos poseen los
+mismos diagramas de radiación y están orientados en el mismo sentido y dirección en un ambiente tridimensional. No es 
 necesario que los elementos estén espaciados regularmente ni que emitan los mismos valores de potencia y fase, pero se asume 
 que todos están alimentados con la misma frecuencia de trabajo. En la figura \ref{fig:phasedArrayAntenna} se pueden observar
 dos tipos de distribuciones comunmente utilizadas.
@@ -145,22 +145,38 @@ los blancos observados, dado que, cada cuerpo responde de forma distinta a cada 
 
 
 
-\subsection{Patrón de antena}
+\subsection{Diagrama de radiación de antena}
 
-Un array de antena puede armarse recursivamente, esto es, que un elemento sea, en si mismo, un array. Un patrón de antena es 
-un patrón de radiación polar que resulta de reemplazar cada elemento por un radiador isotrópico. Si se asume que el patrón de
-radiación de cada elemento es idéntico al del resto, tomando una cierta incertidumbre, el patrón de radiación total resulta de
-la multiplicación de todos los patrones de todos los elementos. Este resultado no depende de si se consideran los patrones de
+Un conjunto de antena puede armarse recursivamente, esto es, que un elemento sea, en si mismo, un conjunto. Un diagrama de antena es 
+un diagrama de radiación polar que resulta de reemplazar cada elemento por un radiador isotrópico. Si se asume que el diagrama de
+radiación de cada elemento es idéntico al del resto, tomando una cierta incertidumbre, el diagrama de radiación total resulta de
+la multiplicación de todos los diagramas de todos los elementos. Este resultado no depende de si se consideran los diagramas de
 potencia o de amplitud/fase.
+
+\begin{figure}[H]
+ \centering
+ \includegraphics[width=7cm]{gfx/rectangularArrayGeometry.png}
+ \caption{Conjunto de geometría rectangular \cite{Mahafza2004}}
+ \label{fig:polarizations}
+\end{figure}
+
+Considerese un conjunto de antena de $NxM$ elementos, como se muestra en la figura \ref{fig:polarizations}, el diagrama de 
+radiación de campo lejano se lo calcula de la siguiente forma \cite{Mahafza2004}.
+
+\begin{equation}
+	E(\theta, \phi) = \sum_{n=0}^{N-1}\sum_{m=0}^{M-1} I_{n,m} e^{jk(d_xn\sin\phi\cos\theta + d_ym\sin\phi\sin\theta)}
+\end{equation}
+
+Donde $\theta$ corresponde al ángulo al eje x, $\phi$ corresponde al ángulo al eje z, $k$ es el número de onda y es igual 
+a $2\pi/\lambda$, $I_{n,m}$ es la amplitud compleja del elemento n,m.
 
 A continuación se mostrarán gráficos representando la potencia del campo radiado, asumiendo campo lejano. La potencia decae 
 con la relación de $1/r$, donde $r$ es la distancia del punto de medición al elemento radado. Se debe tomar en cuenta también
 la fase con que emite el elemento y el retardo de fase que se debe al tiempo en que tarda en llegar la señal a los distintos 
 lugares del espacio. El retardo es expresado como $2\pi r/\lambda$, siendo $\lambda$ la longitud de onda de la señal emitida 
-por el elemento radiado. Los gráficos \ref{fig:twoArrayPat} y \ref{fig:fourArrayPat} muestran las curvas de nivel de patrones 
+por el elemento radiado. Los gráficos \ref{fig:twoArrayPat} y \ref{fig:fourArrayPat} muestran las curvas de nivel de diagramas 
 de radiación de pontencia polar. La separación de los módulos radiantes está en el eje x, eje horizontal y todos los elementos
 están emitiendo en fase.
-
 
 \begin{figure}[H]
 	\centering
@@ -187,7 +203,7 @@ están emitiendo en fase.
 Se puede observar que aumentando la cantidad de módulos radiantes, se logra que el beam principal (lóbulo principal de 
 potencia), sea más angosto, por lo tanto se obtenga una mayor resolución del cuerpo observado. Observando la siguiente 
 figura (\ref{fig:directArrayPat}), se puede deducir que la fase de los elementos radiados modifica la dirección del 
-patrón de antena.
+diagrama de radiación de antena.
 
 \begin{figure}[H]
 	\centering
@@ -200,8 +216,6 @@ patrón de antena.
 	\label{fig:directArrayPat}
 \end{figure}
 
-\todo[inline]{Aca faltó algo importantísimo, que es agregar lo importante del patrón de antena, un paper dice lo siguiente:}
-\todo{agregar definiciones de directividad}
 Directividad, el ancho del lóbulo principal, y el nivel de los lóbulos secundarios son los tres parámetros más importantes 
 de una antena de arreglo de fase \cite{Hsiao1985}.
 
@@ -270,8 +284,15 @@ mismo, sino que también sea un valor conocido. En transmisión el objetivo es e
 elemento depende del apuntamiento deseado y la ganancia de si algún componente deja de emitir por destrucción parcial de alguna
 parte de la antena.
 
-\todo{poner que ocurre con el antnena pattern si no está correctamente calibrada, altura de lóbulos secundarios, ancho 
-de lóbulo principal, pico del lóbulo principal, etc}
+La figura \ref{fig:nonCalPattern} muestra la comparación de dos diagramas de radiación de antena, uno calibrado e ideal y el 
+otro sin calibrar. Se puede observar como los niveles de los lóbulos secundarios y el ancho del lóbulo principal se incrementa.
+
+\begin{figure}[H]
+ \centering
+ \includegraphics[width=10cm]{gfx/nonCalPattern.png}
+ \caption{Diagrama de radiación de antena calibrado vs no calibrado.}
+ \label{fig:nonCalPattern}
+\end{figure}
 
 \section{Parámetros S}
 
