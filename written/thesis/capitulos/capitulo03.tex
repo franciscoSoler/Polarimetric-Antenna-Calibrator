@@ -101,6 +101,13 @@ Este método a nivel panel y fila sirve para la caracterización del la configur
 
 \subsection{Problemas y limitaciones}
 
+\todo{cosas abajo}
+La calibración clásica fue pensada para perimite detectar y localizar fallas en los módulos TR permite visualizar como 
+cambia la fase y atenuación de cada módulo TR a medida de como se los comanda a traves de una electrónica central
+pero adolece de los siguientes problemas:
+buscar camara de termovacio, para ensayar los cables en temperatura.
+
+
 \begin{itemize}
 	\item Caracterización previa de los elementos de antena: Para poder conocer la ganancia del lazo de transmisión o recepción
 es necesario conocer la potencia de la señal de calibración, para sustraerla del resultado obtenido. El lazo de calibración 
@@ -112,7 +119,7 @@ para las frecuencias y temperaturas de trabajo.
 			caracterizados.
 		\item Costo de recursos: La campaña de caracterización puede durar meses, con equipos de trabajo dedicados, lo cual implica
 			un gasto de dinero muy importante. 
-		\item Comportamiento de materiales: Como el material envejece, cambia sus propiedades, por lo tanto las mediciones realizadas 
+		\item Comportamiento de materiales fin de vida: Como el material envejece, cambia sus propiedades, por lo tanto las mediciones realizadas 
 			en la campaña de caracterización dejan de tener tanta validez.
 	\end{itemize}
 	\item Complejidad del hardware de la antena: Como se calibra solo una parte de la antena por vez, transmisión o recepción en 
@@ -134,5 +141,9 @@ para las frecuencias y temperaturas de trabajo.
 	\item Pérdida de ortogonalidad en el código utilizado por comportamiento de defasadores: Si el defasador no tiene un 
 		comportamiento exactamente igual al configurado a la hora de realizar la calibración, los códigos walsh pierden 
 		ortogonalidad y, por ende, se logra obtener una mala estimación de los valores de ganancia de la antena. 
+    \item Compensacion de temperatura en elementos: Se debe mantener la temperatura de los elementos en los valores 
+        caracterizados para garantizar que las calibraciones sirven.
+    \item Es completamente dependiente del modelo y análisis térmico. Por ejemplo, se asume que el comportamiento de los 
+        módulos radiantes de la antena no varían con la temperatura.
 \end{itemize}
 

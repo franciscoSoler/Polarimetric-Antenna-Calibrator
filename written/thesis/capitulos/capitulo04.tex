@@ -181,18 +181,19 @@ como la fase de una señal es de naturaleza modular, de 360 grados, se pueden co
 como sea $A$ y que valores tenga $x$, $b$ no necesariamente está contenido dentro del rango de valores válidos (en módulo 360)
 generando así un error en la resolución de la estimación del valor $x$. 
 
-Para ejemplificar, se asume que se tiene un conjunto de antena de tres elementos radiantes, la RFDN (en Tx y Rx) defasa 120 
-grados, el acoplamiento mútuo no defasa y que se utiliza la ecuación $\dfrac{C^{'}_{1,2}}{C^{'}_{3, 2}}$. La figura 
-\ref{fig:phaseDetermination} muestra la antena con los lazos de calibración utilizados.
+Para ejemplificar, se asume que se tiene un conjunto de antena de tres elementos radiantes, la RFDN (en Tx y Rx) defasa 100 
+grados, el defasador del primer elemento está configurado en 240 grados y el del tercero en 120, el acoplamiento mútuo no 
+defasa y que se utiliza la ecuación $\dfrac{C^{'}_{1,2}}{C^{'}_{3, 2}}$. La figura \ref{fig:phaseDetermination} muestra la 
+antena con los lazos de calibración utilizados.
 
 \begin{figure}[H]
  \centering
- \includegraphics[width=5cm]{gfx/mutualRxCal.png}
- \caption{Calibración de una antena}
+ \includegraphics[width=5cm]{gfx/loopCal.png}
+ \caption{Lazo de calibración de una antena polarimétrica}
  \label{fig:phaseDetermination}
 \end{figure}
 
-Por lo tanto, utilizando solamente dicha ecuación, A resulta ser
+Por lo tanto, utilizando solamente dicha ecuación, $A$ resulta ser
 $$
 	\mathbf{A} = \begin{pmatrix} 1 & 0 & -1\end{pmatrix}
 $$
@@ -215,6 +216,11 @@ Las mediciones de los lazos de calibración resultan en:
 
 La resta de dichas mediciones deberían ser igual a 120 grados, pero se observa que es igual a -240 grados generando así un 
 error en la estimación de la fase.
+
+Para soluciona esto, la estrategia propuesta es la de reutilizar el valor estimado de $x$ de una calibración previa, calcular 
+el $b$ ideal y modificar los valores de $b$ de la calibración actual sumando o restando de a 360 grados para llegar a dichos 
+valores esperados. Para la primera calibración, es necesario medir cuanto defasa la antena en al menos una rama punta a punta. 
+No se requiere que sea con alta precisión, con conocer el orden del valor alcanza. 
 
 \subsection{Problemas y limitaciones}
 

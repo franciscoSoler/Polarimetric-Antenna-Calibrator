@@ -52,7 +52,14 @@ tabla \ref{tab:configurationOfComponents}.
 \end{table}
 La numeración de los elementos tiene un orden de izquierda a derecha y de arriba hacia abajo, de tal forma que el elemnto cero 
 es el superior izquierdo de la antena.
-\todo{agregar imagen con numeración de elementos radiantes}
+
+\begin{figure}[H]
+ \centering
+ \includegraphics[width=8cm]{gfx/arrayNumeration.png}
+ \caption{Numeración de los elementos de un panel de antena.}
+ \label{fig:doubleBuilder}
+\end{figure}
+
 Para una mayor claridad, todos los gráficos representan cómo ambos métodos calibran la antena en un estado puntual. No se 
 realizaron ensayos utilizando el método montecarlo dado que no se agregaron incertidumbres en el instrumento de medición de las 
 distintas señales recibidas de los lazos de calibración.
@@ -125,7 +132,7 @@ de la ganancia del diagrama calibrado disminuye pero no llega a ser igual a cero
     \multirow{2}{2cm}{Dif. calibrado} & H & 0.0 & 0.44 & 0.0 & 0.0 \tabularnewline\cline{2-6}
      & V & 0.0 & 0.44 & 0.0 & 0.0 \tabularnewline\hline
   \end{tabular}
-  \caption{Propiedades de los patrones calibrados y sin calibrar comparados con el ideal.}
+  \caption{Propiedades de los diagramas de radiación calibrados y sin calibrar comparados con el ideal.}
   \label{tab:nonErrClassical0deg}
 \end{table}
 
@@ -171,7 +178,7 @@ de la ganancia del diagrama calibrado disminuye pero no llega a ser igual a cero
     \multirow{2}{2cm}{Dif. calibrado} & H & 0.0 & 0.44 & 0.0 & 0.0 \tabularnewline\cline{2-6}
      & V & 0.0 & 0.44 & 0.0 & 0.0 \tabularnewline\hline
   \end{tabular}
-  \caption{Propiedades de los patrones calibrados y sin calibrar comparados con el ideal.}
+  \caption{Propiedades de los diagramas de radiación calibrados y sin calibrar comparados con el ideal.}
   \label{tab:nonErrClassical10degCol}
 \end{table}
 
@@ -218,7 +225,7 @@ de la ganancia del diagrama calibrado disminuye pero no llega a ser igual a cero
     \multirow{2}{2cm}{Dif. calibrado} & H & 0.0 & 0.43 & 0.0 & 0.0 \tabularnewline\cline{2-6}
      & V & 0.0 & 0.44 & 0.0 & 0.0 \tabularnewline\hline
   \end{tabular}
-  \caption{Propiedades de los patrones calibrados y sin calibrar comparados con el ideal.}
+  \caption{Propiedades de los diagramas de radiación calibrados y sin calibrar comparados con el ideal.}
   \label{tab:nonErrClassical10degRow}
 \end{table}
 
@@ -266,7 +273,7 @@ exactamente igual al ideal.
     \multirow{2}{2cm}{Dif. calibrado} & H & 0.0 & 0.0 & 0.0 & 0.0 \tabularnewline\cline{2-6}
      & V & 0.0 & 0.0 & 0.0 & 0.0 \tabularnewline\hline
   \end{tabular}
-  \caption{Propiedades de los patrones calibrados y sin calibrar comparados con el ideal.}
+  \caption{Propiedades de los diagramas de radiación calibrados y sin calibrar comparados con el ideal.}
   \label{tab:nonErrMutual0deg}
 \end{table}
 
@@ -314,7 +321,7 @@ exactamente igual al ideal.
     \multirow{2}{2cm}{Dif. calibrado} & H & 0.0 & 0.0 & 0.0 & 0.0 \tabularnewline\cline{2-6}
      & V & 0.0 & 0.0 & 0.0 & 0.0 \tabularnewline\hline
   \end{tabular}
-  \caption{Propiedades de los patrones calibrados y sin calibrar comparados con el ideal.}
+  \caption{Propiedades de los diagramas de radiación calibrados y sin calibrar comparados con el ideal.}
   \label{tab:nonErrMutual10degCol}
 \end{table}
 
@@ -362,7 +369,7 @@ exactamente igual al ideal.
     \multirow{2}{2cm}{Dif. calibrado} & H & 0.0 & 0.0 & 0.0 & 0.0 \tabularnewline\cline{2-6}
      & V & 0.0 & 0.0 & 0.0 & 0.0 \tabularnewline\hline
   \end{tabular}
-  \caption{Propiedades de los patrones calibrados y sin calibrar comparados con el ideal.}
+  \caption{Propiedades de los diagramas de radiación calibrados y sin calibrar comparados con el ideal.}
   \label{tab:nonErrMutual10degRow}
 \end{table}
 
@@ -428,7 +435,7 @@ diferencia es mucho menor.
     \multirow{2}{2cm}{Dif. calibrado} & H & -1.04 & 0.06 & -1.04 & 0.0 \tabularnewline\cline{2-6}
      & V & 0.0 & 0.06 & 0.0 & -0.2 \tabularnewline\hline
   \end{tabular}
-  \caption{Propiedades de los patrones calibrados y sin calibrar comparados con el ideal.}
+  \caption{Propiedades de los diagramas de radiación calibrados y sin calibrar comparados con el ideal.}
   \label{tab:deadTRMsClassical0deg}
 \end{table}
 
@@ -476,7 +483,7 @@ ya son mayores a las permitidas por la máscara.
     \multirow{2}{2cm}{Dif. calibrado} & H & -1.04 & 0.06 & -1.03 & 0.0 \tabularnewline\cline{2-6}
      & V & -0.74 & -0.13 & -2.39 & -0.6 \tabularnewline\hline
   \end{tabular}
-  \caption{Propiedades de los patrones calibrados y sin calibrar comparados con el ideal.}
+  \caption{Propiedades de los diagramas de radiación calibrados y sin calibrar comparados con el ideal.}
   \label{tab:deadTRMsClassical10degCol}
 \end{table}
 
@@ -525,7 +532,7 @@ Estas diferencias ya son mayores a las permitidas por la máscara.
     \multirow{2}{2cm}{Dif. calibrado} & H & -1.68 & -0.02 & -1.16 & 0.0 \tabularnewline\cline{2-6}
      & V & 0.0 & 0.06 & 0.0 & 0.0 \tabularnewline\hline
   \end{tabular}
-  \caption{Propiedades de los patrones calibrados y sin calibrar comparados con el ideal.}
+  \caption{Propiedades de los diagramas de radiación calibrados y sin calibrar comparados con el ideal.}
   \label{tab:deadTRMsClassical10degRow}
 \end{table}
 
@@ -581,7 +588,7 @@ aportarían los elementos conectados a los TRMs que están muertos.
     \multirow{2}{2cm}{Dif. calibrado} & H & -1.04 & -0.38 & -1.04 & 0.0 \tabularnewline\cline{2-6}
      & V & 0.0 & -0.38 & 0.0 & -0.2 \tabularnewline\hline
   \end{tabular}
-  \caption{Propiedades de los patrones calibrados y sin calibrar comparados con el ideal.}
+  \caption{Propiedades de los diagramas de radiación calibrados y sin calibrar comparados con el ideal.}
   \label{tab:deadTRMsMutual0deg}
 \end{table}
 
@@ -631,7 +638,7 @@ con respecto al ideal se debe a la falta de energía que aportarían los element
     \multirow{2}{2cm}{Dif. calibrado} & H & -0.57 & -0.39 & -1.45 & -0.2 \tabularnewline\cline{2-6}
      & V & -1.02 & -0.92 & -2.69 & -0.4 \tabularnewline\hline
   \end{tabular}
-  \caption{Propiedades de los patrones calibrados y sin calibrar comparados con el ideal.}
+  \caption{Propiedades de los diagramas de radiación calibrados y sin calibrar comparados con el ideal.}
   \label{tab:deadTRMsMutual10degCol}
 \end{table}
 
@@ -680,7 +687,7 @@ aportarían los elementos conectados a los TRMs que están muertos.
     \multirow{2}{2cm}{Dif. calibrado} & H & -1.68 & -0.45 & -1.16 & 0.0 \tabularnewline\cline{2-6}
      & V & 0.0 & -0.38 & 0.0 & 0.0 \tabularnewline\hline
   \end{tabular}
-  \caption{Propiedades de los patrones calibrados y sin calibrar comparados con el ideal.}
+  \caption{Propiedades de los diagramas de radiación calibrados y sin calibrar comparados con el ideal.}
   \label{tab:deadTRMsMutual10degRow}
 \end{table}
 
@@ -752,7 +759,7 @@ se aprecia una mejora en el ancho del lóbulo principal.
     \multirow{2}{2cm}{Dif. calibrado} & H & 0.28 & 0.36 & 1.52 & 0.4 \tabularnewline\cline{2-6}
      & V & -0.35 & 0.37 & 0.16 & -0.2 \tabularnewline\hline
   \end{tabular}
-  \caption{Propiedades de los patrones calibrados y sin calibrar comparados con el ideal.}
+  \caption{Propiedades de los diagramas de radiación calibrados y sin calibrar comparados con el ideal.}
   \label{tab:compErrClassical0deg}
 \end{table}
 
@@ -799,7 +806,7 @@ principal se incrementa con la señal calibrada, logrando así una diferencia ma
     \multirow{2}{2cm}{Dif. calibrado} & H & 0.73 & 0.07 & 1.47 & 0.4 \tabularnewline\cline{2-6}
      & V & 1.48 & 0.83 & -4.69 & -1.0 \tabularnewline\hline
   \end{tabular}
-  \caption{Propiedades de los patrones calibrados y sin calibrar comparados con el ideal.}
+  \caption{Propiedades de los diagramas de radiación calibrados y sin calibrar comparados con el ideal.}
   \label{tab:compErrClassical10degCol}
 \end{table}
 
@@ -846,7 +853,7 @@ principal se incrementa con la señal calibrada, logrando así una diferencia ma
     \multirow{2}{2cm}{Dif. calibrado} & H & 0.35 & 0.47 & 0.8 & 0.4 \tabularnewline\cline{2-6}
      & V & -0.56 & 0.35 & -0.91 & -0.2 \tabularnewline\hline
   \end{tabular}
-  \caption{Propiedades de los patrones calibrados y sin calibrar comparados con el ideal.}
+  \caption{Propiedades de los diagramas de radiación calibrados y sin calibrar comparados con el ideal.}
   \label{tab:compErrClassical10degRow}
 \end{table}
 
@@ -894,7 +901,7 @@ del lóbulo principal.
     \multirow{2}{2cm}{Dif. calibrado} & H & 0.0 & 0.0 & 0.0 & 0.0 \tabularnewline\cline{2-6}
      & V & 0.0 & 0.0 & 0.0 & 0.0 \tabularnewline\hline
   \end{tabular}
-  \caption{Propiedades de los patrones calibrados y sin calibrar comparados con el ideal.}
+  \caption{Propiedades de los diagramas de radiación calibrados y sin calibrar comparados con el ideal.}
   \label{tab:compErrMutual0deg}
 \end{table}
 
@@ -940,7 +947,7 @@ del lóbulo principal.
     \multirow{2}{2cm}{Dif. calibrado} & H & 0.0 & 0.0 & 0.0 & 0.0 \tabularnewline\cline{2-6}
      & V & 0.0 & 0.0 & 0.0 & 0.0 \tabularnewline\hline
   \end{tabular}
-  \caption{Propiedades de los patrones calibrados y sin calibrar comparados con el ideal.}
+  \caption{Propiedades de los diagramas de radiación calibrados y sin calibrar comparados con el ideal.}
   \label{tab:compErrMutual10degCol}
 \end{table}
 
@@ -986,7 +993,7 @@ del lóbulo principal.
     \multirow{2}{2cm}{Dif. calibrado} & H & 0.0 & 0.0 & 0.0 & 0.0 \tabularnewline\cline{2-6}
      & V & 0.0 & 0.0 & 0.0 & 0.0 \tabularnewline\hline
   \end{tabular}
-  \caption{Propiedades de los patrones calibrados y sin calibrar comparados con el ideal.}
+  \caption{Propiedades de los diagramas de radiación calibrados y sin calibrar comparados con el ideal.}
   \label{tab:compErrMutual10degRow}
 \end{table}
 
@@ -1047,7 +1054,7 @@ ancho del lóbulo principal también se ve afectado, resultando en 1 grado mayor
     \multirow{2}{2cm}{Dif. calibrado} & H & 0.93 & -8.41 & 1.13 & 0.2 \tabularnewline\cline{2-6}
      & V & 3.49 & -8.41 & 4.23 & 0.4 \tabularnewline\hline
   \end{tabular}
-  \caption{Propiedades de los patrones calibrados y sin calibrar comparados con el ideal.}
+  \caption{Propiedades de los diagramas de radiación calibrados y sin calibrar comparados con el ideal.}
   \label{tab:chirpErrClassical0deg}
 \end{table}
 
@@ -1095,7 +1102,7 @@ se ve afectado, resultando en aproximadamente 1 grado mayor.
     \multirow{2}{2cm}{Dif. calibrado} & H & 1.54 & -5.04 & -0.54 & 0.8 \tabularnewline\cline{2-6}
      & V & -8.63 & -7.96 & 12.35 & -17.4 \tabularnewline\hline
   \end{tabular}
-  \caption{Propiedades de los patrones calibrados y sin calibrar comparados con el ideal.}
+  \caption{Propiedades de los diagramas de radiación calibrados y sin calibrar comparados con el ideal.}
   \label{tab:chirpErrClassical10degCol}
 \end{table}
 
@@ -1143,7 +1150,7 @@ se ve afectado, resultando en aproximadamente 0.6 grados mayor.
     \multirow{2}{2cm}{Dif. calibrado} & H & -2.08 & -5.96 & -4.98 & 0.4 \tabularnewline\cline{2-6}
      & V & -12.33 & -3.85 & 26.4 & -17.8 \tabularnewline\hline
   \end{tabular}
-  \caption{Propiedades de los patrones calibrados y sin calibrar comparados con el ideal.}
+  \caption{Propiedades de los diagramas de radiación calibrados y sin calibrar comparados con el ideal.}
   \label{tab:chirpErrClassical10degRow}
 \end{table}
 
@@ -1194,7 +1201,7 @@ resultando en aproximadamente 0.2 grados mayor.
     \multirow{2}{2cm}{Dif. calibrado} & H & 0.16 & -1.96 & -0.05 & 0.2 \tabularnewline\cline{2-6}
      & V & 0.05 & -1.96 & 0.09 & 0.0 \tabularnewline\hline
   \end{tabular}
-  \caption{Propiedades de los patrones calibrados y sin calibrar comparados con el ideal.}
+  \caption{Propiedades de los diagramas de radiación calibrados y sin calibrar comparados con el ideal.}
   \label{tab:chirpErrMutual0deg}
 \end{table}
 
@@ -1243,7 +1250,7 @@ grados mayor.
     \multirow{2}{2cm}{Dif. calibrado} & H & 0.14 & -0.32 & 0.06 & 0.2 \tabularnewline\cline{2-6}
      & V & 0.05 & -0.35 & 0.21 & 0.0 \tabularnewline\hline
   \end{tabular}
-  \caption{Propiedades de los patrones calibrados y sin calibrar comparados con el ideal.}
+  \caption{Propiedades de los diagramas de radiación calibrados y sin calibrar comparados con el ideal.}
   \label{tab:chirpErrMutual10degCol}
 \end{table}
 
@@ -1292,7 +1299,7 @@ grados mayor.
     \multirow{2}{2cm}{Dif. calibrado} & H & 0.09 & 0.52 & -0.31 & 0.2 \tabularnewline\cline{2-6}
      & V & -0.1 & 0.54 & -0.04 & 0.0 \tabularnewline\hline
   \end{tabular}
-  \caption{Propiedades de los patrones calibrados y sin calibrar comparados con el ideal.}
+  \caption{Propiedades de los diagramas de radiación calibrados y sin calibrar comparados con el ideal.}
   \label{tab:chirpErrMutual10degRow}
 \end{table}
 
@@ -1346,7 +1353,7 @@ ni en el ancho del lóbulo principal. Si es apreciable la diferencia en ganancia
     \multirow{2}{2cm}{Dif. calibrado} & H & 0.0 & -6.1 & 0.0 & 0.0 \tabularnewline\cline{2-6}
      & V & 0.0 & -6.1 & 0.0 & 0.0 \tabularnewline\hline
   \end{tabular}
-  \caption{Propiedades de los patrones calibrados y sin calibrar comparados con el ideal.}
+  \caption{Propiedades de los diagramas de radiación calibrados y sin calibrar comparados con el ideal.}
   \label{tab:chirpRepErrClassical0deg}
 \end{table}
 
@@ -1393,7 +1400,7 @@ ni en el ancho del lóbulo principal. Si es apreciable la diferencia en ganancia
     \multirow{2}{2cm}{Dif. calibrado} & H & 0.0 & -6.1 & 0.0 & 0.0 \tabularnewline\cline{2-6}
      & V & 0.0 & -6.1 & 0.0 & 0.0 \tabularnewline\hline
   \end{tabular}
-  \caption{Propiedades de los patrones calibrados y sin calibrar comparados con el ideal.}
+  \caption{Propiedades de los diagramas de radiación calibrados y sin calibrar comparados con el ideal.}
   \label{tab:chirpRepErrClassical10degCol}
 \end{table}
 
@@ -1440,7 +1447,7 @@ ni en el ancho del lóbulo principal. Si es apreciable la diferencia en ganancia
     \multirow{2}{2cm}{Dif. calibrado} & H & 0.0 & -6.11 & 0.0 & 0.0 \tabularnewline\cline{2-6}
      & V & 0.0 & -6.1 & 0.0 & 0.0 \tabularnewline\hline
   \end{tabular}
-  \caption{Propiedades de los patrones calibrados y sin calibrar comparados con el ideal.}
+  \caption{Propiedades de los diagramas de radiación calibrados y sin calibrar comparados con el ideal.}
   \label{tab:chirpRepErrClassical10degRow}
 \end{table}
 
@@ -1496,7 +1503,7 @@ lóbulo principal se ensancha en 0.2 grados.
     \multirow{2}{2cm}{Dif. calibrado} & H & 0.06 & 0.4 & -0.04 & 0.0 \tabularnewline\cline{2-6}
      & V & -0.17 & 0.4 & 0.14 & 0.0 \tabularnewline\hline
   \end{tabular}
-  \caption{Propiedades de los patrones calibrados y sin calibrar comparados con el ideal.}
+  \caption{Propiedades de los diagramas de radiación calibrados y sin calibrar comparados con el ideal.}
   \label{tab:wallErrClassical0deg}
 \end{table}
 
@@ -1544,7 +1551,7 @@ lóbulo principal se ensancha en 0.2 grados.
     \multirow{2}{2cm}{Dif. calibrado} & H & 0.19 & 0.35 & -0.27 & 0.0 \tabularnewline\cline{2-6}
      & V & -0.54 & 0.42 & -0.63 & -0.2 \tabularnewline\hline
   \end{tabular}
-  \caption{Propiedades de los patrones calibrados y sin calibrar comparados con el ideal.}
+  \caption{Propiedades de los diagramas de radiación calibrados y sin calibrar comparados con el ideal.}
   \label{tab:wallErrClassical10degCol}
 \end{table}
 
@@ -1592,6 +1599,6 @@ lóbulo principal se ensancha en 0.2 grados.
     \multirow{2}{2cm}{Dif. calibrado} & H & -0.28 & 0.43 & -0.09 & 0.0 \tabularnewline\cline{2-6}
      & V & 0.16 & 0.43 & 0.02 & 0.2 \tabularnewline\hline
   \end{tabular}
-  \caption{Propiedades de los patrones calibrados y sin calibrar comparados con el ideal.}
+  \caption{Propiedades de los diagramas de radiación calibrados y sin calibrar comparados con el ideal.}
   \label{tab:wallErrClassical10degRow}
 \end{table}

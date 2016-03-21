@@ -2,18 +2,6 @@
 \label{ch:modelizacion}
 \lhead{\emph{Modelización}}
 
-\todo[inline]{ver donde poner esto}
-\section{Modelización de los acoplamientos mútuos}
-
-El acoplamiento mútuo entre módulos radiantes es modelizado con el mismo comportamiento al de un cable, pero con las 
-propiedades de atenuación y defasaje de una onda en el vacío. Las cuales son:
-
-\todo{Poner que significa el alfa}
-\begin{equation}
-	c = \dfrac{e^{-2\alpha r}}{4\pi r^2}
-\end{equation}
-
-
 \section{Modelo de la antena}
 
 El modelo de antena está programado de tal forma que se lo pueda utilizar para simular una antena con parámetros de RF,
@@ -83,9 +71,9 @@ La tabla \ref{tab:propertiesOfComponents} determina las propiedades de cada elem
 \end{table}
 
 Como es necesario que la representación de las propiedades mencionadas previamente sean representativas en radio frecuencia,
-se utilizan los parámetros S (como se menciona en el capítulo \todo[inline]{buscar capitulo}). En la figura 
-\ref{fig:creationPackage} se muestra el diagrama de clases donde se puede observar que el generador hace uso de los distintos 
-generadores de los distintos componentes de scattering parameters.
+se utilizan los parámetros S (como se menciona en el capítulo \ref{ch:phasedArray}). En la figura \ref{fig:creationPackage} 
+se muestra el diagrama de clases donde se puede observar que el generador hace uso de los distintos generadores de los 
+distintos componentes de scattering parameters.
 
 \begin{figure}
  \centering
@@ -111,9 +99,8 @@ construye teniendo como configuración: "quantityRows": 1, "quantityColumns": 2,
 \end{figure}
 
 Una vez obtenida la estructura de la antena, es necesario determinar que componentes van a tener desvíos en el comportamiento 
-deseado. Para ello, se agrega una lista indicando que componentes se desea que tengan errores. Los errores tienen una 
+deseado. Para ello, se agrega una lista indicando que componentes se desea que tengan errores. Las incertidumbres tienen una 
 distribución gaussiana con media 0. El desvío estandar es configurable.
-% \todo[inline]{pablo, saco o dejo esta parte??}
 
 Para el caso en que se desee realizar la calibración en el modo Completo, se debería agregar errores de planitud de la antena.
 Para ello, los errores se verían reflejados en el archivo de la configuración del panel de la antena. De todas formas, a modo 
@@ -160,18 +147,18 @@ S y se las obtiene realizando los siguientes pasos.
 \end{enumerate}
 
 Para armar los lazos de calibración, se tiene que tener en cuenta distintos tipos de errores que pueden afectar a los mismos, 
-los cuales son: error de ganancia entre pulsos, error de fase entre pulsos, error de ganancia de la chirp replica, error de 
-fase de la chirp replica y error de fase del walsh. Todos estos errores son tratados como gaussianos de media igual a cero.
+los cuales son: error de ganancia entre pulsos, error de ganancia de la chirp replica y error de fase del walsh. Todos estos 
+errores son tratados como gaussianos de media igual a cero.
 
-\todo{donde poner la definicion de estos errores previamente mencionados??????}
-Error de ganancia o fase entre pulsos: Este error se puede dar por inestabilidades en el oscilador local que genera la señal a 
-transmitir/calibrar la antena.
+Desvíos de ganancia o fase entre pulsos: Esta incertidumbre se puede dar por inestabilidades en el oscilador local que genera 
+la señal a transmitir/calibrar la antena.
 
-Error de ganancia o fase de la chirp replica: Este error se da por el cambio de comportamiento del lazo de calibración donde se
-mide la chirp réplica, como dicho lazo está caracterizado, cuando cambia su valor de ganancia, se le atribuye dicho cambio a la
-chirp en vez de al lazo.
+Desvíos de ganancia o fase de la chirp replica: Esta incertidumbre se da por el cambio de comportamiento del lazo de 
+calibración donde se mide la chirp réplica, como dicho lazo está caracterizado, cuando cambia su valor de ganancia, se le 
+atribuye dicho cambio a la chirp en vez de al lazo.
 
-Error de fase del walsh: Este error aparece a causa de las diferencias de comportamiento real y configurado en los defasadores. 
+Desvíos de fase del walsh: Esta incertidumbre aparece a causa de las diferencias de comportamiento real y configurado en los 
+defasadores. 
 
 Los lazos de calibración dependen del método utilizado, los cuales se explicarán a continuación.
 
@@ -179,7 +166,7 @@ Los lazos de calibración dependen del método utilizado, los cuales se explicar
 Para armar los datos a ser calibrados, todos los lazos se los multiplica con tantas chirps como el método indica, con los errores
 que deba tener (según configuración) y con la codificación del código walsh siguiendo lo especificado en la sección 
 \ref{ssc:classicalMethod}. El resultado es una matriz adquirida, la cual, para decodificar y obtener la ganancia/fase de un TRM,
-se lo debe multiplicar por un array de chirp réplicas defasadas según la columna del código Walsh al que perteneciente el TRM. 
+se lo debe multiplicar por un conjunto de chirp réplicas defasadas según la columna del código Walsh al que perteneciente el TRM. 
 
 \subsubsection{Calibración con acoplamientos mútuos}
 
@@ -330,7 +317,7 @@ realizar los distintos ensayos.
 \end{center}
 
 A su vez, también se puede configurar que tipo de calibración se desea correr para poder obtener los resultados y se pueden 
-graficar tanto los patrones de antena obtenidos en algún corte corte de azimuth/rango o el arreglo de ganancias y fases con 
+graficar tanto los diagramas de radiación obtenidos en algún corte corte de azimuth/rango o el arreglo de ganancias y fases con 
 respecto al valor ideal. La figura \ref{fig:visualPackage} muestra el diagrama de clases del visualizador.
 
 \begin{figure}[H]
