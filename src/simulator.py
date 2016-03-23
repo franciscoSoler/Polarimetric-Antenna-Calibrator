@@ -203,7 +203,7 @@ class Simulator:
         self.__save_properties(t, "tab:{}".format(name))
 
 
-    def __compare_final_pattern_against_initial(self, calibrator, visual_comparator, title, filename):
+    def __compare_final_pattern_against_initial(self, calibrator, visual_comparator, title, filename, change_chapter):
         row_separation = self.__config[Common.Conf_ant][Common.Conf_vert_sep]
         col_separation = self.__config[Common.Conf_ant][Common.Conf_horiz_sep]
         freq = self.__config[Common.Conf_in_param][Common.Conf_freq]
@@ -245,7 +245,8 @@ class Simulator:
         decimals = 2
         props = list(map(lambda x: list(map(lambda y: round(y, decimals), x)), props))
         props.append(filename)
-        self.__save_pattern_properties(*props)
+        if change_chapter:
+            self.__save_pattern_properties(*props)
 
     def __compare_final_gain_against_initial(self, calibrator, visual_comparator, title, filename):
         quantity_rows = self.__config[Common.Conf_ant][Common.Conf_qtty_rows]
@@ -349,7 +350,7 @@ class Simulator:
         # self.__compare_estimated_gains_against_ideal(calibrator, visual_comparator, "")
         self.__compare_final_gain_against_initial(calibrator, visual_comparator, "RESULTS", prefix)
 
-        self.__compare_final_pattern_against_initial(calibrator, visual_comparator, "patterns ", prefix)
+        self.__compare_final_pattern_against_initial(calibrator, visual_comparator, "patterns ", prefix, save_files)
 
         visual_comparator.show_graphics()
 
