@@ -34,7 +34,7 @@ class VisualComparator:
         self.__figure_number += 1
         return self.__figure_number
 
-    def __save_plots(filename, plt):
+    def __save_plots(self, filename, plt):
         if self.__save_files:
             plt.savefig(os.path.join(self.__paht_to_save, filename + ".png"), bbox_inches='tight')
 

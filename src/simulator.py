@@ -334,7 +334,7 @@ class Simulator:
 
         return f(column_steering, "Col") if column_steering else f(row_steering, "Row") if row_steering else f(0)
 
-    def run(self, calibr, , save_files=True):
+    def run(self, calibr, save_files=True):
         visual_comparator = VisualComparator.VisualComparator(save_files)
 
         # self.create_antenna()
