@@ -16,8 +16,9 @@ def deg2rad(deg):
 
 class VisualComparator:
 
-    def __init__(self):
+    def __init__(self, save_files):
         plt.close('all')
+        self.__save_files = save_files
         self.__figure_number = 0
         self.__att_delta = 5 / 2
         self.__ph_delta = 5.625 / 2
@@ -32,6 +33,10 @@ class VisualComparator:
     def __get_figure_number(self):
         self.__figure_number += 1
         return self.__figure_number
+
+    def __save_plots(filename, plt):
+        if self.__save_files:
+            plt.savefig(os.path.join(self.__paht_to_save, filename + ".png"), bbox_inches='tight')
 
     @staticmethod
     def __rad2deg(radians):
@@ -115,7 +120,7 @@ class VisualComparator:
         plt.plot(antennas, cal_phase, "g", linewidth=2)
 
         self.__set_plot_environment(title, "Phase [deg]", "RMs", 4)
-        plt.savefig(os.path.join(self.__paht_to_save, filename + ".png"), bbox_inches='tight')
+        self.__save_plots(filename, plt)
 
     def compare_signals(self, power_one, phase_one, power_two, phase_two, title=""):
         """
@@ -214,7 +219,7 @@ class VisualComparator:
         plt.plot(angles, inf, "r--", linewidth=1)
 
         self.__set_plot_environment(title, "Gain [dB]", "Angle [deg]", 4)
-        plt.savefig(os.path.join(self.__paht_to_save, filename + ".png"), bbox_inches='tight')
+        self.__save_plots(filename, plt)
 
     @staticmethod
     def show_graphics():
