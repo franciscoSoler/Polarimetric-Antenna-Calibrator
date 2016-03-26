@@ -15,7 +15,7 @@ el radar no emite ninguna señal, simplemente recibe el eco de algún otro siste
 \begin{figure}[H]
  \centering
  \includegraphics[width=10cm]{gfx/electromagneticSpectrum.png}
- \caption{Espectro Electromagnético}
+ \caption{Espectro Electromagnético \cite{electromagneticField}}
  \label{fig:spectrum}
 \end{figure}
 
@@ -30,7 +30,7 @@ coberturas boscosas. Dependiendo de que longitud de onda del rango de trabajo, s
 \begin{figure}[H]
  \centering
  \includegraphics[width=10cm]{gfx/AtmosphericOpacity.png}
- \caption{Opacidad atmosférica vs longitud de onda}
+ \caption{Opacidad atmosférica vs longitud de onda \cite{electromagneticOpacity}}
  \label{fig:atmosphere}
 \end{figure}
 
@@ -76,7 +76,7 @@ dos tipos de distribuciones comunmente utilizadas.
 		\includegraphics[width=4cm]{gfx/phasedArrayAntenna.png}}
 	\subfloat[]{
 		\includegraphics[width=6cm]{gfx/frontAntenna.png}}
-	\caption{ (a) Antena de arreglo de fase circular. (b) Antena de arreglo de fase rectangular}
+	\caption{ (a) Conjunto de antena circular. (b) Conjunto de antena rectangular}
 	\label{fig:phasedArrayAntenna}
 \end{figure}
 
@@ -86,7 +86,7 @@ antena con los módulos radiantes (ver figura \ref{fig:compositionAntenna}).
 \begin{figure}[H]
  \centering
  \includegraphics[width=10cm]{gfx/CompositionAntenna.png}
- \caption{Composición de un arreglo de antena}
+ \caption{Composición de un conjunto de antena}
  \label{fig:compositionAntenna}
 \end{figure}
 
@@ -157,10 +157,10 @@ potencia o de amplitud/fase.
  \centering
  \includegraphics[width=7cm]{gfx/rectangularArrayGeometry.png}
  \caption{Conjunto de geometría rectangular \cite{Mahafza2004}}
- \label{fig:polarizations}
+ \label{fig:arrayGeometry}
 \end{figure}
 
-Considerese un conjunto de antena de $NxM$ elementos, como se muestra en la figura \ref{fig:polarizations}, el diagrama de 
+Considerese un conjunto de antena de $NxM$ elementos, como se muestra en la figura \ref{fig:arrayGeometry}, el diagrama de 
 radiación de campo lejano se lo calcula de la siguiente forma \cite{Mahafza2004}.
 
 \begin{equation}
@@ -168,10 +168,22 @@ radiación de campo lejano se lo calcula de la siguiente forma \cite{Mahafza2004
 \end{equation}
 
 Donde $\theta$ corresponde al ángulo al eje x, $\phi$ corresponde al ángulo al eje z, $k$ es el número de onda y es igual 
-a $2\pi/\lambda$, $I_{n,m}$ es la amplitud compleja del elemento n,m.
+a $2\pi/\lambda$, $I_{n,m}$ es la amplitud compleja del elemento n,m. La figura \ref{fig:arrayPattern} muestra el diagrama de 
+radiación en 3D, donde el eje $Z$ (representado con colores) es la potencia radiada. A su vez, se puede apreciar uno de los 
+cortes que se realizan generalmente sobre los mismos (elevacion o azimuth).
+
+\begin{figure}[H]
+ \centering
+	\subfloat[]{
+		\includegraphics[width=7cm]{gfx/arrayPattern3D.png}}
+ 	\subfloat[]{
+		\includegraphics[width=7cm]{gfx/arrayPatternCut.png}}
+	\caption{diagramas de radiación de un conjunto de antena (a) diagrama en 3 dimensiones \cite{arrayPattern} (b) corte horizontal}
+ \label{fig:arrayPattern}
+\end{figure}
 
 A continuación se mostrarán gráficos representando la potencia del campo radiado, asumiendo campo lejano. La potencia decae 
-con la relación de $1/r$, donde $r$ es la distancia del punto de medición al elemento radado. Se debe tomar en cuenta también
+con la relación de $1/r$, donde $r$ es la distancia del punto de medición al elemento radiado. Se debe tomar en cuenta también
 la fase con que emite el elemento y el retardo de fase que se debe al tiempo en que tarda en llegar la señal a los distintos 
 lugares del espacio. El retardo es expresado como $2\pi r/\lambda$, siendo $\lambda$ la longitud de onda de la señal emitida 
 por el elemento radiado. Los gráficos \ref{fig:twoArrayPat} y \ref{fig:fourArrayPat} muestran las curvas de nivel de diagramas 
@@ -217,13 +229,13 @@ diagrama de radiación de antena.
 \end{figure}
 
 Directividad, el ancho del lóbulo principal, y el nivel de los lóbulos secundarios son los tres parámetros más importantes 
-de una antena de arreglo de fase \cite{Hsiao1985}.
+de un conjunto de antena \cite{Hsiao1985}.
 
-Lamentablemente los errores del arreglo limitan los niveles que se pueden obtener de los lóbulos secundarios \cite{Hsiao1985}.
+Lamentablemente los errores del conjunto limitan los niveles que se pueden obtener de los lóbulos secundarios \cite{Hsiao1985}.
 
 Como es bien sabido, si se achican los lóbulos secundarios, tanto la directividad como el ancho del lóbulo principal son
-afectados. Para mantener ambas características invariantes, es necesario incrementar el tamaño de la antena de arreglo de 
-fase \cite{Hsiao1985}.
+afectados. Para mantener ambas características invariantes, es necesario incrementar el tamaño del conjunto de antena 
+\cite{Hsiao1985}.
 
 
 \subsection{Apuntamiento de una antena}\label{ssec:beamSteering}
@@ -237,13 +249,13 @@ paralelas entre ellas. A su vez, como el camino recorrido desde cada elemento ra
 necesario calcular dicha diferencia para luego relacionarla con la fase. De esta forma, se puede retrasar la fase emitida de 
 los elementos más alejados al punto para que todas las señales lleguen en fase, logrando así, una onda plana.
 
-La figura \ref{fig:beamSteering} muestra como se realiza el apuntamiento de una antena de arreglo de fase en una sola dirección,
+La figura \ref{fig:beamSteering} muestra como se realiza el apuntamiento de un conjunto de antena en una sola dirección,
 para la dirección perpendicular, el razonamiento es totalmente análogo.
 
 \begin{figure}[H]
  \centering
  \includegraphics[width=10cm]{gfx/beamSteering.png}
- \caption{Apuntamiento con una antena de arreglo de fase \cite{BeamSteering}.}
+ \caption{Apuntamiento con una conjunto de antena \cite{BeamSteering}.}
  \label{fig:beamSteering}
 \end{figure}
 
@@ -280,9 +292,20 @@ No solo la respuesta de los componentes varía por el envejecimiento de los mism
 comportarse de forma nominal, sino que, también lo hacen a causa de variaciones en la temperatura de operación, que hayan sido
 utilizados de forma imprudente, por interferencias electromagnéticas (radiadas o conducidas), etc. Es por esta razón que se 
 tienen que corregir dichas variaciones, buscando que no solo todos los caminos de recepción atenúen y defasen exactamente lo
-mismo, sino que también sea un valor conocido. En transmisión el objetivo es el mismo, con la salvedad que la fase de cada 
-elemento depende del apuntamiento deseado y la ganancia de si algún componente deja de emitir por destrucción parcial de alguna
-parte de la antena.
+mismo, sino que también sea un valor conocido. En transmisión el objetivo es el mismo, con la salvedad que se busca que cada 
+TRM trabaje en su punto de compresión (generalmente cerca de los 6dB) y la fase de cada elemento depende del apuntamiento 
+deseado. 
+
+Para calibrar la antena por medio de lazos de calibración, la electrónica central es como un VNA (representado en la figura 
+\ref{fig:calibrationLoop}). La misma emite una señal por un canal y la compara con lo recibido por el otro canal, midiendo el 
+S21 (transmisión directa) de los parámetros S de la antena.
+
+\begin{figure}[H]
+ \centering
+ \includegraphics[width=10cm]{gfx/calibrationLoop.png}
+ \caption{Lazo de calibración utilizando un VNA.} 
+ \label{fig:calibrationLoop}
+\end{figure}
 
 La figura \ref{fig:nonCalPattern} muestra la comparación de dos diagramas de radiación de antena, uno calibrado e ideal y el 
 otro sin calibrar. Se puede observar como los niveles de los lóbulos secundarios y el ancho del lóbulo principal se incrementa.
@@ -428,6 +451,7 @@ la matriz de parámetros T no. La matriz resultante de parámetros T de una casc
 
 \begin{equation}
 \mathbf{T_M=T_1T_2...T_m}
+\label{eq:cascade}
 \end{equation}
 
 \subsection{Conversión entre parámetros T y S} \label{ssec:conversion}
@@ -440,6 +464,7 @@ scattering, partiendo de una matriz se puede llegar a la otra y viceversa.
 		T_{11} &= S_{12} - \dfrac{S_{22}S_{11}}{S_{21}},\quad T_{12} = \dfrac{S_{11}}{S_{21}} \\
 		T_{21} &= - \dfrac{S_{22}}{S_{21}},\qquad\qquad T_{22} = \dfrac{1}{S_{21}}
 	\end{aligned}
+	\label{eq:s2t}
 \end{equation}
 
 Para obtener los parámetros S partiendo desde los parámetros T, se utiliza la siguiente relación matemática
@@ -449,6 +474,7 @@ Para obtener los parámetros S partiendo desde los parámetros T, se utiliza la 
 		S_{11} &= \dfrac{T_{12}}{T_{22}},\qquad S_{12} = T_{11} - \dfrac{T_{12}T_{21}}{T_{22}} \\
 		S_{21} &= \dfrac{1}{T_{22}},\qquad S_{22} = - \dfrac{T_{21}}{T_{22}}
 	\end{aligned}
+	\label{eq:t2s}
 \end{equation}
 
 
@@ -608,4 +634,113 @@ siendo r la distancia recorrida por la señal. La matriz de parámetros S result
 $$
 \mathbf{S} = \begin{pmatrix} 0 & \dfrac{e^{-jdfrac{\pi}{\lambda}r}}{4\pi r^2}\\\dfrac{e^{-jdfrac{\pi}{\lambda}r}}{4\pi r^2} & 0\end{pmatrix}
 $$
+
+\section{Ejemplo parámetros S}
+
+En esta sección se ejemplifica el armado de las matrices de parámetros S de la antena desde el punto de transmisión a cada 
+elemento radiante. Se asume que se tiene una antena de dos elementos radiantes con la configuración de RFDN de la figura 
+\ref{fig:antennaS}.
+
+\begin{figure}[H]
+ \centering
+ \includegraphics[width=9cm]{gfx/RFDN.png}
+ \caption{RFDN del esquema de antena.}
+ \label{fig:antennaS}
+\end{figure}
+
+La tabla \ref{tab:componentSParameters} muestra la cantidad de puertos que posee cada componente y la conexión de cada puerto.
+
+\begin{table}[H]
+  \footnotesize
+  \centering
+  \begin{tabular}{|c|c|p{6cm}|}
+	\hline
+	\textbf{Componente de Antena} & \textbf{Cantidad de puertos} & \textbf{Notas} \tabularnewline \hline 
+	cable1 &  2 & \tabularnewline \hline
+	\multirow{3}{*}{PSC12} & & Puerto1: conexión cable1 \tabularnewline
+	 & 3 & Puerto2: conexión Cable2 (superior) \tabularnewline
+	 & & puerto3: conexión Cable2 (inferior) \tabularnewline \hline
+	Cable2 & 2 & \tabularnewline \hline 
+	\multirow{3}{*}{TRM} & & Puerto1: conexión cable2 \tabularnewline
+	 & 3 & puerto2: conexión Tx \tabularnewline 
+	 & & puerto3: conexión Rx \tabularnewline \hline
+	\multirow{3}{*}{Circulador} & & Puerto1: conexión Tx \tabularnewline
+	 & 3 & puerto2: conexión Cable3 \tabularnewline 
+	 & & puerto3: conexión Rx \tabularnewline \hline
+	Cable3 & 2 & \tabularnewline \hline 
+	RM & 1 & \tabularnewline \hline 
+  \end{tabular}
+  \caption{Propiedades físicas de cada componente de una antena}
+  \label{tab:componentSParameters}
+\end{table}
+
+Para la obtención de la respuesta del sistema desde el punto de transmisión/recepción a cada elemento radiante se debe 
+transformar las matrices de 3 puertos en matrices de 2 puertos. Para ello se debe determinar que puertos de conexión son los 
+utilizados para la obtención de dicha matriz asumiendo que se desea obtener la respuesta del sistema de transmisión del 
+elemento radiante 2 (camino en rojo de la figura \ref{fig:antennaSLoop}).
+
+\begin{figure}[H]
+ \centering
+ \includegraphics[width=9cm]{gfx/RFDNLoop.png}
+ \caption{RFDN del esquema de antena. En rojo, cascada de redes de dos puertos.}
+ \label{fig:antennaSLoop}
+\end{figure}
+
+Como los puertos utilizados por el PSC en el camino rojo de la figura \ref{fig:antennaSLoop} son el 1 y 3, la conversión de 
+parámetros S resuta ser,
+
+$$
+	S_{PSC} = \begin{pmatrix} S11&S12&S13 \\ S21&S22&S23 \\ S31&S32&S33\end{pmatrix} \Rightarrow
+	S_{PSC_{13}} = \begin{pmatrix} S11&S13 \\ S31&S33 \end{pmatrix}
+$$
+
+Los puertos utilizados por el TRM como el circulador son el 1 y 2, por lo tanto, la conversión de ambos parámetros S resulta 
+equivalente.
+
+$$
+	S_{TRM} = \begin{pmatrix} S11&S12&S13 \\ S21&S22&S23 \\ S31&S32&S33\end{pmatrix} \Rightarrow
+	S_{TRM_{12}} = \begin{pmatrix} S11&S12 \\ S21&S22 \end{pmatrix}
+$$
+
+$$
+	S_{Circulador} = \begin{pmatrix} S11&S12&S13 \\ S21&S22&S23 \\ S31&S32&S33\end{pmatrix} \Rightarrow
+	S_{Circulador_{12}} = \begin{pmatrix} S11&S12 \\ S21&S22 \end{pmatrix}
+$$
+
+Como se desea caracterizar la respuesta de una cascada de redes de dos puertos, se transforman todas las matrices de cada 
+componente a parámetros T (ver equaciones \ref{eq:s2t}), se multiplican todas las matrices como se muestra en la ecuación 
+\ref{eq:cascade} i luego, la matriz resultante se la vuelve a convertir a parámetros S (ver ecuaciones \ref{eq:t2s}).
+
+$$
+\begin{aligned}
+	S_i &\Rightarrow T_i \\
+	T_{in,rm2} &= T_{Cable1}T_{PSC_{13}}T_{Cable2}T_{TRM_{12}}T_{Circulador_{12}}T_{Cable3}T_{RM}\\
+	T_{in,rm2} &\Rightarrow S_{in,rm2}
+\end{aligned}
+$$
+
+Para el caso de querer caracterizar la respuesta inversa de la antena (desde el elemento radiante al receptor) del mismo camino 
+mostrado en rojo de la figura \ref{fig:antennaSLoop}, el procedimiento es el mismo, salvo que se utilizan los puertos 2 y 3 del 
+circulador y los puertos 1 y 3 del TRM.
+
+$$
+	S_{TRM} = \begin{pmatrix} S11&S12&S13 \\ S21&S22&S23 \\ S31&S32&S33\end{pmatrix} \Rightarrow
+	S_{TRM_{13}} = \begin{pmatrix} S11&S13 \\ S31&S33 \end{pmatrix}
+$$
+
+$$
+	S_{Circulador} = \begin{pmatrix} S11&S12&S13 \\ S21&S22&S23 \\ S31&S32&S33\end{pmatrix} \Rightarrow
+	S_{Circulador_{23}} = \begin{pmatrix} S22&S23 \\ S32&S33 \end{pmatrix}
+$$
+
+Se vuelven a realizar los pasos de cascada de parámetros T y conversión a parámetros S de la matriz resultante. Pero, como 
+dicho resultado sigue siendo desde el receptor al módulo radiante, se deben reacomodar los elementos de la matriz
+
+$$
+	S_{out,rm2} = \begin{pmatrix} S11&S12 \\ S21&S22\end{pmatrix} \Rightarrow 
+	S_{rm2, out} = \begin{pmatrix} S22&S21 \\ S12&S11 \end{pmatrix}
+$$
+
+\todo{Hacer un montecarlo con todos TODOS los errores comunes, casi terminado, creo que esta, faltan los graficos}
+\todo{Hacer un ensayo de cuanta diferencia es aceptable del conocimiento de la antena con cosas raras}
 

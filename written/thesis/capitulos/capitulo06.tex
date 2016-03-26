@@ -57,7 +57,7 @@ es el superior izquierdo de la antena.
  \centering
  \includegraphics[width=8cm]{gfx/arrayNumeration.png}
  \caption{Numeración de los elementos de un panel de antena.}
- \label{fig:doubleBuilder}
+ \label{fig:arrayNumeration}
 \end{figure}
 
 Para una mayor claridad, todos los gráficos representan cómo ambos métodos calibran la antena en un estado puntual. No se 
@@ -1602,3 +1602,90 @@ lóbulo principal se ensancha en 0.2 grados.
   \caption{Propiedades de los diagramas de radiación calibrados y sin calibrar comparados con el ideal.}
   \label{tab:wallErrClassical10degRow}
 \end{table}
+
+\section{Montecarlo con todos los errores}
+
+En esta sección se realiza un montecarlo de 100 realizaciones para poder comparar los métodos de calibración ante un 
+escenario donde se encuentran todas las incertidumbres presentes, las características de la antena son las siguientes:
+\begin{itemize}
+	\item Salvo tres TRMs que están rotos, el resto de los componentes de antena no tienen ningún prolema de funcionamiento ni 
+		desadaptaciones. Las posiciones de los TRMs son: [1,0], [4,3] y [5,5]. La nomenclatura de lectura es [fila, columna] con 
+		valores desde 0.
+	\item Hay dispersiones de comportamiento en los siguientes componentes de la antena: circuladores, TRMs, PSCs y RMs. Las 
+		magnitudes están especificadas en la tabla \ref{tab:errorReferences2}.
+		\begin{table}[H]
+		  \footnotesize
+		  \centering
+		  \begin{tabular}{|c|c|}
+			\hline
+			\textbf{Dispersiones de componente} & \textbf{Desvío estandar} \tabularnewline \hline 
+			Ganancia del circulador &  0.2 [dB] \tabularnewline\hline 
+			Fase del circulador &  10 [deg] \tabularnewline\hline 
+			Ganancia del TRM &  0.2 [dB] \tabularnewline\hline 
+			Fase del TRM &  10 [deg] \tabularnewline\hline 
+			Ganancia del PSC &  0.1 [dB] \tabularnewline\hline 
+			Fase del PSC &  10 [deg] \tabularnewline\hline 
+		  \end{tabular}
+		  \caption{Configuración de los errores de componentes.}
+		  \label{tab:errorReferences2}
+		\end{table}
+	\item Desvío estándar en ganancia de 1 dB entre pulsos de calibración.
+	\item Desvío estándar en fase de 5 grados entre pulsos de calibración
+	\item Desvío estándar en ganancia de 1 dB de la chirp replica.
+	\item Desvío estándar en fase de 5 grados de la chirp replica.
+	\item Desvío estándar en fase de 5 grados en el código walsh.
+\end{itemize}
+
+La figura \ref{fig:classicalMontecarlo} muestra el rango de valores obtenidos junto a su desvío estándar de las 100 
+realizaciones utilizando la calibración clásica.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=9cm]{gfx/wallErrClassical10degRow.png}
+	\caption{Correcciones de la señal transmitida utilizando calibración clásica. (a) ganancia y fase transmitida por módulos
+		radiantes. (b) corte horizontal del diagrama transmitido y (c) corte vertical del diagrama transmitido.}
+	\label{fig:classicalMontecarlo}
+\end{figure}
+
+La figura \ref{fig:mutualMontecarlo} muestra  el rango de valores obtenidos junto a su desvío estándar de las 100 
+realizaciones utilizando la calibración con acoplamientos mutuos.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=9cm]{gfx/wallErrClassical10degRow.png}
+	\caption{Correcciones de la señal transmitida utilizando calibración clásica. (a) ganancia y fase transmitida por módulos
+		radiantes. (b) corte horizontal del diagrama transmitido y (c) corte vertical del diagrama transmitido.}
+	\label{fig:mutualMontecarlo}
+\end{figure}
+
+Por último, a modo de comparación, la figura \ref{fig:sigmaComparation} muestra los desvíos estandar obtenidos utilizando 
+ambos calibradores.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=9cm]{gfx/wallErrClassical10degRow.png}
+	\caption{Correcciones de la señal transmitida utilizando calibración clásica. (a) ganancia y fase transmitida por módulos
+		radiantes. (b) corte horizontal del diagrama transmitido y (c) corte vertical del diagrama transmitido.}
+	\label{fig:sigmaComparation}
+\end{figure}
+
+\section{Relación entre el desvío de un elemento individual y el diagrama de radiación}
+
+Como último ensayo, se intenta deducir si la incertidumbre de ganancia y fase de la señal en transmisión de cada elemento 
+radiante se relaciona de forma lineal con la ganancia del lóbulo principal del diagrama de radiación. Para ello, se realiza
+un montecarlo de 1000 realizaciones para cada configuración de incertidumbre de ganancia y fase. Esta tarea se realiza para dos
+configuraciones de antena, una de 5 elementos y otra de 70. La figura \ref{fig:antennaMontecarlo} muestra las imagenes de los 
+resultados obtenidos, se puede llegar a la conclusión que a medida que se tienen más elementos, la incertidumbre en la 
+ganancia del lóbulo principal se ve disminuída.
+
+\begin{figure}[H]
+	\centering
+	\subfloat[]{
+		\includegraphics[width=7cm]{gfx/ganancia5Elementos.png}}
+ 	\subfloat[]{
+		\includegraphics[width=7cm]{gfx/ganancia70Elementos.png}}
+	\caption{Incertidumbre en ganancia del lóbulo principal del diagrama de radiación. (a) Antena de 5 elementos. (b) Antena de 
+	70 elementos.}
+	\label{fig:antennaMontecarlo}
+\end{figure}
+

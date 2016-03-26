@@ -32,7 +32,19 @@ transmisión/recepción. \textbf{P3} es utilizado para corregir posibles variaci
 \end{figure}
 
 Para dar ejemplos de satélites que utilizaron el método se los puede nombrar al E-ERS-1, el SIR-C \cite{Curlander1991}, el 
-terraSAR-X \cite{Schwerdt2005}, el ENVISAT ASAR \cite{Loop}, entre otros.
+terraSAR-X \cite{Schwerdt2005}, el ENVISAT ASAR \cite{Loop}, entre otros. La figura \ref{fig:calibrMethods} muestra los esquemas
+de calibración de los primeros dos sistemas mencionados.
+
+\begin{figure}[H]
+	\centering
+	\subfloat[]{
+		\includegraphics[width=7cm]{gfx/sirCalibration.png}}
+ 	\subfloat[]{
+		\includegraphics[width=7cm]{gfx/eersCalibration.png}}
+	\caption{Esquemas de calibración del SIR-C y E-ERS-1.}
+	\label{fig:calibrMethods}
+\end{figure}
+
 
 \subsection{Método} \label{ssc:classicalMethod}
 
@@ -101,12 +113,9 @@ Este método a nivel panel y fila sirve para la caracterización del la configur
 
 \subsection{Problemas y limitaciones}
 
-\todo{cosas abajo}
-La calibración clásica fue pensada para perimite detectar y localizar fallas en los módulos TR permite visualizar como 
-cambia la fase y atenuación de cada módulo TR a medida de como se los comanda a traves de una electrónica central
-pero adolece de los siguientes problemas:
-buscar camara de termovacio, para ensayar los cables en temperatura.
-
+La calibración clásica fue diseñada detectar y localizar fallas en los módulos TR permitiendo visualizar como cambia la 
+fase y atenuación de cada uno a medida que se los comanda a traves de una electrónica central. Como contracara, adolece de 
+los siguientes problemas:
 
 \begin{itemize}
 	\item Caracterización previa de los elementos de antena: Para poder conocer la ganancia del lazo de transmisión o recepción
@@ -116,7 +125,7 @@ medición no se puede determinar cuanto atenúa el lazo, por lo tanto se opta po
 para las frecuencias y temperaturas de trabajo. 
 	\begin{itemize}
 		\item Costo de materiales: Comprar materiales que ya vengan caracterizados en temperatura valen el doble que los no 
-			caracterizados.
+			caracterizados dado que no es un trabajo sencillo y requiere el uso de cámaras de termovacío para realizar los ensayos.
 		\item Costo de recursos: La campaña de caracterización puede durar meses, con equipos de trabajo dedicados, lo cual implica
 			un gasto de dinero muy importante. 
 		\item Comportamiento de materiales fin de vida: Como el material envejece, cambia sus propiedades, por lo tanto las mediciones realizadas 
