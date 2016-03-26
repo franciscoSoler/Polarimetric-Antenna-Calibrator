@@ -1641,9 +1641,8 @@ realizaciones utilizando la calibración clásica.
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=9cm]{gfx/wallErrClassical10degRow.png}
-	\caption{Correcciones de la señal transmitida utilizando calibración clásica. (a) ganancia y fase transmitida por módulos
-		radiantes. (b) corte horizontal del diagrama transmitido y (c) corte vertical del diagrama transmitido.}
+	\includegraphics[width=9cm]{gfx/classicalMontecarlo.png}
+	\caption{Correcciones de la señal transmitida utilizando calibración clásica.}
 	\label{fig:classicalMontecarlo}
 \end{figure}
 
@@ -1652,24 +1651,16 @@ realizaciones utilizando la calibración con acoplamientos mutuos.
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=9cm]{gfx/wallErrClassical10degRow.png}
-	\caption{Correcciones de la señal transmitida utilizando calibración clásica. (a) ganancia y fase transmitida por módulos
-		radiantes. (b) corte horizontal del diagrama transmitido y (c) corte vertical del diagrama transmitido.}
+	\includegraphics[width=9cm]{gfx/mutualMontecarlo.png}
+	\caption{Correcciones de la señal transmitida utilizando calibración con acoplamientos mutuos.}
 	\label{fig:mutualMontecarlo}
 \end{figure}
 
-Por último, a modo de comparación, la figura \ref{fig:sigmaComparation} muestra los desvíos estandar obtenidos utilizando 
-ambos calibradores.
+Se puede apreciar que no solo el método utilizando acoplamientos mútuos posee desvíos significativamente menores que el 
+método clásico, sino que la media se asemeja mucho más al valor deseado de la señal calibrada.
 
-\begin{figure}[H]
-	\centering
-	\includegraphics[width=9cm]{gfx/wallErrClassical10degRow.png}
-	\caption{Correcciones de la señal transmitida utilizando calibración clásica. (a) ganancia y fase transmitida por módulos
-		radiantes. (b) corte horizontal del diagrama transmitido y (c) corte vertical del diagrama transmitido.}
-	\label{fig:sigmaComparation}
-\end{figure}
 
-\section{Relación entre el desvío de un elemento individual y el diagrama de radiación}
+\section{Relación entre desvíos de elementos individuales y diagrama de radiación}
 
 Como último ensayo, se intenta deducir si la incertidumbre de ganancia y fase de la señal en transmisión de cada elemento 
 radiante se relaciona de forma lineal con la ganancia del lóbulo principal del diagrama de radiación. Para ello, se realiza
@@ -1689,3 +1680,23 @@ ganancia del lóbulo principal se ve disminuída.
 	\label{fig:antennaMontecarlo}
 \end{figure}
 
+\begin{comment}
+\section{Errores de estimación por acoplamiento mútuo}
+
+En esta sección se intenta determinar cuando el método de calibración por acoplamientos mútuos comienza a fallar por no tomar 
+en cuenta lo que defasa la red de distribución de la antena (para mayor información ver la sección \ref{ssc:mutualPhase}). 
+Para lo cual, se realiza un montecarlo incrementando la diferencia de lo que defasa la red con lo que está cargado en el algoritmo.
+
+El sistema no posee ninguna clase de error y está configurado para que tenga 50 grados de apuntamiento en dirección horizontal
+y vertical. La figura \ref{errorMutualEstimationPhase} muestra los resultados.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=9cm]{gfx/errorMutualEstimationPhase.png}
+	\caption{Diferencia máxima entre la fase ideal y estimada de cada lazo de transmisión para distintos defasajes de la red de 
+	distribución.}
+	\label{fig:errorMutualEstimationPhase}
+\end{figure}
+
+Se puede observar que con una diferencia de XXX grados, el método no funciona correctamente. 
+\end{comment}
