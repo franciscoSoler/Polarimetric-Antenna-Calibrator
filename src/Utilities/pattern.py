@@ -70,6 +70,11 @@ class Pattern():
                 return 2*(idx - idx_max)*self.__step
         return 0
 
+    def get_pattern_peak(self):
+        pat = common.v2db(abs(self.__pattern))
+        idx_max = np.argmax(pat)
+        return np.max(pat)
+
     def get_pattern_properties(self):
         """
         this function returns a list with the peak power, the sidelobesPower and the width of the main beam.

@@ -172,9 +172,6 @@ class Simulator:
     def __get_pattern_properties(non_cal_pat, cal_pat, ideal_pat):
         return [non_cal_pat.get_pattern_properties(), cal_pat.get_pattern_properties(), ideal_pat.get_pattern_properties()]
 
-    def clear_configuration(self):
-        os.remove(self.__properties)
-
     def __save_properties(self, text, label):
         patt = r"\\begin{table}.*((?:\n.+(?!begin{table}))+(?:\n.*\\label{%s}))" %label
         with open(self.__properties, "r+") as f:
@@ -267,6 +264,7 @@ class Simulator:
 
         visual_comparator.compare_signals_against_ideal(*tx_signals, title="{}: Tx chain".format(title),
                                                         filename=filename)
+        return tx_ant_power, tx_ant_phase
 
     def __compare_estimated_gains_against_ideal(self, calibrator, visual_comparator, title):
         quantity_rows = self.__config[Common.Conf_ant][Common.Conf_qtty_rows]
@@ -334,7 +332,7 @@ class Simulator:
 
         return f(column_steering, "Col") if column_steering else f(row_steering, "Row") if row_steering else f(0)
 
-    def run(self, calibr, save_files=True):
+    def run(self, calibr, save_files=True, show_graph=True):
         visual_comparator = VisualComparator.VisualComparator(save_files)
 
         # self.create_antenna()
@@ -348,15 +346,16 @@ class Simulator:
 
         # compare_estimated_gains_against_real(calibrator, visual_comparator, "AFTER CALIBRATION")
         # self.__compare_estimated_gains_against_ideal(calibrator, visual_comparator, "")
-        self.__compare_final_gain_against_initial(calibrator, visual_comparator, "RESULTS", prefix)
+        gain, phase = self.__compare_final_gain_against_initial(calibrator, visual_comparator, "RESULTS", prefix)
 
         self.__compare_final_pattern_against_initial(calibrator, visual_comparator, "patterns ", prefix, save_files)
 
-        visual_comparator.show_graphics()
-
         #self.__remove_antenna()
-
-        return 0
+        if show_graph:
+            visual_comparator.show_graphics()
+            return 0
+        else:
+            return gain, phase
 
 
 if __name__ == "__main__":
