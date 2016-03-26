@@ -75,6 +75,8 @@ Psc = 'PSC'
 Ph_shifter = 'phase_shifter'
 Amplifier = 'amplifier'
 
+Phase_shift = "phaseShift"
+
 C = 299792458       # [m/seg]
 f = 1275000000      # [Hz]
 

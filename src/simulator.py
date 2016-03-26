@@ -332,7 +332,7 @@ class Simulator:
 
         return f(column_steering, "Col") if column_steering else f(row_steering, "Row") if row_steering else f(0)
 
-    def run(self, calibr, save_files=True, show_graph=True):
+    def run(self, calibr, save_files=True, show_graph=True, mutual_error=False):
         visual_comparator = VisualComparator.VisualComparator(save_files)
 
         # self.create_antenna()
@@ -340,6 +340,10 @@ class Simulator:
         prefix = self.__get_error_name() + self.__calibrator + self.__get_angle()
 
         self.__tx_ini_ant_power, self.__tx_ini_ant_phase, _, _ = calibrator.get_antenna_gain_paths()
+        if mutual_error:
+            _, tx_phase = calibrator.get_transmission_power()
+            return (np.array(self.__tx_ini_ant_phase) - np.array(tx_phase)).tolist()
+
         # compare_estimated_gains_against_real(calibrator, visual_comparator, "BEFORE CALIBRATION")
 
         self.__calibrate_antenna(calibrator)
