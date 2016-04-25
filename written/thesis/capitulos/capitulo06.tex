@@ -2,7 +2,7 @@
 \lhead{\emph{Simulaciones}}
 
 En este capítulo se presentan las mediciones y ensayos realizados para estudiar y comparar como se comportan ambos métodos de
-calibración, clásica y utilizando acoplamientos mútuos.
+calibración: clásica y utilizando acoplamientos mutuos.
 
 La configuración de la antena a utilizar para todos los ensayos está especificada en la tabla \ref{tab:configurationUsed} y 
 consta de 70 elementos radiantes. Las especificaciones de las propiedades físicas de cada componente están definidas en la 
@@ -60,9 +60,7 @@ es el superior izquierdo de la antena.
  \label{fig:arrayNumeration}
 \end{figure}
 
-Para una mayor claridad, todos los gráficos representan cómo ambos métodos calibran la antena en un estado puntual. No se 
-realizaron ensayos utilizando el método montecarlo dado que no se agregaron incertidumbres en el instrumento de medición de las 
-distintas señales recibidas de los lazos de calibración.
+Para una mayor claridad, todos los gráficos representan cómo ambos métodos calibran la antena en un estado puntual.
 
 Todos los ensayos de las siguientes secciones poseen las siguientes característicias:
 \begin{itemize}
@@ -79,7 +77,7 @@ Todos los ensayos de las siguientes secciones poseen las siguientes característ
 
 Los ensayos de esta sección tienen las siguientes caracterísiticas,
 \begin{itemize}
-	\item Los componentes de antena no tienen ningún prolema de funcionamiento ni hay desadaptaciones.
+	\item Los componentes de antena no tienen ningún problema de funcionamiento ni hay desadaptaciones.
 	\item No hay dispersiones de calibración.
 	\item No hay dispersiones en la señal.
 \end{itemize}
@@ -88,15 +86,15 @@ Los ensayos de esta sección tienen las siguientes caracterísiticas,
 
 En las figuras \ref{fig:nonErrClassical0deg}, \ref{fig:nonErrClassical10degCol} y \ref{fig:nonErrClassical10degRow} se muestran
 los resultados de la calibración clásica con una antena sin dispersiones. Se puede apreciar que, si bien la antena tiene un 
-comportamiento ideal, las mediciones no son completamente correctas. Dicha dispersión se debe a que el método no abarca la 
+comportamiento ideal, las mediciones no son completamente correctas. Dicho desvío se debe a que el método no abarca la 
 totalidad de la antena.
 
 
 \subsubsection{Apuntamiento uniforme}
 
 Los gráficos de la figura \ref{fig:nonErrClassical0deg} muestran que el calibrador, por no abarcar la totalidad del sistema, no 
-puede determinar correctamente ni la ganancia ni fase de la antena. Pero, como estas diferencias entre lo real y estimado son 
-iguales para cada elemento, el diagrama resultante mantiene su forma y sus atributos no se modifican, salvo la ganancia total.
+puede determinar correctamente ni la ganancia ni fase de la antena. Pero, como dicho desvío es el mismo para todos los elementos,
+el diagrama resultante mantiene su forma y sus atributos no se modifican, salvo la ganancia total.
 
 La tabla \ref{tab:nonErrClassical0deg} muestra como la ganancia relativa de los lóbulos secundarios con respecto al del lóbulo
 principal de cada diagrama se mantienen invariantes e iguales al del diagrama ideal. A su vez se puede observar como la diferencia
@@ -110,8 +108,8 @@ de la ganancia del diagrama calibrado disminuye pero no llega a ser igual a cero
 		\includegraphics[width=7cm]{gfx/nonErrClassical0degAzCut.png}}
  	\subfloat[]{
 		\includegraphics[width=7cm]{gfx/nonErrClassical0degElCut.png}}
-	\caption{Correcciones de la señal transmitida utilizando calibración clásica. (a) ganancia y fase transmitida por módulos
-		radiantes. (b) corte horizontal del diagrama transmitido y (c) corte vertical del diagrama transmitido.}
+	\caption{Señal transmitida utilizando calibración clásica. (a) ganancia y fase transmitida. (b) corte horizontal del 
+	diagrama de radiación y (c) corte vertical del diagrama de radiación.}
 	\label{fig:nonErrClassical0deg}
 \end{figure}
 \begin{table}[H]
@@ -139,9 +137,8 @@ de la ganancia del diagrama calibrado disminuye pero no llega a ser igual a cero
 \subsubsection{Apuntamiento 10 grados en dirección horizontal}
 
 Los gráficos de la figura \ref{fig:nonErrClassical10degCol} muestran que el calibrador, por no abarcar la totalidad del sistema,
-no puede determinar correctamente ni la ganancia ni fase de la antena. Pero, como estas diferencias entre lo real y estimado son
-iguales para cada elemento, el diagrama resultante no solo se mantiene su forma sino que también apunta en la misma dirección; 
-sus atributos no se modifican, salvo la ganancia total.
+no puede determinar correctamente ni la ganancia ni fase de la antena. Pero, como dicho desvío es el mismo para todos los elementos,
+el diagrama resultante mantiene su forma y sus atributos no se modifican, salvo la ganancia total.
 
 \begin{figure}[H]
 	\centering
@@ -152,8 +149,8 @@ sus atributos no se modifican, salvo la ganancia total.
 		\includegraphics[width=7cm]{gfx/nonErrClassical10degColAzCut.png}}
  	\subfloat[]{
 		\includegraphics[width=7cm]{gfx/nonErrClassical10degColElCut.png}}
-	\caption{Correcciones de la señal transmitida utilizando calibración clásica. (a) ganancia y fase transmitida por módulos
-		radiantes. (b) corte horizontal del diagrama transmitido y (c) corte vertical del diagrama transmitido.}
+	\caption{Señal transmitida utilizando calibración clásica. (a) ganancia y fase transmitida. (b) corte horizontal del 
+	diagrama de radiación y (c) corte vertical del diagrama de radiación.}
 	\label{fig:nonErrClassical10degCol}
 \end{figure}
 
@@ -186,9 +183,8 @@ de la ganancia del diagrama calibrado disminuye pero no llega a ser igual a cero
 \subsubsection{Apuntamiento 10 grados en dirección vertical}
 
 Los gráficos de la figura \ref{fig:nonErrClassical10degRow} muestran que el calibrador, por no abarcar la totalidad del sistema,
-no puede determinar correctamente ni la ganancia ni fase de la antena. Pero, como estas diferencias entre lo real y estimado son
-iguales para cada elemento, el diagrama resultante no solo se mantiene su forma sino que también apunta en la misma dirección; 
-sus atributos no se modifican, salvo la ganancia total.
+no puede determinar correctamente ni la ganancia ni fase de la antena. Pero, como dicho desvío es el mismo para todos los elementos,
+el diagrama resultante mantiene su forma y sus atributos no se modifican, salvo la ganancia total.
 
 La tabla \ref{tab:nonErrClassical0deg} muestra como la ganancia relativa de los lóbulos secundarios con respecto al del lóbulo
 principal de cada diagrama se mantienen invariantes e iguales al del diagrama ideal. A su vez se puede observar como la diferencia
@@ -203,8 +199,8 @@ de la ganancia del diagrama calibrado disminuye pero no llega a ser igual a cero
 		\includegraphics[width=7cm]{gfx/nonErrClassical10degRowAzCut.png}}
  	\subfloat[]{
 		\includegraphics[width=7cm]{gfx/nonErrClassical10degRowElCut.png}}
-	\caption{Correcciones de la señal transmitida utilizando calibración clásica. (a) ganancia y fase transmitida por módulos
-		radiantes. (b) corte horizontal del diagrama transmitido y (c) corte vertical del diagrama transmitido.}
+	\caption{Señal transmitida utilizando calibración clásica. (a) ganancia y fase transmitida. (b) corte horizontal del 
+	diagrama de radiación y (c) corte vertical del diagrama de radiación.}
 	\label{fig:nonErrClassical10degRow}
 \end{figure}
 \begin{table}[H]
@@ -230,7 +226,7 @@ de la ganancia del diagrama calibrado disminuye pero no llega a ser igual a cero
 \end{table}
 
 
-\subsection{Utilizando la calibración con acoplamientos mútuos}
+\subsection{Utilizando la calibración con acoplamientos mutuos}
 
 
 \subsubsection{Apuntamiento uniforme}
@@ -250,8 +246,8 @@ exactamente igual al ideal.
 		\includegraphics[width=7cm]{gfx/nonErrMutual0degAzCut.png}}
  	\subfloat[]{
 		\includegraphics[width=7cm]{gfx/nonErrMutual0degElCut.png}}
-	\caption{Correcciones de la señal transmitida utilizando calibración por acoplamientos mutuos. (a) ganancia y fase transmitida por módulos
-		radiantes. (b) corte horizontal del diagrama transmitido y (c) corte vertical del diagrama transmitido.}
+	\caption{Señal transmitida calibrada por acoplamientos mutuos. (a) ganancia y fase transmitida. (b) corte horizontal del 
+	diagrama de radiación y (c) corte vertical del diagrama de radiación.}
 	\label{fig:nonErrMutual0deg}
 \end{figure}
 
@@ -298,8 +294,8 @@ exactamente igual al ideal.
 		\includegraphics[width=7cm]{gfx/nonErrMutual10degColAzCut.png}}
  	\subfloat[]{
 		\includegraphics[width=7cm]{gfx/nonErrMutual10degColElCut.png}}
-	\caption{Correcciones de la señal transmitida utilizando calibración por acoplamientos mutuos. (a) ganancia y fase 
-		transmitida por módulos radiantes. (b) corte horizontal del diagrama transmitido y (c) corte vertical del diagrama transmitido.}
+	\caption{Señal transmitida calibrada por acoplamientos mutuos. (a) ganancia y fase transmitida. (b) corte horizontal del 
+	diagrama de radiación y (c) corte vertical del diagrama de radiación.}
 	\label{fig:nonErrMutual10degCol}
 \end{figure}
 
@@ -343,8 +339,8 @@ es creciente de a filas).
 		\includegraphics[width=7cm]{gfx/nonErrMutual10degRowAzCut.png}}
  	\subfloat[]{
 		\includegraphics[width=7cm]{gfx/nonErrMutual10degRowElCut.png}}
-	\caption{Correcciones de la señal transmitida utilizando calibración por acoplamientos mutuos. (a) ganancia y fase 
-		transmitida por módulos radiantes. (b) corte horizontal del diagrama transmitido y (c) corte vertical del diagrama transmitido.}
+	\caption{Señal transmitida calibrada por acoplamientos mutuos. (a) ganancia y fase transmitida. (b) corte horizontal del 
+	diagrama de radiación y (c) corte vertical del diagrama de radiación.}
 	\label{fig:nonErrMutual10degRow}
 \end{figure}
 
@@ -408,13 +404,13 @@ vertical no presenta grandes desvíos.
 		\includegraphics[width=7cm]{gfx/deadTRMsClassical0degAzCut.png}}
  	\subfloat[]{
 		\includegraphics[width=7cm]{gfx/deadTRMsClassical0degElCut.png}}
-	\caption{Correcciones de la señal transmitida utilizando calibración clásica. (a) ganancia y fase transmitida por módulos
-		radiantes. (b) corte horizontal del diagrama transmitido y (c) corte vertical del diagrama transmitido.}
+	\caption{Señal transmitida utilizando calibración clásica. (a) ganancia y fase transmitida. (b) corte horizontal del 
+	diagrama de radiación y (c) corte vertical del diagrama de radiación.}
 	\label{fig:deadTRMsClassical0deg}
 \end{figure}
 
-La tabla \ref{tab:deadTRMsClassical0deg} muestra que las diferencias de ganacia de los lóbulos secundarios entre los diagramas 
-reales y el ideal para el corte horizontal ronda el dB y  este es el valor límite admisible. En el corte vertical esta 
+La tabla \ref{tab:deadTRMsClassical0deg} muestra que las diferencias de ganancia de los lóbulos secundarios entre los diagramas 
+reales y el ideal para el corte horizontal es del orden del dB y  este es el valor límite admisible. En el corte vertical dicha 
 diferencia es mucho menor.
 
 \begin{table}[H]
@@ -448,9 +444,9 @@ estimación tanto de fase como ganancia por no abarcar la totalidad del sistema,
 
 A causa de los TRMs muertos, se aprecia un aumento considerable de ambos lóbulos secundarios de los cortes horizontal y vertical.
 
-La tabla \ref{tab:deadTRMsClassical10degCol} muestra que las diferencias de ganacia de los lóbulos secundarios entre los 
-diagramas de radiación reales y el ideal para el corte horizontal ronda el dB y para el vertical los dos dBs. Estas diferencias
-ya son mayores a las permitidas por la máscara.
+La tabla \ref{tab:deadTRMsClassical10degCol} muestra que las diferencias de ganancia de los lóbulos secundarios entre los 
+diagramas de radiación reales y el ideal para el corte horizontal es del orden del dB y para el vertical los dos dBs. Estas 
+diferencias ya son mayores a las permitidas por la máscara.
 
 \begin{figure}[H]
 	\centering
@@ -461,8 +457,8 @@ ya son mayores a las permitidas por la máscara.
 		\includegraphics[width=7cm]{gfx/deadTRMsClassical10degColAzCut.png}}
  	\subfloat[]{
 		\includegraphics[width=7cm]{gfx/deadTRMsClassical10degColElCut.png}}
-	\caption{Correcciones de la señal transmitida utilizando calibración clásica. (a) ganancia y fase transmitida por módulos
-		radiantes. (b) corte horizontal del diagrama transmitido y (c) corte vertical del diagrama transmitido.}
+	\caption{Señal transmitida utilizando calibración clásica. (a) ganancia y fase transmitida. (b) corte horizontal del 
+	diagrama de radiación y (c) corte vertical del diagrama de radiación.}
 	\label{fig:deadTRMsClassical10degCol}
 \end{figure}
 \begin{table}[H]
@@ -505,12 +501,12 @@ A causa de los TRMs muertos, se aprecia un aumento considerable de ambos lóbulo
 		\includegraphics[width=7cm]{gfx/deadTRMsClassical10degRowAzCut.png}}
  	\subfloat[]{
 		\includegraphics[width=7cm]{gfx/deadTRMsClassical10degRowElCut.png}}
-	\caption{Correcciones de la señal transmitida utilizando calibración clásica. (a) ganancia y fase transmitida por módulos
-		radiantes. (b) corte horizontal del diagrama transmitido y (c) corte vertical del diagrama transmitido.}
+	\caption{Señal transmitida utilizando calibración clásica. (a) ganancia y fase transmitida. (b) corte horizontal del 
+	diagrama de radiación y (c) corte vertical del diagrama de radiación.}
 	\label{fig:deadTRMsClassical10degRow}
 \end{figure}
 
-La tabla \ref{tab:deadTRMsClassical10degRow} muestra que las diferencias de ganacia de los lóbulos secundarios entre los 
+La tabla \ref{tab:deadTRMsClassical10degRow} muestra que las diferencias de ganancia de los lóbulos secundarios entre los 
 diagramas de radiación reales y el ideal para el corte horizontal supera el dB y para el vertical no se aprecian diferencias. 
 Estas diferencias ya son mayores a las permitidas por la máscara.
 
@@ -537,7 +533,7 @@ Estas diferencias ya son mayores a las permitidas por la máscara.
 \end{table}
 
 
-\subsection{Utilizando la calibración con acoplamientos mútuos}
+\subsection{Utilizando la calibración con acoplamientos mutuos}
 
 En las figuras \ref{fig:deadTRMsMutual0deg}, \ref{fig:deadTRMsMutual10degRow} y  \ref{fig:deadTRMsMutual10degCol} se puede 
 observar que independientemente de que se hayan destruído varios TRMs, el método puede calibrar los lazos, obteniendo los 
@@ -551,11 +547,11 @@ Los gráficos de la figura \ref{fig:deadTRMsMutual0deg} muestran que el calibrad
 A causa de los TRMs muertos, se aprecia un aumento considerable de ambos lóbulos secundarios del corte horizontal. El corte 
 vertical no presenta un aumento en dicho parámetro pero sí un aumento en el ancho del lóbulo principal.
 
-La tabla \ref{tab:deadTRMsMutual0deg} muestra que las diferencias de ganacia de los lóbulos secundarios entre los diagramas 
-reales y el ideal para el corte horizontal ronda el dB y este es el valor límite admisible. En el corte vertical esta 
+La tabla \ref{tab:deadTRMsMutual0deg} muestra que las diferencias de ganancia de los lóbulos secundarios entre los diagramas 
+reales y el ideal para el corte horizontal es del orden del dB y este es el valor límite admisible. En el corte vertical esta 
 diferencia es nula, pero presenta 0.2 grados de incremento en el ancho del lóbulo principal. Se aprecia que la ganancia del 
 lóbulo principal del diagrama de radiación calibrado es menor que la del ideal, esto se debe a la falta de energía que 
-aportarían los elementos conectados a los TRMs que están muertos.
+aportarían los elementos conectados a los TRMs que están dañados.
 
 \begin{figure}[H]
 	\centering
@@ -566,8 +562,8 @@ aportarían los elementos conectados a los TRMs que están muertos.
 		\includegraphics[width=7cm]{gfx/deadTRMsMutual0degAzCut.png}}
  	\subfloat[]{
 		\includegraphics[width=7cm]{gfx/deadTRMsMutual0degElCut.png}}
-	\caption{Correcciones de la señal transmitida utilizando calibración por acoplamientos mutuos. (a) ganancia y fase transmitida por módulos
-		radiantes. (b) corte horizontal del diagrama transmitido y (c) corte vertical del diagrama transmitido.}
+	\caption{Señal transmitida calibrada por acoplamientos mutuos. (a) ganancia y fase transmitida. (b) corte horizontal del 
+	diagrama de radiación y (c) corte vertical del diagrama de radiación.}
 	\label{fig:deadTRMsMutual0deg}
 \end{figure}
 \begin{table}[H]
@@ -610,13 +606,13 @@ a su vez un aumento en el ancho del lóbulo principal.
 		\includegraphics[width=7cm]{gfx/deadTRMsMutual10degColAzCut.png}}
  	\subfloat[]{
 		\includegraphics[width=7cm]{gfx/deadTRMsMutual10degColElCut.png}}
-	\caption{Correcciones de la señal transmitida utilizando calibración por acoplamientos mutuos. (a) ganancia y fase 
-		transmitida por módulos radiantes. (b) corte horizontal del diagrama transmitido y (c) corte vertical del diagrama transmitido.}
+	\caption{Señal transmitida calibrada por acoplamientos mutuos. (a) ganancia y fase transmitida. (b) corte horizontal del 
+	diagrama de radiación y (c) corte vertical del diagrama de radiación.}
 	\label{fig:deadTRMsMutual10degCol}
 \end{figure}
 
-La tabla \ref{tab:deadTRMsMutual10degCol} muestra que las diferencias de ganacia de los lóbulos secundarios entre los diagramas 
-reales y el ideal para el corte horizontal ronda el dB y para el vertical los dos dBs. A su vez, el incremento del ancho del 
+La tabla \ref{tab:deadTRMsMutual10degCol} muestra que las diferencias de ganancia de los lóbulos secundarios entre los diagramas 
+reales y el ideal para el corte horizontal es del orden del dB y para el vertical los dos dBs. A su vez, el incremento del ancho del 
 lóbulo principal es de 0.2 a 0.4 grados. La diferencia en ganancia del lóbulo principal del diagrama de radiación calibrado 
 con respecto al ideal se debe a la falta de energía que aportarían los elementos conectados a los TRMs que están muertos.
 
@@ -650,22 +646,22 @@ como hay 10 elementos radiantes por fila, al apuntar verticalmente, cada fila po
 la tercer fila se ve un gráfico estilo una escalera con siete escalones (que es la cantidad de columnas de la antena). A su vez, 
 se aprecia que el calibrador lleva tanto la potencia como la fase transmitida al valor deseado.
 
-La tabla \ref{tab:deadTRMsMutual10degRow} muestra que las diferencias de ganacia de los lóbulos secundarios entre los diagramas 
-reales y el ideal para el corte horizontal ronda el dB y medio. El corte vertical no presenta incremento. La diferencia en 
+La tabla \ref{tab:deadTRMsMutual10degRow} muestra que las diferencias de ganancia de los lóbulos secundarios entre los diagramas 
+reales y el ideal para el corte horizontal es del orden del dB y medio. El corte vertical no presenta incremento. La diferencia en 
 ganancia del lóbulo principal del diagrama de radiación calibrado con respecto al ideal se debe a la falta de energía que 
 aportarían los elementos conectados a los TRMs que están muertos.
 
 \begin{figure}[H]
 	\centering
  	\subfloat[]{
-		\includegraphics[width=9cm]{gfx/nonErrMutual10degRow.png}}
+		\includegraphics[width=9cm]{gfx/deadTRMsMutual10degRow.png}}
 
 	\subfloat[]{
-		\includegraphics[width=7cm]{gfx/nonErrMutual10degRowAzCut.png}}
+		\includegraphics[width=7cm]{gfx/deadTRMsMutual10degRowAzCut.png}}
  	\subfloat[]{
-		\includegraphics[width=7cm]{gfx/nonErrMutual10degRowElCut.png}}
-	\caption{Correcciones de la señal transmitida utilizando calibración por acoplamientos mutuos. (a) ganancia y fase 
-		transmitida por módulos radiantes. (b) corte horizontal del diagrama transmitido y (c) corte vertical del diagrama transmitido.}
+		\includegraphics[width=7cm]{gfx/deadTRMsMutual10degRowElCut.png}}
+	\caption{Señal transmitida calibrada por acoplamientos mutuos. (a) ganancia y fase transmitida. (b) corte horizontal del 
+	diagrama de radiación y (c) corte vertical del diagrama de radiación.}
 	\label{fig:deadTRMsMutual10degRow}
 \end{figure}
 
@@ -723,9 +719,9 @@ Los ensayos de esta sección tienen las siguientes caracterísiticas,
 \subsubsection{Apuntamiento uniforme}
 
 Los gráficos de la figura \ref{fig:compErrClassical0deg} muestran que el calibrador ya comienza a mostrar sus falencias no 
-logrando calibrar la señal transmitida. En el corte vertical del diagrama de transmisión se aprecian más estas diferencias.
+logrando calibrar la señal transmitida. En el corte vertical del diagrama de transmisión se aprecian más dichas diferencias.
 
-La tabla \ref{tab:compErrClassical0deg} muestra que las diferencias de ganacia de los lóbulos secundarios entre los diagramas 
+La tabla \ref{tab:compErrClassical0deg} muestra que las diferencias de ganancia de los lóbulos secundarios entre los diagramas 
 reales y el ideal para el corte vertical supera el dB (valor límite admisible) y para el corte horizontal es de los 0.3 dB. No 
 se aprecia una mejora en el ancho del lóbulo principal.
 \begin{figure}[H]
@@ -737,8 +733,8 @@ se aprecia una mejora en el ancho del lóbulo principal.
 		\includegraphics[width=7cm]{gfx/compErrClassical0degAzCut.png}}
  	\subfloat[]{
 		\includegraphics[width=7cm]{gfx/compErrClassical0degElCut.png}}
-	\caption{Correcciones de la señal transmitida utilizando calibración clásica. (a) ganancia y fase transmitida por módulos
-		radiantes. (b) corte horizontal del diagrama transmitido y (c) corte vertical del diagrama transmitido.}
+	\caption{señal transmitida utilizando calibración clásica. (a) ganancia y fase transmitida. (b) corte horizontal del 
+	diagrama de radiación y (c) corte vertical del diagrama de radiación.}
 	\label{fig:compErrClassical0deg}
 \end{figure}
 \begin{table}[H]
@@ -770,7 +766,7 @@ En los gráficos de la figura \ref{fig:compErrClassical10degCol} se observa que 
 logrando calibrar completamente la señal transmitida. En el corte vertical del diagrama de transmisión se aprecian con mayor 
 claridad estas diferencias.
 
-La tabla \ref{tab:compErrClassical10degCol} muestra que las diferencias de ganacia de los lóbulos secundarios entre los diagramas 
+La tabla \ref{tab:compErrClassical10degCol} muestra que las diferencias de ganancia de los lóbulos secundarios entre los diagramas 
 reales y el ideal para ambos cortes supera el dB (valor límite admisible). A su vez se observa que el ancho del lóbulo 
 principal se incrementa con la señal calibrada, logrando así una diferencia mayor con respecto al diagrama de radiación ideal.
 
@@ -783,8 +779,8 @@ principal se incrementa con la señal calibrada, logrando así una diferencia ma
 		\includegraphics[width=7cm]{gfx/compErrClassical10degColAzCut.png}}
  	\subfloat[]{
 		\includegraphics[width=7cm]{gfx/compErrClassical10degColElCut.png}}
-	\caption{Correcciones de la señal transmitida utilizando calibración clásica. (a) ganancia y fase transmitida por módulos
-		radiantes. (b) corte horizontal del diagrama transmitido y (c) corte vertical del diagrama transmitido.}
+	\caption{señal transmitida utilizando calibración clásica. (a) ganancia y fase transmitida. (b) corte horizontal del 
+	diagrama de radiación y (c) corte vertical del diagrama de radiación.}
 	\label{fig:compErrClassical10degCol}
 \end{figure}
 
@@ -826,12 +822,12 @@ claridad estas diferencias.
 		\includegraphics[width=7cm]{gfx/compErrClassical10degRowAzCut.png}}
  	\subfloat[]{
 		\includegraphics[width=7cm]{gfx/compErrClassical10degRowElCut.png}}
-	\caption{Correcciones de la señal transmitida utilizando calibración clásica. (a) ganancia y fase transmitida por módulos
-		radiantes. (b) corte horizontal del diagrama transmitido y (c) corte vertical del diagrama transmitido.}
+	\caption{señal transmitida utilizando calibración clásica. (a) ganancia y fase transmitida. (b) corte horizontal del 
+	diagrama de radiación y (c) corte vertical del diagrama de radiación.}
 	\label{fig:compErrClassical10degRow}
 \end{figure}
 
-La tabla \ref{tab:compErrClassical10degRow} muestra que las diferencias de ganacia de los lóbulos secundarios entre los diagramas 
+La tabla \ref{tab:compErrClassical10degRow} muestra que las diferencias de ganancia de los lóbulos secundarios entre los diagramas 
 reales y el ideal para ambos cortes supera el dB (valor límite admisible). A su vez se observa que el ancho del lóbulo 
 principal se incrementa con la señal calibrada, logrando así una diferencia mayor con respecto al diagrama de radiación ideal.
 
@@ -858,14 +854,14 @@ principal se incrementa con la señal calibrada, logrando así una diferencia ma
 \end{table}
 
 
-\subsection{Utilizando la calibración con acoplamientos mútuos}
+\subsection{Utilizando la calibración con acoplamientos mutuos}
 
 \subsubsection{Apuntamiento uniforme}
 
 Los gráficos de la figura \ref{fig:compErrMutual0deg} muestran que el calibrador funciona correctamente y que los diagramas de 
 radiación de la señal calibrada se asemejan al ideal. 
 
-La tabla \ref{tab:compErrMutual0deg} muestra que las diferencias de ganacia de los lóbulos secundarios entre los diagramas 
+La tabla \ref{tab:compErrMutual0deg} muestra que las diferencias de ganancia de los lóbulos secundarios entre los diagramas 
 reales y el ideal para ambos cortes están dentro de la máscara admisible. A su vez, también se observa la mejora en el ancho 
 del lóbulo principal. 
 
@@ -878,8 +874,8 @@ del lóbulo principal.
 		\includegraphics[width=7cm]{gfx/compErrMutual0degAzCut.png}}
  	\subfloat[]{
 		\includegraphics[width=7cm]{gfx/compErrMutual0degElCut.png}}
-	\caption{Correcciones de la señal transmitida utilizando calibración por acoplamientos mutuos. (a) ganancia y fase transmitida por módulos
-		radiantes. (b) corte horizontal del diagrama transmitido y (c) corte vertical del diagrama transmitido.}
+	\caption{señal transmitida calibrada por acoplamientos mutuos. (a) ganancia y fase transmitida. (b) corte horizontal del 
+	diagrama de radiación y (c) corte vertical del diagrama de radiación.}
 	\label{fig:compErrMutual0deg}
 \end{figure}
 
@@ -911,7 +907,7 @@ del lóbulo principal.
 Los gráficos de la figura \ref{fig:compErrMutual10degCol} muestran que el calibrador funciona correctamente y que los diagramas de 
 radiación de la señal calibrada se asemejan al ideal. 
 
-La tabla \ref{tab:compErrMutual10degCol} muestra que las diferencias de ganacia de los lóbulos secundarios entre los diagramas 
+La tabla \ref{tab:compErrMutual10degCol} muestra que las diferencias de ganancia de los lóbulos secundarios entre los diagramas 
 reales y el ideal para ambos cortes están dentro de la máscara admisible. A su vez, también se observa la mejora en el ancho 
 del lóbulo principal.
 
@@ -924,8 +920,8 @@ del lóbulo principal.
 		\includegraphics[width=7cm]{gfx/compErrMutual10degColAzCut.png}}
  	\subfloat[]{
 		\includegraphics[width=7cm]{gfx/compErrMutual10degColElCut.png}}
-	\caption{Correcciones de la señal transmitida utilizando calibración por acoplamientos mutuos. (a) ganancia y fase 
-		transmitida por módulos radiantes. (b) corte horizontal del diagrama transmitido y (c) corte vertical del diagrama transmitido.}
+	\caption{señal transmitida calibrada por acoplamientos mutuos. (a) ganancia y fase transmitida. (b) corte horizontal del 
+	diagrama de radiación y (c) corte vertical del diagrama de radiación.}
 	\label{fig:compErrMutual10degCol}
 \end{figure}
 
@@ -966,12 +962,12 @@ radiación de la señal calibrada se asemejan al ideal.
 		\includegraphics[width=7cm]{gfx/compErrMutual10degRowAzCut.png}}
  	\subfloat[]{
 		\includegraphics[width=7cm]{gfx/compErrMutual10degRowElCut.png}}
-	\caption{Correcciones de la señal transmitida utilizando calibración por acoplamientos mutuos. (a) ganancia y fase 
-		transmitida por módulos radiantes. (b) corte horizontal del diagrama transmitido y (c) corte vertical del diagrama transmitido.}
+	\caption{señal transmitida calibrada por acoplamientos mutuos. (a) ganancia y fase transmitida. (b) corte horizontal del 
+	diagrama de radiación y (c) corte vertical del diagrama de radiación.}
 	\label{fig:compErrMutual10degRow}
 \end{figure}
 
-La tabla \ref{tab:compErrMutual10degRow} muestra que las diferencias de ganacia de los lóbulos secundarios entre los diagramas 
+La tabla \ref{tab:compErrMutual10degRow} muestra que las diferencias de ganancia de los lóbulos secundarios entre los diagramas 
 reales y el ideal para ambos cortes están dentro de la máscara admisible. A su vez, también se observa la mejora en el ancho 
 del lóbulo principal. 
 
@@ -1004,7 +1000,7 @@ En esta sección se agregan dispersiones de fase y ganancia en el generador de l
 la antena. Las otras características de este ensayo son:
 \begin{itemize}
 	\item Desvío estándar en ganancia de 1 dB entre pulsos de calibración.
-	\item Desvío estándar en fase de 5 grados entre pulsos de calibración
+	\item Desvío estándar en fase de 5 grados entre pulsos de calibración.
 	\item No hay dispersiones en el comportamiento de los componentes de la antena.
 	\item No hay errores de calibración.
 \end{itemize}
@@ -1016,7 +1012,7 @@ la antena. Las otras características de este ensayo son:
 En las imágenes de la figura \ref{fig:chirpErrClassical0deg} se puede apreciar como, sacando de lado la diferencia de 
 ganancia y fase por no abarcar la completitud del sistema, esta incertidumbre hace que el calibrador no funcione correctamente 
 ni para medir fase ni ganancias de cada elemento, introduciendo diferencias de hasta 25 dBs en ganancia y 100 grados en fase.
-A su vez, se puede observar que los diagramas de radiación están defasados en ganancia por mucho.
+A su vez, se puede observar que los diagramas de radiación poseen una gran diferencia en ganancia.
 
 En la tabla \ref{tab:chirpErrClassical0deg} se pueden apreciar que si bien las ganancias de los lóbulos principales es muy 
 diferente, rondando los 24 dBs, los diagramas de radiación ya poseen lóbulos segundarios mayores al permitido por medio dB. El 
@@ -1031,8 +1027,8 @@ ancho del lóbulo principal también se ve afectado, resultando en 1 grado mayor
 		\includegraphics[width=7cm]{gfx/chirpErrClassical0degAzCut.png}}
  	\subfloat[]{
 		\includegraphics[width=7cm]{gfx/chirpErrClassical0degElCut.png}}
-	\caption{Correcciones de la señal transmitida utilizando calibración clásica. (a) ganancia y fase transmitida por módulos
-		radiantes. (b) corte horizontal del diagrama transmitido y (c) corte vertical del diagrama transmitido.}
+	\caption{Señal transmitida utilizando calibración clásica. (a) ganancia y fase transmitida. (b) corte horizontal del 
+	diagrama de radiación y (c) corte vertical del diagrama de radiación.}
 	\label{fig:chirpErrClassical0deg}
 \end{figure}
 
@@ -1079,8 +1075,8 @@ se ve afectado, resultando en aproximadamente 1 grado mayor.
 		\includegraphics[width=7cm]{gfx/chirpErrClassical10degColAzCut.png}}
  	\subfloat[]{
 		\includegraphics[width=7cm]{gfx/chirpErrClassical10degColElCut.png}}
-	\caption{Correcciones de la señal transmitida utilizando calibración clásica. (a) ganancia y fase transmitida por módulos
-		radiantes. (b) corte horizontal del diagrama transmitido y (c) corte vertical del diagrama transmitido.}
+	\caption{señal transmitida utilizando calibración clásica. (a) ganancia y fase transmitida. (b) corte horizontal del 
+	diagrama de radiación y (c) corte vertical del diagrama de radiación.}
 	\label{fig:chirpErrClassical10degCol}
 \end{figure}
 
@@ -1127,8 +1123,8 @@ se ve afectado, resultando en aproximadamente 0.6 grados mayor.
 		\includegraphics[width=7cm]{gfx/chirpErrClassical10degRowAzCut.png}}
  	\subfloat[]{
 		\includegraphics[width=7cm]{gfx/chirpErrClassical10degRowElCut.png}}
-	\caption{Correcciones de la señal transmitida utilizando calibración clásica. (a) ganancia y fase transmitida por módulos
-		radiantes. (b) corte horizontal del diagrama transmitido y (c) corte vertical del diagrama transmitido.}
+	\caption{señal transmitida utilizando calibración clásica. (a) ganancia y fase transmitida. (b) corte horizontal del 
+	diagrama de radiación y (c) corte vertical del diagrama de radiación.}
 	\label{fig:chirpErrClassical10degRow}
 \end{figure}
 
@@ -1155,7 +1151,7 @@ se ve afectado, resultando en aproximadamente 0.6 grados mayor.
 \end{table}
 
 
-\subsection{Utilizando la calibración con acoplamientos mútuos}
+\subsection{Utilizando la calibración con acoplamientos mutuos}
 
 \subsubsection{Apuntamiento uniforme}
 
@@ -1178,8 +1174,8 @@ resultando en aproximadamente 0.2 grados mayor.
 		\includegraphics[width=7cm]{gfx/chirpErrMutual0degAzCut.png}}
  	\subfloat[]{
 		\includegraphics[width=7cm]{gfx/chirpErrMutual0degElCut.png}}
-	\caption{Correcciones de la señal transmitida utilizando calibración por acoplamientos mutuos. (a) ganancia y fase transmitida por módulos
-		radiantes. (b) corte horizontal del diagrama transmitido y (c) corte vertical del diagrama transmitido.}
+	\caption{Señal transmitida calibrada por acoplamientos mutuos. (a) ganancia y fase transmitida. (b) corte horizontal del 
+	diagrama de radiación y (c) corte vertical del diagrama de radiación.}
 	\label{fig:chirpErrMutual0deg}
 \end{figure}
 
@@ -1227,8 +1223,8 @@ grados mayor.
 		\includegraphics[width=7cm]{gfx/chirpErrMutual10degColAzCut.png}}
  	\subfloat[]{
 		\includegraphics[width=7cm]{gfx/chirpErrMutual10degColElCut.png}}
-	\caption{Correcciones de la señal transmitida utilizando calibración por acoplamientos mutuos. (a) ganancia y fase 
-		transmitida por módulos radiantes. (b) corte horizontal del diagrama transmitido y (c) corte vertical del diagrama transmitido.}
+	\caption{Señal transmitida calibrada por acoplamientos mutuos. (a) ganancia y fase transmitida. (b) corte horizontal del 
+	diagrama de radiación y (c) corte vertical del diagrama de radiación.}
 	\label{fig:chirpErrMutual10degCol}
 \end{figure}
 
@@ -1276,8 +1272,8 @@ grados mayor.
 		\includegraphics[width=7cm]{gfx/chirpErrMutual10degRowAzCut.png}}
  	\subfloat[]{
 		\includegraphics[width=7cm]{gfx/chirpErrMutual10degRowElCut.png}}
-	\caption{Correcciones de la señal transmitida utilizando calibración por acoplamientos mutuos. (a) ganancia y fase 
-		transmitida por módulos radiantes. (b) corte horizontal del diagrama transmitido y (c) corte vertical del diagrama transmitido.}
+	\caption{Señal transmitida calibrada por acoplamientos mutuos. (a) ganancia y fase transmitida. (b) corte horizontal del 
+	diagrama de radiación y (c) corte vertical del diagrama de radiación.}
 	\label{fig:chirpErrMutual10degRow}
 \end{figure}
 
@@ -1306,7 +1302,7 @@ grados mayor.
 
 \section{Dispersión de ganancia de la chirp réplica}
 
-Como la chirp réplica es simplemente utilizada en la calibración clásica, en esta simulación no se podrán comparar 
+Como la chirp réplica es solamente utilizada en la calibración clásica, en esta simulación no se podrán comparar 
 resultados, pero sirve para determinar que tan robusto es el método para esta clase de errores. Por como funciona el método, 
 se espera un defasaje en la caracterización igual para todos los elementos tanto en ganancia como en fase. El desvío estándar
 utilizado es de 1dB para la ganancia y 5 grados para la fase.
@@ -1330,8 +1326,8 @@ ni en el ancho del lóbulo principal. Si es apreciable la diferencia en ganancia
 		\includegraphics[width=7cm]{gfx/chirpRepErrClassical0degAzCut.png}}
  	\subfloat[]{
 		\includegraphics[width=7cm]{gfx/chirpRepErrClassical0degElCut.png}}
-	\caption{Correcciones de la señal transmitida utilizando calibración clásica. (a) ganancia y fase transmitida por módulos
-		radiantes. (b) corte horizontal del diagrama transmitido y (c) corte vertical del diagrama transmitido.}
+	\caption{Señal transmitida utilizando calibración clásica. (a) ganancia y fase transmitida. (b) corte horizontal del 
+	diagrama de radiación y (c) corte vertical del diagrama de radiación.}
 	\label{fig:chirpRepErrClassical0deg}
 \end{figure}
 
@@ -1377,8 +1373,8 @@ ni en el ancho del lóbulo principal. Si es apreciable la diferencia en ganancia
 		\includegraphics[width=7cm]{gfx/chirpRepErrClassical10degColAzCut.png}}
  	\subfloat[]{
 		\includegraphics[width=7cm]{gfx/chirpRepErrClassical10degColElCut.png}}
-	\caption{Correcciones de la señal transmitida utilizando calibración clásica. (a) ganancia y fase transmitida por módulos
-		radiantes. (b) corte horizontal del diagrama transmitido y (c) corte vertical del diagrama transmitido.}
+	\caption{Señal transmitida utilizando calibración clásica. (a) ganancia y fase transmitida. (b) corte horizontal del 
+	diagrama de radiación y (c) corte vertical del diagrama de radiación.}
 	\label{fig:chirpRepErrClassical10degCol}
 \end{figure}
 
@@ -1424,8 +1420,8 @@ ni en el ancho del lóbulo principal. Si es apreciable la diferencia en ganancia
 		\includegraphics[width=7cm]{gfx/chirpRepErrClassical10degRowAzCut.png}}
  	\subfloat[]{
 		\includegraphics[width=7cm]{gfx/chirpRepErrClassical10degRowElCut.png}}
-	\caption{Correcciones de la señal transmitida utilizando calibración clásica. (a) ganancia y fase transmitida por módulos
-		radiantes. (b) corte horizontal del diagrama transmitido y (c) corte vertical del diagrama transmitido.}
+	\caption{Señal transmitida utilizando calibración clásica. (a) ganancia y fase transmitida. (b) corte horizontal del 
+	diagrama de radiación y (c) corte vertical del diagrama de radiación.}
 	\label{fig:chirpRepErrClassical10degRow}
 \end{figure}
 
@@ -1480,8 +1476,8 @@ lóbulo principal se ensancha en 0.2 grados.
 		\includegraphics[width=7cm]{gfx/wallErrClassical0degAzCut.png}}
  	\subfloat[]{
 		\includegraphics[width=7cm]{gfx/wallErrClassical0degElCut.png}}
-	\caption{Correcciones de la señal transmitida utilizando calibración clásica. (a) ganancia y fase transmitida por módulos
-		radiantes. (b) corte horizontal del diagrama transmitido y (c) corte vertical del diagrama transmitido.}
+	\caption{Señal transmitida utilizando calibración clásica. (a) ganancia y fase transmitida. (b) corte horizontal del 
+	diagrama de radiación y (c) corte vertical del diagrama de radiación.}
 	\label{fig:wallErrClassical0deg}
 \end{figure}
 
@@ -1528,8 +1524,8 @@ lóbulo principal se ensancha en 0.2 grados.
 		\includegraphics[width=7cm]{gfx/wallErrClassical10degColAzCut.png}}
  	\subfloat[]{
 		\includegraphics[width=7cm]{gfx/wallErrClassical10degColElCut.png}}
-	\caption{Correcciones de la señal transmitida utilizando calibración clásica. (a) ganancia y fase transmitida por módulos
-		radiantes. (b) corte horizontal del diagrama transmitido y (c) corte vertical del diagrama transmitido.}
+	\caption{Señal transmitida utilizando calibración clásica. (a) ganancia y fase transmitida. (b) corte horizontal del 
+	diagrama de radiación y (c) corte vertical del diagrama de radiación.}
 	\label{fig:wallErrClassical10degCol}
 \end{figure}
 
@@ -1576,8 +1572,8 @@ lóbulo principal se ensancha en 0.2 grados.
 		\includegraphics[width=7cm]{gfx/wallErrClassical10degRowAzCut.png}}
  	\subfloat[]{
 		\includegraphics[width=7cm]{gfx/wallErrClassical10degRowElCut.png}}
-	\caption{Correcciones de la señal transmitida utilizando calibración clásica. (a) ganancia y fase transmitida por módulos
-		radiantes. (b) corte horizontal del diagrama transmitido y (c) corte vertical del diagrama transmitido.}
+	\caption{Señal transmitida utilizando calibración clásica. (a) ganancia y fase transmitida. (b) corte horizontal del 
+	diagrama de radiación y (c) corte vertical del diagrama de radiación.}
 	\label{fig:wallErrClassical10degRow}
 \end{figure}
 
@@ -1642,7 +1638,7 @@ realizaciones utilizando la calibración clásica.
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=9cm]{gfx/classicalMontecarlo.png}
-	\caption{Correcciones de la señal transmitida utilizando calibración clásica.}
+	\caption{Señal transmitida calibrada utilizando calibración clásica.}
 	\label{fig:classicalMontecarlo}
 \end{figure}
 
@@ -1652,11 +1648,11 @@ realizaciones utilizando la calibración con acoplamientos mutuos.
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=9cm]{gfx/mutualMontecarlo.png}
-	\caption{Correcciones de la señal transmitida utilizando calibración con acoplamientos mutuos.}
+	\caption{Señal transmitida calibrada utilizando calibración con acoplamientos mutuos.}
 	\label{fig:mutualMontecarlo}
 \end{figure}
 
-Se puede apreciar que no solo el método utilizando acoplamientos mútuos posee desvíos significativamente menores que el 
+Se puede apreciar que no solo el método utilizando acoplamientos mutuos posee desvíos significativamente menores que el 
 método clásico, sino que la media se asemeja mucho más al valor deseado de la señal calibrada.
 
 
@@ -1683,7 +1679,7 @@ ganancia del lóbulo principal se ve disminuída.
 \begin{comment}
 \section{Errores de estimación por acoplamiento mútuo}
 
-En esta sección se intenta determinar cuando el método de calibración por acoplamientos mútuos comienza a fallar por no tomar 
+En esta sección se intenta determinar cuando el método de calibración por acoplamientos mutuos comienza a fallar por no tomar 
 en cuenta lo que defasa la red de distribución de la antena (para mayor información ver la sección \ref{ssc:mutualPhase}). 
 Para lo cual, se realiza un montecarlo incrementando la diferencia de lo que defasa la red con lo que está cargado en el algoritmo.
 
