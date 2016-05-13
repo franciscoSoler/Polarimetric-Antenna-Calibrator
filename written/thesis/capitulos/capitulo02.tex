@@ -21,10 +21,10 @@ de algún otro sistema emisor/receptor.
 
 Dado que la frecuencia de trabajo mayormente utilizada en este tipo de antenas comprende la región microondas del espectro
 electromagnético, el cual comprende desde los 300 MHz hasta los 300 GHz (ver figura \ref{fig:spectrum}), y dado que en dicho rango la 
-opacidad de la atmósfera es casi nula (ver figura \ref{fig:atmosphere}), puede decirse, en terminos generales, que dichas 
+opacidad de la atmósfera es casi nula (ver figura \ref{fig:atmosphere}), puede decirse, en términos generales, que dichas 
 antenas poseen la capacidad de trabajar independientemente de las condiciones atmosféricas. En otras palabras, la señal casi no es 
 atenuada por la atmósfera, tampoco es interferida ni por las lluvias ni por las nubes. Por ejemplo, si se usa como parte de un 
-radar de apertura sintetica, luego de un post procesamiento de la señal recibida, es posible obtener información sobre la 
+radar de apertura sintética, luego de un post procesamiento de la señal recibida, es posible obtener información sobre la 
 textura del terreno y sobre los sustratos inferiores de las coberturas boscosas. Dependiendo de que longitud de onda del rango de
 trabajo, se tiene de 3 cm a 30 cm de penetración.
 
@@ -39,7 +39,7 @@ Por convención, el eje de referencia paralelo a la dirección del recorrido del
 dirección del eje perpendicular, rango. El nadir es el punto más cercano de la tierra al satélite; en otras palabras,
 es el punto en la superficie terrestre que es cortado por una recta perpendicular que también corta al satélite.
 
-La antena nunca apunta diréctamente hacia abajo porque, de esta forma, se perdería mucha información en rango. Al apuntar
+La antena nunca apunta directamente hacia abajo porque, de esta forma, se perdería mucha información en rango. Al apuntar
 en diagonal, y gracias a que el blanco no es puntual, el eco de la señal de la zona iluminada más cercana al nadir llega
 antes al satélite que la más alejada, logrando así, tomar muestras de distintos lugares espaciados en rango (ver figura
 \ref{fig:antena_ilumination}).
@@ -52,14 +52,14 @@ antes al satélite que la más alejada, logrando así, tomar muestras de distint
 \end{figure}
 
 El tamaño de la zona iluminada se llama huella. Dicho tamaño depende tanto de las dimensiones de la antena como de la
-órbita del satélite o de la altura del avion en que está colocada dicha antena. Como se observa en la imagen
-\ref{fig:footprint}, mientras más larga es la antena, más angosto es el footprint, logrando así mejorar la resolución
+órbita del satélite o de la altura del avión en que está colocada dicha antena. Como se observa en la imagen
+\ref{fig:footprint}, mientras más larga es la antena, más angosto es la huella, logrando así mejorar la resolución
 espacial.
 
 \begin{figure}[H]
  \centering
  \includegraphics[width=7cm]{gfx/footprint.png}
- \caption{El footprint depende del largo de la antena \cite{FootprintAntenna}.}
+ \caption{La huella depende del largo de la antena \cite{FootprintAntenna}.}
  \label{fig:footprint}
 \end{figure}
 
@@ -69,7 +69,7 @@ Un conjunto de antena polarimétrica consta de una colección de $N$ elementos r
 mismos diagrama de radiación y que están orientados en el mismo sentido y dirección en un ambiente tridimensional. No es
 necesario que estén espaciados regularmente ni que emitan los mismos valores de potencia y fase, pero si se asume
 que todos están alimentados con la misma frecuencia de trabajo. En la figura \ref{fig:phasedArrayAntenna} se pueden observar
-dos tipos de distribuciones comunmente utilizadas.
+dos tipos de distribuciones comúnmente utilizadas.
 
 \begin{figure}[H]
 	\centering
@@ -81,7 +81,7 @@ dos tipos de distribuciones comunmente utilizadas.
 	\label{fig:phasedArrayAntenna}
 \end{figure}
 
-Este tipo de antenas está compuesto por dos bloques principales a saberi: la red de distribución (o RFDN) y los elementos 
+Este tipo de antenas está compuesto por dos bloques principales a saber: la red de distribución (o RFDN) y los elementos 
 radiantes (ver figura \ref{fig:compositionAntenna}).
 
 \begin{figure}[H]
@@ -91,7 +91,7 @@ radiantes (ver figura \ref{fig:compositionAntenna}).
  \label{fig:compositionAntenna}
 \end{figure}
 
-El generador puede emitir distitnos tipos de modulaciones. Ej, cuadrada, chirp, senoidal, triangular, etc. Las ventajas y
+El generador puede emitir distintos tipos de modulaciones. Ej, cuadrada, chirp, senoidal, triangular, etc. Las ventajas y
 desventajas de cada una se lista en el cuadro \ref{tab:modulations}
 
 \begin{table}[H]
@@ -99,14 +99,14 @@ desventajas de cada una se lista en el cuadro \ref{tab:modulations}
   \centering
   \begin{tabular}{|c|p{9cm}|}
 	\hline
-	\textbf{Modulación} & \textbf{Cacarcterísticas} \\
+	\textbf{Modulación} & \textbf{Características} \\
 	Cuadrada & Esta modulación es utilizada para mediciones muy precisas a cortas distancias comparando las fases de los dos
 	semiciclos de la señal recibida. La desventaja es que los distintos ecos de los distintos blancos no pueden distinguirse.\\\hline
 	Chirp & Es la modulación mayormente utilizada, se obtienen mediciones con las mayores distancias posibles.\\\hline
 	Triangular & Con esta modulación se logra distinguir fácilmente la velocidad de la posición del blanco. \\\hline
 	Escalonada & Es utilizada para mediciones de interferometría y para expandir el rango de medición sin ambig\"uedades.\\\hline
   \end{tabular}
-  \caption{Cacacterísticas de cada modulación de la señal emitida}
+  \caption{Características de cada modulación de la señal emitida}
   \label{tab:modulations}
 \end{table}
 
@@ -192,7 +192,7 @@ con la relación de $1/r$, donde $r$ es la distancia del punto de medición al e
 la fase con que emite el elemento y el retardo de fase que se debe a la distancia recorrida por la señal para llegar a los 
 distintos lugares del espacio. Dicho retardo es expresado como $2\pi r/\lambda$, siendo $\lambda$ la longitud de onda de la 
 señal emitida por el elemento radiado. Los gráficos \ref{fig:twoArrayPat} y \ref{fig:fourArrayPat} muestran las curvas de 
-nivel de diagramas de radiación de pontencia polar, donde los elementos radiantes están distribuidos uniformemente sobre el eje
+nivel de diagramas de radiación de potencia polar, donde los elementos radiantes están distribuidos uniformemente sobre el eje
 x (eje horizontal) y emiten en fase.
 
 \begin{figure}[H]
@@ -218,7 +218,7 @@ x (eje horizontal) y emiten en fase.
 
 Se puede observar que aumentando la cantidad de elementos radiantes, se logra que el haz principal (lóbulo principal de
 potencia) sea más angosto, por lo tanto se obtenga una mayor resolución del cuerpo observado. La figura \ref{fig:directArrayPat} 
-muesra que la fase con que emiten los elementos radiados modifica el apuntamiento de la antena.
+muestra que la fase con que emiten los elementos radiados modifica el apuntamiento de la antena.
 
 \begin{figure}[H]
 	\centering
@@ -374,7 +374,7 @@ Con $G > 1$.
 \subsection{Módulo de transmisión recepción ideal}
 
 Dicho componente está compuesto por un defasador ideal junto a un amplificador. Es un componente de tres puertos, el primero 
-puede transmisitir o recibir señal, el segundo solamente transmitir y el tercero recibir. Su matriz de parámetros S es la siguiente.
+puede transmitir o recibir señal, el segundo solamente transmitir y el tercero recibir. Su matriz de parámetros S es la siguiente.
 
 $$
 	S_{PSC} = \begin{pmatrix} 0&0&Ge^{-j\phi_{13}} \\ Ge^{-j\phi_{21}}&0&0 \\ 0&0&0\end{pmatrix} 
@@ -425,7 +425,7 @@ $$
 
 \subsection{Acoplamientos mútuos}
 
-El acoplamiento mútuo entre módulos radiantes es modelizado con el mismo comportamiento al de un cable, pero con las
+El acoplamiento mutuo entre módulos radiantes es modelizado con el mismo comportamiento al de un cable, pero con las
 propiedades de atenuación y defasaje de una onda en el vacío. Las cuales son:
 
 \begin{equation}
@@ -491,7 +491,7 @@ para la obtención de dicha matriz asumiendo que se desea obtener la respuesta d
 \end{figure}
 
 Como los puertos utilizados por el PSC en el camino rojo de la figura \ref{fig:antennaSLoop} son el 1 y 3, la conversión de
-parámetros S resuta ser,
+parámetros S resulta ser,
 
 $$
 	S_{PSC} = \begin{pmatrix} S11&S12&S13 \\ S21&S22&S23 \\ S31&S32&S33\end{pmatrix} \Rightarrow
@@ -512,7 +512,7 @@ $$
 $$
 
 Como se desea caracterizar la respuesta de una cascada de redes de dos puertos, se transforman todas las matrices de cada
-componente a parámetros T (ver equaciones \ref{eq:s2t}), se multiplican todas las matrices como se muestra en la ecuación
+componente a parámetros T (ver ecuaciones \ref{eq:s2t}), se multiplican todas las matrices como se muestra en la ecuación
 \ref{eq:cascade} i luego, la matriz resultante se la vuelve a convertir a parámetros S (ver ecuaciones \ref{eq:t2s}).
 
 $$

@@ -42,6 +42,7 @@
 \usepackage{csquotes}
 \usepackage{multirow}
 \usepackage{minted}
+\usepackage[titletoc]{appendix}
 \usepackage[colorinlistoftodos,prependcaption,textsize=tiny]{todonotes}
 \usepackage[square, numbers, comma, sort&compress]{natbib} % Use the natbib reference package - read up on this to edit the reference style; if you want text (e.g. Smith et al., 2012) for the in-text references (instead of numbers), remove 'numbers'
 \hypersetup{urlcolor=blue, colorlinks=true} % Colors hyperlinks in blue - change to black if annoying
@@ -76,7 +77,7 @@
 \begin{center}
 
 \textsc{\LARGE Facultad de Ingeniería \\ Universidad de Buenos Aires}\\[1.5cm] % University name
-\textsc{\Large PROYECTO DE TESIS DE INGENIERÍA INFORMÁTICA}\\[0.5cm] % Thesis type
+\textsc{\Large TESIS DE INGENIERÍA INFORMÁTICA}\\[0.5cm] % Thesis type
 
 \HRule \\[0.4cm] % Horizontal line
 {\huge \bfseries Diseño y calibración de una antena polarimétrica por acoplamientos mutuos}\\[0.4cm] % Thesis title
@@ -99,7 +100,8 @@
 
 %\large \textit{A thesis submitted in fulfilment of the requirements\\ for the degree of \degreename}\\[0.3cm] % University requirement text
 %\textit{in the}\\[0.4cm]
-Departamento de informática\\[2cm] % Research group name and department name
+Departamento de informática\\
+2016\\[2cm] % Research group name and department name
 
 %{\large \today}\\[4cm] % Date
 \includegraphics[width=4cm]{Logo2.png} % University/department logo - uncomment to place it
@@ -160,28 +162,47 @@ Departamento de informática\\[2cm] % Research group name and department name
 %	ABSTRACT PAGE
 %----------------------------------------------------------------------------------------
 %
-\addtotoc{Abstract} % Add the "Abstract" page entry to the Contents
+\addtotoc{Resumen} % Add the "Abstract" page entry to the Contents
 
 \abstract{\addtocontents{toc}{\vspace{1em}} % Add a gap in the Contents, for aesthetics
 
-En la actualidad, los conjuntos de antena de fase variable son ampliamente utilizados, por ejemplo, en tecnología de comunicaciones,
-en el uso de radares y satélites, etc. Este tipo de antenas, al ser comparada con otras (isotrópica, monopolos, etc.), tienen como
-principal ventaja el hecho de poder realizar apuntamientos electrónicos, es decir, que se pueden direccionar de manera electrónica
-sin tener que hacer uso de elementos mecánicos. Los cuales poseen ciertas desventajas asociadas tanto desde el punto de vista del 
+Las antenas en fase (del ingles: phased array) son un conjunto de antenas en el cual las fases relativas de las señales con que
+se alimenta cada antena se varían intencionalmente con objeto de alterar el diagrama de radiación del conjunto. Lo normal es 
+reforzar la radiación en una dirección concreta y suprimirla en direcciones indeseadas \cite{Standard1996}.
+
+Un conjunto de antena es un ejemplo de difracción, dado que puede ser visto como la suma de N fuentes lineales y coherentes. 
+Cada antena individual hace el papel de una abertura, emitiendo ondas de radio cuyo diagrama de difracción puede ser calculado 
+sumando el desplazamiento de fase $\varphi$.
+
+En la actualidad, los conjuntos de antenas de fase variable son ampliamente utilizados, por ejemplo, en estaciones de difusión
+tanto AM como FM, para estudios climatológicos y en el uso de satélites y radares tanto para uso marítimo (barcos de guerra de
+diversas armadas) como terrestres. La principal ventaja de este tipo de antenas con respecto a otras (isotópica, monopolos), es 
+el hecho de poder realizar apuntamientos electrónicamente, es decir, que se pueden direccionar de manera electrónica sin tener 
+que hacer uso de elementos mecánicos. Dichos elementos poseen ciertas desventajas asociadas tanto desde el punto de vista del 
 mantenimiento como de velocidad de respuesta. 
 
-Hay numerosos factores que modifican el comportamiento de la antenas y por ende el apuntamiento. Por ejemplo, cambios de
-temperatura o el mero envejecimiento de sus componentes. Es deseable tener dichos factores bajo control, para ello se hace uso de
-un esquema de calibración interna. De otra forma no sería posible lograr el apuntamiento deseado a un blanco determinado.
+Hay numerosos factores que modifican el comportamiento de la antena y por ende el apuntamiento, que es en esencia lo que se desea
+tener bajo control, también de manera electrónica. Por ejemplo, cambios de temperatura o el mero envejecimiento de los elementos
+que la componen, que lleva a que la respuesta final del sistema no sea la esperada. Es deseable tener dichos factores bajo control
+y así poder apuntar en la dirección deseada. Para ello se hace uso de un esquema de calibración interna, el cual debe permitir
+conocer con una determinada exactitud dicho apuntamiento.
 
-Se investiga y presenta el método de calibración interna convencional, sus virtudes y sus defectos, para luego introducir el método
-propuesto en este trabajo. El cual busca, sin agregar elementos adicionales al sistema, complementar al método clásico,
-compensando sus falencias principales. En primer término, se investigan y presentan las hipótesis necesarias para su aplicación.
+Se investiga y presenta el esquema de calibración interna convencional con sus virtudes y sus defectos. Con dicha información
+se introduce un método que complemente las falencias sin agregar elementos adicionales al sistema. 
 
-Luego, se implementa un modelo en radio frecuencia ad hoc, el cual cumple con ciertos requisitos enumerados de manera de poder
-hacerlo flexible para evaluar diferentes topologias de antenas. Luego se desarrolla el agoritmo de calibración propiamente dicho.
-Se realizan diferentes verificaciones con diferentes topologias de antena mostrando las bondades del metodo propuesto. Finalmente
-el trabajo deja abiertas varias lineas a futuro.
+En primer termino, se investigan y presentan las hipotesis necesarias para la aplicación de la calibración aquí propuesta. 
+Esto significa por ejemplo pedir que el sistema sea lineal e invariante en el tiempo, que los niveles de acoplamiento entre 
+elementos radiantes sea conocido, que el sistema disponga de determinados mecanismos de autoprotección, entre otros.
+
+En segunda instancia, y basado en las hipótesis propuestas, se propone, diseña, y construye en software un modelo físico 
+representativo ad hoc desde el punto de vista de radio frecuencia, que servirá de base para evaluar el modelo de calibración 
+propuesto. Este modelo físico se realiza con ciertas premisas, como ser por ejemplo que sea flexible para evaluar diferentes 
+topologías de antenas.
+
+En tercera instancia se desarrollan ambos algoritmos de calibración y se los aplica a diferentes topologías de antena en fase 
+para comparar los resultados obtenidos y así mostrar que el método propuesto supera ampliamente al clásico.
+
+En última instancia, se plantean diferentes líneas futuras de trabajo.
 }
 
 \clearpage % Start a new page
@@ -236,8 +257,10 @@ este trabajo no hubiese sido posible.\ldots
 \chapter*{Acrónimos}
 
 \begin{acronym}[UML]
+	\acro{AM}{Amplitud Modulada}
+	\acro{FM}{Frecuencia Modulada}
 \acro{RF}{Radio Frequency}
-\acro{PRF}{Pulse Repetition Frequency}
+\acro{PRF}{Frecuencia de repetición del pulso (del inglés)}
 
 \acro{CE}{Electrónica Central (del inglés)}
 \acro{RFDN}{Red de distribución de RF (del inglés)}
@@ -333,7 +356,8 @@ este trabajo no hubiese sido posible.\ldots
 
 \addtocontents{toc}{\vspace{2em}} % Add a gap in the Contents, for aesthetics
 
-\appendix % Cue to tell LaTeX that the following 'chapters' are Appendices
+\begin{appendices}
+%\appendix % Cue to tell LaTeX that the following 'chapters' are Appendices
 
 % Include the appendices of the thesis as separate files from the Appendices folder
 % Uncomment the lines as you write the Appendices
@@ -342,6 +366,7 @@ este trabajo no hubiese sido posible.\ldots
 \input{Appendices/AppendixB}
 \input{Appendices/AppendixC}
 
+\end{appendices}
 \addtocontents{toc}{\vspace{2em}} % Add a gap in the Contents, for aesthetics
 
 \backmatter

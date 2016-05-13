@@ -7,10 +7,14 @@ fi
 
 nombre="main"
 # Compilo dos veces para que aparezca el índice
-pdflatex --shell-escape $nombre.tex 
+#pdflatex --shell-escape $nombre.tex 
+lualatex --shell-escape $nombre.tex 
 bibtex $nombre.aux
-pdflatex --shell-escape $nombre.tex
-pdflatex --shell-escape $nombre.tex
+# pdflatex --shell-escape $nombre.tex
+# pdflatex --shell-escape $nombre.tex
+lualatex --shell-escape $nombre.tex
+lualatex --shell-escape $nombre.tex
+
 
 # Borro los archivos auxiliares
 rm $nombre.toc $nombre.aux $nombre.log $nombre.out 

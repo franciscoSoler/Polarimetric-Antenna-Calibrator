@@ -10,7 +10,7 @@ requerimiento muy importante que es poder transmitir con un elemento y simultán
 aun, que se queme. Normalmente, este requerimiento implica separar las redes de transmisión y recepción \cite{Gao2001}. Para 
 antenas que no cumplen la separación de la redes de transmisión y recepción se puede transmitir en una polarización y recibir
 en otra. Por ende, es requisito para poder implementar el método que la red utilizada permita seleccionar los TRMs que van a 
-estar en transmisión, en recepcion y en modo protegido. De esta forma, se establecen zonas en las cuales puede aplicarse el 
+estar en transmisión, en recepción y en modo protegido. De esta forma, se establecen zonas en las cuales puede aplicarse el 
 método actual dado que los niveles no son tan altos como para quemarlos ni tan bajos como para que no se alcance un nivel 
 necesario para calibrar. La figura \ref{fig:levels} ejemplifica las tres zonas de recepción al emitir con un elemento radiante:
 \begin{itemize}
@@ -77,7 +77,7 @@ para calibrar la antena en el modo presentado, tres modalidades serán presentad
 	\item \textbf{Modo rápido:} En esta modalidad se estima la ganancia en transmisión y recepción em ambas polarizaciones
 		(H y V) utilizando el valor guardado de la planitud de la antena calculado previamente. La cantidad de ecuaciones necesarias
 		es de $4MN$.
-	\item \textbf{Modo planitud ideal:} Esta modalidad es igual al modo rápido, asuminedo que la antena es perfectamente plana.
+	\item \textbf{Modo planitud ideal:} Esta modalidad es igual al modo rápido, asumiendo que la antena es perfectamente plana.
 		La cantidad de ecuaciones necesarias es de $4MN$.
 \end{itemize}
 
@@ -88,10 +88,10 @@ Asumiendo que se transmite desde el elemento $e_m$ y se recibe desde el $e_n$, l
 calibración está compuesta por:
 
 \begin{itemize}
-	\item La configuración de atenuación y defasaje de los defasadores y atenuadores, tanto de transmisión como de recepción,
+	\item La configuración de atenuación y desfasaje de los atenuadores y desfasadores, tanto de transmisión como de recepción,
 		denotados como $w_{Tm}(i)$ y $w_{Rn}(j)$, donde $i$, $j$ son las diferentes posibles configuraciones.
-	\item La atenuación y defasaje combinados por los cables, conectores, divisores y combinadores de potencia, módulos radiantes
-		y defasadores, denotados como $u_{Tm}$ y $u_{Rn}$.
+	\item La atenuación y desfasaje combinados por los cables, conectores, divisores y combinadores de potencia, módulos radiantes
+		y desfasadores, denotados como $u_{Tm}$ y $u_{Rn}$.
 	\item El acoplamiento mutuo entre los elementos participantes, denotado como $C_{m, n}$.
 \end{itemize}
 
@@ -150,9 +150,9 @@ Si se realiza la misma deducción, pero en vez de transmitir siempre con el mism
 
 Analizando las ecuaciones \ref{eq:rx_cal} y \ref{eq:tx_cal}, dos conclusiones inmediatas se deducen. La primera es que el
 resultado no es único, por lo tanto, en principio, con este método no se pueden obtener ganancias absolutas (de transmisión,
-recepción y acoplamientos mútuos), solamente ganancias relativa entre dichos elementos. La segunda, es que el sistema tiene
+recepción y acoplamientos mutuos), solamente ganancias relativa entre dichos elementos. La segunda, es que el sistema tiene
 dos grados de libertad, en otras palabras, para poder obtener la ganancia absoluta de todo el sistema, es necesario agregar
-dos ecuaciones más que definan algún valor pertenenciente a dos de los tres conjuntos de incógnitas.
+dos ecuaciones más que definan algún valor perteneciente a dos de los tres conjuntos de incógnitas.
 
 Si se asume que a misma distancia el acoplamiento es el mismo o si se los reutilizan de una calibración anterior, las
 ecuaciones \ref{eq:rx_cal} y \ref{eq:tx_cal} se simplifican, logrando que la cantidad de incógnitas se reduzca habilitando
@@ -160,7 +160,7 @@ de esta forma los métodos rápidos y de planitud ideal.
 
 Como es necesaria una menor cantidad de ecuaciones de calibración, la estrategia a encarar es la de utilizar lazos simétricos
 con un elemento en común. Al restar ambos caminos, no solo se elimina la RFDN común, sino que también se elimina el
-acoplamiento mútuo. La cantidad de estos lazos termina siendo determinada como una solución de compromiso entre la cantidad de
+acoplamiento mutuo. La cantidad de estos lazos termina siendo determinada como una solución de compromiso entre la cantidad de
 mínima necesaria para poder utilizar el método y la cantidad de ecuaciones redundantes para disminuir la incertidumbre en el
 resultado. Las ecuaciones para recepción y transmisión simplificadas resultan.
 
@@ -196,8 +196,8 @@ como la fase de una señal es de naturaleza modular, de 360 grados, se pueden co
 como sea $A$ y que valores tenga $x$, $b$ no necesariamente está contenido dentro del conjunto solución (en módulo 360)
 generando así un error en la resolución de la estimación del valor $x$.
 
-Para ejemplificar, se asume que se tiene un conjunto de antena de tres elementos radiantes. La RFDN (en Tx y Rx) defasa 100
-grados, el defasador del primer elemento está configurado en 240 grados y el del tercero en 120, el acoplamiento mutuo no defasa
+Para ejemplificar, se asume que se tiene un conjunto de antena de tres elementos radiantes. La RFDN (en Tx y Rx) desfasa 100
+grados, el desfasador del primer elemento está configurado en 240 grados y el del tercero en 120, el acoplamiento mutuo no desfasa
 y se utiliza la ecuación $\dfrac{C^{'}_{1,2}}{C^{'}_{3, 2}}$. La figura \ref{fig:phaseDetermination} muestra la antena con los 
 lazos de calibración utilizados.
 
@@ -212,7 +212,7 @@ Utilizando la ecuación previamente mencionada, $A$ resulta ser
 $$
 	\mathbf{A} = \begin{pmatrix} 1 & 0 & -1\end{pmatrix}
 $$
-El verdadero valor de x resulta ser la contribución de la rama de transmisión junto a la configuración del defasador del TRM,
+El verdadero valor de x resulta ser la contribución de la rama de transmisión junto a la configuración del desfasador del TRM,
 $$
 	\mathbf{x} = \begin{pmatrix} 340 \\ x \\ 220\end{pmatrix}
 $$
@@ -221,8 +221,8 @@ Al resolver la ecuación $Ax$ se obtiene el resultado de 120 grados. Si la fase 
 resultante de la resta de la medición de ambos lazos de calibración. Las mediciones de dichos lazos resultan: 
 \begin{itemize}
 	\item La fase de $C^{'}_{1,2}$ es 440 grados, en módulo 360 resulta igual a 80 grados (100 grados por la rama de
-		transmisión sumado a 240 por el defasador del primer TRM y 100 grados más por la rama de recepción).
-	\item La fase de $C^{'}_{3, 2}$ es 320 grados (100 grados por la rama de transmisión sumado a 240 por el defasador
+		transmisión sumado a 240 por el desfasador del primer TRM y 100 grados más por la rama de recepción).
+	\item La fase de $C^{'}_{3, 2}$ es 320 grados (100 grados por la rama de transmisión sumado a 240 por el desfasador
 		del primer TRM y 100 grados más por la rama de recepción).
 \end{itemize}
 
@@ -231,17 +231,17 @@ error en la estimación de la fase.
 
 Para soluciona esto, la estrategia propuesta es la de reutilizar el valor estimado de $x$ de una calibración previa, calcular
 el $b$ ideal y modificar los valores de $b$ de la calibración actual sumando o restando de a 360 grados para acercarse lo más 
-posible a dichos valores esperados. Para la primera calibración, es necesario medir cuanto defasa la antena en al menos una 
+posible a dichos valores esperados. Para la primera calibración, es necesario medir cuanto desfasa la antena en al menos una 
 rama punta a punta. 
 
 \subsection{Problemas y limitaciones}
 
-La mayor limitación de este método es que es necesario conocer, a groso modo, el valor del defasaje de uno de los caminos de
+La mayor limitación de este método es que es necesario conocer, a groso modo, el valor del desfasaje de uno de los caminos de
 Tx o Rx punta a punta. Esto es para poder evitar errores de cálculos al obtener la fase de transmisión o recepción del
 sistema, ya que la misma tiene un comportamiento modular. Dicho valor solo se lo utilizará una vez, dado que ya para las
 subsiguientes calibraciones, el valor previo de fase de la antena es conocido y reutilizado. 
 
-Para obtener dicho valor inicial, se puede utilizar la fase delvuelta por el método de calibración clásica o se puede realizar
-una medición de campo cercano en temperatura, emitiendo sólamente con un elemento radiante para deducir la fase de la red de 
-transmisión, para obtener el defasaje de la red de recepción, se emite con un elemento externo y se recibe con solo un elemento
+Para obtener dicho valor inicial, se puede utilizar la fase devuelta por el método de calibración clásica o se puede realizar
+una medición de campo cercano en temperatura, emitiendo solamente con un elemento radiante para deducir la fase de la red de 
+transmisión, para obtener el desfasaje de la red de recepción, se emite con un elemento externo y se recibe con solo un elemento
 radiante. 

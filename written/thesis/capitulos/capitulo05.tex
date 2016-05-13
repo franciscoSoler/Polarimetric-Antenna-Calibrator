@@ -5,12 +5,12 @@
 \section{Modelo de la antena}
 
 El modelo de antena está programado de tal forma que se lo pueda utilizar para simular una antena con parámetros de RF,
-la misma está conformada por los siguientes componentes: cables, psc, trms, defasadores y elementos radiantes. 
+la misma está conformada por los siguientes componentes: cables, psc, trms, desfasadores y elementos radiantes. 
 
 La modelizaci\'on de los componentes en RF se realiza utilizando los par\'ametros S. En el apéndice \ref{AppendixC} se muestra 
 un ejemplo de estos archivos para una antena de dos elementos radiantes.
 
-Como es necesario realizar ensayos de montecarlo utilizando disitntos tipos de calibraciones ante una misma configuración y 
+Como es necesario realizar ensayos de montecarlo utilizando distintos tipos de calibraciones ante una misma configuración y 
 comportamiento de antena, se optó por guardar en disco dicha información utilizando archivos json. En los cuales se guarda la
 configuración y propiedades físicas tanto del panel como de la RFDN. Las propiedades del primer grupo son, simplemente, las 
 distancias entre todos los elementos. Las del segundo grupo corresponden a la matriz de parámetros S y la interconexión entre 
@@ -33,7 +33,7 @@ simplificada el flujo de ejecuci\'on del programa.
 
 En principio, una antena necesita que todos los caminos entre el punto donde se inyecta o recibe la se\~nal y los m\'odulos 
 radiantes sean iguales. Esta caracter\'istica es similar a la de un \'arbol balanceado. Por lo tanto, para definir la 
-estructura interna de la antena, se definen simplmenete los elementos que conforman dicho \'arbol y, para determinar el orden 
+estructura interna de la antena, se definen simplemente los elementos que conforman dicho \'arbol y, para determinar el orden 
 de armado de la antena, se utiliza una lista. El orden es descendiente, si se para en un elemento de la lista, los de la 
 izquierda son ascendientes y los de la derecha son descendientes. En la figura \ref{fig:2RMAntenna} se muestra la antena que 
 se construye teniendo como configuración: [\enquote*{cable1}, \enquote*{psc12}, \enquote*{cable2}, \enquote*{trm}, 
@@ -97,7 +97,7 @@ teniendo como configuración: "quantityRows": 1, "quantityColumns": 2, "vertical
 
 Una vez obtenida la estructura de la antena, es necesario determinar que componentes van a tener desvíos en el comportamiento 
 deseado. Para ello, se agrega una lista indicando los componentes con errores. Las incertidumbres tienen una distribución 
-gaussiana con media 0. El desvío estandar es configurable.
+gaussiana con media 0. El desvío estándar es configurable.
 
 Si se deseara realizar la calibración en modo completo, se deberían agregar errores de planitud de la antena. Con lo cual, 
 dichos desvíos se verían reflejados en el archivo de la configuración del panel de la antena. En la presente tesis solamente 
@@ -107,7 +107,7 @@ se desarrolló el modelo con planitud ideal.
 
 En la figura \ref{fig:modelPackage} se muestra el diagrama de clases del calibrador del modelo de antena. Se puede observar que
 la clase Antena, la cual pertenece al modelo, modeliza el comportamiento de todos sus componentes. Los calibradores pueden ser 
-el clásico o el de acoplamientos mútuos; el primero utiliza un creador de señales chirp y de códigos walsh, en cambio, el 
+el clásico o el de acoplamientos mutuos; el primero utiliza un creador de señales chirp y de códigos walsh, en cambio, el 
 segundo utiliza clases del tipo MatrixCalibratorBuilder, las cuales tienen distintas estrategias para generar ecuaciones en base
 a los lazos de calibración generados.
 
@@ -121,7 +121,7 @@ a los lazos de calibración generados.
 
 A la hora de calibrar, los primeros parámetros a definir son la potencia (en dB), fase (en grados) y frecuencia (en Hz) de la 
 señal utilizada con que se alimenta la antena para ser transmitida. A su vez, se debe definir el apuntamiento deseado. Para 
-ello, se tienen que configurar la fase de los defasadores en transmisión de la polarización a transmitir, tomando en cuenta lo 
+ello, se tienen que configurar la fase de los desfasadores en transmisión de la polarización a transmitir, tomando en cuenta lo 
 explicado en la sección \ref{ssec:beamSteering}. Estos valores están definidos en el archivo de configuración bajo el nombre 
 de \enquote*{Row Steering} y \enquote*{Column Steering}. Los mismos se traducen como el apuntamiento vertical y horizontal 
 respectivamente de la antena.
@@ -155,7 +155,7 @@ calibración donde se mide la chirp réplica, como dicho lazo está caracterizad
 variación es atribuida a la chirp en vez de al lazo.
 
 Desvíos de fase del walsh: Esta incertidumbre aparece a causa de las diferencias de comportamiento real y configurado en los 
-defasadores. 
+desfasadores. 
 
 Los lazos de calibración dependen del método utilizado, los cuales se explicarán a continuación.
 
@@ -163,7 +163,7 @@ Los lazos de calibración dependen del método utilizado, los cuales se explicar
 Para armar los datos a ser calibrados, todos los lazos (que abarcan hasta los módulos TR de la RFDN) se los multiplica con 
 tantas chirps como el método indica, con los errores que deba tener (según configuración) y con la codificación del código 
 walsh siguiendo lo especificado en la sección \ref{ssc:classicalMethod}. El resultado es una matriz adquirida, la cual, para
-decodificar y obtener la ganancia/fase de un TRM, se lo debe multiplicar por un conjunto de chirp réplicas defasadas según la 
+decodificar y obtener la ganancia/fase de un TRM, se lo debe multiplicar por un conjunto de chirp réplicas desfasadas según la 
 columna del código Walsh al que perteneciente el TRM. 
 
 \subsubsection{Calibración con acoplamientos mutuos}
@@ -266,7 +266,7 @@ realizar los distintos ensayos.
     \hline 
 	\multicolumn{2}{|c|}{\textbf{Parámetros de entrada}} \\ 
 	\hline
-    Frequencia		& Es la frecuenia central de trabajo en Hz \tabularnewline \hline 
+    Frequencia		& Es la frecuencia central de trabajo en Hz \tabularnewline \hline 
     Potencia		& Potencia con la que se alimenta la antena en db \tabularnewline \hline 
     Fase			& Fase con la que se alimenta la antena en grados \tabularnewline \hline 
     Row Steering	& Apuntamiento horizontal que se le quiere dar a la señal transmitida, en grados  \tabularnewline \hline 
@@ -293,7 +293,7 @@ realizar los distintos ensayos.
 	$psc_{1j}$ & Se pueden definir tantos PSC como se deseen, los parámetros a definir son: outputPorts = $j$, type = PSC1$j$ \tabularnewline \hline 
 	circulator & aca se puede definir un circulador, el parámetro a definir es: type = circulator \tabularnewline \hline 
 	$rm$ & Se puede definir un RM, el parámetro a definir es: type = RM \tabularnewline \hline 
-	\multicolumn{2}{|c|}{\textbf{Desvío estandard del error}} \\
+	\multicolumn{2}{|c|}{\textbf{Desvío estándar del error}} \\
 	\hline
 	Error del cable & Desvío estándar de los cables. \tabularnewline \hline 
 	Error del circulador & Desvío estándar de los circuladores. \tabularnewline \hline 
@@ -304,7 +304,7 @@ realizar los distintos ensayos.
 	Error de fase entre pulsos & Desvío estándar de fase entre pulsos de calibración. \tabularnewline \hline 
 	Error de ganancia de la chirp replica & Desvío estándar de ganancia de la chirp replica. \tabularnewline \hline 
 	Error de fase de la chirp replica & Desvío estándar de fase de la chirp replica. \tabularnewline \hline 
-	Error de fase del walsh & Desvío estándar de fase del seteo de los defasadores en calibración. \tabularnewline \hline 
+	Error de fase del walsh & Desvío estándar de fase de la configuración de los desfasadores en calibración. \tabularnewline \hline 
 	\caption{Configuraciones del modelo de antena}
   \end{longtable}
   \label{tab:conf_modelo_antena}

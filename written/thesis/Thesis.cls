@@ -187,7 +187,7 @@
 %-------------------------------------------------   
 \examiner{} % Your examiner's name - this is not currently used anywhere in the template, cite it with \examname if you want it
 %-------------------------------------------------   
-\degree{Proyecto de tesis de ingeniería informática} % Your degree name - this is currently used in the title page and abstract
+\degree{Tesis de ingeniería informática} % Your degree name - this is currently used in the title page and abstract
 %-------------------------------------------------   
 \authors{José Francisco \textsc{Soler}} % Your name - this is used in the title page and abstract
 %-------------------------------------------------   
@@ -222,8 +222,8 @@
                 {LEICI}}
 %-------------------------------------------------                
 \faculty{\texorpdfstring{\href{Faculty Web Site URL Here (include http://)} % Your faculty's URL
-                {Faultad de Ingeniería}} % Your faculty's name - this is currently used in the abstract page
-                {Faultad de Inteniería}}
+                {Facultad de Ingeniería}} % Your faculty's name - this is currently used in the abstract page
+                {Facultad de Ingeniería}}
 %-------------------------------------------------                
 \FACULTY{\texorpdfstring{\href{Faculty Web Site URL Here (include http://)} % Your faculty's URL
                 {FACULTAD DE INGENIERÍA}} % Your faculty's name in capitals - this is not currently used anywhere in the template, cite it with \FACNAME if you want it
@@ -297,7 +297,7 @@
     \setlength{\parskip}{0pt}
     {\normalsize \UNIVNAME \par} % University name in capitals
     \bigskip
-    {\huge{\textit{Abstract}} \par}
+    {\huge{\textit{Resumen}} \par}
     \bigskip
     {\normalsize \facname \par} % Faculty name
     {\normalsize \deptname \par} % Department name
