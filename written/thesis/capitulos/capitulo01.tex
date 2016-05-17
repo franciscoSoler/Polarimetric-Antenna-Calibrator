@@ -6,7 +6,7 @@
 \lhead{\emph{Introducción}} % Change X to a consecutive number; this is for the header on each page - perhaps a shortened title
 
 %----------------------------------------------------------------------------------------
-En esta capítulo se introduce brevemente la problemática a resolver asi como la estructura de la tesis.
+En este capítulo se introduce brevemente la problemática a resolver así como la estructura de la tesis.
 
 En la Sección \ref{sc:definitions} se introducen la definiciones previas, necesarias, para el desarrollo de la tesis, utilizadas
 luego como conocimientos de base, necesarias para poder comprender el trabajo en su totalidad.
@@ -14,14 +14,16 @@ luego como conocimientos de base, necesarias para poder comprender el trabajo en
 En la Sección \ref{sc:context} se introduce el contexto del problema, para poder comprender el marco de área de estudio
 propuesto, el tipo de antena objeto de estudio, los tipos de calibración y la importancia de la calibración interna.
 
-En la Sección \ref{sc:motivation} se introduce cual es la motivación para la realización de la presente tesis. Se hace foco
-en la calibración interna, sus virtudes y defectos y la necesidad de resolver problemas que la calibración clásica no resuelve.
-Existen diversos métodos pero en todos se propone la incorporación de HW externo adicional lo cual en algunos casos puede ser
-no implementable.
+En la Sección \ref{sc:motivation} se introduce cuál es la motivación para la realización de la presente tesis. Se hace foco
+en la calibración interna clásica, sus virtudes y defectos y la necesidad de resolver problemas que la calibración clásica no
+resuelve. Existen diversos métodos pero en todos se propone la incorporación de hardware externo adicional lo cual en algunos 
+casos puede ser no implementable.
 
-En la Sección \ref{sc:objective} se introduce el Objeto de la Tesis. Se propone un método para complementar al método clásico
-de calibración interna sin necesidad de tener que agregar HW externo. Se proponen todos los puntos a desarrollar a lo largo de
-esta tesis. Por ejemplo, el desarrollo de un modelo de base en RF sobre el cual probar la propuesta.
+En la Sección \ref{sc:objective} se introduce el Objeto de la Tesis. En primera instancia se propone un método para 
+complementar el método clásico de calibración interna sin necesidad de tener que agregar hardware externo, con todas las 
+desventajas del caso desde el punto de vista de recursos y confiabilidad. En segunda instancia se proponen y listan todos los 
+puntos a desarrollar a lo largo de esta tesis. Por ejemplo, el desarrollo de un modelo de base en RF sobre el cual evaluar la 
+propuesta.
 
 En la Sección \ref{sc:specifications} se introducen las Especificaciones del Problema. Es decir, las hipótesis de base que se
 toman como necesarias para poder implementar el método propuesto.
@@ -36,8 +38,8 @@ contenido.
 
 \section{Definiciones previas} \label{sc:definitions}
 
-A continuación se introducen algunas definiciones previas necesarias para el desarrollo de la tesis.
-
+A continuación se introducen algunas definiciones previas necesarias para el desarrollo de la tesis. Las mismas se encuentran ordenadas de manera tal que la definición en cual se basa posea las bases ya mencionadas.
+\todo{informar el orden de aparicion de las definiciones}
 
 {\textbf{Antena:}} Es definida como la estructura transicional enre espacio libre y un dispositivo guía, como se muestra en la 
 figura \ref{fig:antenna}. El dispositivo guía o línea de transmisión puede ser un cable coaxial o un tubo hueco (guía de 
@@ -45,118 +47,13 @@ onda), el cual es utilizado para transportar energía electromagnética desde la
 antena al receptor. En el primer caso sería una configuración de antena transmisora y en el segundo, receptora \cite{Balanis2012}.
 \begin{figure}[H]
  \centering
- \includegraphics[width=10cm]{gfx/polarizations.png}
- \caption{Antena como un dispositivo de transmisión \cite{Balanis2012}}
+ \includegraphics[width=10cm]{gfx/antenna.png}
+ \caption{Antena como un dispositivo de transmisión \cite{Balanis2012}.}
  \label{fig:antenna}
 \end{figure}
 
-{\textbf{Polarización:}} La polarización de una onda de radio en general hace referencia a la orientación del campo
-eléctrico (plano-E) de la onda de radio con respecto a la superficie terrestre (ver figura \ref{fig:hvPolarizations}). La antena
-que la genera determina, de acuerdo con su estructura física y orientación, qué tipo de polarización tendrá la onda emitida.
-Por dar un ejemplo, una antena que sea simplemente un cable recto poseerá una polarización cuando se la monta verticalmente, y
-otra diferente cuando sea horizontalmente. Como una onda transversal, el campo magnético de una onda de radio es perpendicular
-al eléctrico en campo lejano, pero, por convención, la polarización hace referencia a la dirección del campo eléctrico
-\cite{AntennaWiki}.
-
-\begin{figure}[H]
- \centering
- \includegraphics[width=10cm]{gfx/polarizations.png}
- \caption{Distintos tipos de polarizaciones \cite{polarization}}
- \label{fig:hvPolarizations}
-\end{figure}
-
-{\textbf{Diagrama de radiación:}} Es la representación gráfica de la densidad de potencia de las ondas radiadas por la antena
-en función del ángulo. Típicamente se lo representa en un gráfico de tres dimensiones o en diagramas de dos dimensiones de
-cortes transversales horizontales y verticales \cite{AntennaWiki}.
-
-\begin{figure}[H]
- \centering
- \includegraphics[width=10cm]{gfx/arrayPattern.png}
- \caption{Ejemplo de diagrama de radiación \cite{diagramaRadiacion}.}
-\end{figure}
-
-{\textbf{Apuntamiento del haz:}} Es cambiar la dirección del lóbulo principal de un diagrama de radiación \cite{BeamSteering}.
-
-{\textbf{Huella:}} Es el área terrestre visible para el satélite \cite{Footprint}. 
-
-{\textbf{VNA:}} Un VNA es un instrumento que mide los parámetros eléctricos de una red. Hoy, dichos analizadores miden los 
-parámetros S porque las reflexiones y transmisiones de redes eléctricas son fácilmente medibles en alta frecuencia. Normalmente
-caracterizan redes de dos puertos \cite{NetworkAnalyzer}.
-
-{\textbf{Directividad:}} Es una figura de mérito de una antena. Es el cociente entre la densidad de potencia radiada en la
-dirección de máxima emisión y la densidad de potencia radiada utilizando un radiador isotrópico (el cual emite uniformemente
-en toda dirección) \cite{DirectivityWiki}.
-
-{\textbf{SWR o ROE:}} Es una medida de adaptación entre la carga y la impedancia característica de una línea de transmisión. Las
-desadaptaciones de impedancias resultan en ondas estacionarias a lo largo de dicha línea de transmisión. El SWR está
-definido como la relación entre la amplitud de la onda reflejada y la amplitud de la onda incidente \cite{swrWiki}.
-
-{\textbf{Adaptación de impedancias:}} La máxima transferencia de potencia requiere que la impedancia de un sistema de
-antena esté adaptada al complejo conjugado de la impedancia del transmisor o receptor. En el caso de un transmisor,
-la impedancia adaptada deseada no necesariamente corresponde a la impedancia de salida dinámica del transmisor analizado
-como una impedancia sino al valor de diseño (típicamente de $50 \Omega$) requerido para una operación eficiente
-y segura del circuito de transmisión. Normalmente, la impedancia deseada es resistiva pero un transmisor (y algunos receptores)
-pueden tener ajustes adicionales para cancelar una cierta cantidad de reactancia en orden de obtener dicha adaptación. Cuando
-una linea de transmisión es utilizada entre la antena y el transmisor (o receptor) uno generalmente desearía un sistema de antena
-con una impedancia resistiva cercana a la impedancia característica de dicha línea de transmisión, para minimizar el SWR
-e incrementar la transmisión \cite{AntennaWiki}.
-
-{\textbf{Conjunto de Antena con fase variable (en inglés: Phased Array):}} es un conjunto de antenas en que las fases relativas
-de las señales con que se alimenta cada antena se varían intencionadamente con objeto de alterar el diagrama de radiación del
-conjunto. Lo normal es reforzar la radiación en una dirección concreta y suprimirla en direcciones indeseadas. Si todos los
-elementos del conjunto están contenidos en el mismo plano y la señal con que se alimentan es de la misma fase,
-entonces se estará reforzando la dirección perpendicular a ese plano. Si se altera la fase relativa de las señales se podrá
-\enquote*{mover} el haz (en realidad lo que se está haciendo es cambiar la dirección en la cual las interferencias son
-constructivas). Se consigue de este modo hacer barridos sin necesidad de movimiento físico, con la ventaja añadida de que
-se pueden barrer ángulos del orden de miles de grados por segundo. Esto permite utilizar la antena para compaginar
-simultáneamente funciones de detección y de seguimiento muchos blancos individuales, así como para obtener imágenes de
-apertura sintética. Su uso se va extendiendo debido a la confiabilidad derivada del hecho de que no tienen partes móviles.
-Casi todos los radares militares modernos se basan en phased arrays, relegando los sistemas basados en antenas rotatorias a
-aplicaciones donde el costo es un factor determinante (tráfico aéreo, meteorología, etc) Su uso está también extendido en
-aeronaves militares debido a su capacidad de seguir múltiples objetivos. El primer avión en usar uno fue el B-1B Lancer, y
-el primer caza, el MiG-31 ruso.\\
-
-{\textbf{Calibración:}} Operación que, bajo determinadas condiciones, en un primer paso, establece una relación entre
-valores cuantitativos con incertidumbres de medición provistas por estándares de medición e indicaciones correspondientes
-con incertidumbres asociadas (del instrumento calibrado o estándar secundario) y, en un segundo paso, usa
-esta información para establecer una relación para obtener un resultado de una medición desde una indicación \cite{CalDef}.
-
-{\textbf{Calibración interna:}} Las mediciones obtenidas utilizando este sistema son útiles solamente al utilizarlas en
-conjunto a los resultados de los test realizados en tierra, los cuales definen la relación entre lo observado y la
-performance de los parámetros del sistema. Ejemplos de satélites para los cuales se utilizó calibración interna son el
-E-ERS-1 y el SIR-C.
-
-Los tests realizados en tierra para dichos sistemas complejos son sobre la electrónica de RF, la electrónica digital y la
-antena sobre temperatura; para los cuales es preferible realizarlos, cuando sea posible, en un ambiente al vacío. Los
-parámetros clave del sistema, como: potencia transmitida, pérdidas de transmisión o recepción, ganancia de recepción,
-ganancia y diagrama de radiación de la antena, linealidad de la electrónica digital/RF, rango dinámico, y fase/amplitud vs
-estabilidad de la frecuencia son medidos en función de la temperatura para cada configuración de ganancia del radar y PRF. Los elementos de calibración, como medidores de temperatura, de corriente y de potencia, podrán
-permitir la determinación dela modela en RF. la performance del sistema en función de la variación de dichos parámetros.
-
-Esta técnica asume que la variación en la performance del sistema puede ser modelada en función de los parámetros observables.
-También, se asume que los componentes de calibración están correctamente calibrados y son estables en el paso del tiempo.
-Además de estos tests, en la mayoría de los sistemas de radar se realizan mediciones de componentes de RF utilizando lazos de
-calibración \cite{Curlander1991}.
-
-{\textbf{Caracterización:}} significa medir (el desempeño de) los parámetros de la antena con el objeto de describir en
-forma comprensible su comportamiento \cite{Mittermayer2007}.
-
-{\textbf{Caracterización del sistema:}} adicionalmente incluye la determinación de las curvas de características basadas
-en los modelos y en las mediciones indirectas de los parámetros, en el caso en que los parámetros no pueden ser medidos
-en forma directa \cite{Mittermayer2007}.
-
-{\textbf{Calibración:}} significa el ajuste de la representación de los parámetros físicos en los productos que arroje la
-antena de manera que los mismos puedan ser medidos dentro la especificación \cite{Mittermayer2007}.
-
-{\textbf{Verificación:}} significa mostrar mediante mediciones apropiadas que un sistema o subsistema trabaja dentro de su
-especificación (o conjunto de especificaciones) o que un producto cumple con su especificación \cite{Mittermayer2007}.
-
-\section{Contexto} \label{sc:context}
-
-Una antena es un transductor que transforma la energía eléctrica conducida en energía electromagnética radiada cuando
-trabaja como transmisora, o viceversa cuando actúa como receptora.
-
-Hay una amplia variedad de antenas en la actualidad, se realiza una agrupación simplificada en la tabla \ref{tab:type_antennas}.
+Hay una amplia variedad de antenas en la actualidad, en la tabla \ref{tab:type_antennas} se puede observar una agrupación 
+simplificada.
 
 \begin{table}[H]
   \footnotesize
@@ -181,15 +78,193 @@ Hay una amplia variedad de antenas en la actualidad, se realiza una agrupación 
   \label{tab:type_antennas}
 \end{table}
 
+
+En el caso de esta tesis, se tiene un conjunto de antenas individuales, denominadas elementos radiantes (ER), que se usan tanto
+para recibir como para transmitir. Dicho conjunto forma una red de difraccion que es el arreglo en fase, explicado más adelante.
+
+{\textbf{Polarización:}} La polarización de una onda radiada se la define como la propiedad de una onda electromagnética 
+describiendo la variación en tiempo de la dirección y la magnitud relativa del vector del campo eléctrico; específicamente, 
+la figura trazada en funcion del tiempo por la extremidad del vector en un lugar fijo en el espacio, y el sentido en que es
+trazado, como observado a lo largo de la dirección de propagación. Por lo tanto, la polarización es la curva trazada por la
+punta del vector que representa el campo eléctrico instantáneo \cite{Balanis2012}. 
+
+La polarización se puede clasificar como lineal, circular o elíptica (ver figura \ref{fig:hvPolarizations}). Si el vector que 
+describe el campo eléctrico en un punto del espacio en función del tiempo recorre un trayecto a lo largo de una línea, se dice
+que el campo es polarizado linealmente (horizontalmente o verticalmente). En general, la figura trazada por el campo eléctrico 
+es una elipse, nombrada polarización elíptica. La polarización lineal y circular son casos especiales de la elíptica \cite{Vita2012}.
+
+\begin{figure}[H]
+ \centering
+ \includegraphics[width=10cm]{gfx/polarizations.png}
+ \caption{Distintos tipos de polarizaciones \cite{Vita2012}}
+ \label{fig:hvPolarizations}
+\end{figure}
+
+Para el caso de esta tesis, los elementos radiantes se consideran que tienen fase lineal, con una componente Horizonal (H) y una
+componente Vertical (V), cada elemento radiante (ER) puede transmitir y recibir respectivamente.
+
+{\textbf{Diagrama de radiación (del inglés: array pattern):}} Es una función matemática o una representación gráfica de las propiedades de radiación de
+una antena en función de las coordenadas de espacio. En general es determinado en la región de campo lejano en función de las
+coordenadas direccionales. Las propiedades de radiación incluyen el flujo de la densidad de potencia, intensidad de radiación,
+fuerza del campo, directividad y fase o polarización \cite{Balanis2012}.
+
+\todo{Fran: acá debajo poné por favor un diagrama de radiación de un arreglo en fase con cortes verticales (o en RANGO) y horizontales (o en AZIMUTH).}
+
+\begin{figure}[H]
+ \centering
+ \includegraphics[width=10cm]{gfx/arrayPattern.png}
+ \caption{Ejemplo de diagrama de radiación \cite{Balanis2012}.}
+\end{figure}
+
+En el caso de esta tesis, los diagramas de radiación son los típicos de un arreglo en fase, con un lóbulo principal, vinculado
+al apuntamiento, y lóbulos secundarios.
+
+{\textbf{Apuntamiento del haz:}} Es cambiar la dirección del lóbulo principal del diagrama de radiación. Puede ser realizada 
+modificando la fase relativa entre los elementos radiantes de un conjunto de antena \cite{Standard1996}. En la siguiente figura 
+se muestran diferentes apuntamientos que se pueden hacer con una antena de arreglo en fase. \todo{(agregar la figura)}
+
+\todo{Fran: aca hace falta un dibujo en el que se muestra que desde un control electronico central se comanda elecfronicamente cada uno de los transmisores y receptores y con ello el apuntamiento total.  Por ende, se trata de un sistema controlado desde un sistema de control electronico central que define las fases y atenuaciones de cada uno de los elementos radiantes.}
+
+{\textbf{Huella:}} Si se utiliza una antena de arreglo en fase apuntando hacia la tierra, montada en un dron, avión, satélite o
+medio similar, la huella es la traza representada por la intersección del lobulo principal con la tierra. 
+
+\todo{Fran: pone debajo una imágen aclarando.}
+
+En el caso de esta tesis, si la antena se utiliza en alguno de los medios mencionados, es el resultado del apuntamiento sobre la
+tierra, sobre la zona que se desea barrer. De esta forma, por ejemplo, un error de apuntamiento implicaría no estar visualizando
+la zona que se desea \enquote*{ver}.
+
+{\textbf{Parámetros S:}} La sigla S deriva de la palabra dispersión. Para altas frecuencias, es conveniente describir una 
+determinada red en términos de ondas en vez de tensiones o corrientes. Esto permite una definición más sencilla de planos de
+referencia. Por razones prácticas, la descripción en términos de ondas entrantes y salientes ha sido introducida. Ahora, una
+red de 4 polos se transforma en 2 puertos y $2n$ polos se transforman en $n$ puertos. En el caso de un número impar de polos
+(ej. 3 polos), un punto de referencia puede ser elegido, atribuyendo un polo igualmente a dos puertos. Por lo tanto 3 polos se
+convierten en 3 + 1 polo correspondiendo a 2 puertos. Como una regla general, para cantidades impares de polos, siempre se agrega
+un polo extra.
+\todo{Agregar referencia del texto de pablo}
+
+{\textbf{Analizador de espectro vectorial o VNA:}} Es un instrumento que mide los parámetros eléctricos de una red. Hoy, dichos
+analizadores miden los parámetros S porque las reflexiones y transmisiones de redes eléctricas son fácilmente medibles en alta
+frecuencia. Normalmente caracterizan redes de dos puertos \cite{NetworkAnalyzer}.
+
+En esta tesis se utiliza el mismo concepto que utiliza un VNA para determinar los parámetros S en los diferentes lazos de 
+calibración.
+
+{\textbf{Directividad:}} Es una figura de mérito de una antena. Es el cociente entre la densidad de potencia radiada en la
+dirección de máxima emisión y la densidad de potencia radiada utilizando un radiador isotrópico, el cual emite uniformemente
+en toda dirección \cite{Standard1996}.
+
+El concepto de directividad se utiliza en esta tesis al explicar y analizar los lazos de calibración.
+
+{\textbf{Relación de onda estacionaria (del inglés SWR):}} Es una medida de adaptación entre la carga y la impedancia
+característica de una línea de transmisión. Las desadaptaciones de impedancias resultan en ondas estacionarias a lo largo de
+dicha línea de transmisión. El SWR está definido como la relación entre la amplitud de la onda reflejada y la amplitud de la
+onda incidente \cite{swrWiki}.
+
+En el caso de esta tesis, se incluyen los efectos de desadaptación de impedancias dentro del modelo construido para evaluar el
+algoritmo de calibración propuesto.
+
+{\textbf{Adaptación de impedancias:}} La máxima transferencia de potencia requiere que la impedancia de un sistema de
+antena esté adaptada al complejo conjugado de la impedancia del transmisor o receptor. En el caso de un transmisor,
+la impedancia adaptada deseada no necesariamente corresponde a la impedancia de salida dinámica del transmisor analizado
+como una impedancia sino al valor de diseño (típicamente de $50 \Omega$) requerido para una operación eficiente
+y segura del circuito de transmisión. Normalmente, la impedancia deseada es resistiva pero un transmisor (y algunos receptores)
+pueden tener ajustes adicionales para cancelar una cierta cantidad de reactancia en orden de obtener dicha adaptación. Cuando
+una línea de transmisión es utilizada entre la antena y el transmisor (o receptor) uno generalmente desearía un sistema de antena
+con una impedancia resistiva cercana a la impedancia característica de dicha línea de transmisión, para minimizar el SWR
+e incrementar la transmisión \cite{AntennaWiki}.
+
+En el caso de esta tesis, en el modelo físico desarrollado se tiene en cuenta la posibilidad de incorporar desadaptaciones.
+
+{\textbf{Conjunto de Antena con fase variable (en inglés: Phased Array):}} es un conjunto de antenas en que las fases relativas
+de las señales con que se alimenta cada antena se varían intencionalmente con objeto de alterar el diagrama de radiación del
+conjunto. Normalmente se refuerza la radiación en una dirección concreta y se suprime en direcciones indeseadas. Si todos los
+elementos del conjunto están contenidos en el mismo plano y la señal con que se alimentan es de la misma fase,
+entonces se estará reforzando la dirección perpendicular a ese plano. Si se altera la fase relativa de las señales se podrá
+\enquote*{direccionar el haz} de modo que las interferencias resulten constructivas. Se consigue de este modo hacer barridos sin
+necesidad de movimiento físico, mecánico, con la ventaja añadida de que se pueden barrer ángulos del orden de miles de grados
+por segundo. Esto permite utilizar la antena para compaginar simultáneamente funciones de detección y de seguimiento de blancos
+individuales, así como para obtener imágenes de apertura sintética, para el caso en que el arreglo de antenas con fase se 
+utilice con dicho propósito. Su uso se va extendiendo debido a la confiabilidad derivada del hecho de que no posee partes
+móviles. Casi todos los radares militares modernos se basan en conjuntos de antenas, relegando los sistemas basados en antenas
+rotatorias a aplicaciones donde el costo es un factor determinante (tráfico aéreo, meteorología) Su uso está también 
+extendido en aeronaves militares debido a su capacidad de seguir múltiples objetivos. El primer avión en usar uno fue el B-1B
+Lancer, y el primer caza, el MiG-31 ruso.\\
+\todo{buscar referencia y poner 2 imagenes sin satelites, drone con radar y solo radar}
+
+Para esta tesis se analizan dos antenas de este tipo:.. (y acá agregar las dimensiones y las caraceristicas resumidas de las antenas que se analizan..)
+\todo{completar lo anteriormente dicho}
+
+{\textbf{Calibración:}} La calibración es el proceso de comparar los valores obtenidos por un instrumento de medición con la
+medida correspondiente de un patrón de referencia o estándar. Según la Oficina Internacional de Pesas y Medidas, la 
+calibración es \enquote*{una operación que, bajo condiciones específicas, establece en una primera etapa una relación entre
+los valores y las incertidumbres de medida provistas por estándares e indicaciones correspondientes con las incertidumbres de 
+medida asociadas y, en un segundo paso, usa esta información para establecer una relación para obtener un resultado de la 
+medida a partir de una indicación}.
+
+Para el caso particular de esta tesis, y de este tipo de antenas, la calibración permite conocer y controlar con cierta 
+exactitud conocida el apuntamiento de la antena. En terminos generales puede clasificarse la calibracion en externa e interna. 
+\begin{itemize}
+	\item La calibración externa requiere del uso de una masa patrón externa. Durante una calibración externa, la calibración se
+		ajusta con respecto a las constantes de la masa patrón externa. 
+	\item La calibración interna no requiere de un patrón externo. Con la calibración interna, las constantes de calibración de
+		la antena se ajustan con respecto a referencias precisas existentes en la misma antena.
+\end{itemize}
+
+{\textbf{Calibración interna de un conjunto de antena:}} Las mediciones obtenidas utilizando este sistema son útiles solamente
+al utilizarlas en conjunto a los resultados de los test realizados en tierra, los cuales definen la relación entre lo observado
+y la performance de los parámetros del sistema. Ejemplos de este tipo de antenas para los cuales se utilizó calibración 
+interna son el E-ERS-1 y el SIR-C.
+
+Los tests realizados en tierra, para dichos sistemas complejos, son sobre la electrónica de RF, la electrónica digital y la
+antena en temperatura; para los cuales es preferible realizarlos, cuando sea posible, en un ambiente al vacío. Los
+parámetros clave del sistema que son medidos en función de la temperatura para cada configuración de ganacia y PRF del radar
+son: potencia transmitida, pérdidas de transmisión/recepción, ganancia de recepción, ganancia y diagrama de radiación de la 
+antena, linealidad de la electrónica digital/RF, rango dinámico, y fase/amplitud vs estabilidad de la frecuencia. Los
+elementos de calibración, como medidores de temperatura, de corriente y de potencia, podrán permitir la determinación del 
+modelo en RF y la respuesta del sistema en función de la variación de dichos parámetros.
+
+Esta técnica asume que la variación en la respuesta del sistema puede ser modelada en función de los parámetros observables.
+También, se asume que los componentes de calibración están correctamente calibrados y son estables en el paso del tiempo.
+Además de estos tests, en la mayoría de los sistemas de radar se realizan mediciones de componentes de RF utilizando lazos de
+calibración \cite{Curlander1991}.
+
+Para el caso particular de esta tesis, se calibrará la antena en RF utilizando el método clásico y el propuesto con 
+acoplamientos mútuos.
+
+{\textbf{Caracterización:}} significa medir (el desempeño de) los parámetros de un dispositivo con el objeto de describir en
+forma comprensible su comportamiento \cite{Mittermayer2007}.
+
+Para el caso particular de esta tesis, es necesario tener caracterizados los componentes de una antena para poder modelizar el 
+comportamiento de la misma.
+
+{\textbf{Caracterización del sistema:}} adicionalmente incluye la determinación de las curvas de características basadas
+en los modelos y en las mediciones indirectas de los parámetros, en el caso en que los parámetros no pueden ser medidos
+en forma directa \cite{Mittermayer2007}.
+
+{\textbf{Verificación:}} Proceso donde se confirma que existen entradas y especificaciones adecuadas para cualquier actividad,
+y que los resultados de dichas actividades son correctas y consistentes con las especificaciones y entradas mencionadas 
+previamente \cite{Division2009}.
+
+{\textbf{Radar:}}
+
+{\textbf{Radar de apertura sintética:}}
+\todo{todooo}
+
+
+\section{Contexto} \label{sc:context}
+
 La presente tesis se enfoca en el tipo \enquote*{conjunto de antena de fase controlada de manera electrónica}, en inglés
-\enquote*{phase array electronically controlled antenna}. Este tipo de antenas son ampliamente utilizadas de manera masiva
-en aplicaciones donde es necesario realizar apuntamientos en diferentes direcciones con altas velocidades. Por ejemplo,
-comunicaciones móviles \cite{Chen2012}, aéreas \cite{MHong1989} y espaciales \cite{Shimada1995}\cite{Makhoul2012}. En el capítulo
-\ref{ch:phasedArray} se explica el principio de funcionamiento básico de dicho tipo de antena.
+\enquote*{phase array electronically controlled antenna}. Este tipo de antenas son ampliamente utilizadas en aplicaciones donde 
+es necesario realizar apuntamientos en diferentes direcciones con altas velocidades. Por ejemplo, comunicaciones móviles 
+\cite{Chen2012}, aéreas \cite{MHong1989} y espaciales \cite{Shimada1995}\cite{Makhoul2012}. En el capítulo \ref{ch:phasedArray}
+se explica el principio de funcionamiento básico de dicho tipo de antena.
 
 Para generar diversos productos, por ejemplo imágenes satelitales en radares SAR \cite{Freeman1992}, es necesario que la
-antena se encuentre correctamente calibrada \cite{Luscombe1990}\cite{Seifert1996}\cite{Dall1994}. Esto implica, que las
-tolerancias de fase y amplitud se mantengan en el tiempo y/o sus valores sean bien conocidas para cada elemento del conjunto.
+antena se encuentre correctamente calibrada \cite{Luscombe1990}\cite{Seifert1996}\cite{Dall1994}. Como fue mencionado 
+previamente, implica que las tolerancias de fase y amplitud se mantengan en el tiempo y/o sus valores sean bien conocidos para
+cada elemento del conjunto. Desde el control central se puede estar definiendo determinada fase y atenuacion para cada elemento
+radiante, pero si la antena no esta calibrada, lo que realmente se desea y lo que resulta efectivo, pueden no coincidir.
 
 Un método de calibración en tierra para estas antenas es la de utilización de fuentes externas de campo lejano o cercano
 \cite{Agrawal2003}. Sin embargo, en aplicaciones aéreas o espaciales, la utilización de dichas fuentes es impráctica o
@@ -198,11 +273,11 @@ difícil de implementar \cite{Aumann1989}. Para estos casos se utilizan esquemas
 Hay dos grupos principales de calibración externa a saber,
 \begin{itemize}
 	\item Calibración utilizando blancos puntuales: Los blancos puntuales son dispositivos construidos por el hombre, generalmente
-		corner reflectors, transponders, generadores de tono o receptores. La característica de estos dispositivos es que no
-		solo son muy chicos con respecto a la mínima área de observación de una antena y que el eco de la señal de dichos
-		dispositivos posee mucha más intensidad que dicha área, sino que el reflejo es bien conocido. Por lo tanto, con su uso
-		se puede deducir la potencia transmitida.
-	\item Calibración utilizando blancos distribuidos: Se refiere a la utilización de blancos naturales de largas áreas con
+		corner reflectors, transponders, generadores de tono o receptores. Estos dispositivos son considerados blancos puntuales porque
+		son mucho menores a la huella de una antena y el eco de la señal reflejada o emitida por los mismos poee mucha más intensidad
+		que dicha área. Por último, cabe destacar que, dado que el reflejo es bien conocido, se puede deducir la potencia transmitida
+		por la antena. 
+	\item Calibración utilizando blancos distribuidos: Se refiere a la utilización de blancos naturales de gran área con 
 		propiedades de dispersión homogéneas. Se utiliza la suposición que dichas propiedades son estables o que su variación es
 		bien conocida.
 \end{itemize}
@@ -222,8 +297,8 @@ para calibrar los caminos de transmisión y recepción de la antena de forma ind
 \cite{Srivastava1996}\cite{Wang2010}. Para ello, la señal de calibración recibida se la compara con la potencia transmitida,
 obteniendo así, que dicha diferencia se corresponde con el desfasaje de potencia y fase de cada camino de transmisión/
 recepción. Luego, se opta por caracterizar todos aquellos componentes que no pertenecen a ningún lazo de calibración
-\cite{Freeman1995}. Este método presenta algunos inconvenientes. Por dar un par de ejemplos se puede mencionar que los recursos
-necesarios (tiempo, personal) durante la campaña de ensayos previa al lanzamiento impactan en todo el desarrollo de actividades,
+\cite{Freeman1995}. Este método presenta algunos inconvenientes. Por ejemplo se puede mencionar que los recursos necesarios
+(tiempo, personal) durante la campaña de ensayos previa al lanzamiento impactan en todo el desarrollo de actividades,
 o las consecuencias que puede traer el hecho que la caracterización no sea válida porque un determinado componente
 envejece con el paso del tiempo.
 
@@ -239,52 +314,50 @@ proyectos:
 En este sentido se investiga y aprovecha el concepto acoplamiento mutuo inherente entre los módulos radiantes de la antena
 \cite{Aumann1989}, pero de manera complementaria al enfoque tradicional. Este método calibra tanto los caminos de transmisión
 como recepción a la vez, para ello, se transmite en una polarización y se recibe en otra de a un módulo radiante a la vez.
-Una ventaja que tiene frente a los otros métodos realizados es que no solo calibra la antena en su totalidad, sino también
+Una ventaja que tiene frente a los otros métodos realizados es que no sólo calibra la antena en su totalidad, sino también
 sirve para determinar si hay módulos radiantes en mal funcionamiento o directamente inhabilitados.
 
 \section{Motivación} \label{sc:motivation}
 
-Para poder hacer un uso adecuado del PA es necesario conocer la fase y atenuación de cada uno de los elementos del mismo, tanto
-cuando transmiten como cuando recibe. Sin embargo, si bien uno controla la fase y atenuación de cada elemento, la RFDN no permite
-necesariamente asegurar que la fase y atenuación con que sale la señal sea realmente la deseada. Hay fenómenos de dispersión en
-la RFDN debidos a la temperatura que hacen que la fase deseada y la requerida sean diferentes \cite{Keizer2011}.
+Para poder hacer un uso adecuado de un conjunto de antena es necesario conocer la fase y atenuación de cada uno de los elementos
+del mismo, tanto cuando transmiten como cuando recibe. Sin embargo, si bien uno controla la fase y atenuación de cada elemento,
+la RFDN no permite necesariamente asegurar que la fase y atenuación con que sale la señal sea realmente la deseada. Hay 
+fenómenos de dispersión en la RFDN debidos a la temperatura que hacen que la fase deseada y la requerida sean diferentes 
+\cite{Keizer2011}.
 
 El método de calibración tradicional, por lazos de calibración internos, permite calibrar un conjunto de antena, aunque
-adolece de algunos defectos entre los cuales se incluyen:
+presenta algunos defectos entre los cuales se incluyen:
 
 \begin{enumerate}
-    \item Un mal funcionamiento o directamente la inhabilitación de un elemento radiante, el cual está fuera del lazo de
-		calibración interno, no es detectado por la calibración interna.
-    \item Existen elementos que quedan fuera del lazo de calibración interna. Como por ejemplo los circuladores. Esto lleva a
-		la necesidad de realizar caracterizaciones en tierra, lo cual implica un consumo de recursos de proyecto importantes,
-		además de tener que confiar que dicha caracterización será válida (o sea que no habrá envejecimiento de los mismo)
-		durante toda la vida útil de la antena.
+    \item Como los lazos de calibración utilizados en el método no abarcan la totalidad de la antena, no es posible detectar el
+		mal funcionamiento o directamente la inhabilitación de un elemento que esté fuera de los mismos. 
+    \item Como existen elementos que quedan fuera del lazo de calibración interna, por ejemplo los circuladores, es necesario
+		realizar caracterizaciones en tierra, lo cual implica un consumo de recursos de proyecto importantes. Además se debe 
+		asumir que dicha caracterización será válida (o sea que no habrá envejecimiento de los mismo) durante toda la vida útil
+		de la antena.
     \item Cada lazo de calibración no se interrelaciona con el resto haciendo que no se pueda disminuir el error de medición por
 		multiplicidad de caminos.
 \end{enumerate}
 
 El conocimiento de dichas limitaciones llevan a investigar opciones superadoras, que den lugar a un método de calibración que 
-permita ser complementario al tradicional. 
-\begin{enumerate}
-	\item Evitando la necesidad de realizar costosas caracterizaciones en tierra
-	\item Previendo que los componentes en vuelo puedan envejecer y por ende modificar sus características.
-	\item Permitiendo detectar fallas en elementos que en la calibración interna tradicional están fuera del lazo de calibración.
-	\item Disminuyendo la incertidumbre en la determinación de la fase y amplitud de salida.
-\end{enumerate}
+permita ser complementario al tradicional. A su vez, es necesario desarrollar un modelo de antena polarimétrica para poder 
+comparar el desempeño de cada algoritmo para distintos estados del comportamiento de los componentes que conforman dicha antena.
 
-El método proupesto en esta tesis, denominado de \enquote*{diseño y calibración de una antena polarimétrica por 
+El método propuesto en esta tesis, denominado de \enquote*{diseño y calibración de una antena polarimétrica por 
 acoplamientos mutuos}, toma la idea de mediciones por acoplamiento mutuo \cite{Agrawal2003}\cite{Shipley2000} \cite{Aumann1989}
 \cite{Chen2012} para integrarla de manera complementaria al método tradicional sin necesidad de agregar hardware adicional. 
 Además, se establecen los requerimientos electrónicos para poder implementarla. Para poder comparar el comportamiento y 
 eficiencia de ambos métodos, se realiza un modelo de antena polarimétrica.
+
 
 \section{Objetivo de la Tesis} \label{sc:objective}
 
 La presente tesis tiene varios objetivos:
 
 \begin{enumerate}
-    \item Presentar conceptualmente el método tradicional de calibración interna de una antena polarimétrica. Con sus 
-		virtudes y defectos. Mencionar algunas misiones de ejemplo en las cuales el mismo se ha utilizado.
+    \item Presentar conceptualmente el método tradicional de calibración interna de una antena polarimétrica. Como resultado
+		de este estudio se resumen inconvenientes en su utilización, que tienen un impacto en los recursos necesarios para poder ser
+		implementada. 
     \item Investigar, desarrollar y presentar conceptualmente un método alternativo de calibración interna que introduzca
 		mejoras al método tradicional sin necesidad de introducir hardware adicional y con la premisa fundamental de
 		reducir los costos asociados a las caracterizaciones que el método tradicional incluye. Introducir los
@@ -292,7 +365,7 @@ La presente tesis tiene varios objetivos:
     \item Investigar e implementar el modelo de antena polarimétrico que será utilizado para poder comparar el 
 		método tradicional y el alternativo. Dicho modelo debe representar el comportamiento en RF básico de las señales al 
 		propagarse por el sistema.
-    \item Implementar los sistemas de calibración tradicional y alternativo que actúen sobre el modelo de antena. 
+    \item Implementar los sistemas de calibración interna tradicional y alternativo que actúen sobre el modelo de antena. 
     \item Sacar conclusiones respecto a los pros y contras del método propuesto, en particular en referencia al método
 		tradicional, por medio de algunos parámetros objetivos como ser tiempo de calibración, caracterizaciones necesarias,
 		incertidumbre de medición, entre otros.
