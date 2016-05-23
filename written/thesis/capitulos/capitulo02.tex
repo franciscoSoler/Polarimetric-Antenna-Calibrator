@@ -1,16 +1,31 @@
 % Chapter 2
 
-\chapter{Introducción a las antenas polarimétricas} % Chapter title
+\chapter{Modelización de las antenas polarimétricas} % Chapter title
 \label{ch:phasedArray}
-\lhead{\emph{Introducción a las antenas polarimétricas}}
+\lhead{\emph{Modelización de las antenas polarimétricas}}
 %----------------------------------------------------------------------------------------
+
+En este capítulo se introduce el funcionamiento de las antenas polarimétricas con los siguientes conceptos:
+\begin{itemize}
+	\item Las principales modulaciones utilizadas en función de los distintos requerimientos de aplicación.
+	\item El cálculo del diagrama de radiadión a partir de las dimensiones de la antena y la potencia y fase emitida de cada 
+		elemento radiante.
+	\item Como se obtiene el apuntamiento de la antena a partir de la fase individual de cada elemento radiante. 
+	\item La relación entre el diagrama de radiación y el resultado de la calibración interna. 
+	\item La identificación de los dispositivos que componen la antena.
+\end{itemize}
+
+A su vez, se define la representación matemática utilizada, en parámetros S, de cada uno de los dispositivos que componen la 
+antena con el objetivo de utilizarlos en el modelo de antena para realizar los ensayos de los distintos tipos de calibradores.
+
 
 \section{Antenas polarimétricas}
 
-Una antena polarimétrica es una antena que es utilizada, por ejemplo, en radares y satélites. Las mismas pueden ser activas 
-o pasivas, esto es, para el primer caso, que el sistema emita su propia energía, para luego medir el eco de la misma (por 
-ejemplo el radar SIR-C \cite{Curlander1991}). Para el segundo caso, el radar no emite ninguna señal, simplemente recibe el eco 
-de algún otro sistema emisor/receptor.
+Es una antena que es utilizada en aplicaciones en las que es importante poder distinguir entre ambas polarizaciones. Es decir, 
+en donde se tiene informacion en la polarizacion de la señal. Las mismas pueden ser activas o pasivas, esto es, para el primer
+caso, que el sistema emita su propia energía, para luego medir el eco de la misma (por ejemplo el radar SIR-C 
+\cite{Curlander1991}). Para el segundo caso, el radar no emite ninguna señal, simplemente recibe el eco de algún otro sistema 
+emisor/receptor.
 
 \begin{figure}[H]
  \centering
@@ -37,38 +52,38 @@ trabajo, se tiene de 3 cm a 30 cm de penetración.
 
 Por convención, el eje de referencia paralelo a la dirección del recorrido del satélite es llamado azimuth y la
 dirección del eje perpendicular, rango. El nadir es el punto más cercano de la tierra al satélite; en otras palabras,
-es el punto en la superficie terrestre que es cortado por una recta perpendicular que también corta al satélite.
+es el punto en la superficie terrestre que es cortado por una recta perpendicular que también corta al satélite, ver figura \ref{fig:antenna_ilumination}.
 
-La antena nunca apunta directamente hacia abajo porque, de esta forma, se perdería mucha información en rango. Al apuntar
+La antena nunca apunta directamente hacia abajo porque, de esta forma, se perdería información en rango\todo{buscar referencia}. Al apuntar
 en diagonal, y gracias a que el blanco no es puntual, el eco de la señal de la zona iluminada más cercana al nadir llega
 antes al satélite que la más alejada, logrando así, tomar muestras de distintos lugares espaciados en rango (ver figura
-\ref{fig:antena_ilumination}).
+\ref{fig:antenna_ilumination}).
 
 \begin{figure}[H]
  \centering
  \includegraphics[width=7cm]{gfx/satellite.png}
- \caption{Footprint del satélite \cite{FootprintSatellite}.}
- \label{fig:antena_ilumination}
+ \caption{Pisada del satélite \cite{FootprintSatellite}.}
+ \label{fig:antenna_ilumination}
 \end{figure}
 
 El tamaño de la zona iluminada se llama huella. Dicho tamaño depende tanto de las dimensiones de la antena como de la
-órbita del satélite o de la altura del avión en que está colocada dicha antena. Como se observa en la imagen
-\ref{fig:footprint}, mientras más larga es la antena, más angosto es la huella, logrando así mejorar la resolución
+órbita del satélite o de la altura de vuelo del avión en que está colocada dicha antena. Como se observa en la imagen
+\ref{fig:footprint}, mientras más grande es la antena, más angosto es la huella, logrando así mejorar la resolución
 espacial.
 
 \begin{figure}[H]
  \centering
  \includegraphics[width=7cm]{gfx/footprint.png}
- \caption{La huella depende del largo de la antena \cite{FootprintAntenna}.}
+ \caption{La huella depende del tamaño de la antena \cite{FootprintAntenna}.}
  \label{fig:footprint}
 \end{figure}
 
 \subsection{Composición de una antena}
 
-Un conjunto de antena polarimétrica consta de una colección de $N$ elementos radiantes. Se asume que dichos elementos poseen el
-mismos diagrama de radiación y que están orientados en el mismo sentido y dirección en un ambiente tridimensional. No es
+Un conjunto de antenas en fase polarimétrica consta de una colección de $N$ elementos radiantes. Se asume que dichos elementos
+poseen el mismo diagrama de radiación y que están orientados en el mismo sentido y dirección en un ambiente tridimensional. No es
 necesario que estén espaciados regularmente ni que emitan los mismos valores de potencia y fase, pero si se asume
-que todos están alimentados con la misma frecuencia de trabajo. En la figura \ref{fig:phasedArrayAntenna} se pueden observar
+que todos están alimentados con la misma frecuencia de trabajo\todo{buscar referencia....}. En la figura \ref{fig:phasedArrayAntenna} se pueden observar
 dos tipos de distribuciones comúnmente utilizadas.
 
 \begin{figure}[H]
@@ -87,12 +102,12 @@ radiantes (ver figura \ref{fig:compositionAntenna}).
 \begin{figure}[H]
  \centering
  \includegraphics[width=10cm]{gfx/CompositionAntenna.png}
- \caption{Composición de un conjunto de antena}
+ \caption{Composición de un conjunto de antena con control de fase}
  \label{fig:compositionAntenna}
 \end{figure}
 
-El generador puede emitir distintos tipos de modulaciones. Ej, cuadrada, chirp, senoidal, triangular, etc. Las ventajas y
-desventajas de cada una se lista en el cuadro \ref{tab:modulations}
+El generador puede transmitir con distintos tipos de modulaciones. Por ejemplo cuadrada, chirp, senoidal, triangular. Las ventajas y
+desventajas de cada una se listan en el cuadro \ref{tab:modulations}.
 
 \begin{table}[H]
   \footnotesize
@@ -110,46 +125,50 @@ desventajas de cada una se lista en el cuadro \ref{tab:modulations}
   \label{tab:modulations}
 \end{table}
 
-La red de distribución, llamada RFDN, es la encargada de transmitir la señal a todos los elementos radiantes de la antena.
-Dicha red posee una estructura de árbol, de forma tal, que la longitud de todos los caminos entre las hojas del mismo a
-la raíz son iguale (Los nodos son los PSC y las hojas los RMs). Es necesraio que todos los caminos sean iguales para que las
-señales transmitidas posean la misma fase y atenuación. Los componentes utilizados para distribuir la señal son los siguientes:
+La red de distribución de radio frecuencia en la antena, llamada RFDN, es la encargada de conducir la señal a todos los 
+elementos radiantes de la antena. Dicha red posee una estructura de árbol, de forma tal que la longitud de todos los caminos
+entre las hojas del mismo a la raíz son iguales. Los nodos son los PSC y las hojas los RMs. Es necesario que todos los caminos
+sean iguales para que las señales transmitidas por defecto, es decir sin incluir el efecto de los modulos 
+transmisores/receptores, tengan la misma fase y atenuación. 
 
-\begin{itemize}
+
+\subsubsection{Identificación de los componentes de la antena}
+
+Los componentes utilizados para distribuir la señal son los siguientes:
+
+\begin{enumerate}
 	\item Divisor/Combinador de potencia de RF: este componente es el encargado de dividir la señal transmitida en tantos puertos 
 		de salida tenga y la de sumar/combinar las potencias recibidas.
 	\item Cable: este componente es el utilizado para unir el resto de los componentes.
 	\item Módulo de Transmisión y Recepción: Este componente es el elemento de control de fase y atenuación de la señal emitida y
-		recibida por la antena. Para la modelización realizada, se considera que hay uno por cada elemento radiante.
-	\item Defasador: Este componente simplemente defasa la señal, hay uno por cada elemento radiante, se lo utiliza
-		para poder calibrar la antena tanto en transmisión como en recepción, logrando así, que cada camino de transmisión/
-		recepción de las hojas a la raíz defasen lo mismo. A su vez, se lo utiliza para poder direccionar el beam de la señal
-		emitida.
+		recibida por cada elemento radiante. Se modeliza que hay uno por cada elemento radiante sin embargo, la construccion y 
+		diseño del modelo de antena realizado permite rapidamente adecuarlo a diferentes topologias de antena. Está compuesto por 
+		los siguientes componentes de la imagen \ref{fig:compositionAntenna}:
+		\begin{itemize}
+			\item Desplazador de fase: Este componente defasa la señal y es utilizado para calibrar la antena tanto en transmisión como
+				en recepción, logrando así, que cada camino de Tx/Rx de las hojas a la raíz defasen lo mismo. A su vez, se lo utiliza 
+				para poder direccionar el beam de la señal emitida.
+			\item Atenuador: Este componente atenúa la señal y es utilizado para calibrar la antena tanto en transmisión como en 
+				recepción, logrando así que cada camino de Tx/Rx de las hojas a la raíz atenúen lo mismo. 
+			\item Amplificador: Este componente es de ganancia fija y sirve para amplificar la señal tanto transmitida como recibida. 
+		\end{itemize}
 	\item Elemento Radiante: Este componente es el emisor de la señal a transmitir y/o el receptor. En este tipo de antenas un
-		RM puede cumplir una o ambas funcionalidades.
+		ER puede cumplir una o ambas funcionalidades.
 	\item Circulador: Este componente posee tres puertos y es utilizado para separar los caminos de la señal transmitida (Tx) de 
 		la recibida (Rx) cuando un mismo elemento radiante posee las funcionalidades de transmisión y recepción. 
-\end{itemize}
+\end{enumerate}
 
-Se pueden conectar los elementos radiantes de tal forma que puedan transmitir en dos polarizaciones distintas, H y V (Ver figura
-\ref{fig:polarizations}), para esto, se debe duplicar la RFDN. Haciendo uso de ambas polarizaciones se puede caracterizar
-los blancos observados, dado que, cada cuerpo responde de forma distinta a cada tipo de polarización.
-
-\begin{figure}[H]
- \centering
- \includegraphics[width=7cm]{gfx/HAndVPolarizations.png}
- \caption{Polarizaciones verticales y horizontales}
- \label{fig:polarizations}
-\end{figure}
-
+Se pueden conectar los elementos radiantes de tal forma que puedan transmitir en dos polarizaciones distintas, H y V, para esto,
+se debe duplicar la RFDN. Haciendo uso de ambas polarizaciones se puede caracterizar los blancos observados, dado que, cada
+cuerpo responde de forma distinta a cada tipo de polarización.
 
 \subsection{Diagrama de radiación de antena}
 
-Un conjunto de antena puede armarse recursivamente, esto es, que un elemento sea, en si mismo, un conjunto. Un diagrama de antena es
+Un conjunto de antena puede armarse recursivamente, esto es, que un elemento sea, en sí mismo, un conjunto. Un diagrama de antena es
 un diagrama de radiación polar que resulta de reemplazar cada elemento por un radiador isotrópico. Si se asume que el diagrama de
 radiación de cada elemento es idéntico al del resto, tomando una cierta incertidumbre, el diagrama de radiación total resulta de
 la multiplicación de todos los diagramas de todos los elementos. Este resultado no depende de si se consideran los diagramas de
-potencia o de amplitud/fase.
+potencia o de amplitud/fase. \todo{buscar la referencia}
 
 \begin{figure}[H]
  \centering
@@ -158,17 +177,15 @@ potencia o de amplitud/fase.
  \label{fig:arrayGeometry}
 \end{figure}
 
-Considerese un conjunto de antena de $NxM$ elementos, como se muestra en la figura \ref{fig:arrayGeometry}, el diagrama de
+Considérese un conjunto de antena de $N$ por $M$ elementos, como se muestra en la figura \ref{fig:arrayGeometry}, el diagrama de
 radiación de campo lejano se lo calcula de la siguiente forma \cite{Mahafza2004}.
-
 \begin{equation}
 	E(\theta, \phi) = \sum_{n=0}^{N-1}\sum_{m=0}^{M-1} I_{n,m} e^{jk(d_xn\sin\phi\cos\theta + d_ym\sin\phi\sin\theta)}
 \end{equation}
-
-Donde $\theta$ corresponde al ángulo al eje x, $\phi$ corresponde al ángulo al eje z, $k$ es el número de onda y es igual
+Donde $\theta$ corresponde al ángulo al eje x, $\phi$ corresponde al ángulo al eje $z$, $k$ es el número de onda y es igual
 a $2\pi/\lambda$, $I_{n,m}$ es la amplitud compleja del elemento $n,m$. La figura \ref{fig:arrayPattern} muestra el diagrama de
-radiación en tres dimensiones, donde el eje $Z$ (representado con colores) es la potencia radiada. A su vez, se puede apreciar 
-uno de los cortes que se realizan generalmente sobre los mismos (elevacion o azimuth).
+radiación en tres dimensiones, donde el eje $z$ (representado con colores) es la potencia radiada. A su vez, se puede apreciar 
+el corte horizontal del mismo.
 
 \begin{figure}[H]
  \centering
@@ -180,10 +197,12 @@ uno de los cortes que se realizan generalmente sobre los mismos (elevacion o azi
  \label{fig:arrayPattern}
 \end{figure}
 
-Los tres parámetros más importantes del diagrama de radiación son la directividad, el ancho del lóbulo principal y el nivel
-de los lóbulos secundarios \cite{Hsiao1985}. Es importante incrementar lo más posible la diferencia de potencia entre los 
-lóbulos secundarios y el principal. Para lo cual, si se desea realizar un achicamiento de los lóbulos secundarios sin modificar 
-la directividad como el ancho del lóbulo principal, es necesario incrementar el tamaño del conjunto de antena \cite{Hsiao1985}. 
+Tres parámetros importantes del diagrama de radiación son la directividad, el ancho del lóbulo principal y el nivel de los
+lóbulos secundarios \cite{Hsiao1985}, estos 3 parametros tienen incidencia directa en el apuntamiento. Es importante incrementar
+lo más posible la diferencia de potencia entre los lóbulos secundarios y el principal porque los lóbulos secundarios apuntan
+en distintas direcciones a la deseada brindando así información de un punto indeseado. Como son variables dependientes entre
+sí, si se desea realizar una reducción de los lóbulos secundarios sin modificar la directividad como el ancho del lóbulo 
+principal, es necesario incrementar el tamaño del conjunto de antena \cite{Hsiao1985}. 
 Lamentablemente los errores, incertidumbres y desvíos en el comportamiento del conjunto limitan los niveles que se pueden 
 obtener de los lóbulos secundarios \cite{Hsiao1985}.
 
@@ -217,8 +236,10 @@ x (eje horizontal) y emiten en fase.
 \end{figure}
 
 Se puede observar que aumentando la cantidad de elementos radiantes, se logra que el haz principal (lóbulo principal de
-potencia) sea más angosto, por lo tanto se obtenga una mayor resolución del cuerpo observado. La figura \ref{fig:directArrayPat} 
-muestra que la fase con que emiten los elementos radiados modifica el apuntamiento de la antena.
+potencia) sea más angosto, por lo tanto se obtenga una mayor resolución del cuerpo observado. 
+
+La figura \ref{fig:directArrayPat} muestra que la fase con que emiten los elementos radiados modifica el apuntamiento de la 
+antena.
 
 \begin{figure}[H]
 	\centering
@@ -234,22 +255,20 @@ muestra que la fase con que emiten los elementos radiados modifica el apuntamien
 
 \subsection{Apuntamiento de una antena}\label{ssec:beamSteering}
 
-Para que la suma de todas las señales emitidas con todos los elementos radiantes apunte a un mismo punto, es necesario que
-todas las ondas lleguen al objetivo con la misma fase. Es por esto que se debe saber determinar cual es la fase individual que
+Para que la suma de las señales emitidas con todos los elementos radiantes apunte a un mismo punto, es necesario que
+todas las ondas lleguen al objetivo con la misma fase \todo{referencia}. Por esto se debe poder determinar cual es la fase individual que
 debe tener cada uno de los elementos radiantes.
 
 Como primer simplificación, se puede asumir que todas las rectas de cada uno de los elementos radiantes al punto lejano son
 paralelas entre ellas. A su vez, como el camino recorrido desde cada elemento radiante al punto lejano es diferente, es
 necesario calcular dicha diferencia para luego relacionarla con la fase. De esta forma, se puede retrasar la fase emitida de
-los elementos más alejados al punto para que todas las señales lleguen en fase, logrando así, una onda plana.
-
-La figura \ref{fig:beamSteering} muestra como se realiza el apuntamiento de un conjunto de antena en una sola dirección,
-para la dirección perpendicular, el razonamiento es totalmente análogo.
+los elementos más alejados al punto para que todas las señales lleguen en fase, logrando así, una onda plana. La figura 
+\ref{fig:beamSteering} muestra un ejemplo de un apuntamiento de un conjunto de antena.
 
 \begin{figure}[H]
  \centering
  \includegraphics[width=10cm]{gfx/beamSteering.png}
- \caption{Apuntamiento con una conjunto de antena \cite{BeamSteering}.}
+ \caption{Apuntamiento con un conjunto de antena \cite{BeamSteering}.}
  \label{fig:beamSteering}
 \end{figure}
 
@@ -263,7 +282,6 @@ la siguiente relación matemática,
 	x = d\cdot \sin{\theta_s}
 	\label{eq:steering}
 \end{equation}
-
 Donde $d$ es la distancia entre dos elementos consecutivos y $\theta_s$ es el apuntamiento deseado del haz emitido. Para calcular
 el defasaje de una onda en una cierta distancia $x$, se debe tener en cuenta que depende de su longitud de onda.
 
@@ -271,17 +289,16 @@ el defasaje de una onda en una cierta distancia $x$, se debe tener en cuenta que
 	\dfrac{2\pi}{\Delta\varphi} = \dfrac{\lambda}{x}
 	\label{eq:dist2angle}
 \end{equation}
-
 Donde $\Delta\varphi$ es el incremento de fase entre elementos radiantes, $\lambda$ es la longitud de onda transmitida.
-Utilizando las ecuaciones \ref{eq:steering} en \ref{eq:dist2angle} se puede obtener el incremento de fase entre RMs contiguos 
-necesario para cumplir con el apuntamiento deseado. La ecuación matemática a continuación.
+Utilizando las ecuaciones \ref{eq:steering} y \ref{eq:dist2angle} se puede obtener el incremento de fase entre ERs contiguos 
+necesario para cumplir con el apuntamiento deseado. La ecuación a continuación.
 
 \begin{equation}
 	\Delta\varphi = \dfrac{2\pi\cdot d\cdot\sin{\theta_s}}{\lambda}
 \end{equation}
 
 \subsection{Calibración interna de una antena polarimétrica}
-
+\todo{corregir como dice pablouuu}
 La respuesta de los componentes varía por el envejecimiento de los mismos al pasar del tiempo, por variaciones de la temperatura
 de operación, el manejo imprudente de los mismos, interferencias electromagnéticas (radiadas o conducidas), etc. Dichas 
 variaciones deben ser corregidas, buscando que no solo todos los caminos de recepción atenúen y defasen exactamente lo
@@ -313,13 +330,26 @@ otro sin calibrar. Se puede observar como los niveles de los lóbulos secundario
  \label{fig:nonCalPattern}
 \end{figure}
 
-\section{Parámetros S de cada componente}
+
+\section{Modelización de los componentes del modelo de antena en parámetros S}
 
 Los componentes que son ideales, se los trata como si estuviesen perfectamente adaptados, logrando así que los coeficientes
-de reflexión sean nulos, esto es $S_{11} = S_{22} = 0$. Para mayor información sobre que son los parámetros S ver el apéndice
-\ref{sc:appendixSParam}.
+de reflexión sean nulos, esto es $S_{11} = S_{22} = 0$. 
 
-\subsection{Elemento Radiante (RM)}
+
+\subsection{Elemento Radiante (ER)}
+
+Las antenas utilizadas como elementos radiantes en un conjunto de antena son los dipolos y monopolos \cite{Balanis2012}, en esta
+tesis se modelará un monopolos como ER, ver figura \ref{fig:radiatingElement}.
+\begin{figure}[H]
+	\centering
+	\subfloat[Rectangular]{
+		\includegraphics[width=6cm]{gfx/rectangularPatch.png}}
+	\subfloat[Circular]{
+		\includegraphics[width=6cm]{gfx/circularPatch.png}}
+		\caption{Antenas monopolo circulares y cuadradas \cite{Balanis2012}.}
+	\label{fig:radiatingElement}
+\end{figure}
 
 El elemento radiante es un módulo de un único puerto y es pasivo, por lo tanto el parámetro S que lo define es $S_{11}$ y su
 valor varía entre -1 y 1.
@@ -334,17 +364,41 @@ Los casos de cortocircuito y circuito abierto son casos de falla del módulo rad
 una desadaptación de impedancias.
 
 \subsection{Cable ideal}
-Un cable se comporta como una línea de transmisión, y su matriz es la siguiente
+El cable de RF es el dispositivo utilizado para interconectar el resto de los componetes, en la presente tesis puede no ser 
+utilizado dado que es configurable. La figura \ref{fig:cableRF} muestra un típico cable utilizado en aplicaciones espaciales 
+para frecuencias de $32GHz$ \cite{Gore2013}.
+
+\begin{figure}[H]
+ \centering
+ \includegraphics[width=5cm]{gfx/cableRF.png}
+ \caption{Cable de RF \cite{Gore2013}.}
+ \label{fig:cableRF}
+\end{figure}
+
+Como un cable se comporta como una línea de transmisión, se propone la siguiente matriz de parámetros S que la 
+representa.
 
 $$
 \mathbf{S} = \begin{pmatrix} 0 & e^{-\gamma l}\\e^{-\gamma l} & 0\end{pmatrix}
 $$
-
 Donde $\gamma = \alpha + j\beta$ es una constante de propagación compleja. $\alpha$ es la atenuación de la línea en [neper/m]
 y $\beta = 2\pi/\delta$ con la longitud de onda $\delta$. Para una línea sin pérdidas se obtiene $|S_{21}| = 1$
 
 \subsection{Desplazador de fase ideal}
 
+Un desplazador de fase ideal modifica la fase de una señal periódica con respecto a una referencia \cite{Standard1996}. El 
+defase puede ser fijo o ajustable de forma contínua o incremental. La imagen \ref{fig:phaseShifter} muestra un defasador 
+controlado por tensión.
+
+\begin{figure}[H]
+ \centering
+ \includegraphics[width=4cm]{gfx/phaseShifter.png}
+ \caption{desplazador de fase ajustable por tensión \cite{Shifter}}
+ \label{fig:phaseShifter}
+\end{figure}
+
+En la presente tesis se modeliza un desplazador de fase con defase ajustable de forma contínua, por lo tanto se propone la 
+siguiente matriz de parámetros S.
 
 $$
 \mathbf{S} = \begin{pmatrix} 0 & e^{-j\phi_{12}}\\e^{-j\phi_{21}} & 0\end{pmatrix}
@@ -354,27 +408,57 @@ Un defasador recíproco posee $\phi_{12} = \phi_{21}$.
 
 \subsection{Atenuador ideal}
 
+Un atenuador ideal reduce la amplitud de una señal sin una distorisión apreciable en su forma de onda. La atenuación puede ser
+fija o ajustable de forma contínua o incremental \cite{Standard1996}. La atenuación se la expresa en decibeles relativos a la
+potencia. La imagen \ref{fig:attenuator} muestra un atenuador fijo de $10 dB$.
+
+\begin{figure}[H]
+ \centering
+ \includegraphics[width=4cm]{gfx/attenuator.png}
+ \caption{atenuador fijo de 10 dB \cite{Keysight2014}}
+ \label{fig:attenuator}
+\end{figure}
+
+En la presente tesis se modeliza un atenuador con atenuación ajustable de forma contínua, por lo tanto se propone la siguiente
+matriz de parámetros S para representarlo.
+
 $$
 \mathbf{S} = \begin{pmatrix} 0 & e^{-\beta}\\e^{-\alpha} & 0\end{pmatrix}
 $$
 
-Si el atenuador es recíproco, $\alpha = \beta$. El factor de atenuación, $\alpha$, está en neper. La atenuación en decibeles
-viene dado por $A = '20\log_{10}(S_{21})$, $1N = 8.686dB$.
+Si el atenuador es recíproco, $\alpha = \beta$. El factor de atenuación $\alpha$ es expresado en neper, donde $1N = 8.686dB$.
+La atenuación en decibeles viene dado por $A = 20\log_{10}(S_{21})$. 
 
 
 \subsection{Amplificador ideal}
+
+Un amplificador ideal incrementa la amplitud de una señal sin una distorisión apreciable en su forma de onda. La ganancia puede
+ser fija o ajustable de forma contínua o incremental \cite{Standard1996} y es en una única dirección, del puerto de entrada al
+de salida. En la dirección opuesta la ganancia es 0, implica una atenuación infinita. La imagen \ref{fig:amplifier} muestra un
+amplificador fijo de $40 dB$.
+
+\begin{figure}[H]
+ \centering
+ \includegraphics[width=4cm]{gfx/amplifier.png}
+ \caption{amplificador fijo de 40 dB \cite{Pasternack2014}}
+ \label{fig:amplifier}
+\end{figure}
+
+En la presente tesis se modeliza un amplificador con ganancia fija, por lo tanto se propone la siguiente matriz de parámetros S
+para representarlo.
 
 $$
 \mathbf{S} = \begin{pmatrix} 0 & 0\\G & 0\end{pmatrix}
 $$
 
-Con $G > 1$.
+Con $G > 1$ fijo.
 
 
 \subsection{Módulo de transmisión recepción ideal}
 
-Dicho componente está compuesto por un defasador ideal junto a un amplificador. Es un componente de tres puertos, el primero 
-puede transmitir o recibir señal, el segundo solamente transmitir y el tercero recibir. Su matriz de parámetros S es la siguiente.
+Dicho componente está compuesto por un defasador ideal junto a un amplificador y un atenuador. Es un componente de tres puertos,
+el primero puede transmitir o recibir señal, el segundo solamente transmitir y el tercero recibir. Su matriz de parámetros S es
+la siguiente.
 
 $$
 	S_{PSC} = \begin{pmatrix} 0&0&Ge^{-j\phi_{13}} \\ Ge^{-j\phi_{21}}&0&0 \\ 0&0&0\end{pmatrix} 
@@ -385,7 +469,7 @@ por lo tanto no se lo puede utilizar para transmitir y recibir a la vez.
 
 \begin{figure}[H]
  \centering
- \includegraphics[width=4cm]{gfx/trm.png}
+ \includegraphics[width=6cm]{gfx/trm.png}
  \caption{módulo de transmisión/recepción}
  \label{fig:trm}
 \end{figure}
@@ -394,16 +478,19 @@ por lo tanto no se lo puede utilizar para transmitir y recibir a la vez.
 \subsection{Circulador ideal}
 
 El circulador ideal es sin pérdidas y adaptado en todos sus puertos. La señal entrante por un puerto es exclusivamente
-transmitida al puerto siguiente en el sentido de la flecha.
+transmitida al puerto siguiente en el sentido de las flechas.
 
 \begin{figure}[H]
- \centering
- \includegraphics[width=4cm]{gfx/circulator.png}
- \caption{circulador de 3 puertos}
- \label{fig:circulator}
+	\centering
+ 	\subfloat[Circulador de tres puertos ]{
+		\includegraphics[width=5cm]{gfx/3PortsCirculator.png}}
+	\subfloat[Circulador de cuatro puertos]{
+		\includegraphics[width=5cm]{gfx/4PortsCirculator.png}}
+	\caption{flujo de energía en circuladores \cite{Semiconductors1998}.}
+	\label{fig:circulator}
 \end{figure}
 
-La matriz de parámetros S es como sigue.
+En la presente tesis se modelizan circuladores de tres puertos proponiendo la siguiente matriz de parámetros S.
 
 $$
 \mathbf{S} = \begin{pmatrix} 0 & 0 & 1\\1 & 0 & 0\\0 & 1 & 0\end{pmatrix}
@@ -413,8 +500,19 @@ $$
 \subsection{Divisor/Combinador de potencia en RF (PSC)}
 
 El tipo de PSC modelado consiste en una red recíproca y adaptada en todos sus puertos, pero con pérdidas. Puede ser un
-componente de 3 o más puertos. A continuación se muestra la matriz de parámetros S genérica para una red de n puertos
-(matriz de nxn).
+componente de 3 o más puertos. Como ejemplo, en la figura \ref{fig:3PortsPSC} se muestra un PSC de 3 puertos. Al utilizarlo como
+divisor de potencia, se aplica una señal en el puerto S y se obtiene la misma señal atenuada en los puertos A y B. Cuando es
+utilizado como combinador, se aplican señales en los puertos A y B y la suma es obtenida en el puerto S \cite{MiniCircuits2015}.
+
+\begin{figure}[H]
+ \centering
+ \includegraphics[width=7cm]{gfx/3PortsPSC.png}
+ \caption{PSC de tres puertos \cite{MiniCircuits2015}.}
+ \label{fig:3PortsPSC}
+\end{figure}
+
+En la presente tesis, como es configurable la cantidad de puertos totales de los PSC utilizables en el modelo de antena, se 
+propone la siguiente matriz de parámetros S genérica de n puertos.
 
 $$
 \mathbf{S} = \begin{pmatrix} 0 & \dfrac{1}{n-1} & ... & \dfrac{1}{n-1}\\
@@ -423,19 +521,19 @@ $$
 							 \dfrac{1}{n-1} & \dfrac{1}{n-1} & ... & 0 \end{pmatrix}
 $$
 
-\subsection{Acoplamientos mútuos}
+\subsection{Acoplamientos mutuos}
 
 El acoplamiento mutuo entre módulos radiantes es modelizado con el mismo comportamiento al de un cable, pero con las
-propiedades de atenuación y defasaje de una onda en el vacío. Las cuales son:
+propiedades de atenuación y defase de una onda en \enquote*{espacio libre}. Las cuales son:
 
 \begin{equation}
-	S12 = S21 = \dfrac{e^{-j\dfrac{\pi}{\lambda}r}}{4\pi r^2}
+	S12 = S21 = \dfrac{e^{-j\frac{\pi}{\lambda}r}}{4\pi r^2}
 \end{equation}
 
 siendo r la distancia recorrida por la señal. La matriz de parámetros S resulta,
 
 $$
-\mathbf{S} = \begin{pmatrix} 0 & \dfrac{e^{-j\dfrac{\pi}{\lambda}r}}{4\pi r^2}\\\dfrac{e^{-j\dfrac{\pi}{\lambda}r}}{4\pi r^2} & 0\end{pmatrix}
+\mathbf{S} = \begin{pmatrix} 0 & \frac{e^{-j\frac{\pi}{\lambda}r}}{4\pi r^2}\\\frac{e^{-j\frac{\pi}{\lambda}r}}{4\pi r^2} & 0\end{pmatrix}
 $$
 
 \section{Ejemplo parámetros S}
