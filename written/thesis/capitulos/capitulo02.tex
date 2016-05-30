@@ -45,8 +45,8 @@ trabajo, se tiene de 3 cm a 30 cm de penetración.
 
 \begin{figure}[H]
  \centering
- \includegraphics[width=10cm]{gfx/AtmosphericOpacity.png}
- \caption{Opacidad atmosférica vs longitud de onda \cite{electromagneticOpacity}}
+ \includegraphics[width=12cm]{gfx/atmosphericOpacity.png}
+ \caption{Transmisividad atmosférica en función de la frecuencia \cite{Richards2013}}
  \label{fig:atmosphere}
 \end{figure}
 
@@ -298,20 +298,45 @@ necesario para cumplir con el apuntamiento deseado. La ecuación a continuación
 \end{equation}
 
 \subsection{Calibración interna de una antena polarimétrica}
-\todo{corregir como dice pablouuu}
-La respuesta de los componentes varía por el envejecimiento de los mismos al pasar del tiempo, por variaciones de la temperatura
-de operación, el manejo imprudente de los mismos, interferencias electromagnéticas (radiadas o conducidas), etc. Dichas 
-variaciones deben ser corregidas, buscando que no solo todos los caminos de recepción atenúen y defasen exactamente lo
-mismo, sino que también sea un valor conocido. En transmisión el objetivo es el mismo, con la salvedad que se busca que cada
-TRM trabaje en su punto de compresión (generalmente cerca de los 6dB) y que la fase de cada elemento depende del apuntamiento
-deseado.
 
-Para calibrar la antena por medio de lazos de calibración, la electrónica central se comporta como un VNA (representado en la 
-figura \ref{fig:calibrationLoop}). La misma emite una señal por un canal y la compara con lo recibido en el otro canal, 
-midiendo el S21 (transmisión directa) de los parámetros S de la antena. Para ello, se debe descontar a la señal recibida, la 
-señal emitida. Dicha calibración determina las características de la antena para un determinado instante, si los componentes 
-cambian sus características en el tiempo, se debería realizar el proceso de calibración nuevamente para obtener los nuevos 
-parámetros S.
+La respuesta de los componentes en el tiempo no se mantiene invariante. Hay diversos factores que influyen en su comportamiento a
+medida que transcurre su vida útil. Por un lado su envejecimiento natural por el uso. Por otro lado las variaciones en su 
+comportamiento por efectos de temperatura. En algunos casos, cuando se trata de componentes activos, el desgaste que pueden
+sufrir de manera acelerada por superar niveles de derating. Dichas variaciones deben ser corregidas, buscando que no solo todos
+los caminos de recepción atenúen y defasen exactamente lo mismo, sino que también sea un valor conocido. En transmisión el
+objetivo es el mismo, con la salvedad que se busca que cada TRM trabaje en su punto de compresión (generalmente cerca de los
+6dB) y que la fase de cada elemento depende del apuntamiento deseado.
+
+Para poder corregir las variaciones en transmisión y recepción de la antena, se hace uso de actuadores. En la presente tesis,
+estos componentes fueron modelados como TRMs, los cuales, pueden introducir fase y atenuación en el sistema a elección, con
+cierta incertidumbre. Por ejemplo, en la figura \ref{fig:antennaTRM} se observa un esquema 
+de conexionado de una antena en transmisión donde el TRM se encuentra resaltado.
+
+\begin{figure}[H]
+ \centering
+ \includegraphics[width=10cm]{gfx/antennaTRM.png}
+ \caption{Esquema de transmisión de una antena.}
+ \label{fig:antennaTRM}
+\end{figure}
+
+La antena está conectada a la unidad central de control, dispositivo que posee numerosas funciones, las relevantes a la presente tesis 
+son:
+\begin{enumerate}
+	\item Desde el punto de vista de RF: se comporta como un VNA en cuanto a que transmite (tiene un generador) y escucha (tiene un
+		receptor).
+	\item Desde el punto de vista digital y de control: se comporta como una computadora central indicando la fase y atenuación que
+		cada TRM debe introducir, que no necesariamente es la de salida de los ERs.
+\end{enumerate}
+
+Para calibrar la antena por medio de lazos de calibración, la unidad central de control emite una señal por un canal y la 
+compara con lo recibido en el otro canal, midiendo el S21 (transmisión directa) de los parámetros S de la antena. Para ello, se
+debe descontar a la señal recibida, la señal emitida. Dicha calibración determina las características de la antena para un
+determinado instante, si los componentes cambian sus características en el tiempo, se debería realizar el proceso de
+calibración nuevamente para obtener los nuevos parámetros S.
+
+La figura \ref{fig:calibrationLoop} muestra un esquema de calibración en donde el lazo está compuesto por dos antenas y, como
+todos los elementos que pueden influenciar en la fase y amplitud de la señal que se transmite quedan dentro del lazo de 
+calibración, se pueden medir las variaciones de la señal recibida y, si hubiese un TRM, se las podrían corregir.
 
 \begin{figure}[H]
  \centering
@@ -319,6 +344,11 @@ parámetros S.
  \caption{Lazo de calibración utilizando un VNA \cite{Reed2012}.}
  \label{fig:calibrationLoop}
 \end{figure}
+
+En caso que hayan componentes que puedan influenciar en la fase y atenuación transmitida por la antena fuera del lazo de
+calibración, al calibrar el sistema no se podrá medir correctamente la transferencia del sistema, por lo tanto, no se podrán
+corregir completamente las variaciones de la misma. Para acotar este error, se deben caracterizar los componentes que están
+fuera del lazo asumiendo que dichas caracterizaciones son válidas para toda la vida útil de los mismos.
 
 La figura \ref{fig:nonCalPattern} muestra la comparación de dos diagramas de radiación de antena, uno calibrado e ideal y el
 otro sin calibrar. Se puede observar como los niveles de los lóbulos secundarios y el ancho del lóbulo principal se incrementan.
@@ -536,7 +566,7 @@ $$
 \mathbf{S} = \begin{pmatrix} 0 & \frac{e^{-j\frac{\pi}{\lambda}r}}{4\pi r^2}\\\frac{e^{-j\frac{\pi}{\lambda}r}}{4\pi r^2} & 0\end{pmatrix}
 $$
 
-\section{Ejemplo parámetros S}
+\section{Sistema interconectado básico en parámetros S, para una polarización}
 
 En esta sección se ejemplifica el armado de las matrices de parámetros S de la antena en una sola polarización desde el punto 
 de transmisión a cada elemento radiante. Se asume que se tiene una antena de dos elementos radiantes con la configuración de 
@@ -558,35 +588,38 @@ La tabla \ref{tab:componentSParameters} muestra la cantidad de puertos que posee
   \begin{tabular}{|c|c|p{6cm}|}
 	\hline
 	\textbf{Componente de Antena} & \textbf{Cantidad de puertos} & \textbf{Notas} \tabularnewline \hline
-	cable1 &  2 & \tabularnewline \hline
+	cable1 &  2 & Permite interconectar la electrónica de la Unidad Central de Control con el PSC12 \tabularnewline \hline
 	\multirow{3}{*}{PSC12} & & Puerto1: conexión cable1 \tabularnewline
 	 & 3 & Puerto2: conexión Cable2 (superior) \tabularnewline
-	 & & puerto3: conexión Cable2 (inferior) \tabularnewline \hline
+	 & & Puerto3: conexión Cable2 (inferior) \tabularnewline \hline
 	Cable2 & 2 & \tabularnewline \hline
 	\multirow{3}{*}{TRM} & & Puerto1: conexión cable2 \tabularnewline
-	 & 3 & puerto2: conexión Tx \tabularnewline
-	 & & puerto3: conexión Rx \tabularnewline \hline
+	 & 3 & Puerto2: conexión Tx \tabularnewline
+	 & & Puerto3: conexión Rx \tabularnewline \hline
 	\multirow{3}{*}{Circulador} & & Puerto1: conexión Tx \tabularnewline
-	 & 3 & puerto2: conexión Cable3 \tabularnewline
-	 & & puerto3: conexión Rx \tabularnewline \hline
-	Cable3 & 2 & \tabularnewline \hline
-	RM & 1 & \tabularnewline \hline
+	 & 3 & Puerto2: conexión Cable3 \tabularnewline
+	 & & Puerto3: conexión Rx \tabularnewline \hline
+	Cable3 & 2 & Permite interconectar el Circulador al Elemento Radiante \tabularnewline \hline
+	ER & 1 &   \tabularnewline \hline
   \end{tabular}
   \caption{Propiedades físicas de cada componente de una antena}
   \label{tab:componentSParameters}
 \end{table}
 
 Para la obtención de la respuesta del sistema desde el punto de transmisión/recepción a cada elemento radiante se debe
-transformar las matrices de 3 puertos en matrices de 2 puertos. Para ello se deben determinar los puertos de conexión utilizados
-para la obtención de dicha matriz asumiendo que se desea obtener la respuesta del sistema de transmisión del elemento radiante
-2 (camino en rojo de la figura \ref{fig:antennaSLoop}).
+transformar las matrices de 3 puertos en matrices de 2 puertos. Asumiendo que se desea obtener la respuesta del sistema de
+transmisión del elemento radiante 2, camino con trazo más grueso de la figura \ref{fig:antennaSLoop}, quedan definidos los puertos de
+conexión para la transformación de dichas matrices.
 
 \begin{figure}[H]
  \centering
  \includegraphics[width=9cm]{gfx/RFDNLoop.png}
- \caption{RFDN para una polarización del esquema de antena. En rojo, cascada de redes de dos puertos.}
+ \caption{RFDN para una polarización del esquema de antena. Trazo grueso, cascada de redes de dos puertos.}
  \label{fig:antennaSLoop}
 \end{figure}
+
+Es importante aclarar que las variables de cada matríz de parámetros S poseerán la nomenclatura $S_{ij}$, siendo $i,j$ la
+posición en fila/columna de la variable en dicha matríz. A su vez, cada $S_{ij}$ es diferente entre las distntas matrices. 
 
 Como los puertos utilizados por el PSC en el camino rojo de la figura \ref{fig:antennaSLoop} son el 1 y 3, la conversión de
 parámetros S resulta ser,
@@ -596,13 +629,16 @@ $$
 	S_{PSC_{13}} = \begin{pmatrix} S11&S13 \\ S31&S33 \end{pmatrix}
 $$
 
-Los puertos utilizados por el TRM como el circulador son el 1 y 2, por lo tanto, la conversión de ambos parámetros S resulta
-equivalente.
+Los puertos utilizados por el TRM, indicados en la figura \ref{fig:antennaSLoop} y en la tabla \ref{tab:componentSParameters},
+son el 1 y 2. 
 
 $$
 	S_{TRM} = \begin{pmatrix} S11&S12&S13 \\ S21&S22&S23 \\ S31&S32&S33\end{pmatrix} \Rightarrow
 	S_{TRM_{12}} = \begin{pmatrix} S11&S12 \\ S21&S22 \end{pmatrix}
 $$
+
+Los puertos utilizados por el circulador, indicados en la figura \ref{fig:antennaSLoop} y en la tabla \ref{tab:componentSParameters},
+también son el 1 y 2. 
 
 $$
 	S_{Circulador} = \begin{pmatrix} S11&S12&S13 \\ S21&S22&S23 \\ S31&S32&S33\end{pmatrix} \Rightarrow
@@ -611,12 +647,12 @@ $$
 
 Como se desea caracterizar la respuesta de una cascada de redes de dos puertos, se transforman todas las matrices de cada
 componente a parámetros T (ver ecuaciones \ref{eq:s2t}), se multiplican todas las matrices como se muestra en la ecuación
-\ref{eq:cascade} i luego, la matriz resultante se la vuelve a convertir a parámetros S (ver ecuaciones \ref{eq:t2s}).
+\ref{eq:cascade} y luego, la matriz resultante se la vuelve a convertir a parámetros S (ver ecuaciones \ref{eq:t2s}).
 
 $$
 \begin{aligned}
 	S_i &\Rightarrow T_i \\
-	T_{in,rm2} &= T_{Cable1}T_{PSC_{13}}T_{Cable2}T_{TRM_{12}}T_{Circulador_{12}}T_{Cable3}T_{RM}\\
+	T_{in,rm2} &= T_{Cable1}\cdot T_{PSC_{13}}\cdot T_{Cable2}\cdot T_{TRM_{12}}\cdot T_{Circulador_{12}}\cdot T_{Cable3}\cdot T_{RM}\\
 	T_{in,rm2} &\Rightarrow S_{in,rm2}
 \end{aligned}
 $$
@@ -636,9 +672,26 @@ $$
 $$
 
 Se vuelven a realizar los pasos de cascada de parámetros T y conversión a parámetros S de la matriz resultante. Pero, como
-dicho resultado sigue siendo desde el receptor al módulo radiante, se deben reacomodar los elementos de la matriz
+dicho resultado sigue siendo desde el receptor al elemento radiante, se deben reacomodar los elementos de la matriz
 
 $$
 	S_{out,rm2} = \begin{pmatrix} S11&S12 \\ S21&S22\end{pmatrix} \Rightarrow
 	S_{rm2, out} = \begin{pmatrix} S22&S21 \\ S12&S11 \end{pmatrix}
 $$
+
+\section{Conclusiones}
+
+En este capítulo se introdujo el funcionamiento de las antenas polarimétricas con los siguientes conceptos:
+\begin{itemize}
+	\item Las principales modulaciones utilizadas en función de los distintos requerimientos de aplicación.
+	\item El cálculo del diagrama de radiadión a partir de las dimensiones de la antena y la potencia y fase emitida de cada 
+		elemento radiante.
+	\item Como se obtiene el apuntamiento de la antena a partir de la fase individual de cada elemento radiante. 
+	\item La relación entre el diagrama de radiación y el resultado de la calibración interna. 
+	\item La identificación de los dispositivos que componen la antena.
+\end{itemize}
+
+A su vez, se define la representación matemática utilizada, en parámetros S, de cada uno de los dispositivos que componen la 
+antena con el objetivo de utilizarlos en el modelo de antena para realizar los ensayos de los distintos tipos de calibradores.
+
+
