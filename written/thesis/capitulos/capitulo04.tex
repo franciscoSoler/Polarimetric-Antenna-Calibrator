@@ -1,59 +1,128 @@
-\chapter{Calibración utilizando acoplamientos mútuos}
-\label{ch:convertidores}
-\lhead{\emph{Calibración utilizando acoplamientos mutuos}}
+\chapter{Calibración utilizando acoplamientos mutuos}
+\label{ch:mutualCalibration}
+\lhead{\emph{Calibración interna por acoplamientos mutuos}}
 
-\section{Calibración utilizando acoplamientos mutuos}
+En este capítulo se presenta el método propuesto, el cual complementa al método de calibración interna clásico de manera tal
+que se pueda corregir, por ejemplo, la planitud del frente de onda emitido por la antena. Primero, se explica en qué consiste
+y que recaudos hay que tomar a la hora de implementar este método de calibración. Segundo, se expresa el modelo matemático y
+la cantidad de ecuaciones necesarias para encontrar una solución. Tercero, se presentan tres posibles modos de ejecución y por
+último se exponen las limitaciones del método.  
 
-El método que utiliza los acoplamientos mutuos toma ventaja del acoplamiento mutuo inherente de un conjunto transmitiendo
-y recibiendo entre elementos adyacentes. Para llevar a cabo dicho método, este tipo de antenas debe cumplir un
-requerimiento muy importante que es poder transmitir con un elemento y simultáneamente recibir con otro sin que se sature o peor
-aun, que se queme. Normalmente, este requerimiento implica separar las redes de transmisión y recepción \cite{Gao2001}. Para 
-antenas que no cumplen la separación de la redes de transmisión y recepción se puede transmitir en una polarización y recibir
-en otra. Por ende, es requisito para poder implementar el método que la red utilizada permita seleccionar los TRMs que van a 
-estar en transmisión, en recepción y en modo protegido. De esta forma, se establecen zonas en las cuales puede aplicarse el 
-método actual dado que los niveles no son tan altos como para quemarlos ni tan bajos como para que no se alcance un nivel 
-necesario para calibrar. La figura \ref{fig:levels} ejemplifica las tres zonas de recepción al emitir con un elemento radiante:
+
+\section{Calibración interna por acoplamientos mutuos}
+
+El método por acoplamientos mutuos toma ventaja del acoplamiento mutuo inherente y presente en toda la antena como la que se ha
+presentado, entre los elementos radiantes. De hecho, cuando un ER transmite todos los demas reciben un aporte del mismo como así
+también dicho elemento recibe el aporte de todos los ER que transmiten en simultáneo a él. La figura \ref{fig:mutualCoupling1}
+muestra un ejemplo de lo anteriormente mencionado.
+
+\begin{figure}[H]
+ \centering
+ \includegraphics[width=4cm]{gfx/mutualCoupling1.png}
+ \caption{Acoplamiento mutuo inherente de una antena \cite{Hara1997}.}
+ \label{fig:mutualCoupling1}
+\end{figure}
+
+Para llevar a cabo dicho método, este tipo de antenas debe cumplir un requerimiento muy importante que es poder transmitir con
+un elemento radiante y simultáneamente recibir con otro sin que se sature, deforma tal de trabajar en la zona lineal, o peor
+aún, que se dañe o destruya. Normalmente, este requerimiento implica separar las redes de transmisión y recepción
+\cite{Gao2001}. Para antenas que no cumplen la separación de la redes de transmisión y recepción aún se puede utilizar esta
+idea si se transmite en una polarizacion y se recibe en otra, pues son dos lineas físicamente separadas.
+
+Se tienen una serie de requisitos básicos para poder implementar este método que deben ser tenidos en cuenta desde el diseño
+mismo.
+
+\begin{enumerate}
+	\item Modos de TRMs: Cada TRM debe poder tener tres modos de funcionamiento posibles, los cuales son Tx, Rx y protegido.
+	\item Control Individual de TRMs: Se debe poder comandar desde la UCC el estado o modo individual de cada TRM, de esta forma, 
+		se puede determinar que TRM estará en transmisión, en recepción y en modo protegido.
+	\item Acoplamiento cruzado: Dado que la potencia de transmisión generalmente es mayor que la máxima posible en recepción, se
+		debe utilizar la polarización cruzada para recibir dado que posee una mayor aislación, si se transmite por H se debe recibir
+		por V y viceversa.
+	\item Seguridad: Se debe incorporar al menos una línea física de control de estado de TRMs redundante con el objetivo de
+		minimizar el riesgo de daño por acoplamiento mutuo. Por ejemplo, al de tener dos ER cercanos transmitiendo y recibiendo en
+		simultáneo por la rotura de una línea de control.
+\end{enumerate}
+
+
+\subsection{Establecimiento de zonas de acoplamiento mutuo} \label{ssc:mutual_zone}
+
+Dado que las antenas poseen una potencia de recepción máxima, límite donde los componentes pueden resultar dañados, y dado
+que el acoplamiento mutuo depende de la distancia y de la aislación entre polarizaciones cruzadas, el método no es aplicable a
+cualquier par de elementos radiantes.
+
+En general, se pueden establecer tres zonas, que dependen de la distancia al elemento que está en transmisión. Estas zonas se
+llaman de acoplamiento destructivo, lineal y de acoplamiento débil. El método solamente es aplicable en la zona lineal.
+Asumiendo que el nivel de potencia con el que se transmite desde el elemento central es único y fijo, la figura \ref{fig:levels}
+ejemplifica las tres zonas de recepción al emitir con el elemento radiante central:
 \begin{itemize}
-	\item En rojo: zona de acoplamiento destructivo. Los TRMs deben estar protegidos.
-	\item En verde: zona de acoplamiento dentro de los límites aceptables para aplicar el método.
-	\item En azul: zona de acoplamiento débil. No se puede aplicar el método dado que el nivel de señal es inferior al piso de 
-		ruido. 
+	\item En gris oscuro: zona de acoplamiento destructivo. Los TRMs deben estar en modo protegido o alta impedancia, en este modo
+		no se transmite ni se recibe señal.
+	\item En gris: zona de acoplamiento lineal. La potencia está dentro de los límites aceptables para aplicar el método.
+	\item En gris claro: zona de acoplamiento débil. No se puede aplicar el método dado que el nivel de señal es inferior al piso
+		de ruido. 
 \end{itemize}
 
 \begin{figure}[H]
  \centering
  \includegraphics[width=9cm]{gfx/mutualCouplingLevels.png}
- \caption{Niveles de recepción de la antena al emitir con un elemento. En rojo, acoplamiento destructivo; en verde, 
- acoplamiento admisible y en azul acoplamiento débil.}
+ \caption{Zonas de acoplamientos de la antena al emitir con el ER central. En gris oscuro, acoplamiento destructivo; en gris,
+ acoplamiento lineal y en gris claro acoplamiento débil.}
  \label{fig:levels}
 \end{figure}
 
-Para evitar que los elementos que no conforman parte del lazo activo de calibración interfieran, inyectando ruido en las redes 
-de transmisión y/o recepción, se los debe poder configurar en modo alta impedancia (en este modo no se transmite ni recibe 
-señal). En la figura \ref{fig:mutual_general} se puede observar un ejemplo.
+Tomando en cuenta lo anteriormente mencionado, determinando la potencia de transmisión, el acoplamiento mutuo que depende de la
+distancia entre ER y la pontencia máxima de recepción, se pueden determinar todos los posibles lazos de calibración del método.
 
+
+\subsection{Control de estados de TRMs}
+
+Como cada TRM puede estar en uno de sus tres estados posibles, Tx, Rx o protegido, se debe determinar de que forma la UCC
+controla dichos estados. Una vez elegidos los ER que conforman el lazo de calibración, se establecen en modo protegido todos
+aquellos TRMs que pertenecen a la zona de acoplamiento destructivo. A su vez, para evitar que el resto de los elementos que no
+conforman parte del lazo activo de calibración interfieran, inyectando ruido en las redes de transmisión y/o recepción, se los
+debe configurar en modo protegido. 
+
+En la figura \ref{fig:mutual_general} se puede observar un ejemplo donde el lazo de calibración es determinado por la línea
+gris, el TRM de polarización H conectado al elemento radiante $e_1$ está configurado en modo transmisión, el TRM en
+polarización V conectado a $e_0$ está configurado en modo recepción y el resto están en modo protegido. Se asume que el
+acoplamiento mutuo de dicho lazo de calibración pertenece a la zona de acoplamiento lineal.
 \begin{figure}[H]
  \centering
  \includegraphics[width=9cm]{gfx/mutualCouplingExample.png}
- \caption{Ejemplo de calibración utilizando acoplamientos mutuos, transmitiendo en polarización V y recibiendo en H}
+ \caption{Ejemplo de calibración utilizando acoplamientos mutuos, transmitiendo en polarización H y recibiendo en V}
  \label{fig:mutual_general}
 \end{figure}
 
-En la figura \ref{fig:mutual_general} se puede observar un ejemplo en donde se transmite desde el elemento $e_1$ en 
-polarización horizontal (H) y se recibe con el elemento $e_0$ en polarización vertical (V). Si se repite el proceso
-secuencialmente con todos los elementos de recepción y luego con todos los elementos de transmisión, se puede determinar a
-priori tanto la potencia de transmisión como la de recepción y lo que atenúa cada acoplamiento mutuo.
 
-Como un primer paso, se determina que la cantidad de incógnitas que tiene una antena de $m$ elementos por $n$ paneles. Como
-se puede transmitir y recibir en dos polarizaciones (H y V), la antena cuenta con $4MN$ incógnitas de RFDN (2 por Tx en H/V y
-otras 2 por Rx en H/V). A su vez, en el apéndice \ref{AppendixA} se realiza el cálculo de la cantidad de acoplamientos mutuos
-que posee una antena polarimétrica, particularmente, la ecuación \ref{eq:amountMutCoupling} muestra la cantidad de
-incógnitas, que, para este caso, resulta ser de $MN(MN-1)/2$. Totalizando en $MN(MN + 7)/2$ incógnitas.
+\subsection{Análisis de factibilidad} \label{ssc:feasibility}
 
-Asumiendo que se transmite de a un RM por lazo de calibración, a priori, se dispone de un máximo de $(MN)^2$ ecuaciones por
-polarización a transmitir. Totalizando en $2(MN)^2$. Para que el sistema tenga solución, la cantidad de ecuaciones debe ser
-mayor a la de las incógnitas, por lo tanto, la cantidad mínima de elementos radiantes es de
+Como el método de calibración debe determinar tanto la potencia y fase de la antena transmitida y recibida como la planitud de
+la misma, se deben determinar tanto la cantidad de lazos de calibración, que determinan el número de ecuaciones, como la
+cantidad de incógnitas.
 
+Si se modifican secuencialmente todos los receptores y luego todos los emisores del lazo de calibración de la figura
+\ref{fig:mutual_general}, asumiendo que todos los acoplamientos mutuos pertenecen a la zona de acoplamiento lineal, se pueden obtener 
+todos los lazos de calibración posibles para la polarización de transmisión H y recepción en V. Si se repite el proceso
+cambiando las polarizaciones de transmisión y recepción se logran obtener todos los lazos posibles.
+
+Asumiendo un conjunto de antena polarimétrica con una configuración de $M$ por $N$ elementos radiantes, que todos los
+acoplamientos pertenecen a la zona lineal y que se transmite y recibe de a un ER por lazo, se disponen de $(M\cdot N)^2$ lazos
+por polarización a transmitir. Totalizando en $2(M\cdot N)^2$.
+
+Para determinar la cantidad de incógnitas es importante destacar que el receptor de la UCC mide tanto fase como potencia de la
+señal, de esta forma, se utilizarán valores complejos tanto para las señales medidas por la UCC, como para las incógnitas.
+
+Asumiendo el mismo conjunto de antena polarimétrica de $M$ por $N$ elementos radiantes, como se puede transmitir y recibir en
+dos polarizaciones (H y V), la antena cuenta con $4MN$ incógnitas de potencia de señal transmitida/recibida (2 por Tx en H/V y
+otras 2 por Rx en H/V).
+
+En el apéndice \ref{AppendixA} se realiza el cálculo de la cantidad de acoplamientos mutuos que posee un conjunto de antena
+polarimétrica, particularmente, la ecuación \ref{eq:amountMutCoupling} muestra la cantidad de incógnitas, que, para este caso,
+resulta ser de $MN(MN-1)/2$. Por lo tanto, este conjunto de antena poese en total $MN(MN + 7)/2$ incógnitas.
+
+Para obtener el menor conjunto de antena al cual el método es aplicable, la cantidad de lazos, que determina la cantidad de
+ecuaciones, debe ser mayor a la cantidad de incógnitas, 
 $$
 \begin{aligned}
 	2(MN)^2 &\ge  \dfrac{MN(MN + 7)}{2} \\
@@ -62,80 +131,93 @@ $$
 \end{aligned}
 $$
 
-Como $M$ y $N$ son números enteros, con que la antena tenga tres o más elementos radiantes, ya se puede utilizar el método.
+Como $M$ y $N$ son números enteros, la cantidad mínima de elementos radiantes que puede tener un conjunto de antena, asumiendo
+que todos los acoplamientos mutuos pertenecen a la zona lineal, es tres.
 
 La herramienta matemática utilizada para resolver el sistema de ecuaciones es el de los cuadrados mínimos,
 ver apéndice \ref{AppendixB}, con el cual se obtiene la aproximación que tenga menor error cuadrático medio.
 
-Ante la posibilidad que no siempre se cuente con el tiempo necesario para generar todos los lazos de calibración necesarios
-para calibrar la antena en el modo presentado, tres modalidades serán presentadas para este método.
+
+\subsection{Modos de operación}
+
+En esta sección se presentarán tres modalidades de este método, las diferencias entre dichas modalidades es la de si se asumen
+conocidos los acoplamientos mutuos. Dado que las variaciones mecánicas son lentas con respecto a las variaciones eléctricas
+(por ejemplo inestabilidades en temperatura o de tensión), si se realizan calibraciones lo suficientemente seguidas se pueden
+llegar a reutilizar los resultados obtenidos de los acoplamientos mutuos para disminuir la cantidad de incógnitas, por lo tanto
+la cantidad de ecuaciones necesarias, o lazos de calibración. Los diferentes modos de operación se listan a continuación:
 
 \begin{itemize}
-	\item \textbf{Modo completo:} En esta modalidad no solo se estima la ganancia en transmisión y recepción en ambas
-		polarizaciones (H y V), sino que también se determinan los acoplamientos mutuos de la antena. La cantidad de ecuaciones necesarias es
-		de $MN(MN + 7)/2$.
-	\item \textbf{Modo rápido:} En esta modalidad se estima la ganancia en transmisión y recepción em ambas polarizaciones
-		(H y V) utilizando el valor guardado de la planitud de la antena calculado previamente. La cantidad de ecuaciones necesarias
-		es de $4MN$.
-	\item \textbf{Modo planitud ideal:} Esta modalidad es igual al modo rápido, asumiendo que la antena es perfectamente plana.
-		La cantidad de ecuaciones necesarias es de $4MN$.
+	\item \textbf{Modo completo:} En esta modalidad se estima la ganancia en transmisión y en recepción, respectivamente, en ambas
+		polarizaciones H y V. Se determinan ademas los valores de acoplamientos mutuos. La cantidad de ecuaciones necesarias es de
+		$MN(MN + 7)/2$, ver sección \ref{ssc:feasibility}.
+	\item \textbf{Modo parcial:} En esta modalidad se estima la ganancia en transmisión y recepción, respectivamente, en ambas
+		polarizaciones H y V reutilizando el valor guardado de la planitud de la antena calculado previamente. La cantidad de
+		ecuaciones necesarias es de $4MN$, ver sección \ref{ssc:feasibility}.
+	\item \textbf{Modo planitud ideal:} Esta modalidad, la cual es la desarrollada en la tesis, posee la misma cantidad de
+		ecuacinoes que el modo rápido, la diferencia es que se asume que la antena es perfectamente plana.
 \end{itemize}
 
 
 \subsection{Método}
 
-Asumiendo que se transmite desde el elemento $e_m$ y se recibe desde el $e_n$, la función de transferencia del lazo de
-calibración está compuesta por:
+Asumiendo que se transmite desde el elemento radiante $m$, denotado como $e_m$, y se recibe desde el elemento radiante $n$,
+denotado como $e_n$, la función de transferencia del lazo de calibración de los elementos participantes $L_{m,n}$ está
+compuesta por:
 
-\begin{itemize}
-	\item La configuración de atenuación y desfasaje de los atenuadores y desfasadores, tanto de transmisión como de recepción,
-		denotados como $w_{Tm}(i)$ y $w_{Rn}(j)$, donde $i$, $j$ son las diferentes posibles configuraciones.
-	\item La atenuación y desfasaje combinados por los cables, conectores, divisores y combinadores de potencia, módulos radiantes
-		y desfasadores, denotados como $u_{Tm}$ y $u_{Rn}$.
+\begin{enumerate}
+	\item La configuración de atenuación y desfase de los atenuadores y desfasadores, tanto de transmisión como de recepción,
+		denotados como $w_{Tm}(i)$ y $w_{Rn}(j)$ respectivamente, donde $i$, $j$ son las diferentes posibles configuraciones.
+	\item La atenuación y desfase combinados por los cables, conectores, divisores y combinadores de potencia, módulos radiantes
+		y desfasadores de transmisión y recepción, denotados como $u_{Tm}$ y $u_{Rn}$ respectivamente.
 	\item El acoplamiento mutuo entre los elementos participantes, denotado como $C_{m, n}$.
-\end{itemize}
+\end{enumerate}
 
 Por lo tanto, la función de transferencia completa resulta,
 
 \begin{equation}
-	C^{'}_{m,n} = w_{Tm} u_{Tm} C_{m,n} w_{Rn} u_{Rn}
+	L_{m,n} = w_{Tm} u_{Tm} C_{m,n} w_{Rn} u_{Rn}
 	\label{eq:transfer_mn}
 \end{equation}
-
-Si se transmite con el mismo elemento, $e_m$, pero se recibe con otro, $e_{n + 1}$, la transferencia resulta
+donde el primer elemento del subíndice de $L$ es el transmisor y el segundo el receptor. Si se transmite con el mismo elemento,
+$e_m$, pero se recibe con otro, $e_{n + 1}$, la transferencia resulta
 
 \begin{equation}
-	C^{'}_{m,n + 1} = w_{Tm} u_{Tm} C_{m,n + 1} w_{Rn + 1} u_{Rn + 1}
+	L_{m,n + 1} = w_{Tm} u_{Tm} C_{m,n + 1} w_{Rn + 1} u_{Rn + 1}
 	\label{eq:transfer_mn1}
 \end{equation}
 
-Tomando la relación de ambas transferencias \ref{eq:transfer_mn} y \ref{eq:transfer_mn1},
+Tomando la relación de ambas transferencias \ref{eq:transfer_mn} y \ref{eq:transfer_mn1}, 
 
 \begin{equation}
-	W^{m}_{Rn,n + 1} = \dfrac{C^{'}_{m,n}}{C^{'}_{m,n + 1}} = \dfrac{C_{m,n} w_{Rn} u_{Rn}}{C_{m,n + 1} w_{Rn + 1} u_{Rn + 1}}
+	W^{m}_{Rn,n + 1} = \dfrac{L_{m,n}}{L_{m,n + 1}} = \dfrac{C_{m,n} w_{Rn} u_{Rn}}{C_{m,n + 1} w_{Rn + 1} u_{Rn + 1}}
 \end{equation}
+donde el superíndice de la relación $W$ indica el elemento en común y el subíndice indica los otros elementos participantes y
+sus modos, T para transmisión y R para recepción. El orden de los elementos del subíndice indican la relación, el primero va
+en el numerador y el segundo en el denominador. Por ejemplo, en este caso en particular, se transmite por el elemento $m$ y
+se recibe por los elementos $n$ y $n+1$, y la relación es de $\frac{L_{m,n}}{L_{m,n + 1}}$.
 
 Se asume que el valor del acoplamiento depende de dos factores a saber. El primero es por comunicar los elementos utilizando
 polarizaciones cruzadas, y dicha atenuación es constante para cualquier elemento. El segundo, es debido a la atenuación y
-defasaje de la señal que viaja en el vacío, por lo tanto, depende exclusivamente de la distancia que hay entre los elementos
+desfase de la señal que viaja en el vacío, por lo tanto, depende exclusivamente de la distancia que hay entre los elementos
 a comunicar.
 
-Ahora, si se combinan las funciones de transferencia $C^{'}_{m,n+1}$ y $C^{'}_{m,n+2}$, la relación resulta,
+Ahora, si se combinan las funciones de transferencia $L_{m,n+1}$ y $L_{m,n+2}$, la relación resulta,
 
 \begin{equation}
-	W^{m}_{Rn + 1,n + 2} = \dfrac{C^{'}_{m,n+1}}{C^{'}_{m,n+2}} = \dfrac{C_{m,n+1} w_{Rn+1} u_{Rn+1}}{C_{m,n + 2} w_{Rn + 2} u_{Rn + 2}}
+	W^{m}_{Rn + 1,n + 2} = \dfrac{L_{m,n+1}}{L_{m,n+2}} = \dfrac{C_{m,n+1} w_{Rn+1} u_{Rn+1}}{C_{m,n + 2} w_{Rn + 2} u_{Rn + 2}}
 \end{equation}
 
-Ahora, si se combinan las funciones de transferencia $C^{'}_{m,n}$ y $C^{'}_{m,n+2}$,
+Ahora, si se combinan las funciones de transferencia $L_{m,n}$ y $L_{m,n+2}$,
 
 \begin{equation}
-	W^{m}_{Rn,n + 2} = \dfrac{C^{'}_{m,n}}{C^{'}_{m,n + 2}}\cdot\dfrac{C^{'}_{m,n+1}}{C^{'}_{m,n+1}} = W^{m}_{Rn,n+1}\cdot W^{m}_{Rn+1,n + 2}
+	W^{m}_{Rn,n + 2} = \dfrac{L_{m,n}}{L_{m,n + 2}}\cdot\dfrac{L_{m,n+1}}{L_{m,n+1}} = W^{m}_{Rn,n+1}\cdot W^{m}_{Rn+1,n + 2}
 \end{equation}
+
 
 Generalizando, se pueden obtener todos los lazos de calibración en función de uno,
 
 \begin{equation}
-	W^{m}_{R0,k} = \prod_{i=0}^{k-1} W^{m}_{Ri,i+1} = \prod_{i=0}^{k-1}\dfrac{C^{'}_{m,i}}{C^{'}_{m,i+1}} =
+	W^{m}_{R0,k} = \prod_{i=0}^{k-1} W^{m}_{Ri,i+1} = \prod_{i=0}^{k-1}\dfrac{L_{m,i}}{L_{m,i+1}} =
 		\prod_{i=0}^{k-1}\dfrac{C_{m,i} w_{Ri} u_{Ri}}{C_{m,i + 1} w_{Ri + 1} u_{Ri + 1}}
 	\label{eq:rx_cal}
 \end{equation}
@@ -143,24 +225,24 @@ Generalizando, se pueden obtener todos los lazos de calibración en función de 
 Si se realiza la misma deducción, pero en vez de transmitir siempre con el mismo elemento, se lo utiliza para recibir, se obtiene
 
 \begin{equation}
-	W^{m}_{T0,k} = \prod_{i=0}^{k-1} W^{m}_{Ti,i+1} = \prod_{i=0}^{k-1}\dfrac{C^{'}_{i,m}}{C^{'}_{i+1, m}} =
+	W^{m}_{T0,k} = \prod_{i=0}^{k-1} W^{m}_{Ti,i+1} = \prod_{i=0}^{k-1}\dfrac{L_{i,m}}{L_{i+1, m}} =
 		\prod_{i=0}^{k-1}\dfrac{w_{Ti} u_{Ti} C_{i,m}}{w_{Ti + 1} u_{Ti + 1}C_{i + 1, m}}
 	\label{eq:tx_cal}
 \end{equation}
 
-Analizando las ecuaciones \ref{eq:rx_cal} y \ref{eq:tx_cal}, dos conclusiones inmediatas se deducen. La primera es que el
+Analizando las ecuaciones \ref{eq:rx_cal} y \ref{eq:tx_cal}, surgen las primeras dos conclusiones. La primera es que el
 resultado no es único, por lo tanto, en principio, con este método no se pueden obtener ganancias absolutas (de transmisión,
 recepción y acoplamientos mutuos), solamente ganancias relativa entre dichos elementos. La segunda, es que el sistema tiene
-dos grados de libertad, en otras palabras, para poder obtener la ganancia absoluta de todo el sistema, es necesario agregar
-dos ecuaciones más que definan algún valor perteneciente a dos de los tres conjuntos de incógnitas.
+dos grados de libertad, en otras palabras, para poder obtener las ganancias absolutas de transmisión, recepción y acoplamientos
+mutuos, es necesario agregar dos ecuaciones más que definan algún valor perteneciente a dos de los tres conjuntos de incógnitas.
 
-Si se asume que a misma distancia el acoplamiento es el mismo o si se los reutilizan de una calibración anterior, las
+Al asumir que a misma distancia el acoplamiento mutuo es el mismo o si se los reutilizan de una calibración anterior, las
 ecuaciones \ref{eq:rx_cal} y \ref{eq:tx_cal} se simplifican, logrando que la cantidad de incógnitas se reduzca habilitando
-de esta forma los métodos rápidos y de planitud ideal. 
+de esta forma el método de planitud ideal y el parcial respectivamente.
 
-Como es necesaria una menor cantidad de ecuaciones de calibración, la estrategia a encarar es la de utilizar lazos simétricos
-con un elemento en común. Al restar ambos caminos, no solo se elimina la RFDN común, sino que también se elimina el
-acoplamiento mutuo. La cantidad de estos lazos termina siendo determinada como una solución de compromiso entre la cantidad de
+Como es necesaria una menor cantidad de ecuaciones de calibración, se opta por una estrategia de lazos simétricos con un
+elemento en común. Al restar ambos caminos, no solo se elimina la RFDN común, sino que también se elimina el
+acoplamiento mutuo. La cantidad de estos lazos termina siendo determinada como una solución de compromiso entre la cantidad 
 mínima necesaria para poder utilizar el método y la cantidad de ecuaciones redundantes para disminuir la incertidumbre en el
 resultado. Las ecuaciones para recepción y transmisión simplificadas resultan.
 
@@ -182,23 +264,24 @@ si se lo utiliza para recibir la señal, se calibra transmisión. La figura \ref
 \begin{figure}[H]
  \centering
 	\subfloat[]{
-		\includegraphics[width=5cm]{gfx/mutualRxCal.png}}
+		\includegraphics[width=6cm]{gfx/mutualRxCal.png}}
 	\subfloat[]{
-		\includegraphics[width=5cm]{gfx/mutualTxCal.png}}
+		\includegraphics[width=6cm]{gfx/mutualTxCal.png}}
 	\caption{estrategia de planitud ideal. (a) Calibra lazos de recepción, (b) Calibra lazos de transmisión \cite{Aumann1989}.}
  \label{fig:ideal_strategy}
 \end{figure}
 
+
 \subsection{Determinación de la fase} \label{ssc:mutualPhase}
 
-Como el método de resolución utilizado en este método es de naturaleza lineal, resolviendo ecuaciones del estilo $Ax = b$, y
-como la fase de una señal es de naturaleza modular, de 360 grados, se pueden cometer errores en la resolución. Dependiendo de
-como sea $A$ y que valores tenga $x$, $b$ no necesariamente está contenido dentro del conjunto solución (en módulo 360)
-generando así un error en la resolución de la estimación del valor $x$.
+Como el método de resolución utilizado en este método es de naturaleza lineal, resolviendo ecuaciones de la siguiente forma
+$Ax = b$, y como la fase de una señal es de naturaleza modular, de 360 grados, se pueden cometer errores en la resolución.
+Dependiendo de como sea $A$ y que valores tenga $x$, $b$ no necesariamente está contenido dentro del conjunto solución (en
+módulo 360) generando así un error en la resolución de la estimación del valor $x$.
 
 Para ejemplificar, se asume que se tiene un conjunto de antena de tres elementos radiantes. La RFDN (en Tx y Rx) desfasa 100
 grados, el desfasador del primer elemento está configurado en 240 grados y el del tercero en 120, el acoplamiento mutuo no desfasa
-y se utiliza la ecuación $\dfrac{C^{'}_{1,2}}{C^{'}_{3, 2}}$. La figura \ref{fig:phaseDetermination} muestra la antena con los 
+y se utiliza la ecuación $\dfrac{L_{1,2}}{L_{3, 2}}$. La figura \ref{fig:phaseDetermination} muestra la antena con los 
 lazos de calibración utilizados.
 
 \begin{figure}[H]
@@ -220,9 +303,9 @@ $$
 Al resolver la ecuación $Ax$ se obtiene el resultado de 120 grados. Si la fase fuese de naturaleza lineal, este sería el valor 
 resultante de la resta de la medición de ambos lazos de calibración. Las mediciones de dichos lazos resultan: 
 \begin{itemize}
-	\item La fase de $C^{'}_{1,2}$ es 440 grados, en módulo 360 resulta igual a 80 grados (100 grados por la rama de
+	\item La fase de $L_{1,2}$ es 440 grados, en módulo 360 resulta igual a 80 grados (100 grados por la rama de
 		transmisión sumado a 240 por el desfasador del primer TRM y 100 grados más por la rama de recepción).
-	\item La fase de $C^{'}_{3, 2}$ es 320 grados (100 grados por la rama de transmisión sumado a 240 por el desfasador
+	\item La fase de $L_{3, 2}$ es 320 grados (100 grados por la rama de transmisión sumado a 240 por el desfasador
 		del primer TRM y 100 grados más por la rama de recepción).
 \end{itemize}
 
@@ -234,14 +317,29 @@ el $b$ ideal y modificar los valores de $b$ de la calibración actual sumando o 
 posible a dichos valores esperados. Para la primera calibración, es necesario medir cuanto desfasa la antena en al menos una 
 rama punta a punta. 
 
-\subsection{Problemas y limitaciones}
 
-La mayor limitación de este método es que es necesario conocer, a groso modo, el valor del desfasaje de uno de los caminos de
-Tx o Rx punta a punta. Esto es para poder evitar errores de cálculos al obtener la fase de transmisión o recepción del
-sistema, ya que la misma tiene un comportamiento modular. Dicho valor solo se lo utilizará una vez, dado que ya para las
-subsiguientes calibraciones, el valor previo de fase de la antena es conocido y reutilizado. 
+\subsection{Limitaciones}
 
-Para obtener dicho valor inicial, se puede utilizar la fase devuelta por el método de calibración clásica o se puede realizar
-una medición de campo cercano en temperatura, emitiendo solamente con un elemento radiante para deducir la fase de la red de 
-transmisión, para obtener el desfasaje de la red de recepción, se emite con un elemento externo y se recibe con solo un elemento
-radiante. 
+La mayor limitación de este método es que es necesario conocer el orden del valor del desfase de los caminos de Tx y Rx punta a
+punta. De esta forma se evitan los posibles errores de cálculos al obtener la fase de transmisión y recepción del sistema, ya
+que la misma tiene un comportamiento modular, ver \ref{ssc:mutualPhase}. Dichos valores solo serán utilizados una vez, dado que
+las subsiguientes calibraciones reutilizaran los valores de fase obtenidos por la última calibración realizada.
+
+Para obtener dicho valor inicial, se puede utilizar la fase resultante del método de calibración interna clásica o se puede
+realizar una medición de campo cercano en temperatura, emitiendo solamente con un elemento radiante para deducir la fase de la
+red de transmisión, para obtener el desfase de la red de recepción, se emite con un elemento externo y se recibe con solo un
+elemento radiante.
+
+Es necesario realizar en tierra una medición de acoplamientos mutuos del conjunto de antena para determinar las distintas zonas
+de acoplamientos definidas en la sección \ref{ssc:mutual_zone}.
+
+\subsection{Conclusiones}
+
+En este capítulo se presentó el método de calibración por acoplamientos mutuos, el cual abarca todo el sistema de
+transmisión y recepción logrando así poder determinar la potencia de Tx, de Rx y la planitud de la antena. Se debe tener
+extremo cuidado al configurar los lazos de calibración porque se pueden llegar a dañar TRMs si el acoplamiento mutuo de los
+elementos radiantes del lazo pertenece a la zona de acoplamiento destructivo.
+
+Las ventajas de este método son que se evitan costosas campañas de caracterización, que para su utilización no es necesario
+agregar HW extra que haga mas complejo el diseño de la antena y que al haber superposición de caminos en los lazos de
+calibración se disminuye la incertidumbre del resultado de las ganancias obtenidas.

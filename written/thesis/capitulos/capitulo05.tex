@@ -2,6 +2,86 @@
 \label{ch:modelizacion}
 \lhead{\emph{Modelización}}
 
+En este capítulo se utiliza toda la información descripta en los capítulos anteriores:
+\begin{itemize}
+	\item El modelo de la antena del capítulo \ref{ch:phasedArray}.
+	\item El modelo matemático y algorítmico de la calibración clásica \ref{ch:classicalCalibration}
+	\item El modelo matemático y algorítmico de la calibración por acoplamientos mutuos \ref{ch:mutualCalibration}
+\end{itemize}
+para definir las especificaciones del problema completo y el diseño de la arquitectura de software que cubra dichas especificaciones. 
+
+
+\section{Especificaciones del problema} \label{sc:specifications}
+
+Para poder aplicar e implementar el método de acoplamientos mutuos se deben cumplir las siguientes hipótesis de base, que a su
+vez son consideradas las especificaciones del problema.
+
+\begin{enumerate}
+    \item Modularización de los componentes de la antena: la antena debe estar compuesta por desfasadores, atenuadores, cables,
+		divisores de potencia y elementos radiantes, que son los componentes que conforman, interconectados entre sí, la antena. Estos
+		elementos deben ser modelizados de manera modular de forma de poder intercambiarlos entre sí para poder simular diferentes
+		topologías.
+
+	\item Modelización de los componentes en RF: se desea que el comportamiento del modelo de antena que se construye sea 
+		representativo de su comportamiento en RF desde el punto de vista de los efectos sobre la señal de interés.
+
+    \item Sistemas LTI: la aplicación deberá reproducir el comportamiento del sistema, el cual será lineal e invariante
+		en el tiempo.
+
+	\item Adaptación de impedancias: todos los componentes se encuentran perfectamente adaptados.
+
+    \item Variabilidad para determinados componentes: se deben poder utilizar distintos divisores/combinadores de potencia.
+		La diferencia entre ellos es la cantidad de puertos de salida/entrada.
+
+    \item Dimensión de antena: se debe poder configurar la cantidad de elementos radiantes por columna y fila de la antena.
+    \item Distancia entre elementos radiantes: Se debe poder configurar la distancia entre elementos radiantes.
+
+    \item Configuración individual de componentes: Se debe poder configurar los atributos que afecten la modelización de cada
+		componente de la antena; largo, atenuación y desfasaje por metro de cables.
+
+    \item Modelizacion de dispersiones: se debe poder configurar las dispersiones en el comportamiento de cada componente de la
+		antena de forma independiente.
+
+    \item Introducción de elementos de control en el lazo de calibración: se deben poder configurar los atenuadores y
+		defasadores a la hora de realizar la calibración.
+
+    \item Calibración clásica: sa aplicación debe poder calibrar una antena polarimétrica con el método de calibración clásico.
+
+    \item Calibración por acoplamientos mutuos: sa aplicación debe poder calibrar una antena polarimétrica con el método de
+		calibración propuesto.
+
+    \item Calibración de ganancia: la aplicación debe poder calibrar la ganancia de transmisión y recepción.
+
+    \item Calibración de fase: la aplicación debe poder calibrar la fase de transmisión y recepción.
+
+    \item Calibración en polarización horizontal: la aplicación debe poder calibrar en la polarización horizontal.
+    \item Calibración en polarización vertical: la aplicación debe poder calibrar en la polarización vertical.
+    \item Calibración en Tx: la aplicación debe poder calibrar en transmisión.
+    \item Calibración en Rx: la aplicación debe poder calibrar en recepción.
+
+    \item Calibración independiente del estado inicial: se debe poder alcanzar el estado de calibración deseado partiendo
+		cualquier estado inicial en los desfasadores y atenuadores.
+
+    \item Transmisión vs recepción por polarizaciones cruzadas: para calibrar se debe transmitir y recibir en polarizaciones
+		diferentes.
+
+    \item Planitud de antena: la antena tiene que ser perfectamente plana. No deben haber imperfecciones.
+
+    \item Frecuencia de RF: se debe poder configurar la frecuencia de trabajo.
+
+    \item Dispersión señal de calibración entre pulsos: se debe poder configurar los parámetros de dispersión (desvío estándar) para
+		la ganancia y fase de la chirp utilizada entre pulsos.
+
+    \item Dispersión chirp réplica: se debe poder configurar los parámetros de dispersión (desvío estándar) para la
+		ganancia y fase de la chirp réplica utilizada a la hora de realizar la calibración convencional.
+
+    \item Dispersión walsh: se debe poder configurar los parámetros de dispersión (desvío estándar) para los valores de fase
+		utilizados en los códigos walsh a la hora de realizar la calibración convencional.
+
+    \item Simulación falla componente: se debe poder simular, configurar la destrucción total de los TRMs o RMs de la antena.
+\end{enumerate}
+
+
 \section{Modelo de la antena}
 
 El modelo de antena está programado de tal forma que se lo pueda utilizar para simular una antena con parámetros de RF,
