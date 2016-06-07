@@ -2,11 +2,12 @@
 \label{ch:modelizacion}
 \lhead{\emph{Modelización}}
 
+
 En este capítulo se utiliza toda la información descripta en los capítulos anteriores:
 \begin{itemize}
-	\item El modelo de la antena del capítulo \ref{ch:phasedArray}.
-	\item El modelo matemático y algorítmico de la calibración clásica \ref{ch:classicalCalibration}
-	\item El modelo matemático y algorítmico de la calibración por acoplamientos mutuos \ref{ch:mutualCalibration}
+	\item El modelo de la antena y de todos sus componentes en parámetros S descriptos en el capítulo \ref{ch:phasedArray}.
+	\item El modelo matemático y algorítmico de la calibración clásica \ref{ch:classicalCalibration}.
+	\item El modelo matemático y algorítmico de la calibración por acoplamientos mutuos \ref{ch:mutualCalibration}.
 \end{itemize}
 para definir las especificaciones del problema completo y el diseño de la arquitectura de software que cubra dichas especificaciones. 
 
@@ -84,40 +85,52 @@ vez son consideradas las especificaciones del problema.
 
 \section{Modelo de la antena}
 
-El modelo de antena está programado de tal forma que se lo pueda utilizar para simular una antena con parámetros de RF,
-la misma está conformada por los siguientes componentes: cables, psc, trms, desfasadores y elementos radiantes. 
+El modelo de antena está programado de tal forma que se lo pueda utilizar para simular una antena con parámetros de RF. La
+misma está conformada por los siguientes componentes: cables, PSCs, TRMs, desfasadores y elementos radiantes. Cada uno de estos
+está modelado con los conectores asociados que permiten interconectarlos entre sí. Además se modeliza las interacciones entre
+ellos por medio de los acoplamientos entre elementos radiantes. 
 
-La modelizaci\'on de los componentes en RF se realiza utilizando los par\'ametros S. En el apéndice \ref{AppendixC} se muestra 
-un ejemplo de estos archivos para una antena de dos elementos radiantes.
+Como se van a modelar desvíos en el comportamiento de los distintos componentes de la antena debido a diversos factores, en
+algunos casos se utilizará la metodología montecarlo para estudiar el comportamiento de los calibradores.
 
 Como es necesario realizar ensayos de montecarlo utilizando distintos tipos de calibraciones ante una misma configuración y 
-comportamiento de antena, se optó por guardar en disco dicha información utilizando archivos json. En los cuales se guarda la
-configuración y propiedades físicas tanto del panel como de la RFDN. Las propiedades del primer grupo son, simplemente, las 
-distancias entre todos los elementos. Las del segundo grupo corresponden a la matriz de parámetros S y la interconexión entre 
-componentes. En el anexo \ref{AppendixC} se puede observar un ejemplo de estos archivos para una antena con dos elementos 
-radiantes.
+comportamiento de antena, dicha informacion debe persistir entre corrida y corrida, por lo tanto se optó por guardar en disco
+dicha información como archivos con formato json. En los cuales se guarda la configuración y propiedades físicas tanto del
+panel como de la RFDN. Las propiedades del primer grupo son las distancias entre todos los elementos. Las del segundo grupo
+corresponden a la matriz de parámetros S, desarrollado en el capítulo \ref{ch:phasedArray}, y la interconexión entre
+componentes. En el apéndice \ref{AppendixC} se muestra se muestra un ejemplo sencillo, para comprender como el modelo
+matemático se ha modelizado, en este caso para una antena muy básica de dos elementos radiantes. Tener en cuenta que la antena
+a modelizar tiene más de un orden de magnitud mayor de tamaño.
 
-Dado lo mencionado previamente, el simulador consta de dos etapas, la primera parte es la encargada de la modelización
-de la antena y sus componentes; y la segunda, de calibrar dicho modelo. La figura \ref{fig:prog_inic} muestra de forma 
-simplificada el flujo de ejecuci\'on del programa.
+La aplicación se divide en tres etapas principales. La primera parte es la encargada de la modelización de la antena y sus
+componentes. La segunda contiene el copmortamiento de ambos modelos de calibración interna, los cuales se corresponden con las
+distintas estrategias de calibración de la UCC y la tercera consta de los visualizadores de resultados. La figura
+\ref{fig:prog_inic} muestra el flujo de ejecuci\'on del programa.
 
 \begin{figure}
  \centering
- \includegraphics[width=10cm]{gfx/FlujoEjecucion.png}
+ \includegraphics[width=11cm]{gfx/FlujoEjecucion.png}
  \caption{Flujo de ejecuci\'on del modelo de antena.}
  \label{fig:prog_inic}
 \end{figure}
 
+A continuación se describirán cada uno de los bloques del flujo de ejecución de la figura \ref{fig:prog_inic}
 
-\subsection{Generador de Antena}
+\subsection{Generador de Antena (AntennaGenerator)}
 
-En principio, una antena necesita que todos los caminos entre el punto donde se inyecta o recibe la se\~nal y los m\'odulos 
-radiantes sean iguales. Esta caracter\'istica es similar a la de un \'arbol balanceado. Por lo tanto, para definir la 
-estructura interna de la antena, se definen simplemente los elementos que conforman dicho \'arbol y, para determinar el orden 
-de armado de la antena, se utiliza una lista. El orden es descendiente, si se para en un elemento de la lista, los de la 
-izquierda son ascendientes y los de la derecha son descendientes. En la figura \ref{fig:2RMAntenna} se muestra la antena que 
-se construye teniendo como configuración: [\enquote*{cable1}, \enquote*{psc12}, \enquote*{cable2}, \enquote*{trm}, 
-\enquote*{circulator}, \enquote*{cable3}, \enquote*{rm}].
+La antena bajo estudio, con todos todos los controladores de fase y atenuacion (TRMs), en idéntica posicion, deben generar una
+onda plana saliente, transmitida, por los elementos radiantes. De idéntica forma, una onda plana recibida, con todos los
+receptores de los TRMs en igual posicion de fase y atenuacion, debe dar lugar a una señal coherente como resultado de la
+sumatoria. Por lo tanto, es necesario que todos los caminos entre el punto donde se inyecta o recibe la señal y los módulos 
+radiantes sean iguales. Esta característica es análoga a la de un árbol balanceado. 
+
+La estructura interna de la antena queda definida listando los elementos que la componen y el armado de la antena respeta el
+orden de aparición de elementos en la lista. Por ejemplo, si la lista es [\enquote*{cable1}, \enquote*{PSC12},
+\enquote*{cable2}], la RFDN tiene conectado al transmisor/receptor el componente \enquote*{cable1}, a su vez, el puerto común
+del \enquote*{PSC12} está conectado al mismo elemento y cada uno de sus otros puertos están conectados a un \enquote*{cable2}
+distinto. En la figura \ref{fig:2RMAntenna} se muestra la antena que se construye teniendo como configuración:
+[\enquote*{cable1}, \enquote*{psc12}, \enquote*{cable2}, \enquote*{trm}, \enquote*{circulator}, \enquote*{cable3},
+\enquote*{rm}].
 
 \begin{figure}
  \centering
@@ -126,15 +139,15 @@ se construye teniendo como configuración: [\enquote*{cable1}, \enquote*{psc12},
  \label{fig:2RMAntenna}
 \end{figure}
 
-Es necesario definir las características físicas de cada uno de los elementos que componen la antena. La tabla 
-\ref{tab:propertiesOfComponents} determina las propiedades de cada uno.
+Una vez obtenida los componentes que determinan la estructura de la antena, es necesario definir las características físicas de
+cada uno de ellos. La tabla \ref{tab:propertiesOfComponents} lista dichas las propiedades.
 
 \begin{table}[H]
   \footnotesize
   \centering
   \begin{tabular}{|c|c|}
 	\hline
-	\textbf{Componente de Antena} & \textbf{Cacarcterísticas físicas} \tabularnewline \hline 
+	\textbf{Componente de Antena} & \textbf{Carcterísticas físicas} \tabularnewline \hline 
 	\multirow{2}{*}{cable} &  attenuation [db] \tabularnewline \cline{2-2}
 	 & length [m] \tabularnewline \hline 
 	\multirow{3}{*}{TRM} & isDead \tabularnewline \cline{2-2}
@@ -144,14 +157,14 @@ Es necesario definir las características físicas de cada uno de los elementos 
 	circulator & \tabularnewline \hline 
 	RM & \tabularnewline \hline 
   \end{tabular}
-  \caption{Propiedades físicas de cada componente de una antena}
+  \caption{Parámetros de cada componente de una antena.}
   \label{tab:propertiesOfComponents}
 \end{table}
 
 Como es necesario que la representación de las propiedades mencionadas previamente sean representativas en radio frecuencia,
-se utilizan los parámetros S (como se menciona en el capítulo \ref{ch:phasedArray}). En la figura \ref{fig:creationPackage} 
-se muestra el diagrama de clases donde se puede observar que el creador de antena hace uso de los generadores de parámetros S 
-de cada componente.
+se utilizan los parámetros S (como se explicó y detalló en el capítulo \ref{ch:phasedArray}). En la figura \ref{fig:creationPackage} 
+se define un diagrama de clases, realizado ad hoc para esta aplicación donde se puede observar que la clase \enquote*{AntennaCreator}
+hace uso de los generadores de parámetros S de cada componente.
 
 \begin{figure}
  \centering
@@ -160,36 +173,39 @@ de cada componente.
  \label{fig:creationPackage}
 \end{figure}
 
-Con la RFDN, si bien está definida la cantidad de elementos radiantes, falta definir las dimensiones de la antena, 
-en otras palabras, la cantidad de paneles, la cantidad de elementos por panel y la separación, tanto horizontal como vertical,
-entre elementos. Los primeros se traducen a cantidad de columnas y filas de RMs. 
+Al determinar la RFDN, si bien está definida la cantidad de elementos radiantes, falta definir las dimensiones de la antena, 
+en otras palabras, la cantidad de columnas de ER, o de paneles, la cantidad de filas de ER, o la cantidad de elementos por
+panel, y la separación, tanto horizontal como vertical, entre elementos. 
 
 Como dicha información es redundante y posiblemente incompatible con la definición de la estructura interna de la antena, es 
 necesario un chequeo de compatibilidad. La figura \ref{fig:frontAntenna} muestra el frente de una antena que se construye 
-teniendo como configuración: "quantityRows": 1, "quantityColumns": 2, "verticalSeparation": 0.2 y "horizontalSeparation": 0.2.
+teniendo como configuración: \enquote*{quantityRows}: 1, \enquote*{quantityColumns}: 2, \enquote*{verticalSeparation}: 0.2 y
+\enquote*{horizontalSeparation}: 0.2.
 
 \begin{figure}
  \centering
- \includegraphics[width=4cm]{gfx/FrontAntenna2.png}
+ \includegraphics[width=3cm]{gfx/FrontAntenna2.png}
  \caption{Frente de antena de dos elementos radiantes.}
  \label{fig:frontAntenna}
 \end{figure}
 
-Una vez obtenida la estructura de la antena, es necesario determinar que componentes van a tener desvíos en el comportamiento 
-deseado. Para ello, se agrega una lista indicando los componentes con errores. Las incertidumbres tienen una distribución 
-gaussiana con media 0. El desvío estándar es configurable.
+Una vez creada la estructura completa de la antena, es necesario determinar que componentes van a tener desvíos en el
+comportamiento deseado. Para ello, se agrega una lista indicando los componentes con errores. Para las incertidumbres se define
+una distribucion gaussiana con media nula por las caracteristicas de los componentes representados. El desvío estándar es 
+configurable.
 
 Si se deseara realizar la calibración en modo completo, se deberían agregar errores de planitud de la antena. Con lo cual, 
 dichos desvíos se verían reflejados en el archivo de la configuración del panel de la antena. En la presente tesis solamente 
 se desarrolló el modelo con planitud ideal.
 
+
 \subsection{Calibrador}
 
 En la figura \ref{fig:modelPackage} se muestra el diagrama de clases del calibrador del modelo de antena. Se puede observar que
-la clase Antena, la cual pertenece al modelo, modeliza el comportamiento de todos sus componentes. Los calibradores pueden ser 
-el clásico o el de acoplamientos mutuos; el primero utiliza un creador de señales chirp y de códigos walsh, en cambio, el 
-segundo utiliza clases del tipo MatrixCalibratorBuilder, las cuales tienen distintas estrategias para generar ecuaciones en base
-a los lazos de calibración generados.
+la clase \enquote*{Antena}, la cual pertenece al modelo, modeliza el comportamiento de todos sus componentes. Los calibradores
+pueden ser el clásico o el de acoplamientos mutuos; el primero utiliza un creador de señales chirp y de códigos walsh, en
+cambio, el segundo utiliza clases del tipo MatrixCalibratorBuilder, las cuales tienen distintas estrategias para generar
+ecuaciones en base a los lazos de calibración generados.
 
 \begin{figure}
  \centering
@@ -223,30 +239,36 @@ S y se las obtiene realizando los siguientes pasos.
 		$S_{22}$ y $S_{21}$ con $S_{12}$.
 \end{enumerate}
 
-Para armar los lazos de calibración, se tiene que tener en cuenta distintos tipos de errores que pueden afectar a los mismos, 
-los cuales son: error de ganancia entre pulsos, error de ganancia de la chirp replica y error de fase del walsh. Todos estos 
-errores son tratados como gaussianos con media igual a cero.
 
-Desvíos de ganancia o fase entre pulsos: Esta incertidumbre se puede dar por inestabilidades en el oscilador local que genera 
-la señal a transmitir/calibrar la antena o incertidumbres de medición del receptor.
+Para armar los lazos de calibración, se tiene que tener en cuenta tanto los distintos tipos de errores que pueden afectar a los
+mismos, como el método de calibración utilizado. 
 
-Desvíos de ganancia o fase de la chirp replica: Esta incertidumbre se da por el cambio de comportamiento del lazo de 
-calibración donde se mide la chirp réplica, como dicho lazo está caracterizado, cuando cambia su valor de ganancia, esta 
-variación es atribuida a la chirp en vez de al lazo.
+\subsubsection{Casos de incertidumbres}
 
-Desvíos de fase del walsh: Esta incertidumbre aparece a causa de las diferencias de comportamiento real y configurado en los 
-desfasadores. 
+Los posibles errores que afectan directamente a los calibradores son: error de ganancia entre pulsos, error de ganancia de la
+chirp replica y error de fase del walsh. Todos estos errores son tratados como gaussianos con media cero. A continuación se
+describen cada uno de ellos:
+\begin{itemize}
+	\item Desvíos de ganancia o fase entre pulsos: Esta incertidumbre se puede dar por inestabilidades en el oscilador local que
+		genera la señal a transmitir/calibrar la antena o incertidumbres de medición del receptor.
+	\item Desvíos de ganancia o fase de la chirp replica: Esta incertidumbre se da por el cambio de comportamiento del lazo de
+		calibración donde se mide la chirp réplica, como dicho lazo está caracterizado, cuando cambia su valor de ganancia, esta
+		variación es atribuida a la chirp en vez de al lazo.
+	\item Desvíos de fase del walsh: Esta incertidumbre aparece a causa de las diferencias de comportamiento real y configurado en
+		los desfasadores. 
+\end{itemize}
 
-Los lazos de calibración dependen del método utilizado, los cuales se explicarán a continuación.
 
-\subsubsection{Calibración clásica}
-Para armar los datos a ser calibrados, todos los lazos (que abarcan hasta los módulos TR de la RFDN) se los multiplica con 
+\subsubsection{Calibración interna clásica}
+
+Para armar los datos a ser calibrados, todos los lazos (que abarcan hasta los TRMs de la RFDN) se los multiplica con 
 tantas chirps como el método indica, con los errores que deba tener (según configuración) y con la codificación del código 
 walsh siguiendo lo especificado en la sección \ref{ssc:classicalMethod}. El resultado es una matriz adquirida, la cual, para
 decodificar y obtener la ganancia/fase de un TRM, se lo debe multiplicar por un conjunto de chirp réplicas desfasadas según la 
 columna del código Walsh al que perteneciente el TRM. 
 
-\subsubsection{Calibración con acoplamientos mutuos}
+
+\subsubsection{Calibración interna por acoplamientos mutuos}
 
 Para obtener los distintos lazos de calibración se desarrollaron varias estrategias a saber: 
 
@@ -256,15 +278,16 @@ Para obtener los distintos lazos de calibración se desarrollaron varias estrate
         ecuación de Rx o Tx respectivamente. El método requiere que las distancias del elemento en común al resto sean iguales
 		para poder eliminar los acoplamientos mutuos y que los tres componentes estén alineados entre sí.
          
-		Para ejemplificar, en la figura \ref{fig:linealBuilder} se pueden observar dos pares de lazos de calibración. Si se resta el
-        azul con el verde, aprovechando que $C_{14} = C_{74}$, se obtiene una ecuación de la rama de transmisión; en cambio, 
-        si se resta el rojo con el amarillo, aprovechando que $C_{53} = C_{57}$, se obtiene una ecuación de la rama de 
-        recepción de la antena.
+		Para ejemplificar, en la figura \ref{fig:linealBuilder} se pueden observar dos pares de lazos de calibración. Si se
+		restan los grises oscuros, aprovechando que $C_{14} = C_{74}$, se obtiene una ecuación de la rama de transmisión; en
+		cambio, si se restan los grises claros, aprovechando que $C_{53} = C_{57}$, se obtiene una ecuación de la rama de
+		recepción de la antena.
 			
 		\begin{figure}[H]
 		 \centering
 		 \includegraphics[width=5cm]{gfx/linearBuilder.png}
-		 \caption{Estrategia LinearBuilder. Restar azul con verde para transmisión y restar rojo con amarillo para recepción.}
+		 \caption{Estrategia LinearBuilder. Obtiene la relación de lazos de calibración equidistantes con un elemento en común
+		 perteneciente a la línea de unión del resto de los ER.}
 		 \label{fig:linealBuilder}
 		\end{figure}
 
@@ -273,10 +296,10 @@ Para obtener los distintos lazos de calibración se desarrollaron varias estrate
         diferencia es que en vez de requerir que los tres elementos estén alineados, tienen que formar una L. En otras palabras,
         las rectas de unión deben ser perpendiculares entre sí.
 		
-        Para ejemplificar, en la figura \ref{fig:crossBuilder} se pueden observar dos pares de lazos de calibración. Si se resta el
-        azul con el verde, aprovechando que $C_{12} = C_{14}$, se obtiene una ecuación de la rama de recepción. En cambio, 
-        si se resta el rojo con el amarillo, aprovechando que $C_{53} = C_{59}$, se obtiene una ecuación de la rama de 
-        transmisión de la antena.
+        Para ejemplificar, en la figura \ref{fig:crossBuilder} se pueden observar dos pares de lazos de calibración. Si se
+		restan los grises claros, aprovechando que $C_{12} = C_{14}$, se obtiene una ecuación de la rama de recepción. En cambio, 
+        si se restan los grises oscuros, aprovechando que $C_{53} = C_{59}$, se obtiene una ecuación de la rama de transmisión de
+		la antena.
 
 		\begin{figure}[H]
 		 \centering
@@ -292,7 +315,8 @@ Para obtener los distintos lazos de calibración se desarrollaron varias estrate
 		análogo, se deben restar los lazos recibidos de uno con los del otro elemento.
 
         Para ejemplificar, la figura \ref{fig:tinyBuilder} muestra una antena de dos elementos en configuración vertical. En 
-        esta estrategia se restan los caminos azules con los verdes aprovechando que $C_{11} = C_{22}$ y que $C_{12} = C_{21}$.
+        esta estrategia se restan los caminos grises oscuros con los claros aprovechando que $C_{11} = C_{22}$ y que
+		$C_{12} = C_{21}$.
 		
 		\begin{figure}[H]
 		 \centering
@@ -309,14 +333,15 @@ Para obtener los distintos lazos de calibración se desarrollaron varias estrate
         utilizan las ramas de recepción de elementos que tengan las mismas distancias a los elementos transmisores.
         
         Para ejemplificar, se tiene una antena de 5 elementos en configuración vertical, como se muestra en la figura 
-		\ref{fig:doubleBuilder}. Esta estrategia resta los caminos azules con los verdes aprovechando que $C_{12} = C_{54}$ y que
-		$C_{14} = C_{52}$ (por simetría de la antena), dando como resultado dos veces la resta de las ramas de transmisión.
+		\ref{fig:doubleBuilder}. Esta estrategia resta los caminos grises oscuro con los claros aprovechando que
+		$C_{12} = C_{54}$ y que $C_{14} = C_{52}$ (por simetría de la antena), dando como resultado dos veces la resta de las
+		ramas de transmisión.
 		
 		\begin{figure}[H]
 		 \centering
 		 \includegraphics[width=10cm]{gfx/doubleBuilder.png}
-		 \caption{Estrategia DoubleBuilder. Al restar los lazos azules con los verdes queda solo la resta de la cadena en 
-         transmisión.}
+		 \caption{Estrategia DoubleBuilder. Al restar los lazos gris oscuro con los claros queda solamente la resta de la cadena
+			 en transmisión.}
 		 \label{fig:doubleBuilder}
 		\end{figure}
 
@@ -328,11 +353,11 @@ Para obtener los distintos lazos de calibración se desarrollaron varias estrate
 		TRM obtenido de la calibración clásica.
 \end{itemize}
 
-
 Una vez obtenidas todas las ecuaciones de las calibraciones, se procede a utilizar el método de cuadrados mínimos definido en 
 la sección \ref{sec:meanSquare}. Para la fase, hay que tener extremo cuidado por su naturaleza modular, por lo tanto, 
 previamente a la realización del cálculo de cuadrados mínimos, se acomoda el conjunto de resultados de acuerdo a la sección 
 \ref{ssc:mutualPhase}.
+
 
 \subsection{Configuraciones del sistema}
 
@@ -364,8 +389,9 @@ realizar los distintos ensayos.
 	Separación vertical & Es la separación vertical entre RMs \tabularnewline \hline 
 	Separación horizontal & Es la separación horizontal entre RMs \tabularnewline \hline 
 	Secuencia de componentes & Es la secuencia de componentes que conforma la RFDN, los mismos pueden ser: cables, psc, trm, circulador, rm \tabularnewline \hline 
-	Errores  & Son los componentes de la antena que pueden tener errores. Los mismos pueden ser: RMError, TRMError, CirculatorError, PSCError \tabularnewline \hline 
-	TRMs muertos & Es una lista que indica que trms están muertos en el panel de la antena. \tabularnewline \hline 
+	Errores  & Son los componentes de la antena que pueden tener errores. Los mismos pueden ser: CableError, RMError, TRMError, CirculatorError, PSCError 
+	\tabularnewline \hline 
+	TRMs muertos & Es una lista que indica que trms no responden a ningún estímulo externo o que poseen una ganancia casi nula. \tabularnewline \hline 
 	\multicolumn{2}{|c|}{\textbf{Componentes de Antena}} \\
 	\hline
 	$cable_i$ & Se pueden definir tantos cables como se deseen, los parámetros a definir son: attenuation [db], length [m], type = cable \tabularnewline \hline 
@@ -390,14 +416,28 @@ realizar los distintos ensayos.
   \label{tab:conf_modelo_antena}
 \end{center}
 
-A su vez, también se puede configurar que tipo de calibración se desea correr para poder obtener los resultados y se pueden 
-graficar tanto los diagramas de radiación obtenidos en algún corte en azimuth/rango o el conjunto de ganancias y fases con 
-respecto al valor ideal. La figura \ref{fig:visualPackage} muestra el diagrama de clases del visualizador.
+A su vez, también se puede configurar que tipo de calibración se desea correr para poder obtener los resultados.
+
+
+\subsection{Visualizador}
+
+La figura \ref{fig:visualPackage} muestra el diagrama de clases del visualizador. Con el mismo se pueden llegar a graficar tanto
+los diagramas de radiación obtenidos en un corte configurado, azimuth o rango, como el conjunto de ganancias y fases de cada ER
+con respecto al valor ideal. En el capítulo \ref{ch:simulations} se podrán apreciar los gráficos obtenidos de diferentes
+simulaciones.
 
 \begin{figure}[H]
  \centering
  \includegraphics[width=11cm]{gfx/visualPackage.png}
- \caption{Diagrama de clases de los visualizadores.}
+ \caption{Diagrama de clases del visualizador.}
  \label{fig:visualPackage}
 \end{figure}
+
+
+\section{Conclusiones}
+
+En este capítulo se introdujo la estructura de la aplicación que modela tanto el comportamiento de los componentes de la antena
+como las posibles estrategias a tomar por la UCC para calibrar la misma. Se definieron las posibles incertidumbres y errores que
+se pueden simular en las distintos componentes de la antena y las distintas estrategias para armar lazos de calibración para el 
+método de calibración interna por acoplamientos mutuos.
 
