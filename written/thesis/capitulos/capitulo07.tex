@@ -1,28 +1,63 @@
 \chapter{Resultados y líneas futuras}
 
-El presente capítulo sirve de sumario a los resultados obtenidos tras la finalización del proyecto. Se encuncian las 
+El presente capítulo sirve de resumen a los resultados obtenidos tras la finalización del proyecto. Se enuncian las 
 conclusiones y se propone las diferentes lineas de ampliación del trabajo.
 
 \section{Resultados}
 
-A continuación se listan los resultados obtenidos de los ensayos realizados.
+A continuación se enuncian los resultados del trabajo realizado en la presente tesis. 
+\begin{enumerate}
+	\item Se realizó una investigación sobre los métdos de calibración interna utilizados comunmente. Se determinó que se puede
+		definir que existe un método de calibración interna clásico, o convenional, común para diferentes proyectos.
+	\item Se investigó un nuevo método de calibración, por acoplamientos mutuos, que complemente el previamente mencioado y se
+		propusieron las hipótesis necesarias para implementarlo. Estas hipótesis impactan directamente sobre el diseño de la
+		antena. Por dar un ejemplo, una de estas hipótesis es la capacidad de poder transmitir y recibir al mismo tiempo.
+	\item Se ivestigaron los modelos matemáticos para representar los componentes de la antena en RF, cumpliendo las hipotesis
+		pre-establecidas.
+	\item Se desarrolló una aplicación que simula un modelo de antena complejo, incluyendo la modelización de los acoplamientos
+		mutuos. Dicha aplicación posee la cualidad de poder definir la estructura interna de forma tal que permita realizar 
+		análisis de diferentes topologías de antena.
+	\item Se desarrolló un modelo de calibración interna clásica. El mismo calibra el modelo de antena previamente mencionado.
+	\item Se desarrolló un modelo de calibración avanzado, por acoplamientos mútuos. El mismo calibra el modelo de antena
+		previamente mencionado. 
+	\item Se propusieron e implementaron casos de prueba ad-hoc para compararlos.
+	\item Se explicó que el método de calibración por acoplamientos mutuos resulta particularmente de interés en sistemas de
+		vuelo, donde las calibraciones externas no tienen la frecuencia necesaria, y en donde el agregado de elementos
+	adicionales para realizar dicha calibración representa costos mayores.
+\end{enumerate}
+
+A continuación se listan los resultados obtenidos de los ensayos realizados para comparar los comportamientos de los dos métodos
+de calibración interna estudiados, clásico y por acoplamientos mutuos. 
 \begin{itemize}
-	\item Para destrucción de TRMs ambos calibradores poseen el mismo desempeño. Pueden calibrar perfectamente el resto de los 
-		elementos.
-	\item El método de calibración por acoplamientos mutuos es mucho más robusto que el clásico ante fallas en el generador 
-		de las señales a calibrar, tanto en ganancia como en fase.
+	\item Para el caso de destrucción de TRMs, ambos calibradores poseen el mismo desempeño. Este comportamiento no afecta los
+		resultados obtenidos de las calibraciones del resto de los componentes.
+		
+	\item El método de calibración por acoplamientos mutuos es mucho más robusto que el clásico ante fallas en el generador de
+		señales, ubicado dentro de la unidad central de contol UCC, tanto en ganancia como en fase. Para la topología de antena
+		escogida, se obtiene una mejora de 8 veces en la determinación de la ganancia y de 16 veces en la determinación de la
+		fase.
 	\item Comparando los desvíos del conjunto de datos, se aprecia una peor respuesta cuando se realizan apuntamientos 
-		en dirección horizontal, esto es, en la dirección donde se encuentra la mayor cantidad de elementos radiantes.
-	\item Por no abarcar todo el sistema de transmisión/recepción de la antena, el método de calibración clásico no solo no 
-		puede calibrar correctamente, sino que también puede llevar el estado de la señal a uno más alejado al deseado.
-	\item El método de calibración convencional tiene más puntos de falla que el de calibración por acoplamientos mutuos.
-	\item La falta de ortogonalidad generados por desvíos en la configuración de los desfasadores afecta principalmente a la 
-		estimación de la ganancia de los elementos radiantes.
-	\item Las incertidumbres individuales de la señal de transmisión son ampliamente disminuidas al ser transferidas a la 
-		ganancia de lóbulo principal del diagrama de radiación, esto ocurre por promediarse dichas señales al utilizar antenas 
-		con un gran número de elementos radiantes.
-	\item En el caso de dispersiones de fase de los códigos de walsh y de ganancia de la chirp réplica, no se aprecian incrementos
-		de dispersiones al realizar apuntamientos con la antena.
+		en dirección horizontal, esto es, en la dirección donde se encuentra la mayor cantidad de elementos radiantes. Esto se
+		debe a que hay menos elementos por panel, los cuales deben tener la misma fase entre ellos, haciendo que el promedio de
+		dichas fases posea un mayor desvío que en la otra dirección. Este caso se se puede mejorar utilizando, por ejemplo una
+		topología con una mayor cantidad de ER.
+	\item Por no abarcar la totalidad del sistema de transmisión/recepción de la antena, el método de calibración interna clásico
+		no puede determinar correctamente los niveles de ganancia y fase transmitidos/recibidos. De esta forma, al realizar la
+		corrección de dichas magnitudes, se puede llevar el estado de la señal a uno más alejado al deseado. En la sección
+		\ref{ssc:classicalDispersion} se observa dicho comportamiento. 
+	\item El método de calibración interna clásico tiene más puntos de falla que el de calibración por acoplamientos mutuos. Por
+		ejemplo, si los circuladores o los ERs resultan dañados el método de calibración clásico no puede detectar dichas fallas.
+	\item La falta de ortogonalidad generada por desvíos en la configuración de los desfasadores afecta principalmente a la 
+		estimación de la ganancia de los elementos radiantes al correr el método de calibración interna clásica. Generando así
+		que el diagrama de radiación resulte deformado al realizar la \enquote*{corrección} de dichos desvíos.
+
+	\item En la topologia probada se observa que las incertidumbres individuales de la señal de transmision son ampliamente
+		disminuidas al ser transferidas a la ganancia de lóbulo principal del diagrama de radiación, esto ocurre por
+		promediarse dichas señales al utilizar antenas con un gran número de elementos radiantes. En la sección
+		\ref{sc:mutualCouplingCase} se ensayaron dos conjuntos de antena, la primera de 5 elementos radiantes y la segunda de 70
+		obteniendo como resultado que la segunda posee una incertidumbre cuatro veces menor.
+	\item En el caso de dispersiones de fase de los códigos de walsh y de ganancia del chirp réplica, no se aprecian incrementos
+		de dispersiones al realizar distintos apuntamientos con la antena.
 \end{itemize}
 
 \section{Líneas futuras}
