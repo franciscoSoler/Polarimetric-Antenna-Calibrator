@@ -38,31 +38,33 @@ contenido.
 
 \section{Definiciones previas} \label{sc:definitions}
 
-A continuación se introducen algunas definiciones previas necesarias para el desarrollo de la tesis. Las mismas se encuentran ordenadas de manera tal que la definición en cual se basa posea las bases ya mencionadas.
-\todo{informar el orden de aparicion de las definiciones}
+A continuación se introducen algunas definiciones previas necesarias para el desarrollo de la tesis. Las mismas se encuentran
+ordenadas de manera tal que la definición en cual se basa posea las bases ya mencionadas.
 
 
 \subsection{Adaptación de impedancias}
+La máxima transferencia de potencia requiere que la impedancia de un sistema de antena esté adaptada al complejo conjugado de la
+impedancia del transmisor o receptor. En el caso de un transmisor, la impedancia adaptada deseada no necesariamente corresponde a
+la impedancia de salida dinámica del transmisor analizado como una impedancia sino al valor de diseño (típicamente de
+$50 \Omega$) requerido para una operación eficiente y segura del circuito de transmisión. Normalmente, la impedancia deseada es
+resistiva pero un transmisor (y algunos receptores) pueden tener ajustes adicionales para cancelar una cierta cantidad de
+reactancia en orden de obtener dicha adaptación.
 
-La máxima transferencia de potencia requiere que la impedancia de un sistema de
-antena esté adaptada al complejo conjugado de la impedancia del transmisor o receptor. En el caso de un transmisor,
-la impedancia adaptada deseada no necesariamente corresponde a la impedancia de salida dinámica del transmisor analizado
-como una impedancia sino al valor de diseño (típicamente de $50 \Omega$) requerido para una operación eficiente
-y segura del circuito de transmisión. Normalmente, la impedancia deseada es resistiva pero un transmisor (y algunos receptores)
-pueden tener ajustes adicionales para cancelar una cierta cantidad de reactancia en orden de obtener dicha adaptación. Cuando
-una línea de transmisión es utilizada entre la antena y el transmisor (o receptor) uno generalmente desearía un sistema de antena
-con una impedancia resistiva cercana a la impedancia característica de dicha línea de transmisión, para minimizar el SWR
-e incrementar la transmisión \cite{AntennaWiki}.
+Como un sistema de radar generalmente trabaja en un rango de frecuencias, su operación no depende únicamente de la respuesta en
+frecuencia de los elementos radiantes, sino también de las características en frecuencia de la línea de transmisión utilizada.
+Como la variación de impedancias de cada elemento en función de la frecuencia no es la misma, es necesario el uso de redes de
+adaptación para minimizar el ROE e incrementar la transmisión \cite{Balanis2012}.
 
 En el caso de esta tesis, en el modelo físico desarrollado se tiene en cuenta la posibilidad de incorporar desadaptaciones.
 
 
 \subsection{Analizador de espectro vectorial o VNA}
 
-Es un instrumento que mide los parámetros eléctricos de una red. Hoy, dichos analizadores miden los parámetros S porque las
+Es un instrumento que mide los parámetros eléctricos de una red. Dichos analizadores miden los parámetros S porque las
 reflexiones y transmisiones de redes eléctricas son fácilmente medibles en alta frecuencia. Normalmente caracterizan redes de
-dos puertos \cite{NetworkAnalyzer}. En la figura \ref{fig:tipicalVNA} muestra el esquema de conexionado típico para caracterizar
-cualquer circuito con un VNA.
+dos puertos. Las características de reflexión y transmisión pueden ser expresadas como un vector (magnitud y fase) o de forma
+escalar, expresando únicamente magnitud o fase. \cite{AgilentTechnologies2012}. En la figura \ref{fig:tipicalVNA} muestra el
+esquema de conexionado típico para caracterizar cualquer circuito con un VNA.
 
 \begin{figure}[H]
  \centering
@@ -521,8 +523,9 @@ componente Vertical (V), cada elemento radiante (ER) puede transmitir y recibir 
 \subsection{Relación de onda estacionaria (del inglés SWR)}
 
 Es una medida de adaptación entre la carga y la impedancia característica de una línea de transmisión. Las desadaptaciones de
-impedancias resultan en ondas estacionarias a lo largo de dicha línea de transmisión. El SWR está definido como la relación
-entre la amplitud de la onda reflejada y la amplitud de la onda incidente \cite{swrWiki}.
+impedancias resultan en ondas estacionarias a lo largo de dicha línea de transmisión. El SWR, o coeficiente de reflexión, está
+definido como la relación entre el nivel de tensión de la señal reflejada con respecto al nivel de tensión de la señal incidente.
+\cite{AgilentTechnologies2012}.
 
 En el caso de esta tesis, se incluyen los efectos de desadaptación de impedancias dentro del modelo construido para evaluar el
 algoritmo de calibración propuesto.

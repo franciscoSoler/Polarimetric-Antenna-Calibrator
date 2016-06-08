@@ -12,7 +12,7 @@ En este capítulo se introduce el esquema de calibración clásico. Se busca:
 \end{itemize}
 
 
-\section{Calibración clásica}
+\section{Calibración interna clásica}
 
 Como fue introducido previamente, la antena se conecta a un transmisor y un receptor que es comandado desde la UCC y consta de
 una serie de elementos que han sido identificados en el capitulo previo para su modelizacion matematica y algoritmica. Como 
@@ -82,7 +82,7 @@ subsecuentes pulsos de calibración modificando los parámetros configurables qu
 caso la fase introducida por los TRMs. De esta forma, se arma una codificación diferente para cada lazo de calibración de forma
 tal que los distintos códigos sean ortogonales entre sí. Este algoritmo se llama PCC.
 
-En esta tesis se utilizan los códigos walsh para codificar cada lazo de calibración \cite{WalshCode}. En esta estrategia se
+En esta tesis se utilizan los códigos walsh para codificar cada lazo de calibración \cite{Singhal2012}. En esta estrategia se
 configura el desfasaje de cada TRM en para cada pulso de calibración en $\pm90^{\circ}$ con respecto a la fase que poseía la
 antena en el momento de iniciar el proceso de calibración. Siguiendo una determinada secuencia $c_{mn}(t)$.
 
@@ -119,7 +119,7 @@ la ganancia estimada.
 \label{eq:classic_correlation}
 \end{equation}
 
-En general el código de calibración utilizado es el código walsh \cite{WalshCode}. Dicho código deriva de las matrices de 
+En general el código de calibración utilizado es el código walsh \cite{Singhal2012}. Dicho código deriva de las matrices de 
 Hadamard (ver apéndice \ref{AppendixB}); dada sus propiedades de ortogonalidad, cada código, o fila, es unívocamente 
 distinguible del resto. Para minimizar la cantidad de mediciones, el largo del código ($l$) debe ser lo más corto posible. 
 El número de TRMs de la antena es el determinante de la cota inferior.
