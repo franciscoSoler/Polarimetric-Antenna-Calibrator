@@ -35,6 +35,7 @@ class VisualComparator:
         return self.__figure_number
 
     def __save_plots(self, filename, plt):
+        plt.tight_layout()
         if self.__save_files:
             plt.savefig(os.path.join(self.__paht_to_save, filename + ".png"), bbox_inches='tight')
 
@@ -109,7 +110,7 @@ class VisualComparator:
         p3, = plt.plot(antennas[::4], ideal_power[::4], color="k", marker="*", linewidth=2, markersize=15)
         plt.plot(antennas, cal_power, "g", linewidth=2)
 
-        self.__set_plot_environment(title, "Power [dBm]", "RMs", 4)
+        self.__set_plot_environment(title, "Power [dBm]", "ERs", 4)
 
         plt.subplot(212)
         plt.plot(antennas, phase, "bo")
@@ -119,7 +120,7 @@ class VisualComparator:
         plt.plot(antennas[::5], ideal_phase[::5], "k*", markersize=15)
         plt.plot(antennas, cal_phase, "g", linewidth=2)
 
-        self.__set_plot_environment(title, "Phase [deg]", "RMs", 4)
+        self.__set_plot_environment(title, "Phase [deg]", "ERs", 4)
         self.__save_plots(filename, plt)
 
     def compare_signals(self, power_one, phase_one, power_two, phase_two, title=""):
@@ -148,7 +149,7 @@ class VisualComparator:
         p2, = plt.plot(antennas, cal_power, "g^")
         plt.plot(antennas, cal_power, "g")
         legends = ["non_cal_power", "cal_power"]
-        self.__set_plot_environment(title, "Power [dB]", "RMs", locc=4)
+        self.__set_plot_environment(title, "Power [dB]", "ERs", locc=4)
 
         plt.subplot(212)
         p1, = plt.plot(antennas, phase, "bo")
@@ -156,7 +157,7 @@ class VisualComparator:
         p2, = plt.plot(antennas, cal_phase, "g^")
         plt.plot(antennas, cal_phase, "g")
         legends = ["non_cal_ph", "cal_ph"]
-        self.__set_plot_environment("", "Phase [deg]", "RMs", locc=4)
+        self.__set_plot_environment("", "Phase [deg]", "ERs", locc=4)
 
     def compare_patterns(self, angles, pattern_one, pattern_two, title, filename):
         """
@@ -223,4 +224,5 @@ class VisualComparator:
 
     @staticmethod
     def show_graphics():
+        plt.tight_layout()
         plt.show()

@@ -1,20 +1,20 @@
 \begin{table}[H]
   \footnotesize
   \centering
-  \begin{tabular}{|c|c|p{2cm}|p{2.5cm}|p{2.5cm}|p{2.5cm}|}
-    \cline{2-6}
-    \multicolumn{1}{c|}{} & Corte & Ganancia - lóbulo izq. [dBc] & Ganancia - lóbulo central [dB] &
+  \begin{tabular}{|c|c|C{2cm}|C{2.5cm}|C{2.5cm}|C{2.5cm}|}
+    \hline
+    Caso & Corte & Ganancia - lóbulo izq. [dBc] & Ganancia - lóbulo central [dB] &
     Ganancia - lóbulo der. [dBc] & Ancho - lóbulo central -3dB \tabularnewline\hline
-    \multirow{2}{2cm}{Pat. sin calibrar} & H & @0 \tabularnewline\cline{2-6}
+    \multirow{2}{2cm}{Diag. rad. sin calibrar} & H & @0 \tabularnewline\cline{2-6}
      & V & @1 \tabularnewline\hline
-    \multirow{2}{2cm}{Pat. calibrado} & H & @2 \tabularnewline\cline{2-6}
+    \multirow{2}{2cm}{Diag. rad. calibrado} & H & @2 \tabularnewline\cline{2-6}
      & V & @3 \tabularnewline\hline
-    \multirow{2}{2cm}{Pat. ideal} & H & @4 \tabularnewline\cline{2-6}
+    \multirow{2}{2cm}{Diag. rad. ideal} & H & @4 \tabularnewline\cline{2-6}
      & V & @5 \tabularnewline\hline
     \multirow{2}{2cm}{Dif. sin calibrar} & H & @6\tabularnewline\cline{2-6}
      & V & @7 \tabularnewline\hline
     \multirow{2}{2cm}{Dif. calibrado} & H & @8 \tabularnewline\cline{2-6}
      & V & @9 \tabularnewline\hline
   \end{tabular}
-  \caption{Propiedades de los patrones calibrados y sin calibrar comparados con el ideal.}
+  \caption{Propiedades de los diagramas de radiación calibrados y sin calibrar comparados con el ideal.}
   \label{tab:@a}
