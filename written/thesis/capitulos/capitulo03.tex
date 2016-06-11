@@ -15,12 +15,12 @@ En este capítulo se introduce el esquema de calibración clásico. Se busca:
 \section{Calibración interna clásica}
 
 Como fue introducido previamente, la antena se conecta a un transmisor y un receptor que es comandado desde la UCC y consta de
-una serie de elementos que han sido identificados en el capitulo previo para su modelizacion matematica y algoritmica. Como 
+una serie de elementos que han sido identificados en el capitulo previo para su modelización matemática y algorítmica. Como 
 pueden haber dispersiones en el comportamiento de cada componente dentro del lazo de calibración, se hace uso de la calibración
 interna para compensarlas. 
 
 Este método es utilizado para poder medir, detectar y corregir el mal funcionamiento de parte de la RFDN y, en particular, todas
-las desviaciones se las atribuyen a los TRMs. Siendo estos, los actuadores que permiten comensar las desviaciones entre lo medido
+las desviaciones se las atribuyen a los TRMs. Siendo estos, los actuadores que permiten compensar las desviaciones entre lo medido
 y lo deseado. A su vez, también se puede detectar si uno de dichos módulos queda inhabilitado a causa que cierta parte de la
 cadena de transmisión/recepción o dicho componente se destruyó.
 
@@ -38,10 +38,10 @@ apreciar que, para este esquema en particular, tanto los elementos radiantes com
 lazos de calibración interna. En otras palabras, cualquier variación en el comportamiento de RF de los mismos, representados
 por los parámetros S, no serán detectados al realizar dicha calibración.
 
-Si el comportamiento del sistema depende de elementos que no estan bajo control, sería un problema. En principio se podría
-pensar en utilizar componentes fuera del lazo que se sabe que no van a variar en toda la vida util del dispositivo. Como esto en
+Si el comportamiento del sistema depende de elementos que no están bajo control, sería un problema. En principio se podría
+pensar en utilizar componentes fuera del lazo que se sabe que no van a variar en toda la vida útil del dispositivo. Como esto en
 general no es viable, la solución a la que se suele recurrir es la caracterización en todas sus variables (temperatura,
-frecuencia) de dichos elementos y al deseo de que esta caracterizacion perdure en el tiempo.
+frecuencia) de dichos elementos y al deseo de que esta caracterización perdure en el tiempo.
 
 \begin{figure}[H]
  \centering
@@ -83,7 +83,7 @@ caso la fase introducida por los TRMs. De esta forma, se arma una codificación 
 tal que los distintos códigos sean ortogonales entre sí. Este algoritmo se llama PCC.
 
 En esta tesis se utilizan los códigos walsh para codificar cada lazo de calibración \cite{Singhal2012}. En esta estrategia se
-configura el desfasaje de cada TRM en para cada pulso de calibración en $\pm90^{\circ}$ con respecto a la fase que poseía la
+configura el desfase de cada TRM en para cada pulso de calibración en $\pm90^{\circ}$ con respecto a la fase que poseía la
 antena en el momento de iniciar el proceso de calibración. Siguiendo una determinada secuencia $c_{mn}(t)$.
 
 \begin{figure}
@@ -95,7 +95,7 @@ antena en el momento de iniciar el proceso de calibración. Siguiendo una determ
 \end{figure}
 
 La figura \ref{fig:sup_sign_classic} muestra la superposición de la señal de calibración con las distintas fases que adoptan
-los $j$ TRMs de la antena en los $n$ pulsos requeridos para completar la codificacion utilizada.
+los $j$ TRMs de la antena en los $n$ pulsos requeridos para completar la codificación utilizada.
 
 Por lo tanto, la fase de salida de cada TRM es la fase de la señal sumada a la configurada previamente a iniciar la
 calibración, $\varphi_{mn}$, junto al desfase del código de $90^{\circ}$. Consecuentemente, la superposición de todas las
@@ -158,12 +158,12 @@ calibración, para sustraerla del resultado obtenido. El lazo de calibración do
 muestra en la imagen \ref{fig:classic_cal_scheme}, llamado \textbf{P3}. En esta medición no se puede determinar cuanto atenúa
 el lazo, por lo tanto se opta por caracterizar en tierra dichos componentes para las frecuencias y temperaturas de trabajo.
 
-Tener que recurrir a las caracterizaciones a los componetnes de la antena presentan las siguientes desventajas: 
+Tener que recurrir a las caracterizaciones a los componentes de la antena presentan las siguientes desventajas: 
 
 \begin{itemize}
 	\item Costo de materiales: Componentes caracterizados en temperatura pueden costar varias veces el precio de un componente sin
-		caracterizar. Esto es debido a que los ensayos de caracterización térmicos son costosos. Tambien lo es el equipamiento para
-		realizar las características en frecuencia y muchas veces son rentados por las compañias ante la imposibilidad de comprarlos.
+		caracterizar. Esto es debido a que los ensayos de caracterización térmicos son costosos. También lo es el equipamiento para
+		realizar las características en frecuencia y muchas veces son rentados por las compañías ante la imposibilidad de comprarlos.
 	\item Costo de recursos: La campaña de caracterización no solo puede durar meses sino que también requiere una dedicación
 		casi total de equipos de gente a dicha actividad, implicando un gasto de dinero muy importante. En algunos proyectos donde hay
 		fechas preacordadas que respetar, pueden determinar que dichos costos sean inviables.
@@ -175,7 +175,7 @@ Tener que recurrir a las caracterizaciones a los componetnes de la antena presen
 \subsubsection{Complejidad del hardware de la antena}
 
 Como se calibra sólo una parte de la antena por vez, transmisión o recepción en una u otra polarización (H o V), es necesario
-que el lazo de calibración esté compuesto por la parte de la antena a calibrar junto a hardware dedicado (cables y switches) a
+que el lazo de calibración esté compuesto por la parte de la antena a calibrar junto a hardware dedicado (cables e interruptores) a
 esta tarea. De esta forma, se añaden las siguientes desventajas:
 
 \begin{itemize}
@@ -228,9 +228,9 @@ radiantes de la antena no varían con la temperatura.
 En este capítulo se introdujo tanto el modelo matemático de la calibración interna clásica como su forma de operar. A su vez,
 se brindaron ejemplos de satélites en donde su sistema de radar utiliza este método.
 
-Por último, se llegó a la conclusión que este método sirve para poder determinar que un TRM funcione correctamente, pero si
-se lo desea utilizar con otro objetivo, por ejemplo el de corregir la planitud de la señal transmitida, hay que tener recaudos
-en la cantidad de inconvenientes que trae aparejado. Por ejemplo, los costos en tiempo y recursos asociados a la campaña de 
-caracterización y que se tenga fe de que con el envejecimiento de los componentes, dichas caracterizaciones van a continuar
-sirviendo.
+Se llegó a la conclusión que este método sirve para poder determinar que un TRM funcione correctamente, pero si se lo desea
+utilizar para otro objetivo, por ejemplo el de corregir la planitud de la señal transmitida, hay que tener recaudos en la
+cantidad de inconvenientes que trae aparejado. Por ejemplo, que no abarca la totalidad del sistema, los costos en tiempo y
+recursos asociados a la campaña de caracterización y que se tenga fé de que con el envejecimiento de los componentes, dichas
+caracterizaciones van a continuar sirviendo.
 

@@ -2,11 +2,11 @@
 \label{ch:mutualCalibration}
 \lhead{\emph{Calibración interna por acoplamientos mutuos}}
 
-En este capítulo se presenta el método propuesto, el cual complementa al método de calibración interna clásico de manera tal
-que se pueda corregir, por ejemplo, la planitud del frente de onda emitido por la antena. Primero, se explica en qué consiste
-y que recaudos hay que tomar a la hora de implementar este método de calibración. Segundo, se expresa el modelo matemático y
-la cantidad de ecuaciones necesarias para encontrar una solución. Tercero, se presentan tres posibles modos de ejecución y por
-último se exponen las limitaciones del método.  
+En este capítulo se presenta el método propuesto, calibración interna por acoplamientos mutuos, el cual complementa al método de
+calibración interna clásico de manera tal que se pueda corregir, por ejemplo, la planitud del frente de onda emitido por la
+antena. Primero, se explica en qué consiste y que recaudos hay que tomar a la hora de implementar este método de calibración.
+Segundo, se expresa el modelo matemático y la cantidad de ecuaciones necesarias para encontrar una solución. Tercero, se
+presentan tres posibles modos de ejecución y por último se exponen las limitaciones del método.  
 
 
 \section{Calibración interna por acoplamientos mutuos}
@@ -27,7 +27,7 @@ Para llevar a cabo dicho método, este tipo de antenas debe cumplir un requerimi
 un elemento radiante y simultáneamente recibir con otro sin que se sature, deforma tal de trabajar en la zona lineal, o peor
 aún, que se dañe o destruya. Normalmente, este requerimiento implica separar las redes de transmisión y recepción
 \cite{Gao2001}. Para antenas que no cumplen la separación de la redes de transmisión y recepción aún se puede utilizar esta
-idea si se transmite en una polarizacion y se recibe en otra, pues son dos lineas físicamente separadas.
+idea si se transmite en una polarización y se recibe en otra, pues son dos lineas físicamente separadas.
 
 Se tienen una serie de requisitos básicos para poder implementar este método que deben ser tenidos en cuenta desde el diseño
 mismo.
@@ -72,7 +72,7 @@ ejemplifica las tres zonas de recepción al emitir con el elemento radiante cent
 \end{figure}
 
 Tomando en cuenta lo anteriormente mencionado, determinando la potencia de transmisión, el acoplamiento mutuo que depende de la
-distancia entre ER y la pontencia máxima de recepción, se pueden determinar todos los posibles lazos de calibración del método.
+distancia entre ER y la potencia máxima de recepción, se pueden determinar todos los posibles lazos de calibración del método.
 
 
 \subsection{Control de estados de TRMs}
@@ -119,7 +119,7 @@ otras 2 por Rx en H/V).
 
 En el apéndice \ref{AppendixA} se realiza el cálculo de la cantidad de acoplamientos mutuos que posee un conjunto de antena
 polarimétrica, particularmente, la ecuación \ref{eq:amountMutCoupling} muestra la cantidad de incógnitas, que, para este caso,
-resulta ser de $MN(MN-1)/2$. Por lo tanto, este conjunto de antena poese en total $MN(MN + 7)/2$ incógnitas.
+resulta ser de $MN(MN-1)/2$. Por lo tanto, este conjunto de antena posee en total $MN(MN + 7)/2$ incógnitas.
 
 Para obtener el menor conjunto de antena al cual el método es aplicable, la cantidad de lazos, que determina la cantidad de
 ecuaciones, debe ser mayor a la cantidad de incógnitas, 
@@ -154,7 +154,7 @@ la cantidad de ecuaciones necesarias, o lazos de calibración. Los diferentes mo
 		polarizaciones H y V reutilizando el valor guardado de la planitud de la antena calculado previamente. La cantidad de
 		ecuaciones necesarias es de $4MN$, ver sección \ref{ssc:feasibility}.
 	\item \textbf{Modo planitud ideal:} Esta modalidad, la cual es la desarrollada en la tesis, posee la misma cantidad de
-		ecuacinoes que el modo rápido, la diferencia es que se asume que la antena es perfectamente plana.
+		ecuaciones que el modo rápido, la diferencia es que se asume que la antena es perfectamente plana.
 \end{itemize}
 
 
@@ -320,26 +320,56 @@ rama punta a punta.
 
 \subsection{Limitaciones}
 
-La mayor limitación de este método es que es necesario conocer el orden del valor del desfase de los caminos de Tx y Rx punta a
-punta. De esta forma se evitan los posibles errores de cálculos al obtener la fase de transmisión y recepción del sistema, ya
-que la misma tiene un comportamiento modular, ver \ref{ssc:mutualPhase}. Dichos valores solo serán utilizados una vez, dado que
-las subsiguientes calibraciones reutilizaran los valores de fase obtenidos por la última calibración realizada.
+Si bien este método de calibración interna por acoplamientos mútuos abarca completamente la antena posibilitando determinar las
+ganancias de transmisión, recepción y la planitud de la antena, presenta las siguientes limitaciones.
+
+
+\subsubsection{Determinación de ganancia y fase absoluta}
+
+Dado que todas las ecuaciones del método son de relaciones entre caminos de calibración, no se puede determinar la potencia y
+fase absoluta transmitida o recibida. Para poder obtener dichos valores es necesario poder agregar dos ecuaciones extra.
+
+Una posible estrategia es la de utilizar el resultado obtenido al correr el método de calibración interna clásica obteniendo
+así la ganancia y fase de uno de los caminos de transmisión y recepción. Otra posibilidad es la de utilizar dos antenas
+dedicadas y bien caracterizadas para ser utilizadas en modo transmisión y recepción para la calibración.
+
+
+\subsubsection{Comportamiento modular de la fase medida}
+
+Dado que el método de calibración por acoplamientos mutuos es de carácter lineal y la fase es de carácter modular, es necesario 
+conocer el orden del valor del desfase de los caminos de Tx y Rx punta a punta. Utilizando dichos valores como entrada en la
+calibración se evitan los posibles errores de cálculos al obtener la fase de transmisión y recepción de la antena, ver
+\ref{ssc:mutualPhase}. Dichos valores solo serán utilizados una vez, dado que las subsiguientes calibraciones reutilizarán los
+valores de fase obtenidos de la calibración anterior.
 
 Para obtener dicho valor inicial, se puede utilizar la fase resultante del método de calibración interna clásica o se puede
-realizar una medición de campo cercano en temperatura, emitiendo solamente con un elemento radiante para deducir la fase de la
+realizar una medición de campo cercano en temperatura, emitiendo sólamente con un elemento radiante para deducir la fase de la
 red de transmisión, para obtener el desfase de la red de recepción, se emite con un elemento externo y se recibe con solo un
 elemento radiante.
 
-Es necesario realizar en tierra una medición de acoplamientos mutuos del conjunto de antena para determinar las distintas zonas
-de acoplamientos definidas en la sección \ref{ssc:mutual_zone}.
+
+\subsubsection{Zona de acoplmaiento mutuo destructivo y bajo acoplamiento}
+
+Generalmente, esta clase de antena transmite en una potencia mayor a la admisible en recepción, por lo tanto, los ERs cercanos al
+de transmisión pueden resultar dañados si no se los coloca en un estado protegido, evitando así que dicho par de elementos
+radiantes, de transmisión y recepción, sean utilizados en un lazo de calibración.
+
+Los ERs lejanos al de transmisión pueden llegar a recibir la señal de calibración con potencia menor al piso de ruido (zona de
+acoplamiento débil), evitando también que dichos lazos de calibración sean útiles.
+
+Para determinar las zonas de acoplamientos mutuos, definidas en la sección \ref{ssc:mutual_zone}, es necesario realizar en tierra
+una medición de acoplamientos mutuos del conjunto de antena.
 
 \section{Conclusiones}
 
-En este capítulo se presentó el método de calibración por acoplamientos mutuos, el cual abarca todo el sistema de
-transmisión y recepción logrando así poder determinar la potencia de Tx, de Rx y la planitud de la antena. Se debe tener
-extremo cuidado al configurar los lazos de calibración porque se pueden llegar a dañar TRMs si el acoplamiento mutuo de los
-elementos radiantes del lazo pertenece a la zona de acoplamiento destructivo.
+En este capítulo se presentó el método de calibración por acoplamientos mutuos. Su mayor ventaja es que abarca todo el sistema de
+transmisión y recepción de la antena, logrando así poder determinar la potencia de transmisión, de recepción y la planitud de la
+misma.
 
-Las ventajas de este método son que se evitan costosas campañas de caracterización, que para su utilización no es necesario
-agregar HW extra que haga mas complejo el diseño de la antena y que al haber superposición de caminos en los lazos de
+Otras ventajas de este método son que se pueden evitar costosas campañas de caracterización, dado que para su utilización no es
+necesario agregar HW extra que haga mas complejo el diseño de la antena y que al haber superposición de caminos en los lazos de
 calibración se disminuye la incertidumbre del resultado de las ganancias obtenidas.
+
+Como desventaja, se debe tener extremo cuidado al determinar los lazos de calibración porque se pueden llegar a dañar TRMs si el
+acoplamiento mutuo de los elementos radiantes del lazo pertenece a la zona de acoplamiento destructivo.
+

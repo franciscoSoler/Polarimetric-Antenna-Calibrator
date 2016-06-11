@@ -3,9 +3,9 @@
 \lhead{\emph{Modelización}}
 
 
-En este capítulo se utiliza toda la información descripta en los capítulos anteriores:
+En este capítulo se utiliza toda la información descrita en los capítulos anteriores:
 \begin{itemize}
-	\item El modelo de la antena y de todos sus componentes en parámetros S descriptos en el capítulo \ref{ch:phasedArray}.
+	\item El modelo de la antena y de todos sus componentes en parámetros S descritos en el capítulo \ref{ch:phasedArray}.
 	\item El modelo matemático y algorítmico de la calibración clásica \ref{ch:classicalCalibration}.
 	\item El modelo matemático y algorítmico de la calibración por acoplamientos mutuos \ref{ch:mutualCalibration}.
 \end{itemize}
@@ -38,17 +38,17 @@ vez son consideradas las especificaciones del problema.
     \item Distancia entre elementos radiantes: Se debe poder configurar la distancia entre elementos radiantes.
 
     \item Configuración individual de componentes: Se debe poder configurar los atributos que afecten la modelización de cada
-		componente de la antena; largo, atenuación y desfasaje por metro de cables.
+		componente de la antena; largo, atenuación y desfase por metro de cables.
 
-    \item Modelizacion de dispersiones: se debe poder configurar las dispersiones en el comportamiento de cada componente de la
+    \item Modelización de dispersiones: se debe poder configurar las dispersiones en el comportamiento de cada componente de la
 		antena de forma independiente.
 
     \item Introducción de elementos de control en el lazo de calibración: se deben poder configurar los atenuadores y
 		defasadores a la hora de realizar la calibración.
 
-    \item Calibración clásica: sa aplicación debe poder calibrar una antena polarimétrica con el método de calibración clásico.
+    \item Calibración clásica: la aplicación debe poder calibrar una antena polarimétrica con el método de calibración clásico.
 
-    \item Calibración por acoplamientos mutuos: sa aplicación debe poder calibrar una antena polarimétrica con el método de
+    \item Calibración por acoplamientos mutuos: la aplicación debe poder calibrar una antena polarimétrica con el método de
 		calibración propuesto.
 
     \item Calibración de ganancia: la aplicación debe poder calibrar la ganancia de transmisión y recepción.
@@ -94,7 +94,7 @@ Como se van a modelar desvíos en el comportamiento de los distintos componentes
 algunos casos se utilizará la metodología montecarlo para estudiar el comportamiento de los calibradores.
 
 Como es necesario realizar ensayos de montecarlo utilizando distintos tipos de calibraciones ante una misma configuración y 
-comportamiento de antena, dicha informacion debe persistir entre corrida y corrida, por lo tanto se optó por guardar en disco
+comportamiento de antena, dicha información debe persistir entre corrida y corrida, por lo tanto se optó por guardar en disco
 dicha información como archivos con formato json. En los cuales se guarda la configuración y propiedades físicas tanto del
 panel como de la RFDN. Las propiedades del primer grupo son las distancias entre todos los elementos. Las del segundo grupo
 corresponden a la matriz de parámetros S, desarrollado en el capítulo \ref{ch:phasedArray}, y la interconexión entre
@@ -105,7 +105,7 @@ a modelizar tiene más de un orden de magnitud mayor de tamaño.
 La aplicación se divide en tres etapas principales. La primera parte es la encargada de la modelización de la antena y sus
 componentes. La segunda contiene el copmortamiento de ambos modelos de calibración interna, los cuales se corresponden con las
 distintas estrategias de calibración de la UCC y la tercera consta de los visualizadores de resultados. La figura
-\ref{fig:prog_inic} muestra el flujo de ejecuci\'on del programa.
+\ref{fig:prog_inic} muestra el flujo de ejecución del programa.
 
 \begin{figure}
  \centering
@@ -118,9 +118,9 @@ A continuación se describirán cada uno de los bloques del flujo de ejecución 
 
 \subsection{Generador de Antena (AntennaGenerator)}
 
-La antena bajo estudio, con todos todos los controladores de fase y atenuacion (TRMs), en idéntica posicion, deben generar una
+La antena bajo estudio, con todos todos los controladores de fase y atenuación (TRMs), en idéntica posición, deben generar una
 onda plana saliente, transmitida, por los elementos radiantes. De idéntica forma, una onda plana recibida, con todos los
-receptores de los TRMs en igual posicion de fase y atenuacion, debe dar lugar a una señal coherente como resultado de la
+receptores de los TRMs en igual posición de fase y atenuación, debe dar lugar a una señal coherente como resultado de la
 sumatoria. Por lo tanto, es necesario que todos los caminos entre el punto donde se inyecta o recibe la señal y los módulos 
 radiantes sean iguales. Esta característica es análoga a la de un árbol balanceado. 
 
@@ -191,7 +191,7 @@ teniendo como configuración: \enquote*{quantityRows}: 1, \enquote*{quantityColu
 
 Una vez creada la estructura completa de la antena, es necesario determinar que componentes van a tener desvíos en el
 comportamiento deseado. Para ello, se agrega una lista indicando los componentes con errores. Para las incertidumbres se define
-una distribucion gaussiana con media nula por las caracteristicas de los componentes representados. El desvío estándar es 
+una distribución gaussiana con media nula por las características de los componentes representados. El desvío estándar es 
 configurable.
 
 Si se deseara realizar la calibración en modo completo, se deberían agregar errores de planitud de la antena. Con lo cual, 
@@ -371,7 +371,7 @@ realizar los distintos ensayos.
     \hline 
 	\multicolumn{2}{|c|}{\textbf{Parámetros de entrada}} \\ 
 	\hline
-    Frequencia		& Es la frecuencia central de trabajo en Hz \tabularnewline \hline 
+    Frecuencia		& Es la frecuencia central de trabajo en Hz \tabularnewline \hline 
     Potencia		& Potencia con la que se alimenta la antena en db \tabularnewline \hline 
     Fase			& Fase con la que se alimenta la antena en grados \tabularnewline \hline 
     Row Steering	& Apuntamiento horizontal que se le quiere dar a la señal transmitida, en grados  \tabularnewline \hline 
@@ -440,9 +440,8 @@ En este capítulo se introdujo la estructura de la aplicación que modela tanto 
 como las posibles estrategias a tomar por la UCC para calibrar la misma. Se definieron las posibles incertidumbres y errores que
 se pueden simular en las distintos componentes de la antena y las distintas estrategias para armar lazos de calibración para el 
 método de calibración interna por acoplamientos mutuos. El modelo desarrollado de la antena es completamente flexible para
-definir cualquier tipo de estructura de antena deseada y así de esta forma, estudiar y comparar las distintas topologías. 
+definir cualquier tipo de estructura de antena deseada y así de esta forma, poder estudiar y comparar las distintas topologías. 
 
 Cabe destacar que cada clase del modelo de antena posee tests unitarios que validan sus métodos individualmente. A su vez, se
 escribieron tests de integración para asegurar el correcto funcionamiento del simulador.
-de integración aplicación donde se simulan funcionales para 
 
