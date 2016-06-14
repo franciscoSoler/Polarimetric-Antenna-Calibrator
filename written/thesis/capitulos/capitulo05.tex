@@ -9,7 +9,8 @@ En este capítulo se utiliza toda la información descrita en los capítulos ant
 	\item El modelo matemático y algorítmico de la calibración clásica \ref{ch:classicalCalibration}.
 	\item El modelo matemático y algorítmico de la calibración por acoplamientos mutuos \ref{ch:mutualCalibration}.
 \end{itemize}
-para definir las especificaciones del problema completo y el diseño de la arquitectura de software que cubra dichas especificaciones. 
+
+Para definir las especificaciones del problema completo y el diseño de la arquitectura de software que cubra dichas especificaciones. 
 
 
 \section{Especificaciones del problema} \label{sc:specifications}
@@ -37,10 +38,10 @@ vez son consideradas las especificaciones del problema.
     \item Dimensión de antena: se debe poder configurar la cantidad de elementos radiantes por columna y fila de la antena.
     \item Distancia entre elementos radiantes: Se debe poder configurar la distancia entre elementos radiantes.
 
-    \item Configuración individual de componentes: Se debe poder configurar los atributos que afecten la modelización de cada
+    \item Configuración individual de componentes: Se deben poder configurar los atributos que afecten la modelización de cada
 		componente de la antena; largo, atenuación y desfase por metro de cables.
 
-    \item Modelización de dispersiones: se debe poder configurar las dispersiones en el comportamiento de cada componente de la
+    \item Modelización de dispersiones: se deben poder configurar las dispersiones en el comportamiento de cada componente de la
 		antena de forma independiente.
 
     \item Introducción de elementos de control en el lazo de calibración: se deben poder configurar los atenuadores y
@@ -87,7 +88,7 @@ vez son consideradas las especificaciones del problema.
 
 El modelo de antena está programado de tal forma que se lo pueda utilizar para simular una antena con parámetros de RF. La
 misma está conformada por los siguientes componentes: cables, PSCs, TRMs, desfasadores y elementos radiantes. Cada uno de estos
-está modelado con los conectores asociados que permiten interconectarlos entre sí. Además se modeliza las interacciones entre
+está modelado con los conectores asociados que permiten interconectarlos entre sí. Además se modelizan las interacciones entre
 ellos por medio de los acoplamientos entre elementos radiantes. 
 
 Como se van a modelar desvíos en el comportamiento de los distintos componentes de la antena debido a diversos factores, en
@@ -139,7 +140,7 @@ distinto. En la figura \ref{fig:2RMAntenna} se muestra la antena que se construy
  \label{fig:2RMAntenna}
 \end{figure}
 
-Una vez obtenida los componentes que determinan la estructura de la antena, es necesario definir las características físicas de
+Una vez obtenidos los componentes que determinan la estructura de la antena, es necesario definir las características físicas de
 cada uno de ellos. La tabla \ref{tab:propertiesOfComponents} lista dichas las propiedades.
 
 \begin{table}[H]
@@ -191,7 +192,7 @@ teniendo como configuración: \enquote*{quantityRows}: 1, \enquote*{quantityColu
 
 Una vez creada la estructura completa de la antena, es necesario determinar que componentes van a tener desvíos en el
 comportamiento deseado. Para ello, se agrega una lista indicando los componentes con errores. Para las incertidumbres se define
-una distribución gaussiana con media nula por las características de los componentes representados. El desvío estándar es 
+una distribución gaussiana con media cero por las características de los componentes representados. El desvío estándar es 
 configurable.
 
 Si se deseara realizar la calibración en modo completo, se deberían agregar errores de planitud de la antena. Con lo cual, 
@@ -202,7 +203,7 @@ se desarrolló el modelo con planitud ideal.
 \subsection{Calibrador}
 
 En la figura \ref{fig:modelPackage} se muestra el diagrama de clases del calibrador del modelo de antena. Se puede observar que
-la clase \enquote*{Antena}, la cual pertenece al modelo, modeliza el comportamiento de todos sus componentes. Los calibradores
+la clase \enquote*{Antena}, la cual pertenece al modelo, simula el comportamiento de todos sus componentes. Los calibradores
 pueden ser el clásico o el de acoplamientos mutuos; el primero utiliza un creador de señales chirp y de códigos walsh, en
 cambio, el segundo utiliza clases del tipo MatrixCalibratorBuilder, las cuales tienen distintas estrategias para generar
 ecuaciones en base a los lazos de calibración generados.
@@ -246,7 +247,7 @@ mismos, como el método de calibración utilizado.
 \subsubsection{Casos de incertidumbres}
 
 Los posibles errores que afectan directamente a los calibradores son: error de ganancia entre pulsos, error de ganancia de la
-chirp replica y error de fase del walsh. Todos estos errores son tratados como gaussianos con media cero. A continuación se
+chirp replica y error de fase del walsh. Todos estos son considerados con distribución gaussiana con media cero. A continuación se
 describen cada uno de ellos:
 \begin{itemize}
 	\item Desvíos de ganancia o fase entre pulsos: Esta incertidumbre se puede dar por inestabilidades en el oscilador local que
@@ -440,7 +441,7 @@ En este capítulo se introdujo la estructura de la aplicación que modela tanto 
 como las posibles estrategias a tomar por la UCC para calibrar la misma. Se definieron las posibles incertidumbres y errores que
 se pueden simular en las distintos componentes de la antena y las distintas estrategias para armar lazos de calibración para el 
 método de calibración interna por acoplamientos mutuos. El modelo desarrollado de la antena es completamente flexible para
-definir cualquier tipo de estructura de antena deseada y así de esta forma, poder estudiar y comparar las distintas topologías. 
+definir cualquier tipo de estructura de antena deseada y así de esta forma, estudiar y comparar las distintas topologías. 
 
 Cabe destacar que cada clase del modelo de antena posee tests unitarios que validan sus métodos individualmente. A su vez, se
 escribieron tests de integración para asegurar el correcto funcionamiento del simulador.

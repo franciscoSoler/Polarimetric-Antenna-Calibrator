@@ -2,9 +2,6 @@
 \label{ch:simulations}
 \lhead{\emph{Ejecución de las simulaciones}}
 
-\todo{Cosas a terminar al volver a correr el programa:
-* Especificar que se acepta una mascara de +- 1dB}
-
 En este capítulo se presentan los casos de simulación, que se construyen sobre la base del modelo de antena desarrollado para
 estudiar y comparar como se comportan ambos métodos de calibración interna: clásica y complementaria utilizando acoplamientos
 mutos entre polarizaciones ortogonales.
@@ -37,13 +34,15 @@ ganancia del lóbulo principal del diagrama de radiación en función del desví
 Todos los casos de simulación realizados con ambos calibradores en las secciones previamente mencionadas poseen las siguientes
 características:
 \begin{enumerate}
-	\item Se calibra con tres apuntamientos distintos. Los cuales son uniforme (implica que todos los TRMs desfasan cero grados),
+	\item Se calibra con tres apuntamientos distintos. Los cuales son: uniforme (implica que todos los TRMs desfasan cero grados),
 		10 grados en la dirección horizontal, o azimut, y 10 grados en la dirección vertical, o rango. Se proponen distintos de
 		apuntamientos para evaluar cómo funcionan los métodos. 
 	\item Se muestran dos gráficos, de potencia y fase transmitida por cada ER para cada apuntamiento utilizado. En los cuales se
-		observan las señales sin calibrar, la cual se corresponde a la señales previa a la calibración, calibrada e ideal. 
+		observan las señales sin calibrar, las cuales se corresponden con las señales previa a la calibración, calibrada e ideal. 
 	\item Se grafican los diagramas de radiación de la antena para los cortes horizontal y vertical de las señales transmitidas
-		sin calibrar, calibradas e ideales.
+		sin calibrar, calibradas e ideales. 
+	\item Los diagramas de radiación tienen una máscara de $\pm 1 dB$ con respecto al diagrama ideal. Si la diferencia es mayor,
+		el diagrama posee errores no es admisibles. 
 	\item Para una mayor claridad en los gráficos, se presentan los resultados de las calibraciones para un estado puntual, en
 		otras palabras, no se realizan ensayos de montecarlo. Salvo que dentro de la sección se indique lo contrario.
 \end{enumerate}
@@ -1217,7 +1216,7 @@ calibración (cal).
 	\label{fig:chirpErrClassical0deg}
 \end{figure}
 
-En la tabla \ref{tab:chirpErrClassical0deg} se pueden apreciar que si bien las ganancias de los lóbulos principales son muy 
+En la tabla \ref{tab:chirpErrClassical0deg} se puede apreciar que si bien las ganancias de los lóbulos principales son muy 
 diferentes, rondando los 2.4 dBs, los diagramas de radiación poseen lóbulos secundarios mayores al ideal por medio dBc. El 
 ancho del lóbulo principal también se ve afectado, resultando en 0.6 grados mayor para el corte vertical.
 
@@ -1267,7 +1266,7 @@ calibración (cal).
 	\label{fig:chirpErrClassical10degCol}
 \end{figure}
 
-En la tabla \ref{tab:chirpErrClassical10degCol} se pueden apreciar que si bien las ganancias de los lóbulos principales son 
+En la tabla \ref{tab:chirpErrClassical10degCol} se puede apreciar que si bien las ganancias de los lóbulos principales son 
 diferentes por 9.2 dBs, las diferencias por los lóbulos secundarios rondan los .-2 dBc, valor que supera ampliamente el límite
 admisible de -1dBc. El ancho del lóbulo principal también se ve afectado, resultando en aproximadamente 0.8 grados mayor para el
 corte horizontal.
@@ -1318,7 +1317,7 @@ calibración (cal).
 	\label{fig:chirpErrClassical10degRow}
 \end{figure}
 
-En la tabla \ref{tab:chirpErrClassical10degRow} se pueden apreciar que si bien las ganancias de los lóbulos principales son 
+En la tabla \ref{tab:chirpErrClassical10degRow} se puede apreciar que si bien las ganancias de los lóbulos principales son 
 diferentes por 14.26 dBs, las diferencias por los lóbulos secundarios rondan los -6.73 dBc, valor que supera ampliamente el
 máximo permitido de -1dBc. El ancho del lóbulo principal también se ve afectado, resultando en aproximadamente -1.2 grados
 menor.
@@ -1374,7 +1373,7 @@ calibración (cal).
 	\label{fig:chirpErrMutual0deg}
 \end{figure}
 
-En la tabla \ref{tab:chirpErrMutual0deg} se pueden apreciar que si bien las ganancias de los lóbulos principales son 
+En la tabla \ref{tab:chirpErrMutual0deg} se puede apreciar que si bien las ganancias de los lóbulos principales son 
 diferentes por 0.1 dBs, las diferencias por los lóbulos secundarios rondan los -0.04 dBc. Se puede concluir que el 
 calibrador es bastante robusto frente a esta clase de incertidumbres. El ancho del lóbulo principal también se ve afectado,
 resultando en 0.2 grados mayor para el corte horizontal.
@@ -1424,9 +1423,9 @@ calibración (cal).
 	\label{fig:chirpErrMutual10degCol}
 \end{figure}
 
-En la tabla \ref{tab:chirpErrMutual10degCol} se pueden apreciar que las ganancias de los lóbulos principales es mayor a la
+En la tabla \ref{tab:chirpErrMutual10degCol} se puede apreciar que las ganancias de los lóbulos principales es mayor a la
 deseada por 0.3 dB y que los peores casos de los lóbulos principales son de -0.07 dBc para el corte horizontal y -0.18 para el
-corte vertical. Se puede concluir que el calibrador es bastante robusto frente a esta clase de incertidumbres. El ancho del
+corte vertical. Se puede concluir que el calibrador es robusto frente a esta clase de incertidumbres. El ancho del
 lóbulo principal también se ve afectado, resultando en aproximadamente 0.2 grados menor para el corte vertical.
 
 \begin{table}[H]
@@ -1474,9 +1473,9 @@ calibración (cal).
 	\label{fig:chirpErrMutual10degRow}
 \end{figure}
 
-En la tabla \ref{tab:chirpErrMutual10degRow} se pueden apreciar que las ganancias de los lóbulos principales resultan ser menores
+En la tabla \ref{tab:chirpErrMutual10degRow} se puede apreciar que las ganancias de los lóbulos principales resultan ser menores
 a las esperadas por 1.3 dBs y que el peor caso de diferencia de los lóbulos secundarios es de -0.12 dBc para el corte horizontal.
-Se puede concluir que el calibrador es bastante robusto frente a esta clase de incertidumbres. El ancho del lóbulo principal
+Se puede concluir que el calibrador es robusto frente a esta clase de incertidumbres. El ancho del lóbulo principal
 también se ve afectado, resultando en aproximadamente 0.2 grados mayor para el corte horizontal.
 
 \begin{table}[H]
@@ -1537,7 +1536,7 @@ calibración (cal).
 	\label{fig:chirpRepErrClassical0deg}
 \end{figure}
 
-En la tabla \ref{tab:chirpRepErrClassical0deg} se pueden apreciar que no hay diferencias en los lóbulos secundarios ni en el
+En la tabla \ref{tab:chirpRepErrClassical0deg} se puede apreciar que no hay diferencias en los lóbulos secundarios ni en el
 ancho del lóbulo principal. Si es apreciable la diferencia en ganancia de todo el diagrama de radiación, el cual es de 6.1 dB
 menor al esperado.
 
@@ -1587,7 +1586,7 @@ calibración (cal).
 	\label{fig:chirpRepErrClassical10degCol}
 \end{figure}
 
-En la tabla \ref{tab:chirpRepErrClassical10degCol} se pueden apreciar que no hay diferencias en los lóbulos secundarios ni en el
+En la tabla \ref{tab:chirpRepErrClassical10degCol} se puede apreciar que no hay diferencias en los lóbulos secundarios ni en el
 ancho del lóbulo principal. Si es apreciable la diferencia en ganancia de todo el diagrama de radiación, el cual es de 6.1 dB
 menor al esperado.
 
@@ -1637,7 +1636,7 @@ calibración (cal).
 	\label{fig:chirpRepErrClassical10degRow}
 \end{figure}
 
-En la tabla \ref{tab:chirpRepErrClassical10degRow} se pueden apreciar que no hay diferencias en los lóbulos secundarios ni en el
+En la tabla \ref{tab:chirpRepErrClassical10degRow} se puede apreciar que no hay diferencias en los lóbulos secundarios ni en el
 ancho del lóbulo principal. Si es apreciable la diferencia en ganancia de todo el diagrama de radiación, el cual es de 6.1 dB
 menor al esperado.
 
@@ -1703,7 +1702,7 @@ calibración (cal).
 	\label{fig:wallErrClassical0deg}
 \end{figure}
 
-En la tabla \ref{tab:wallErrClassical0deg} se pueden apreciar el peor caso de diferencias de lóbulos secundarios es de -0.25 dBc
+En la tabla \ref{tab:wallErrClassical0deg} se puede apreciar el peor caso de diferencias de lóbulos secundarios es de -0.25 dBc
 en el corte horizontal. A su vez se puede observar que el ancho del lóbulo principal no resulta modificado y que la ganancia del
 mismo es mayor que la esperada por 0.41 dB.
 
@@ -1756,7 +1755,7 @@ calibración (cal).
 	\label{fig:wallErrClassical10degCol}
 \end{figure}
 
-En la tabla \ref{tab:wallErrClassical10degCol} se pueden apreciar el peor caso de diferencias de lóbulos secundarios es de 0.02 en
+En la tabla \ref{tab:wallErrClassical10degCol} se puede apreciar el peor caso de diferencias de lóbulos secundarios es de 0.02 en
 el corte vertical. A su vez se puede observar que el ancho del lóbulo principal no resulta modificado y que la ganancia del
 mismo es mayor que la esperada por 0.51 dB.
 
@@ -1809,7 +1808,7 @@ calibración (cal).
 	\label{fig:wallErrClassical10degRow}
 \end{figure}
 
-En la tabla \ref{tab:wallErrClassical10degRow} se pueden apreciar el peor caso de diferencias de lóbulos secundarios es de -0.3 dBc
+En la tabla \ref{tab:wallErrClassical10degRow} se puede apreciar el peor caso de diferencias de lóbulos secundarios es de -0.3 dBc
 en el corte horizontal. A su vez se puede observar que el ancho del lóbulo principal resulta ser más ancho por 0.2 grados en el
 corte vertical y que la ganancia del mismo es mayor que la esperada por 0.44 dB.
 
@@ -1910,7 +1909,7 @@ configuraciones de antena, una de 5 elementos y otra de 70.
 	\label{fig:antennaMontecarlo}
 \end{figure}
 
-La figura \ref{fig:antennaMontecarlo} muestra las imágenes de los resultados obtenidos, se puede llegar a la conclusión que a
+La figura \ref{fig:antennaMontecarlo} muestra las imágenes de los resultados obtenidos. Se puede llegar a la conclusión que a
 medida que se tienen más elementos, la incertidumbre en la ganancia del lóbulo principal se ve disminuida.
 
 

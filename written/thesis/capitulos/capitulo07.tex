@@ -1,7 +1,7 @@
 \chapter{Resultados y líneas futuras}
 
-El presente capítulo sirve de resumen a los resultados obtenidos tras la finalización del proyecto. Se enuncian las 
-conclusiones y se propone las diferentes lineas de ampliación del trabajo.
+El presente capítulo sirve de resumen de los resultados obtenidos tras la finalización del proyecto. Se enuncian las 
+conclusiones y se proponen diferentes lineas de ampliación del trabajo.
 
 \section{Resultados}
 
@@ -84,16 +84,16 @@ Este trabajo es la base para varias posibles líneas futuras de trabajo, a saber
 		elemento dañado.
 	\item Se puede modificar el algoritmo del método de calibración por acoplamientos mutuos para la detección y medición de 
 		la planitud de antena. Hay varias consideraciones a tener en cuenta, la primera es que el método no puede determinar 
-		unívocamente el estado de planitud la antena (hay dos posibles soluciones por la naturaleza del mismo), se debe hace uso de 
+		unívocamente el estado de planitud la antena (hay dos posibles soluciones por la naturaleza del mismo), se debe hacer uso de 
 		algún sistema externo para determinar cual de las dos posibles soluciones es la real. La segunda es que, para poder determinar
 		la cantidad de acoplamientos que hay en el panel y para disminuir la incertidumbre en los mismos, se deben calibrar la antena 
 		en todos sus modos a la vez.
 	\item Se puede realizar un ensayo modificando la distribución de la RFDN para determinar que configuración es la más robusta ante 
 		las dispersiones del comportamiento de dichos componentes.
 	\item Se puede ensayar el desempeño del algoritmo de calibración ante desadaptaciones de impedancias. 
-	\item Se puede hacer un análisis de transmitir con más de un ER a la vez para que la potencia transmitida sea mayor al armar
-		un lazo de calibración, de forma tal de incrementar la cantidad de ecuaciones disminuyendo la cantidad de elementos que
-		pertenecen a la zona de acoplamiento débil. 
+	\item Se puede hacer un análisis que conste de transmitir con más de un ER a la vez para que la potencia transmitida sea mayor
+		al armar un lazo de calibración, de forma tal de incrementar la cantidad de ecuaciones disminuyendo la cantidad de
+		elementos que pertenecen a la zona de acoplamiento débil. 
 \end{itemize}
 
 \section{Conclusiones}
@@ -113,14 +113,14 @@ recepción son el externo e interno. Se estudia y propone un método de calibrac
 necesidad de mantener controlados los parámetros individuales de cada elemento del conjunto de antena. El segundo grupo presenta
 la desventaja de no poder cumplir con dicho requerimiento dado que se determina la ganancia y fase del conjunto en su totalidad. 
 
-Uno de los método de calibración interna presentados es el clásico, el cual determina si un TRM funciona correctamente. 
+Uno de los métodos de calibración interna presentados es el clásico, el cual determina si un TRM funciona correctamente. 
 Sus principales desventajas son que no se puede calibrar el sistema en su totalidad por no abarcarlo completamente, que depende
 fuertemente del modelo térmico utilizado por la utilización de caracterizaciones de los componentes que no pertenecen a
 los lazos de calibración, que la complejidad de la electrónica se incrementa por el agregado de hardware dedicado y que se
 requiere mantener la temperatura de los componentes dentro del rango de las temperaturas caracterizadas.
 
 Otro método de calibración interna presentado y mejorado es el método por acoplamientos mutuos, el cual abarca toda la
-antena, logrando así poder calibrar y de esta forma controlar la ganancia transmitida y recibida por cada elemento radiante. A su
+antena, logrando así calibrar y de esta forma controlar la ganancia transmitida y recibida por cada elemento radiante. A su
 vez es complementario al método de calibración interna clásica. Otras ventajas que posee son que, al abarcar todo el sistema de
 antena, no es necesario el gasto de recursos en las campañas de caracterización, en tener que controlar tanto la temperatura de
 los componentes, en tener que agregar hardware dedicado de calibración. Aunque, requiere que se pueda transmitir y recibir de a
@@ -138,12 +138,12 @@ pudiéndose modificar la electrónica asociada a un mismo panel para determinar 
 Tambien, se lo puede reutilizar para ensayar otros métodos de calibración.
 
 Se utilizó el modelo de antena para determinar si los desvíos individuales de ganancia y fase de cada señal transmitida que 
-componen la antena afectan de igual magnitud en la ganancia del lóbulo principal del diagrama de radiación y se llegó a la 
+componen la antena afectan de igual magnitud a la ganancia del lóbulo principal del diagrama de radiación y se llegó a la 
 conclusión que a medida que se utiliza una antena con mayor cantidad de elementos radiantes, es menor la incertidumbre en este 
 parámetro. Por ejemplo, el desvío estándar de la ganancia del diagrama de radiación resulta 10 veces menor que el desvío de 
 ganancia de cada ER para una antena de 70 elementos radiantes.
 
-Por último, al realizar comparaciones de ambos métodos de calibración con desvíos de distintas naturalezas (por ejemplo desvíos
+Por último, al realizar comparaciones de ambos métodos de calibración con desvíos de diferentes naturalezas (por ejemplo desvíos
 en el comportamiento de distintos componentes, destrucción de componentes, inestabilidad en el generador, incertidumbre de medición 
 del receptor), se llegó a la conclusión que el método de calibración por acoplamientos mutuos es más robusto que el método de
 calibración interna clásico, por ende, se lo debería utilizar como complemento del clásico.

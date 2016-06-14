@@ -40,8 +40,8 @@ opacidad de la atmósfera es casi nula (ver figura \ref{fig:atmosphere}), puede 
 antenas poseen la capacidad de trabajar independientemente de las condiciones atmosféricas. En otras palabras, la señal casi no es 
 atenuada por la atmósfera, tampoco es interferida ni por las lluvias ni por las nubes. Por ejemplo, si se usa como parte de un 
 radar de apertura sintética, luego de un post procesamiento de la señal recibida, es posible obtener información sobre la 
-textura del terreno y sobre los sustratos inferiores de las coberturas boscosas. Dependiendo de que longitud de onda del rango de
-trabajo, se tiene de 3 cm a 30 cm de penetración.
+textura del terreno y sobre los sustratos inferiores de las coberturas boscosas. Dependiendo del rango de la longitud de onda de
+trabajo, se obtienen de 3 cm a 30 cm de penetración.
 
 \begin{figure}[H]
  \centering
@@ -69,7 +69,7 @@ antes al satélite que la más alejada, logrando así, tomar muestras de distint
 
 El tamaño de la zona iluminada se llama huella. Dicho tamaño depende tanto de las dimensiones de la antena como de la
 órbita del satélite o de la altura de vuelo del avión en que está colocada dicha antena. Como se observa en la imagen
-\ref{fig:footprint}, mientras más grande es la antena, más angosto es la huella, logrando así mejorar la resolución
+\ref{fig:footprint}, mientras más grande es la antena, más angosta es la huella, logrando así mejorar la resolución
 espacial.
 
 \begin{figure}[H]
@@ -85,7 +85,7 @@ Un conjunto de antenas en fase polarimétrica consta de una colección de $N$ el
 poseen el mismo diagrama de radiación y que están orientados en el mismo sentido y dirección en un ambiente tridimensional. No es
 necesario que estén espaciados regularmente ni que emitan los mismos valores de potencia y fase, pero si se asume
 que todos están alimentados con la misma frecuencia de trabajo. En la figura \ref{fig:phasedArrayAntenna} se pueden observar
-dos tipos de distribuciones comúnmente utilizadas.
+dos geometrías de distribución comúnmente utilizadas.
 
 \begin{figure}[H]
 	\centering
@@ -102,7 +102,7 @@ radiantes (ver figura \ref{fig:compositionAntenna}).
 
 \begin{figure}[H]
  \centering
- \includegraphics[width=10cm]{gfx/CompositionAntenna.png}
+ \includegraphics[width=12cm]{gfx/CompositionAntenna.png}
  \caption{Composición de un conjunto de antena con control de fase}
  \label{fig:compositionAntenna}
 \end{figure}
@@ -139,7 +139,7 @@ Los componentes utilizados para distribuir la señal son los siguientes:
 
 \begin{enumerate}
 	\item Divisor/Combinador de potencia de RF: este componente es el encargado de dividir la señal transmitida en tantos puertos 
-		de salida tenga y la de sumar/combinar las potencias recibidas.
+		de salida tenga y de sumar/combinar las potencias recibidas.
 	\item Cable: este componente es el utilizado para unir el resto de los componentes.
 	\item Módulo de Transmisión y Recepción: Este componente es el elemento de control de fase y atenuación de la señal emitida y
 		recibida por cada elemento radiante. Se modeliza que hay uno por cada elemento radiante sin embargo, la construcción y 
@@ -154,7 +154,7 @@ Los componentes utilizados para distribuir la señal son los siguientes:
 			\item Amplificador: Este componente es de ganancia fija y sirve para amplificar la señal tanto transmitida como recibida. 
 		\end{itemize}
 	\item Elemento Radiante: Este componente es el emisor de la señal a transmitir y/o el receptor. En este tipo de antenas un
-		ER puede cumplir una o ambas funcionalidades.
+		ER puede cumplir una o ambas funciones.
 	\item Circulador: Este componente posee tres puertos y es utilizado para separar los caminos de la señal transmitida (Tx) de 
 		la recibida (Rx) cuando un mismo elemento radiante posee las funcionalidades de transmisión y recepción. 
 \end{enumerate}
@@ -165,7 +165,7 @@ cuerpo responde de forma distinta a cada tipo de polarización.
 
 \subsection{Diagrama de radiación de antena}
 
-Un conjunto de antena puede armarse recursivamente, esto es, que un elemento sea, en sí mismo, un conjunto. Un diagrama de antena es
+Un conjunto de antena puede armarse recursivamente, esto es, que un elemento sea en sí mismo, un conjunto. Un diagrama de antena es
 un diagrama de radiación polar que resulta de reemplazar cada elemento por un radiador isótropo. Si se asume que el diagrama de
 radiación de cada elemento es idéntico al del resto, tomando una cierta incertidumbre, el diagrama de radiación total resulta de
 la multiplicación de todos los diagramas de todos los elementos. Este resultado no depende de si se consideran los diagramas de
@@ -301,7 +301,7 @@ necesario para cumplir con el apuntamiento deseado. La ecuación a continuación
 \subsection{Calibración interna de una antena polarimétrica}
 
 La respuesta de los componentes en el tiempo no se mantiene invariante. Hay diversos factores que influyen en su comportamiento a
-medida que transcurre su vida útil. Por un lado su envejecimiento natural por el uso. Por otro lado las variaciones en su 
+medida que transcurre su vida útil. Por un lado su envejecimiento natural por el uso, por otro lado las variaciones en su 
 comportamiento por efectos de temperatura. En algunos casos, cuando se trata de componentes activos, el desgaste que pueden
 sufrir de manera acelerada por superar niveles de derating. Dichas variaciones deben ser corregidas, buscando que no solo todos
 los caminos de recepción atenúen y desfasen exactamente lo mismo, sino que también sea un valor conocido. En transmisión el
@@ -346,7 +346,7 @@ calibración, se pueden medir las variaciones de la señal recibida y, si hubies
  \label{fig:calibrationLoop}
 \end{figure}
 
-En caso que hayan componentes que puedan influenciar en la fase y atenuación transmitida por la antena fuera del lazo de
+En caso que haya componentes que puedan influenciar en la fase y atenuación transmitida por la antena fuera del lazo de
 calibración, al calibrar el sistema no se podrá medir correctamente la transferencia del sistema, por lo tanto, no se podrán
 corregir completamente las variaciones de la misma. Para acotar este error, se deben caracterizar los componentes que están
 fuera del lazo asumiendo que dichas caracterizaciones son válidas para toda la vida útil de los mismos.
@@ -357,7 +357,7 @@ otro sin calibrar. Se puede observar como los niveles de los lóbulos secundario
 \begin{figure}[H]
  \centering
  \includegraphics[width=10cm]{gfx/nonCalPattern.png}
- \caption{Diagrama de radiación de antena calibrado vs no calibrado.}
+ \caption{Diagrama de radiación de antena calibrado (en azul) vs no calibrado (en negro).}
  \label{fig:nonCalPattern}
 \end{figure}
 
@@ -371,7 +371,7 @@ de reflexión sean nulos, esto es $S_{11} = S_{22} = 0$.
 \subsection{Elemento Radiante (ER)}
 
 Las antenas utilizadas como elementos radiantes en un conjunto de antena son los dipolos y monopolos \cite{Balanis2012}, en esta
-tesis se modelará un monopolos como ER, ver figura \ref{fig:radiatingElement}.
+tesis se modelará un monopolo como ER, ver figura \ref{fig:radiatingElement}.
 \begin{figure}[H]
 	\centering
 	\subfloat[Rectangular]{
@@ -412,6 +412,7 @@ representa.
 $$
 \mathbf{S} = \begin{pmatrix} 0 & e^{-\gamma l}\\e^{-\gamma l} & 0\end{pmatrix}
 $$
+
 Donde $\gamma = \alpha + j\beta$ es una constante de propagación compleja. $\alpha$ es la atenuación de la línea en [neper/m]
 y $\beta = 2\pi/\delta$ con la longitud de onda $\delta$. Para una línea sin pérdidas se obtiene $|S_{21}| = 1$
 
@@ -647,8 +648,8 @@ $$
 $$
 
 Como se desea caracterizar la respuesta de una cascada de redes de dos puertos, se transforman todas las matrices de cada
-componente a parámetros T (ver ecuaciones \ref{eq:s2t}), se multiplican todas las matrices como se muestra en la ecuación
-\ref{eq:cascade} y luego, la matriz resultante se la vuelve a convertir a parámetros S (ver ecuaciones \ref{eq:t2s}).
+componente a parámetros T (ver ecuación \ref{eq:s2t}), se multiplican todas las matrices como se muestra en la ecuación
+\ref{eq:cascade} y luego, la matriz resultante se la vuelve a convertir a parámetros S (ver ecuación \ref{eq:t2s}).
 
 $$
 \begin{aligned}

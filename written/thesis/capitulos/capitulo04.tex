@@ -24,16 +24,16 @@ muestra un ejemplo de lo anteriormente mencionado.
 \end{figure}
 
 Para llevar a cabo dicho método, este tipo de antenas debe cumplir un requerimiento muy importante que es poder transmitir con
-un elemento radiante y simultáneamente recibir con otro sin que se sature, deforma tal de trabajar en la zona lineal, o peor
+un elemento radiante y simultáneamente recibir con otro sin que se sature, de forma tal de trabajar en la zona lineal, o peor
 aún, que se dañe o destruya. Normalmente, este requerimiento implica separar las redes de transmisión y recepción
-\cite{Gao2001}. Para antenas que no cumplen la separación de la redes de transmisión y recepción aún se puede utilizar esta
+\cite{Gao2001}. Para antenas que no cumplen la separación de las redes de transmisión y recepción aún se puede utilizar esta
 idea si se transmite en una polarización y se recibe en otra, pues son dos lineas físicamente separadas.
 
 Se tienen una serie de requisitos básicos para poder implementar este método que deben ser tenidos en cuenta desde el diseño
 mismo.
 
 \begin{enumerate}
-	\item Modos de TRMs: Cada TRM debe poder tener tres modos de funcionamiento posibles, los cuales son Tx, Rx y protegido.
+	\item Modos de TRMs: Cada TRM debe tener tres modos de funcionamiento posibles, los cuales son Tx, Rx y protegido.
 	\item Control Individual de TRMs: Se debe poder comandar desde la UCC el estado o modo individual de cada TRM, de esta forma, 
 		se puede determinar que TRM estará en transmisión, en recepción y en modo protegido.
 	\item Acoplamiento cruzado: Dado que la potencia de transmisión generalmente es mayor que la máxima posible en recepción, se
@@ -71,8 +71,9 @@ ejemplifica las tres zonas de recepción al emitir con el elemento radiante cent
  \label{fig:levels}
 \end{figure}
 
-Tomando en cuenta lo anteriormente mencionado, determinando la potencia de transmisión, el acoplamiento mutuo que depende de la
-distancia entre ER y la potencia máxima de recepción, se pueden determinar todos los posibles lazos de calibración del método.
+Tomando en cuenta lo anteriormente mencionado, determinando la potencia de transmisión y considerando que el acoplamiento mutuo
+depende de la distancia entre ER y el rango de potencia en recepción admisible, se pueden determinar todos los posibles lazos de
+calibración del método.
 
 
 \subsection{Control de estados de TRMs}
@@ -97,9 +98,9 @@ acoplamiento mutuo de dicho lazo de calibración pertenece a la zona de acoplami
 
 \subsection{Análisis de factibilidad} \label{ssc:feasibility}
 
-Como el método de calibración debe determinar tanto la potencia y fase de la antena transmitida y recibida como la planitud de
-la misma, se deben determinar tanto la cantidad de lazos de calibración, que determinan el número de ecuaciones, como la
-cantidad de incógnitas.
+Como el método de calibración debe obtener tanto la potencia y fase de la antena transmitida y recibida como la planitud de
+la misma, se deben determinar la cantidad de incógnitas y la cantidad de lazos de calibración, que implican el número de 
+ecuaciones.
 
 Si se modifican secuencialmente todos los receptores y luego todos los emisores del lazo de calibración de la figura
 \ref{fig:mutual_general}, asumiendo que todos los acoplamientos mutuos pertenecen a la zona de acoplamiento lineal, se pueden obtener 
@@ -114,20 +115,20 @@ Para determinar la cantidad de incógnitas es importante destacar que el recepto
 señal, de esta forma, se utilizarán valores complejos tanto para las señales medidas por la UCC, como para las incógnitas.
 
 Asumiendo el mismo conjunto de antena polarimétrica de $M$ por $N$ elementos radiantes, como se puede transmitir y recibir en
-dos polarizaciones (H y V), la antena cuenta con $4MN$ incógnitas de potencia de señal transmitida/recibida (2 por Tx en H/V y
+dos polarizaciones (H y V), la antena cuenta con $4M\cdot N$ incógnitas de potencia de señal transmitida/recibida (2 por Tx en H/V y
 otras 2 por Rx en H/V).
 
 En el apéndice \ref{AppendixA} se realiza el cálculo de la cantidad de acoplamientos mutuos que posee un conjunto de antena
 polarimétrica, particularmente, la ecuación \ref{eq:amountMutCoupling} muestra la cantidad de incógnitas, que, para este caso,
-resulta ser de $MN(MN-1)/2$. Por lo tanto, este conjunto de antena posee en total $MN(MN + 7)/2$ incógnitas.
+resulta ser de $M\cdot N(M\cdot N-1)/2$. Por lo tanto, este conjunto de antena posee en total $M\cdot N(M\cdot N + 7)/2$ incógnitas.
 
 Para obtener el menor conjunto de antena al cual el método es aplicable, la cantidad de lazos, que determina la cantidad de
 ecuaciones, debe ser mayor a la cantidad de incógnitas, 
 $$
 \begin{aligned}
-	2(MN)^2 &\ge  \dfrac{MN(MN + 7)}{2} \\
-	4MN &- MN \ge7 \\
-	MN &\ge \dfrac{7}{3}
+	2(M\cdot N)^2 &\ge  \dfrac{M\cdot N(M\cdot N + 7)}{2} \\
+	4M\cdot N &- M\cdot N \ge7 \\
+	M\cdot N &\ge \dfrac{7}{3}
 \end{aligned}
 $$
 
@@ -150,10 +151,10 @@ la cantidad de ecuaciones necesarias, o lazos de calibración. Los diferentes mo
 \begin{itemize}
 	\item \textbf{Modo completo:} En esta modalidad se estima la ganancia en transmisión y en recepción, respectivamente, en ambas
 		polarizaciones H y V. Se determinan ademas los valores de acoplamientos mutuos. La cantidad de ecuaciones necesarias es de
-		$MN(MN + 7)/2$, ver sección \ref{ssc:feasibility}.
+		$M\cdot N(M\cdot N + 7)/2$, ver sección \ref{ssc:feasibility}.
 	\item \textbf{Modo parcial:} En esta modalidad se estima la ganancia en transmisión y recepción, respectivamente, en ambas
 		polarizaciones H y V reutilizando el valor guardado de la planitud de la antena calculado previamente. La cantidad de
-		ecuaciones necesarias es de $4MN$, ver sección \ref{ssc:feasibility}.
+		ecuaciones necesarias es de $4M\cdot N$, ver sección \ref{ssc:feasibility}.
 	\item \textbf{Modo planitud ideal:} Esta modalidad, la cual es la desarrollada en la tesis, posee la misma cantidad de
 		ecuaciones que el modo rápido, la diferencia es que se asume que la antena es perfectamente plana.
 \end{itemize}
@@ -176,21 +177,21 @@ compuesta por:
 Por lo tanto, la función de transferencia completa resulta,
 
 \begin{equation}
-	L_{m,n} = w_{Tm} u_{Tm} C_{m,n} w_{Rn} u_{Rn}
+	L_{m,n} = w_{Tm} \cdot u_{Tm} \cdot C_{m,n} \cdot w_{Rn} \cdot u_{Rn}
 	\label{eq:transfer_mn}
 \end{equation}
 donde el primer elemento del subíndice de $L$ es el transmisor y el segundo el receptor. Si se transmite con el mismo elemento,
 $e_m$, pero se recibe con otro, $e_{n + 1}$, la transferencia resulta
 
 \begin{equation}
-	L_{m,n + 1} = w_{Tm} u_{Tm} C_{m,n + 1} w_{Rn + 1} u_{Rn + 1}
+	L_{m,n + 1} = w_{Tm} \cdot u_{Tm} \cdot C_{m,n + 1} \cdot w_{Rn + 1} \cdot u_{Rn + 1}
 	\label{eq:transfer_mn1}
 \end{equation}
 
 Tomando la relación de ambas transferencias \ref{eq:transfer_mn} y \ref{eq:transfer_mn1}, 
 
 \begin{equation}
-	W^{m}_{Rn,n + 1} = \dfrac{L_{m,n}}{L_{m,n + 1}} = \dfrac{C_{m,n} w_{Rn} u_{Rn}}{C_{m,n + 1} w_{Rn + 1} u_{Rn + 1}}
+	W^{m}_{Rn,n + 1} = \dfrac{L_{m,n}}{L_{m,n + 1}} = \dfrac{C_{m,n} \cdot w_{Rn} \cdot u_{Rn}}{C_{m,n + 1} \cdot w_{Rn + 1} \cdot u_{Rn + 1}}
 \end{equation}
 donde el superíndice de la relación $W$ indica el elemento en común y el subíndice indica los otros elementos participantes y
 sus modos, T para transmisión y R para recepción. El orden de los elementos del subíndice indican la relación, el primero va
@@ -205,10 +206,10 @@ a comunicar.
 Ahora, si se combinan las funciones de transferencia $L_{m,n+1}$ y $L_{m,n+2}$, la relación resulta,
 
 \begin{equation}
-	W^{m}_{Rn + 1,n + 2} = \dfrac{L_{m,n+1}}{L_{m,n+2}} = \dfrac{C_{m,n+1} w_{Rn+1} u_{Rn+1}}{C_{m,n + 2} w_{Rn + 2} u_{Rn + 2}}
+	W^{m}_{Rn + 1,n + 2} = \dfrac{L_{m,n+1}}{L_{m,n+2}} = \dfrac{C_{m,n+1} \cdot w_{Rn+1} \cdot u_{Rn+1}}{C_{m,n + 2} \cdot w_{Rn + 2} \cdot u_{Rn + 2}}
 \end{equation}
 
-Ahora, si se combinan las funciones de transferencia $L_{m,n}$ y $L_{m,n+2}$,
+Y si se combinan las funciones de transferencia $L_{m,n}$ y $L_{m,n+2}$,
 
 \begin{equation}
 	W^{m}_{Rn,n + 2} = \dfrac{L_{m,n}}{L_{m,n + 2}}\cdot\dfrac{L_{m,n+1}}{L_{m,n+1}} = W^{m}_{Rn,n+1}\cdot W^{m}_{Rn+1,n + 2}
@@ -219,7 +220,7 @@ Generalizando, se pueden obtener todos los lazos de calibración en función de 
 
 \begin{equation}
 	W^{m}_{R0,k} = \prod_{i=0}^{k-1} W^{m}_{Ri,i+1} = \prod_{i=0}^{k-1}\dfrac{L_{m,i}}{L_{m,i+1}} =
-		\prod_{i=0}^{k-1}\dfrac{C_{m,i} w_{Ri} u_{Ri}}{C_{m,i + 1} w_{Ri + 1} u_{Ri + 1}}
+		\prod_{i=0}^{k-1}\dfrac{C_{m,i} \cdot w_{Ri} \cdot u_{Ri}}{C_{m,i + 1} \cdot w_{Ri + 1} \cdot u_{Ri + 1}}
 	\label{eq:rx_cal}
 \end{equation}
 
@@ -227,7 +228,7 @@ Si se realiza la misma deducción, pero en vez de transmitir siempre con el mism
 
 \begin{equation}
 	W^{m}_{T0,k} = \prod_{i=0}^{k-1} W^{m}_{Ti,i+1} = \prod_{i=0}^{k-1}\dfrac{L_{i,m}}{L_{i+1, m}} =
-		\prod_{i=0}^{k-1}\dfrac{w_{Ti} u_{Ti} C_{i,m}}{w_{Ti + 1} u_{Ti + 1}C_{i + 1, m}}
+		\prod_{i=0}^{k-1}\dfrac{w_{Ti} \cdot u_{Ti} \cdot C_{i,m}}{w_{Ti + 1} \cdot u_{Ti + 1} \cdot C_{i + 1, m}}
 	\label{eq:tx_cal}
 \end{equation}
 
@@ -248,14 +249,14 @@ mínima necesaria para poder utilizar el método y la cantidad de ecuaciones red
 resultado. Las ecuaciones para recepción y transmisión simplificadas resultan.
 
 \begin{equation}
-	W^{'}_{R0,k} = \prod_{i=0}^{k-1} W^{'}_{Ri,i+1} = \prod_{i=0}^{k-1}\dfrac{w_{Ri} u_{Ri}}{w_{Ri + 1} u_{Ri + 1}} =
-	\dfrac{w_{R0} u_{R0}}{w_{Rk} u_{Rk}}
+	W^{'}_{R0,k} = \prod_{i=0}^{k-1} W^{'}_{Ri,i+1} = \prod_{i=0}^{k-1}\dfrac{w_{Ri} \cdot u_{Ri}}{w_{Ri + 1} \cdot u_{Ri + 1}} =
+	\dfrac{w_{R0} \cdot u_{R0}}{w_{Rk} \cdot u_{Rk}}
 	\label{eq:rx_simp_cal}
 \end{equation}
 
 \begin{equation}
-	W^{'}_{T0,k} = \prod_{i=0}^{k-1} W^{'}_{Ti,i+1} = \prod_{i=0}^{k-1}\dfrac{w_{Ti} u_{Ti}}{w_{Ti + 1} u_{Ti + 1}} =
-	\dfrac{w_{T0} u_{T0}}{w_{Tk} u_{Tk}}
+	W^{'}_{T0,k} = \prod_{i=0}^{k-1} W^{'}_{Ti,i+1} = \prod_{i=0}^{k-1}\dfrac{w_{Ti} \cdot u_{Ti}}{w_{Ti + 1} \cdot u_{Ti + 1}} =
+	\dfrac{w_{T0} \cdot u_{T0}}{w_{Tk} \cdot u_{Tk}}
 	\label{eq:tx_simp_cal}
 \end{equation}
 
@@ -277,7 +278,7 @@ si se lo utiliza para recibir la señal, se calibra transmisión. La figura \ref
 
 Como el método de resolución utilizado en este método es de naturaleza lineal, resolviendo ecuaciones de la siguiente forma
 $Ax = b$, y como la fase de una señal es de naturaleza modular, de 360 grados, se pueden cometer errores en la resolución.
-Dependiendo de como sea $A$ y que valores tenga $x$, $b$ no necesariamente está contenido dentro del conjunto solución (en
+Dependiendo de cómo sea $A$ y qué valores tenga $x$, $b$ no necesariamente está contenido dentro del conjunto solución (en
 módulo 360) generando así un error en la resolución de la estimación del valor $x$.
 
 Para ejemplificar, se asume que se tiene un conjunto de antena de tres elementos radiantes. La RFDN (en Tx y Rx) desfasa 100
@@ -296,6 +297,7 @@ Utilizando la ecuación previamente mencionada, $A$ resulta ser
 $$
 	\mathbf{A} = \begin{pmatrix} 1 & 0 & -1\end{pmatrix}
 $$
+
 El verdadero valor de x resulta ser la contribución de la rama de transmisión junto a la configuración del desfasador del TRM,
 $$
 	\mathbf{x} = \begin{pmatrix} 340 \\ x \\ 220\end{pmatrix}
@@ -313,7 +315,7 @@ resultante de la resta de la medición de ambos lazos de calibración. Las medic
 La resta de dichas mediciones deberían ser igual a 120 grados, pero se observa que es igual a -240 grados generando así un
 error en la estimación de la fase.
 
-Para soluciona esto, la estrategia propuesta es la de reutilizar el valor estimado de $x$ de una calibración previa, calcular
+Para solucionar esto, la estrategia propuesta es la de reutilizar el valor estimado de $x$ de una calibración previa, calcular
 el $b$ ideal y modificar los valores de $b$ de la calibración actual sumando o restando de a 360 grados para acercarse lo más 
 posible a dichos valores esperados. Para la primera calibración, es necesario medir cuanto desfasa la antena en al menos una 
 rama punta a punta. 
@@ -328,7 +330,7 @@ ganancias de transmisión, recepción y la planitud de la antena, presenta las s
 \subsubsection{Determinación de ganancia y fase absoluta}
 
 Dado que todas las ecuaciones del método son de relaciones entre caminos de calibración, no se puede determinar la potencia y
-fase absoluta transmitida o recibida. Para poder obtener dichos valores es necesario poder agregar dos ecuaciones extra.
+fase absoluta transmitida o recibida. Para poder obtener dichos valores es necesario agregar dos ecuaciones extra.
 
 Una posible estrategia es la de utilizar el resultado obtenido al correr el método de calibración interna clásica obteniendo
 así la ganancia y fase de uno de los caminos de transmisión y recepción. Otra posibilidad es la de utilizar dos antenas
@@ -345,7 +347,7 @@ valores de fase obtenidos de la calibración anterior.
 
 Para obtener dicho valor inicial, se puede utilizar la fase resultante del método de calibración interna clásica o se puede
 realizar una medición de campo cercano en temperatura, emitiendo sólamente con un elemento radiante para deducir la fase de la
-red de transmisión, para obtener el desfase de la red de recepción, se emite con un elemento externo y se recibe con solo un
+red de transmisión. Para obtener el desfase de la red de recepción, se emite con un elemento externo y se recibe con solo un
 elemento radiante.
 
 
