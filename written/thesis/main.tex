@@ -178,37 +178,38 @@ Cada antena individual hace el papel de una abertura, emitiendo ondas de radio c
 sumando el desplazamiento de fase $\varphi$.
 
 En la actualidad, los conjuntos de antenas de fase variable son ampliamente utilizados, por ejemplo, en estaciones de difusión
-tanto AM como FM, para estudios climatológicos y en el uso de satélites y radares tanto para uso marítimo (barcos de guerra de
-diversas armadas) como terrestres. La principal ventaja de este tipo de antenas con respecto a otras (isótropa, monopolos), es 
+tanto AM como FM, para estudios climatológicos y en el uso de satélites y radares para uso marítimo (barcos de guerra de
+diversas armadas) y terrestres. La principal ventaja de este tipo de antenas con respecto a otras (isótropa, monopolos), es 
 el hecho de poder realizar apuntamientos electrónicamente, es decir, que se pueden direccionar de manera electrónica sin tener 
 que hacer uso de elementos mecánicos. Dichos elementos poseen ciertas desventajas asociadas tanto desde el punto de vista del 
 mantenimiento como de velocidad de respuesta. 
 
 Hay numerosos factores que modifican el comportamiento de la antena y por ende el apuntamiento, que es en esencia lo que se desea
 tener bajo control, también de manera electrónica. Por ejemplo, cambios de temperatura o el mero envejecimiento de los elementos
-que la componen, que lleva a que la respuesta final del sistema no sea la esperada. Es deseable tener dichos factores bajo control
-y así poder apuntar en la dirección deseada. Para ello se hace uso de un esquema de calibración interna, el cual debe permitir
+que la componen, llevan a que la respuesta final del sistema no sea la esperada. Es deseable tener dichos factores bajo control
+y así poder apuntar en la dirección esperada. Para ello se hace uso de un esquema de calibración interna, el cual debe permitir
 conocer con una determinada exactitud dicho apuntamiento.
 
-Se investiga y presenta el esquema de calibración interna convencional con sus virtudes y sus defectos. Con dicha información
-se introduce un método que complemente las falencias sin agregar elementos adicionales al sistema. 
+Se investiga y presenta el esquema de calibración interna clásica con sus virtudes y sus defectos. Con dicha información
+se introduce un método que lo complemente corrigiendo dichas falencias sin agregar elementos adicionales al sistema. 
 
-En primer termino, se investigan y presentan las hipótesis necesarias para la aplicación de la calibración aquí propuesta. 
-Esto significa por ejemplo pedir que el sistema sea lineal e invariante en el tiempo, que los niveles de acoplamiento entre 
-elementos radiantes sea conocido, que el sistema disponga de determinados mecanismos de autoprotección, entre otros.
+En primer término, se investigan y presentan las hipótesis necesarias para la aplicación de la calibración aquí propuesta, como
+pedir que el sistema sea lineal e invariante en el tiempo, que los niveles de acoplamiento entre elementos radiantes sea
+conocido, que el sistema disponga de determinados mecanismos de autoprotección, entre otros.
 
 En segunda instancia, y basado en las hipótesis propuestas, se propone, diseña, y construye en software un modelo físico 
 representativo ad hoc desde el punto de vista de radio frecuencia, que servirá de base para evaluar el modelo de calibración 
-propuesto. Este modelo físico se realiza con ciertas premisas, como ser por ejemplo que sea flexible para evaluar diferentes 
-topologías de antenas.
+propuesto. Este modelo físico se realiza con ciertas premisas, como que sea flexible para evaluar diferentes topologías de
+antenas.
 
-En tercera instancia se desarrollan ambos algoritmos de calibración y se los aplica a diferentes topologías de antena en fase. 
-para comparar sus comportamientos los resultados obtenidos y así mostrar que el método propuesto supera ampliamente al
-clásico. Los casos de prueba abarcan dispersiones en el comportamiento de distintos componentes de la antena, el daño de
-algunos TRMs (los mismos dejan de responder ante estímulos externos), dispersiones en las señales de calibración y
-dispersiones en los valores de configuración de los TRMs. 
+En tercera instancia se desarrollan ambos algoritmos de calibración y se los aplica a diferentes topologías de antena en fase 
+para comparar sus comportamientos y así mostrar que el método propuesto supera ampliamente al clásico. Los casos de prueba
+abarcan dispersiones en el comportamiento de distintos componentes de la antena, el daño de algunos módulos de transmisión y
+recepción (los mismos dejan de responder ante estímulos externos), dispersiones en las señales de calibración y dispersiones en
+los valores de configuración de los módulos de transmisión y recepción. 
 
-En última instancia, se plantean diferentes líneas futuras de trabajo.
+En última instancia, se analizan los resultados obtenidos, se proponen distintas líneas de trabajo a futuro y se presentan las
+conclusiones.
 }
 
 \clearpage % Start a new page

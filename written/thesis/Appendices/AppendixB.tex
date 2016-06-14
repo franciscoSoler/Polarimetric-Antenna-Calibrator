@@ -29,17 +29,21 @@ punto de Col \textbf{A} más cercano a \textbf{b}. (Por supuesto, si sucede que 
 El conjunto de soluciones por mínimos cuadrados de $\mathbf{Ax} = \mathbf{b}$ coincide con el conjunto no vacío de soluciones
 de las ecuaciones normales $\mathbf{A}^T\mathbf{Ax} = \mathbf{A}^T\mathbf{b}$ \cite{MatrixMin}.
 
+
 \section{Matriz Hadamard}
 
 Esta matriz fue descubierta por el matemático Jacques Hadamard, es una matriz cuadrada con valores $1$ o $-1$ y sus columnas 
 son ortogonales. Sus propiedades son las siguientes \cite{Seberry2005}. 
 
-Si se tiene una matriz $H$ de orden $n$, su traspuesta está cercamente relacionada con su inversa. Y su fórmula es:
+Si se tiene una matriz $H$ de orden $n$, su traspuesta está cercamente relacionada con su inversa:
 
 $$ H H^{\mathrm{T}} = n I_n $$
 
-Donde $I_n$ es la matriz de identidad de dimensión $n x n$ y $H^\mathrm{T}$ es la traspuesta de $H$. Esta propiedad es válida a causa 
-que las columnas de $H$ son vectores ortogonales en el campo de los números reales y cada uno tiene una longitud de $\sqrt n$.
+donde $I_n$ es la matriz de identidad de dimensión $n x n$ y $H^\mathrm{T}$ es la traspuesta de $H$. Esta propiedad es válida a causa 
+que las columnas de $H$ son vectores ortogonales en el campo de los números reales y cada uno tiene una longitud de $\sqrt n$. A
+su vez, indica que cuando tiene sus filas ortogonales dos a dos, la primera fila y columna son formadas sólamente por el valor +1
+\cite{Armario}.
+
 Dividiendo H por su longitud, se obtiene una matriz ortonormal que su traspuesta también es su inversa. El determinante es:
 
 $$ \operatorname{det}(H) = \pm n^{\frac{n}{2}} $$
@@ -51,9 +55,9 @@ entre 1 y $n$. Entonces el determinante de la matriz hadamard resulta,
 		    
 $$ |\operatorname{det}(M)| \leq n^{n/2}. $$
 
-La igualdad es válida solamente si $M$ es real y solo si $M$ también es una matriz Hadamard.
+La igualdad es válida solamente si $M$ es real y solo si $M$ también es una matriz Hadamard. La restricción sobre el órden
+$n$ de dicha matriz es que la misma debe ser 1, 2 o múltiplo de 4.
 
-El orden de una matriz hadamard debe ser 1, 2 o un múltiplo de 4.
 
 \subsection{Construcción de Silvester}
 
@@ -73,5 +77,4 @@ and
 
 $$ H_{2^k} = \begin{bmatrix} H_{2^{k-1}} & H_{2^{k-1}}\\ H_{2^{k-1}} & -H_{2^{k-1}}\end{bmatrix} $$
 
-para $2 \le k \in N$.
-\todo{cambiar el texto para agregar algo de lo citado en hadamard matrix, usar la cita}
+para $2 \le k \in N$ \cite{Singhal2012}.
