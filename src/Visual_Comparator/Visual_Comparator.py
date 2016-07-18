@@ -97,6 +97,14 @@ class VisualComparator:
         self.__lower_att_limit = self.__upper_att_limit - 2 * self.__att_delta
         self.__lower_ph_limit = self.__upper_ph_limit - 2 * self.__ph_delta
 
+    def plot_pattern_to_file(self, angles, pattern, filename, min_limit=None):
+        pat = pattern if min_limit is None else [min_limit if p < min_limit else p for p in pattern]
+
+        plt.figure(self.__get_figure_number())
+        plt.plot(angles, pat, "k", linewidth=2)
+        plt.grid(True)
+        plt.savefig(filename + ".png", bbox_inches='tight')
+
     def compare_signals_against_ideal(self, power_one, phase_one, power_two, phase_two, id_power, id_phase, title="", filename=""):
 
         power = self.__format_signal(power_one)

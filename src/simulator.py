@@ -245,6 +245,8 @@ class Simulator:
         if change_chapter:
             self.__save_pattern_properties(*props)
 
+        visual_comparator.plot_pattern_to_file(angles, ideal_pattern.get_db(), '/media/francisco/Datos/francisco/Documents/mutual/written/thesis/gfx/idealPattern', min_limit=0)
+
     def __compare_final_gain_against_initial(self, calibrator, visual_comparator, title, filename):
         quantity_rows = self.__config[Common.Conf_ant][Common.Conf_qtty_rows]
         quantity_columns = self.__config[Common.Conf_ant][Common.Conf_qtty_cols]
@@ -365,5 +367,5 @@ class Simulator:
 if __name__ == "__main__":
     sim = Simulator()
     sim.create_antenna()
-    sim.run(Common.ClassicCal, save_files=False, show_graph=False, graphics_to_csv=True)
-    sys.exit(sim.run(Common.MutualCal, save_files=False, show_graph=False, graphics_to_csv=True))
+    # sim.run(Common.ClassicCal, save_files=False, show_graph=False, graphics_to_csv=True)
+    sys.exit(sim.run(Common.MutualCal, save_files=False, show_graph=False, graphics_to_csv=False))
