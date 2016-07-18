@@ -332,8 +332,8 @@ class Simulator:
 
         return f(column_steering, "Col") if column_steering else f(row_steering, "Row") if row_steering else f(0)
 
-    def run(self, calibr, save_files=True, show_graph=True, mutual_error=False):
-        visual_comparator = VisualComparator.VisualComparator(save_files)
+    def run(self, calibr, save_files=True, show_graph=True, mutual_error=False, graphics_to_csv=False):
+        visual_comparator = VisualComparator.VisualComparator(save_files, graphics_to_csv)
 
         # self.create_antenna()
         calibrator = self.__create_calibrator(calibr)
@@ -365,5 +365,5 @@ class Simulator:
 if __name__ == "__main__":
     sim = Simulator()
     sim.create_antenna()
-    #sys.exit(sim.run(Common.ClassicCal))
-    sys.exit(sim.run(Common.MutualCal, save_files=False))
+    sim.run(Common.ClassicCal, save_files=False, show_graph=False, graphics_to_csv=True)
+    sys.exit(sim.run(Common.MutualCal, save_files=False, show_graph=False, graphics_to_csv=True))

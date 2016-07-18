@@ -8,8 +8,12 @@ from pprint import pprint
 
 def run_simulator(simm):
     simm.create_antenna()
+    simm.run(common.MutualCal, save_files=False, show_graph=False, graphics_to_csv=True)
+    simm.run(common.ClassicCal, save_files=False, show_graph=False, graphics_to_csv=True)
+    """
     simm.run(common.MutualCal, show_graph=False)
     simm.run(common.ClassicCal, show_graph=False)
+    """
 
 
 def save_file(filename, structure):

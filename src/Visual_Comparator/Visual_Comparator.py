@@ -1,6 +1,7 @@
 __author__ = 'fsoler'
 import numpy as np
 import matplotlib.pyplot as plt
+import xlsxwriter
 import itertools
 import cmath
 import os
@@ -16,9 +17,10 @@ def deg2rad(deg):
 
 class VisualComparator:
 
-    def __init__(self, save_files):
+    def __init__(self, save_files, graphics_to_csv):
         plt.close('all')
         self.__save_files = save_files
+        self.__to_csv = graphics_to_csv
         self.__figure_number = 0
         self.__att_delta = 5 / 2
         self.__ph_delta = 5.625 / 2
@@ -28,7 +30,8 @@ class VisualComparator:
         self.__upper_ph_limit = None
         self.__lower_att_limit = None
         self.__lower_ph_limit = None
-        self.__paht_to_save = '/media/francisco/Datos/francisco/Documents/mutual/written/thesis/gfx'
+        self.__path_to_save = '/media/francisco/Datos/francisco/Documents/mutual/written/thesis/gfx'
+        self.__path_to_save_csv = '/media/francisco/Datos/francisco/Documents/mutual/written/thesis/gfx/csv'
 
     def __get_figure_number(self):
         self.__figure_number += 1
@@ -37,7 +40,15 @@ class VisualComparator:
     def __save_plots(self, filename, plt):
         plt.tight_layout()
         if self.__save_files:
-            plt.savefig(os.path.join(self.__paht_to_save, filename + ".png"), bbox_inches='tight')
+            plt.savefig(os.path.join(self.__path_to_save, filename + ".png"), bbox_inches='tight')
+
+    def __save_into_csv(self, filename, data):
+        if self.__to_csv:
+            workbook = xlsxwriter.Workbook(os.path.join(self.__path_to_save_csv, filename + '.xlsx'))
+            worksheet = workbook.add_worksheet()
+            worksheet.write_row(0, 0, ['ideal', 'pre_cal', 'cal'])
+            [worksheet.write_column(1, i, d) for i, d in enumerate(data)]
+            #np.savetxt(os.path.join(self.__path_to_save_csv, filename + '.csv'), data, delimiter=',', fmt='%f', header='Created by Numpy')
 
     @staticmethod
     def __rad2deg(radians):
@@ -122,6 +133,8 @@ class VisualComparator:
 
         self.__set_plot_environment(title, "Phase [deg]", "ERs", 4)
         self.__save_plots(filename, plt)
+        self.__save_into_csv(filename + 'Power', [ideal_power, power, cal_power])
+        self.__save_into_csv(filename + 'Phase', [ideal_phase, phase, cal_phase])
 
     def compare_signals(self, power_one, phase_one, power_two, phase_two, title=""):
         """
@@ -221,6 +234,7 @@ class VisualComparator:
 
         self.__set_plot_environment(title, "Gain [dB]", "Angle [deg]", 4)
         self.__save_plots(filename, plt)
+        self.__save_into_csv(filename, [p_ideal, p_non_calibrated, p_calibrated])
 
     @staticmethod
     def show_graphics():
