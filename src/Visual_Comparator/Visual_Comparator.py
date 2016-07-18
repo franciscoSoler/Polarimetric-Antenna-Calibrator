@@ -103,6 +103,8 @@ class VisualComparator:
         plt.figure(self.__get_figure_number())
         plt.plot(angles, pat, "k", linewidth=2)
         plt.grid(True)
+        plt.ylabel("Gain [dB]")
+        plt.xlabel("Angle [deg]")
         plt.savefig(filename + ".png", bbox_inches='tight')
 
     def compare_signals_against_ideal(self, power_one, phase_one, power_two, phase_two, id_power, id_phase, title="", filename=""):
