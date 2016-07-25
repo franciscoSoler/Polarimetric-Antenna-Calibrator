@@ -3,9 +3,19 @@ import Utilities.Antenna_Common as common
 import matplotlib.pyplot as plt
 import simulator
 import numpy as np
+import xlsxwriter
 import json
 import sys
 import os
+
+
+def save_into_csv(filename, data):
+    path = '/media/francisco/Datos/francisco/Documents/mutual/written/thesis/gfx/csv'
+    workbook = xlsxwriter.Workbook(os.path.join(path, filename + '.xlsx'))
+    worksheet = workbook.add_worksheet()
+    # [worksheet.write_row(i, 0, d) for i, d in enumerate(data)]
+    worksheet.write_row(0, 0, ['Elementos Radiantes', 'Media', 'Desvío Estándar', 'Varianza'])
+    [worksheet.write_column(1, i, d) for i, d in enumerate(data)]
 
 
 def plot_results(elements, gain, phase, title, fig, filename):
@@ -75,8 +85,21 @@ def create_config_file(errors):
     plt.close('all')
     elements = range(len(mut_gain[0])*len(mut_gain[0][0]))
 
-    plot_results(elements, mut_gain, mut_phase, "Calibración con acoplamientos mutuos", 1, "mutualMontecarlo")
-    plot_results(elements, clas_gain, clas_phase, "Calibración clásica", 2, "classicalMontecarlo")
+    # plot_results(elements, mut_gain, mut_phase, "Calibración con acoplamientos mutuos", 1, "mutualMontecarlo")
+    # plot_results(elements, clas_gain, clas_phase, "Calibración clásica", 2, "classicalMontecarlo")
+
+    els = list(elements)
+    data = [[it for l in values for it in l] for values in clas_gain]
+    save_into_csv('classicalMontecarloPower', [els, np.mean(data, axis=0), np.std(data, axis=0), np.var(data, axis=0)])
+
+    data = [[it for l in values for it in l] for values in clas_phase]
+    save_into_csv('classicalMontecarloPhase', [els, np.mean(data, axis=0), np.std(data, axis=0), np.var(data, axis=0)])
+
+    data = [[it for l in values for it in l] for values in mut_gain]
+    save_into_csv('mutualMontecarloPower', [els, np.mean(data, axis=0), np.std(data, axis=0), np.var(data, axis=0)])
+
+    data = [[it for l in values for it in l] for values in mut_phase]
+    save_into_csv('mutualMontecarloPhase', [els, np.mean(data, axis=0), np.std(data, axis=0), np.var(data, axis=0)])
 
     plt.show()
 
