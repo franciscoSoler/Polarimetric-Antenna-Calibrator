@@ -14,7 +14,7 @@ def save_into_csv(filename, data):
     workbook = xlsxwriter.Workbook(os.path.join(path, filename + '.xlsx'))
     worksheet = workbook.add_worksheet()
     # [worksheet.write_row(i, 0, d) for i, d in enumerate(data)]
-    worksheet.write_row(0, 0, ['Elementos Radiantes', 'Media', 'Desvío Estándar', 'Varianza'])
+    worksheet.write_row(0, 0, ['Elementos Radiantes', 'Classical', 'ClassicalStd', 'Mutual', 'MutualStd'])
     [worksheet.write_column(1, i, d) for i, d in enumerate(data)]
 
 
@@ -62,6 +62,10 @@ def load_file(filename):
     return config
 
 
+def get_mean_and_std(data):
+    return [np.mean(data, axis=0), np.std(data, axis=0)]
+
+
 def create_config_file(errors):
     config_base = "configurationFileBase"
     config_filename = "configurationFile"
@@ -89,17 +93,14 @@ def create_config_file(errors):
     # plot_results(elements, clas_gain, clas_phase, "Calibración clásica", 2, "classicalMontecarlo")
 
     els = list(elements)
-    data = [[it for l in values for it in l] for values in clas_gain]
-    save_into_csv('classicalMontecarloPower', [els, np.mean(data, axis=0), np.std(data, axis=0), np.var(data, axis=0)])
 
-    data = [[it for l in values for it in l] for values in clas_phase]
-    save_into_csv('classicalMontecarloPhase', [els, np.mean(data, axis=0), np.std(data, axis=0), np.var(data, axis=0)])
+    dataClas = [[it for l in values for it in l] for values in clas_gain]
+    dataMut = [[it for l in values for it in l] for values in mut_gain]
+    save_into_csv('MontecarloPower', [els] + get_mean_and_std(dataClas) + get_mean_and_std(dataMut))
 
-    data = [[it for l in values for it in l] for values in mut_gain]
-    save_into_csv('mutualMontecarloPower', [els, np.mean(data, axis=0), np.std(data, axis=0), np.var(data, axis=0)])
-
-    data = [[it for l in values for it in l] for values in mut_phase]
-    save_into_csv('mutualMontecarloPhase', [els, np.mean(data, axis=0), np.std(data, axis=0), np.var(data, axis=0)])
+    dataClas = [[it for l in values for it in l] for values in clas_phase]
+    dataMut = [[it for l in values for it in l] for values in mut_phase]
+    save_into_csv('MontecarloPhase', [els] + get_mean_and_std(dataClas) + get_mean_and_std(dataMut))
 
     plt.show()
 
