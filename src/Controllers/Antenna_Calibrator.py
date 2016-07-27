@@ -153,7 +153,7 @@ class ClassicCalibrator(AntennaCalibrator):
         chirp = [self.__chirp_creator.create_chirp(*chirp_parameters) for _ in range(int(sequences))]
         chirp_rep = np.matrix(self.__chirp_creator.create_chirp_replica(*chirp_parameters))
 
-        amp = AntennaCommon.db2v(-att_db)
+        amp = AntennaCommon.db2v(att_db)
         ph_rad = AntennaCommon.deg2rad(ph_deg)
 
         """
@@ -178,7 +178,7 @@ class ClassicCalibrator(AntennaCalibrator):
         """
 
         estimated_phase = np.around(np.angle(signal_est, deg=True), decimals=self.__Dec)
-        estimated_power = np.around(-AntennaCommon.v2db(abs(signal_est)), decimals=self.__Dec)
+        estimated_power = np.around(AntennaCommon.v2db(abs(signal_est)), decimals=self.__Dec)
         f = lambda x: np.resize(x, (self._antenna.quantity_rows, self._antenna.quantity_columns))
         return f(estimated_power), f(estimated_phase)
 
