@@ -99,12 +99,12 @@ comportamiento de antena, dicha información debe persistir entre corrida y corr
 dicha información como archivos con formato json. En los cuales se guarda la configuración y propiedades físicas tanto del
 panel como de la RFDN. Las propiedades del primer grupo son las distancias entre todos los elementos. Las del segundo grupo
 corresponden a la matriz de parámetros S, desarrollado en el capítulo \ref{ch:phasedArray}, y la interconexión entre
-componentes. En el apéndice \ref{AppendixC} se muestra se muestra un ejemplo sencillo, para comprender como el modelo
+componentes. En el apéndice \ref{AppendixC} se muestra un ejemplo sencillo, para comprender como el modelo
 matemático se ha modelizado, en este caso para una antena muy básica de dos elementos radiantes. Tener en cuenta que la antena
 a modelizar tiene más de un orden de magnitud mayor de tamaño.
 
 La aplicación se divide en tres etapas principales. La primera parte es la encargada de la modelización de la antena y sus
-componentes. La segunda contiene el copmortamiento de ambos modelos de calibración interna, los cuales se corresponden con las
+componentes. La segunda contiene el comportamiento de ambos modelos de calibración interna, los cuales se corresponden con las
 distintas estrategias de calibración de la UCC y la tercera consta de los visualizadores de resultados. La figura
 \ref{fig:prog_inic} muestra el flujo de ejecución del programa.
 
@@ -173,7 +173,7 @@ hace uso de los generadores de parámetros S de cada componente.
  \caption{Diagrama de clases del generador de antena.}
  \label{fig:creationPackage}
 \end{figure}
-
+\todo{modificar el diagrama de clases para que se vean todas las clases, es muy ancho el diagrama}
 Al determinar la RFDN, si bien está definida la cantidad de elementos radiantes, falta definir las dimensiones de la antena, 
 en otras palabras, la cantidad de columnas de ER, o de paneles, la cantidad de filas de ER, o la cantidad de elementos por
 panel, y la separación, tanto horizontal como vertical, entre elementos. 
@@ -216,7 +216,7 @@ ecuaciones en base a los lazos de calibración generados.
 \end{figure}
 
 
-A la hora de calibrar, los primeros parámetros a definir son la potencia (en dB), fase (en grados) y frecuencia (en Hz) de la 
+A la hora de calibrar, los primeros parámetros a definir son la potencia (en dBm), fase (en grados) y frecuencia (en Hz) de la 
 señal utilizada con que se alimenta la antena para ser transmitida. A su vez, se debe definir el apuntamiento deseado. Para 
 ello, se tienen que configurar la fase de los desfasadores en transmisión de la polarización a transmitir, tomando en cuenta lo 
 explicado en la sección \ref{ssec:beamSteering}. Estos valores están definidos en el archivo de configuración bajo el nombre 

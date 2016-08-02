@@ -54,7 +54,7 @@ adaptación para minimizar el ROE e incrementar la transmisión \cite{Balanis201
 En el caso de esta tesis, el modelo físico desarrollado tiene en cuenta la posibilidad de incorporar desadaptaciones.
 
 
-\subsection{Analizador de espectro vectorial (VNA)}
+\subsection{Analizador vectorial de redes (VNA)}
 
 Es un instrumento que mide los parámetros eléctricos de una red. Dichos analizadores miden los parámetros S porque las
 reflexiones y transmisiones de redes eléctricas son fácilmente medibles en alta frecuencia. Normalmente caracterizan redes de
@@ -114,7 +114,7 @@ simplificada.
 
 
 En el caso de esta tesis, se tiene un conjunto de antenas individuales denominadas elementos radiantes (ER), que se usan tanto
-para recibir como para transmitir. Dicho conjunto forma una red de difraccion que es el arreglo en fase explicado más adelante.
+para recibir como para transmitir. Dicho conjunto forma una red de difraccion que es el conjunto en fase explicado más adelante.
 
 
 \subsection{Apuntamiento del haz} 
@@ -203,7 +203,7 @@ se altera la fase relativa de las señales se podrá \enquote*{direccionar el ha
 constructivas. Se consigue de este modo hacer barridos sin necesidad de movimiento físico, mecánico, con la ventaja añadida de
 que se pueden barrer ángulos del orden de miles de grados por segundo. Esto permite utilizar la antena para compaginar
 simultáneamente funciones de detección y de seguimiento de blancos individuales, así como para obtener imágenes de apertura
-sintética, para el caso en que el arreglo de antenas con fase se utilice con dicho propósito. Su uso se va extendiendo debido a
+sintética, para el caso en que el conjunto de antenas con fase se utilice con dicho propósito. Su uso se va extendiendo debido a
 la confiabilidad derivada del hecho de que no posee partes móviles. Casi todos los radares militares modernos se basan en
 conjuntos de antenas, relegando los sistemas basados en antenas rotatorias a aplicaciones donde el costo es un factor
 determinante (tráfico aéreo, meteorología) Su uso está también extendido en aeronaves militares debido a su capacidad de
@@ -255,7 +255,7 @@ El concepto de directividad se utiliza en esta tesis al explicar y analizar los 
 
 \subsection{Huella} 
 
-Si se utiliza una antena de arreglo en fase apuntando hacia la tierra, montada en un dron, avión, satélite o medio similar, la
+Si se utiliza un conjunto de antena apuntando hacia la tierra, montada en un dron, avión, satélite o medio similar, la
 huella es la traza representada por la intersección del lóbulo principal con la tierra. La figura \ref{fig:huellaSatellite}
 esquematiza la huella de una antena.
 
@@ -432,7 +432,7 @@ Para obtener los parámetros S partiendo desde los parámetros T, se utiliza la 
 
 
 \subsubsection{Propiedades de la matriz de parámetros S}
-
+\todo{buscar referencias, y poner la de Caspers al inicio de esto, corregir la imagen de tensiones con generadores de corriente que es cualquier cosa}
 Una red generalizada de n puertos posee $n^2$ coeficientes de dispersión. Mientras que los $S_{ij}$ podrían ser todos independientes,
 en general, debido a simetrías u otros factores, la cantidad de coeficientes independientes es mucho menor.
 \begin{itemize}
@@ -645,13 +645,13 @@ sirve para determinar si hay módulos radiantes en mal funcionamiento o directam
 
 \section{Motivación} \label{sc:motivation}
 
-Para poder hacer un uso adecuado de un conjunto de antena es necesario conocer la fase y atenuación de cada uno de los elementos
+Para poder hacer un uso adecuado de un conjunto de antenas es necesario conocer la fase y atenuación de cada uno de los elementos
 del mismo, tanto cuando transmiten como cuando reciben. Sin embargo, si bien uno controla la fase y atenuación de cada elemento,
 la RFDN no permite necesariamente asegurar que la fase y atenuación con que sale la señal sea realmente la deseada. Hay 
 fenómenos de dispersión en la RFDN debidos a la temperatura que provocan que la fase deseada y la requerida sean diferentes 
 \cite{Keizer2011}.
 
-El método de calibración tradicional, por lazos de calibración internos, permite calibrar un conjunto de antena, aunque
+El método de calibración tradicional, por lazos de calibración internos, permite calibrar un conjunto de antenas, aunque
 presenta algunos defectos entre los cuales se incluyen:
 
 \begin{enumerate}

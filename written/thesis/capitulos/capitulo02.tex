@@ -302,8 +302,7 @@ necesario para cumplir con el apuntamiento deseado. La ecuación a continuación
 
 La respuesta de los componentes en el tiempo no se mantiene invariante. Hay diversos factores que influyen en su comportamiento a
 medida que transcurre su vida útil. Por un lado su envejecimiento natural por el uso, por otro lado las variaciones en su 
-comportamiento por efectos de temperatura. En algunos casos, cuando se trata de componentes activos, el desgaste que pueden
-sufrir de manera acelerada por superar niveles de derating. Dichas variaciones deben ser corregidas, buscando que no solo todos
+comportamiento por efectos de temperatura. Dichas variaciones deben ser corregidas, buscando que no solo todos
 los caminos de recepción atenúen y desfasen exactamente lo mismo, sino que también sea un valor conocido. En transmisión el
 objetivo es el mismo, con la salvedad que se busca que cada TRM trabaje en su punto de compresión (generalmente cerca de los
 6 dB) y que la fase de cada elemento depende del apuntamiento deseado.
@@ -353,11 +352,11 @@ fuera del lazo asumiendo que dichas caracterizaciones son válidas para toda la 
 
 La figura \ref{fig:nonCalPattern} muestra la comparación de dos diagramas de radiación de antena, uno calibrado e ideal y el
 otro sin calibrar. Se puede observar como los niveles de los lóbulos secundarios y el ancho del lóbulo principal se incrementan.
-
+\todo{corregir imágenes, eliminar la máscara }
 \begin{figure}[H]
  \centering
  \includegraphics[width=10cm]{gfx/nonCalPattern.png}
- \caption{Diagrama de radiación de antena calibrado (en azul) vs no calibrado (en negro).}
+ \caption{Diagrama de radiación de antena calibrado (en negro) vs no calibrado (en azul).}
  \label{fig:nonCalPattern}
 \end{figure}
 
@@ -378,7 +377,7 @@ tesis se modelará un monopolo como ER, ver figura \ref{fig:radiatingElement}.
 		\includegraphics[width=6cm]{gfx/rectangularPatch.png}}
 	\subfloat[Circular]{
 		\includegraphics[width=6cm]{gfx/circularPatch.png}}
-		\caption{Antenas monopolo circulares y cuadradas \cite{Balanis2012}.}
+		\caption{Antenas parche circulares y cuadradas \cite{Balanis2012}.}
 	\label{fig:radiatingElement}
 \end{figure}
 
@@ -455,11 +454,11 @@ En la presente tesis se modeliza un atenuador con atenuación ajustable de forma
 matriz de parámetros S para representarlo.
 
 $$
-\mathbf{S} = \begin{pmatrix} 0 & e^{-\beta}\\e^{-\alpha} & 0\end{pmatrix}
+\mathbf{S} = \begin{pmatrix} 0 & e^{-\alpha}\\e^{-\alpha} & 0\end{pmatrix}
 $$
 
-Si el atenuador es recíproco, $\alpha = \beta$. El factor de atenuación $\alpha$ es expresado en neper, donde $1N = 8.686dB$.
-La atenuación en decibeles viene dado por $A = 20\log_{10}(S_{21})$. 
+El factor de atenuación $\alpha$ es expresado en neper, donde $1N = 8.686dB$. La atenuación en decibeles viene dado por
+$A = 20\log_{10}(S_{21})$. 
 
 
 \subsection{Amplificador ideal}
@@ -554,7 +553,7 @@ $$
 $$
 
 \subsection{Acoplamientos mutuos}
-
+\todo{buscar referencias de la ecuación utilizada}
 El acoplamiento mutuo entre módulos radiantes es modelizado con el mismo comportamiento al de un cable, pero con las
 propiedades de atenuación y desfase de una onda en \enquote*{espacio libre}. Las cuales son:
 
