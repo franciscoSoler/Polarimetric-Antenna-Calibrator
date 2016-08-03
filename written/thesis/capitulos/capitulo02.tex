@@ -351,12 +351,12 @@ corregir completamente las variaciones de la misma. Para acotar este error, se d
 fuera del lazo asumiendo que dichas caracterizaciones son válidas para toda la vida útil de los mismos.
 
 La figura \ref{fig:nonCalPattern} muestra la comparación de dos diagramas de radiación de antena, uno calibrado e ideal y el
-otro sin calibrar. Se puede observar como los niveles de los lóbulos secundarios y el ancho del lóbulo principal se incrementan.
-\todo{corregir imágenes, eliminar la máscara }
+otro sin calibrar. Se puede observar como los niveles de los lóbulos secundarios, el ancho del lóbulo principal se incrementan y
+el nivel del lóbulo principal decrementa.
 \begin{figure}[H]
  \centering
  \includegraphics[width=10cm]{gfx/nonCalPattern.png}
- \caption{Diagrama de radiación de antena calibrado (en negro) vs no calibrado (en azul).}
+ \caption{Diagrama de radiación de antena calibrado (en negro) vs no calibrado (en gris).}
  \label{fig:nonCalPattern}
 \end{figure}
 
@@ -553,18 +553,21 @@ $$
 $$
 
 \subsection{Acoplamientos mutuos}
-\todo{buscar referencias de la ecuación utilizada}
-El acoplamiento mutuo entre módulos radiantes es modelizado con el mismo comportamiento al de un cable, pero con las
-propiedades de atenuación y desfase de una onda en \enquote*{espacio libre}. Las cuales son:
+
+El acoplamiento mutuo entre elementos radiantes se encuentra definido en \cite{Dawoud2005}. Dado que el efecto sobre la señal
+transmitida en los lazos de calibración es eliminado, no es necesario que dicha modelización sea exacta.
+
+La modelización utilizada es la misma que la de un cable para el desfase de la señal, pero con las propiedades de atenuación 
+de una onda en \enquote*{espacio libre} \cite{Curlander1991}.
 
 \begin{equation}
-	S12 = S21 = \dfrac{e^{-j\frac{\pi}{\lambda}r}}{4\pi r^2}
+	S12 = S21 = \dfrac{\lambda e^{-j\frac{2\pi}{\lambda}r}}{4\pi r}
 \end{equation}
 
 siendo r la distancia recorrida por la señal. La matriz de parámetros S resulta,
 
 $$
-\mathbf{S} = \begin{pmatrix} 0 & \frac{e^{-j\frac{\pi}{\lambda}r}}{4\pi r^2}\\\frac{e^{-j\frac{\pi}{\lambda}r}}{4\pi r^2} & 0\end{pmatrix}
+\mathbf{S} = \begin{pmatrix} 0 & \frac{\lambda e^{-j\frac{2\pi}{\lambda}r}}{4\pi r}\\\frac{\lambda e^{-j\frac{2\pi}{\lambda}r}}{4\pi r} & 0\end{pmatrix}
 $$
 
 \section{Sistema interconectado básico en parámetros S, para una polarización}
