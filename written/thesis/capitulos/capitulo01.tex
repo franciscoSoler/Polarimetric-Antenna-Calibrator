@@ -121,8 +121,15 @@ para recibir como para transmitir. Dicho conjunto forma una red de difraccion qu
 
 Es cambiar la dirección del lóbulo principal del diagrama de radiación. Puede ser realizada modificando la fase relativa entre
 los elementos radiantes de un conjunto de antena \cite{Standard1996}. En la siguiente figura se muestra un esquema donde cada 
-elemento radiante posee un desfasador y que, dependiendo de la fase de cada uno, el apuntamiento de la antena se puede modificar.
-Los desfasadores se encuentran controlados por una unidad central de control.
+elemento radiante posee un desfasador y que, dependiendo de la fase de cada uno, el apuntamiento de la antena se puede modificar
+siguiendo la siguiente relación
+\begin{equation}
+	\sin{\theta_s} = \dfrac{\Delta\varphi\cdot\lambda}{2\pi\cdot d}
+	\label{phaseShiftToPointing}
+\end{equation}
+Donde $\theta_s$ es el apuntamiento del diagrama de radiación, $d$ es la separación entre elementos radiantes, $\Delta\varphi$ es el
+desfase entre elementos contiguos y $\lambda$ la longitud de onda de la señal transmitida. Los desfasadores se encuentran 
+controlados por la unidad central de control.
 
 \begin{figure}[H]
  \centering
@@ -130,7 +137,7 @@ Los desfasadores se encuentran controlados por una unidad central de control.
  \caption{Apuntamiento del haz controlado por los desfasadores \cite{BeamSteering}.}
 \end{figure}
 
-En la presente tesis, se realizan calibraciones con diferentes apuntamientos de la antena. 
+En la presente tesis, se realizan calibraciones con diferentes apuntamientos de la antena.  
 
 \subsection{Calibración}
 
@@ -279,12 +286,12 @@ de referencia. Por razones prácticas, la descripción en términos de ondas ent
 una red de 4 polos se transforma en 2 puertos y $2n$ polos se transforman en $n$ puertos. En el caso de un número impar de polos
 (ej. 3 polos), un punto de referencia puede ser elegido, atribuyendo un polo igualmente a dos puertos. Por lo tanto 3 polos se
 convierten en 3 + 1 polo correspondiendo a 2 puertos. Como una regla general, para cantidades impares de polos, siempre se agrega
-un polo extra.
+un polo extra \cite{Caspers}.
 
 \begin{figure}[H]
  \centering
  \includegraphics[width=10cm]{gfx/sParameters1.png}
- \caption{Ejemplo de una red de 2 puertos: circuito serie}
+ \caption{Ejemplo de una red de 2 puertos: circuito serie \cite{Caspers}}
  \label{fig:esquema_serie}
 \end{figure}
 
@@ -432,9 +439,9 @@ Para obtener los parámetros S partiendo desde los parámetros T, se utiliza la 
 
 
 \subsubsection{Propiedades de la matriz de parámetros S}
-\todo{buscar referencias, y poner la de Caspers al inicio de esto, corregir la imagen de tensiones con generadores de corriente que es cualquier cosa}
+
 Una red generalizada de n puertos posee $n^2$ coeficientes de dispersión. Mientras que los $S_{ij}$ podrían ser todos independientes,
-en general, debido a simetrías u otros factores, la cantidad de coeficientes independientes es mucho menor.
+en general, debido a simetrías u otros factores, la cantidad de coeficientes independientes es mucho menor \cite{Caspers}.
 \begin{itemize}
 	\item Una red de n puertos es recíproca cuando $S_{ij} = S_{ji}$ para todo $i, j$. La mayoría de los componentes pasivos son
 		recíprocos (resistencias, capacitores, transformadores, etc., exceptuando estructuras involucrando ferrites magnéticos,
