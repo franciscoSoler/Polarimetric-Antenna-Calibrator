@@ -4,6 +4,9 @@ import math
 import cmath
 import enum
 
+Front_panel = '_panel'
+Rfdn = '_rfdn'
+
 MutualCal = 'Mutual'
 ClassicCal = 'Classical'
 

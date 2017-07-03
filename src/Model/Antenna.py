@@ -32,10 +32,11 @@ class Antenna:
         :param filename: filename where the antenna model is written
         :return:
         """
-        with open(filename + "_rfdn") as f:
+        with open(filename + AntennaCommon.Rfdn) as f:
             self.__json_rfdn = json.load(f)
-        with open(filename + "_panel") as f:
+        with open(filename + AntennaCommon.Front_panel) as f:
             self.__json_panel = json.load(f)
+
         self.__quantity_rows = int(re.match("^RM \(([\d]+).*", self.__json_panel[-1][0]).group(1)) + 1
         self.__quantity_columns = int(re.match("^RM \([\d]+, ([\d]+).*", self.__json_panel[-1][0]).group(1)) + 1
         (self.__matrix_distances, _) = AntennaCommon.calculate_distances_between_rms(self.__quantity_rows,

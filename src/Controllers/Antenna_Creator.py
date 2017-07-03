@@ -86,7 +86,6 @@ class AntennaCreator:
                                      distances))
         keys = [(row, col) for col in range(self.__quantity_cols) for row in range(self.__quantity_rows)]
 
-        front_panel = []
         f = lambda x: AntennaCommon.Rm + " " + str(x)
         g = lambda x: list(map(lambda y: list(map(str, y)), x))
         for key in keys:
@@ -95,8 +94,8 @@ class AntennaCreator:
                 tuple(map(lambda x, y: abs(x-y), key, new_key))]])] for new_key in keys]
             front_panel.append([f(key), parameters])
 
-        with open(filename + "_panel", "w") as f:
-            f.write(json.dumps(front_panel, sort_keys=False, indent=4, separators=(',', ': ')))
+        with open(filename + AntennaCommon.Front_panel, "w") as f:
+            f.write(json.dumps(front_panel.tolist(), sort_keys=False, indent=4, separators=(',', ': ')))
 
     def __build_rfdn_structure(self, sequence, rm_iterator, trm_state_iterator):
         # el TRM se comporta igual que el cable, no tengo que distinguirlos realmente,
@@ -162,7 +161,7 @@ class AntennaCreator:
         steering_iterator = iter(trm_state)
         structure[AntennaCommon.Rfdn_h_pol] = self.__build_rfdn_structure(sequence, rm_iterator, steering_iterator)
 
-        with open(filename + "_rfdn", "w") as f:
+        with open(filename + AntennaCommon.Rfdn, "w") as f:
             f.write(json.dumps(structure, sort_keys=False, indent=4, separators=(',', ': ')))
 
         # this is the other file, the one that have all distances between RMs
