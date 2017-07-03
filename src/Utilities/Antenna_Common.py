@@ -131,20 +131,20 @@ def get_qtty_ports(component):
         Cable, component) else 1
 
 
-def s2t_parameters(s_matrix):
-    s11 = s_matrix.item(0, 0)
-    s12 = s_matrix.item(0, 1)
-    s21 = s_matrix.item(1, 0)
-    s22 = s_matrix.item(1, 1)
+def s2t_elements(s11, s12, s21, s22):
     return 1/s21 * np.matrix([[s12*s21 - s11*s22, s11], [-s22, 1]])
 
 
-def t2s_parameters(t_matrix):
-    t11 = t_matrix.item(0, 0)
-    t12 = t_matrix.item(0, 1)
-    t21 = t_matrix.item(1, 0)
-    t22 = t_matrix.item(1, 1)
+def t2s_elements(t11, t12, t21, t22):
     return 1/t22 * np.matrix([[t12, t11*t22 - t12*t21], [1, -t21]])
+
+
+def s2t_parameters(s_matrix):
+    return s2t_elements(*np.array(s_matrix).reshape(-1,).tolist())
+
+
+def t2s_parameters(t_matrix):
+    return t2s_elements(*np.array(t_matrix).reshape(-1,).tolist())
 
 
 def get_s2p(component, sxp_matrix, mode, idx):
