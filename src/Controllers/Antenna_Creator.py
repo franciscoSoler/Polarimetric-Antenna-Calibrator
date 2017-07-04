@@ -5,6 +5,7 @@ import collections
 import itertools
 import functools
 import math
+import logging
 import numpy as np
 
 import Utilities.Antenna_Common as AntennaCommon
@@ -44,6 +45,7 @@ class AntennaCreator:
         self.__dist_rows = dist_rows
         self.__dist_columns = dist_columns
         self.__row_shift = row_shift
+        logging.basicConfig(filename='execution.log',level=logging.DEBUG)
 
     def __row_col_to_index(self, row, col):
         return row * self.__quantity_cols + col
@@ -86,16 +88,29 @@ class AntennaCreator:
                                      distances))
         keys = [(row, col) for col in range(self.__quantity_cols) for row in range(self.__quantity_rows)]
 
-        f = lambda x: AntennaCommon.Rm + " " + str(x)
-        g = lambda x: list(map(lambda y: list(map(str, y)), x))
-        for key in keys:
+        # front_panel = []
+        total_elements = self.__quantity_rows * self.__quantity_cols
+        front_panel = np.zeros((total_elements, total_elements), dtype=complex)
 
-            parameters = [[f(new_key), g(dispersion_params[matrix_distances[
-                tuple(map(lambda x, y: abs(x-y), key, new_key))]])] for new_key in keys]
-            front_panel.append([f(key), parameters])
+        for first_coordenade in keys:
+            first_idx = self.__row_col_to_index(*first_coordenade)
+
+            for second_coordenade in keys:
+                second_idx = self.__row_col_to_index(*second_coordenade)
+
+                delta = tuple(map(lambda x, y: abs(x-y), first_coordenade, second_coordenade))
+                params = dispersion_params[matrix_distances[delta]]
+
+                front_panel[first_idx, first_idx] = params[0][0]
+                front_panel[first_idx, second_idx] = params[0][1]
+                front_panel[second_idx, first_idx] = params[1][0]
+                front_panel[second_idx, second_idx] = params[1][1]
+
+        antenna = {AntennaCommon.Front_panel_size: [self.__quantity_rows, self.__quantity_cols], 
+                   AntennaCommon.Front_panel_coupling: np.asarray(front_panel, dtype='str').tolist()}
 
         with open(filename + AntennaCommon.Front_panel, "w") as f:
-            f.write(json.dumps(front_panel.tolist(), sort_keys=False, indent=4, separators=(',', ': ')))
+            f.write(json.dumps(antenna, sort_keys=False, indent=4, separators=(',', ': ')))
 
     def __build_rfdn_structure(self, sequence, rm_iterator, trm_state_iterator):
         # el TRM se comporta igual que el cable, no tengo que distinguirlos realmente,

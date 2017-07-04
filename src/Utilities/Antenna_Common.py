@@ -6,6 +6,8 @@ import enum
 
 Front_panel = '_panel'
 Rfdn = '_rfdn'
+Front_panel_size = 'size'
+Front_panel_coupling = 'coupling'
 
 MutualCal = 'Mutual'
 ClassicCal = 'Classical'
@@ -140,6 +142,7 @@ def t2s_elements(t11, t12, t21, t22):
 
 
 def s2t_parameters(s_matrix):
+    print(s_matrix)
     return s2t_elements(*np.array(s_matrix).reshape(-1,).tolist())
 
 

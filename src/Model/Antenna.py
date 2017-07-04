@@ -3,6 +3,7 @@ import json
 import numpy as np
 import re
 import Utilities.Antenna_Common as AntennaCommon
+import logging
 
 
 class Antenna:
@@ -11,7 +12,7 @@ class Antenna:
 
     def __init__(self):
         self.__json_rfdn = None
-        self.__json_panel = None
+        self.__coupling_matrix = None
         self.__quantity_rows = 0
         self.__quantity_columns = 0
         self.__matrix_distances = None
@@ -25,6 +26,10 @@ class Antenna:
     def quantity_columns(self):
         return self.__quantity_columns
 
+    @property
+    def shape(self):
+        return self.__quantity_rows, self.__quantity_columns
+
     def initialize(self, dist_rows, dist_columns, filename="antenna"):
         """
         :param dist_rows: physical distance between rows of rm
@@ -35,10 +40,11 @@ class Antenna:
         with open(filename + AntennaCommon.Rfdn) as f:
             self.__json_rfdn = json.load(f)
         with open(filename + AntennaCommon.Front_panel) as f:
-            self.__json_panel = json.load(f)
+            front_panel = json.load(f)
 
-        self.__quantity_rows = int(re.match("^RM \(([\d]+).*", self.__json_panel[-1][0]).group(1)) + 1
-        self.__quantity_columns = int(re.match("^RM \([\d]+, ([\d]+).*", self.__json_panel[-1][0]).group(1)) + 1
+        self.__coupling_matrix = front_panel[AntennaCommon.Front_panel_coupling]
+        self.__quantity_rows, self.__quantity_columns = front_panel[AntennaCommon.Front_panel_size]
+
         (self.__matrix_distances, _) = AntennaCommon.calculate_distances_between_rms(self.__quantity_rows,
                                                                                      self.__quantity_columns,
                                                                                      dist_rows, dist_columns, False)
@@ -117,14 +123,14 @@ class Antenna:
         """
         calculates the s parameters between all RMs
         :return:
-        s_parameters -- dict with its keys are every RMs id in transmission mode and its values are a pair of RMid-S
-        parameter in reception mode
+        s_parameters -- 2d mutual coupling array
         """
-        str2cplx = lambda x: list(map(lambda y: list(map(complex, y)), x))
-        f = lambda x: eval(re.match(".*(\(.*\))", x).group(1))
-        create_dict = lambda x: dict([[f(bla[0]), np.matrix(str2cplx(bla[1]))] for bla in x])
-        return {f(self.__json_panel[idx][0]): create_dict(self.__json_panel[idx][1])
-                for idx in range(self.__quantity_columns * self.__quantity_rows)}
+        return np.array(self.__coupling_matrix).astype(complex)
+        # str2cplx = lambda x: list(map(lambda y: list(map(complex, y)), x))
+        # f = lambda x: eval(re.match(".*(\(.*\))", x).group(1))
+        # create_dict = lambda x: dict([[f(bla[0]), np.matrix(str2cplx(bla[1]))] for bla in x])
+        # return {f(self.__coupling_matrix[idx][0]): create_dict(self.__coupling_matrix[idx][1])
+        #         for idx in range(self.__quantity_columns * self.__quantity_rows)}
 
     def __change_trm_param(self, structure, power_shifts, f):
         if AntennaCommon.is_rm(structure):

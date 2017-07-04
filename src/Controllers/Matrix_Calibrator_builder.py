@@ -273,26 +273,26 @@ class DoubleBuilder(MatrixCalibratorBuilder):
         return True if self._antenna.quantity_rows != 2 and self._antenna.quantity_columns != 2 else False
 
     def __add_file(self, first_rm, second_rm, first_int_rm=0, second_int_rm=0):
-        equation = [0] * self._antenna.quantity_columns * self._antenna.quantity_rows
-        equation[first_rm] = 2
-        equation[second_rm] = -2
-        self._tx_a.append(equation)
-        self._rx_a.append(equation)
 
         f = lambda x, y, z, w: Common.v2db(abs(x)) + Common.v2db(abs(y)) - Common.v2db(abs(z)) - Common.v2db(abs(w))
-        self._tx_gain.append(f(self._equations[(first_rm, first_rm)], self._equations[(first_rm, second_rm)],
-                               self._equations[(second_rm, first_rm)], self._equations[(second_rm, second_rm)]))
-        self._rx_gain.append(f(self._equations[(first_rm, first_rm)], self._equations[(second_rm, first_rm)],
-                               self._equations[(first_rm, second_rm)], self._equations[(second_rm, second_rm)]))
+        # self._tx_gain.append(f(self._equations[(first_rm, first_rm)], self._equations[(first_rm, second_rm)],
+        #                        self._equations[(second_rm, first_rm)], self._equations[(second_rm, second_rm)]))
+        # self._rx_gain.append(f(self._equations[(first_rm, first_rm)], self._equations[(second_rm, first_rm)],
+        #                        self._equations[(first_rm, second_rm)], self._equations[(second_rm, second_rm)]))
 
         g = lambda x, y, z, w: np.angle(x, deg=True) + np.angle(y, deg=True) - np.angle(z, deg=True) - \
             np.angle(w, deg=True)
-        self._tx_phase.append(g(self._equations[(first_rm, first_rm)], self._equations[(first_rm, second_rm)],
-                                self._equations[(second_rm, first_rm)], self._equations[(second_rm, second_rm)]))
-        self._rx_phase.append(g(self._equations[(first_rm, first_rm)], self._equations[(second_rm, first_rm)],
-                                self._equations[(first_rm, second_rm)], self._equations[(second_rm, second_rm)]))
+        # self._tx_phase.append(g(self._equations[(first_rm, first_rm)], self._equations[(first_rm, second_rm)],
+        #                         self._equations[(second_rm, first_rm)], self._equations[(second_rm, second_rm)]))
+        # self._rx_phase.append(g(self._equations[(first_rm, first_rm)], self._equations[(second_rm, first_rm)],
+        #                         self._equations[(first_rm, second_rm)], self._equations[(second_rm, second_rm)]))
 
         if first_int_rm != 0:
+            equation = [0] * self._antenna.quantity_columns * self._antenna.quantity_rows
+            equation[first_rm] = 2
+            equation[second_rm] = -2
+            self._tx_a.append(equation)
+            self._rx_a.append(equation)
 
             self._tx_a.append(equation)
             rx_equation = [0] * self._antenna.quantity_columns * self._antenna.quantity_rows

@@ -11,8 +11,12 @@ import os
 import re
 import Controllers.Antenna_Creator as AntennaCreator
 import Controllers.Antenna_Calibrator as AntennaCalibrator
+import Controllers.Mutual_Calibrator as MutualCalibrator
+import Controllers.Classic_Calibrator as ClassicCalibrator
 import Utilities.Antenna_Common as Common
 import json
+import logging
+import traceback
 
 
 def create_antenna2(filename):
@@ -67,6 +71,9 @@ def compare_estimated_gains_against_real(calibrator, visual_comparator, title):
 
 class Simulator:
     def __init__(self):
+        self.__logger = logging.getLogger('Simuator')
+        self.__logger.info('logger initialized')
+
         self.__config = ""
         self.__calibrator = ""
         self.__properties = "../written/thesis/capitulos/capitulo06.tex"
@@ -93,9 +100,11 @@ class Simulator:
         return seq
 
     def __build_component_errors(self):
+        logging.info('Building component errors: %s', self.__config[Common.Conf_ant][Common.Conf_errors])
         return self.__build_errors(self.__config[Common.Conf_ant][Common.Conf_errors])
 
     def __build_calibration_errors(self):
+        logging.info('Building calibration errors: %s', self.__config[Common.Conf_cal_param][Common.Conf_errors])
         return self.__build_errors(self.__config[Common.Conf_cal_param][Common.Conf_errors])
 
     def __get_desired_phases(self):
@@ -114,6 +123,8 @@ class Simulator:
                                           col_separation, row_separation, freq)
 
     def create_antenna(self):
+        logging.info('Creating antenna')
+
         quantity_columns = self.__config[Common.Conf_ant][Common.Conf_qtty_cols]
         quantity_rows = self.__config[Common.Conf_ant][Common.Conf_qtty_rows]
         row_separation = self.__config[Common.Conf_ant][Common.Conf_vert_sep]
@@ -125,6 +136,17 @@ class Simulator:
         f = self.__config[Common.Conf_in_param][Common.Conf_freq]      # [Hz]
         wavelength = Common.C/f    # [m]
 
+        self.__logger.debug('Panel dimensions:')
+        self.__logger.debug('\tRows: %s', quantity_rows)
+        self.__logger.debug('\tColumns: %s', quantity_columns)
+        self.__logger.debug('\tHorizontal Separation: %s', col_separation)
+        self.__logger.debug('\tVertical Separation: %s', row_separation)
+        self.__logger.debug('\tHorizontal steering: %s', column_steering)
+        self.__logger.debug('\tVertical steering: %s', row_steering)
+        self.__logger.debug('\tVertical Separation: %s', row_separation)
+        self.__logger.debug('\tVertical Separation: %s', row_separation)
+
+
         sequence_items = self.__build_sequence(wavelength)
         component_errors = self.__build_component_errors()
 
@@ -133,6 +155,8 @@ class Simulator:
         creator.create_structure(filename, sequence_items, row_steering, column_steering, dead_trms)
 
     def __create_calibrator(self, calibr):
+        logging.info('Creating calibrator')
+
         self.__calibrator = calibr
 
         in_power = self.__config[Common.Conf_in_param][Common.Conf_power]
@@ -146,10 +170,10 @@ class Simulator:
         calibration_errors = self.__build_calibration_errors()
 
         if calibr == Common.MutualCal:
-            calibrator = AntennaCalibrator.MutualCalibrator(in_power, in_phase, row_steering, column_steering,
+            calibrator = MutualCalibrator.MutualCalibrator(in_power, in_phase, row_steering, column_steering,
                                                             row_separation, col_separation, filename)
         else:
-            calibrator = AntennaCalibrator.ClassicCalibrator(in_power, in_phase, row_separation, col_separation, filename)
+            calibrator = ClassicCalibrator.MutualCalibrator(in_power, in_phase, row_separation, col_separation, filename)
 
         if calibration_errors:
             calibrator.add_calibration_errors(calibration_errors)
@@ -160,6 +184,8 @@ class Simulator:
         return calibrator
 
     def __calibrate_antenna(self, calibrator):
+        logging.info('Calibrating antenna')
+
         desired_tx_power = self.__config[Common.Conf_cal_param][Common.Conf_id_tx_power]
         desired_rx_power = self.__config[Common.Conf_cal_param][Common.Conf_id_rx_power]
 
@@ -167,6 +193,7 @@ class Simulator:
 
         desired_signals = [desired_tx_power, desired_phase, desired_rx_power, desired_phase]
         calibrator.calibrate_antenna(*desired_signals)
+        logging.debug('Calibration finished')
 
     @staticmethod
     def __get_pattern_properties(non_cal_pat, cal_pat, ideal_pat):
@@ -232,6 +259,7 @@ class Simulator:
                                                            start_stop_angle=limits, phi=phi)
         cal_pattern = generator.generate_pattern(tx_power, tx_phase, limits, phi)
         name = filename + "ElCut"
+
         visual_comparator.compare_patterns_against_ideal(angles, non_cal_pattern.get_db(), cal_pattern.get_db(),
                                                          ideal_pattern.get_db(), title + "Corte vertical", name)
 
@@ -316,9 +344,9 @@ class Simulator:
         cal_errors = self.__config[Common.Conf_cal_param][Common.Conf_errors]
 
         if len(cal_errors) == 1:
-            return names[cal_errors[0]]
+            return "montecarlo2"# names[cal_errors[0]]
         elif self.__config[Common.Conf_ant][Common.Conf_dead_trm]:
-            return "deadTRMs"
+            return "walltest"
         elif self.__config[Common.Conf_ant][Common.Conf_errors]:
             return "compErr"
         else:
@@ -364,8 +392,24 @@ class Simulator:
             return gain, phase
 
 
+def clean_log_file(log_file):
+    with open(log_file, 'w'):
+        pass
+
 if __name__ == "__main__":
+    log_file = 'log.log'
+    clean_log_file(log_file)
+    logging.basicConfig(filename=log_file, format='%(asctime)s %(name)s\t%(levelname)s: %(message)s', level=logging.DEBUG)
+
     sim = Simulator()
     sim.create_antenna()
-    # sim.run(Common.ClassicCal, save_files=False, show_graph=False, graphics_to_csv=True)
-    sys.exit(sim.run(Common.MutualCal, save_files=False, show_graph=False, graphics_to_csv=False))
+    
+    logging.info('Antenna Created')
+    try:
+        # sim.run(Common.ClassicCal, save_files=False, show_graph=False, graphics_to_csv=True)
+        sim.run(Common.MutualCal, save_files=False, show_graph=False, graphics_to_csv=False)
+    except Exception as inst:
+        traceback.print_exc()
+        logging.exception('%s', inst)
+    logging.shutdown()
+    sys.exit(0)
