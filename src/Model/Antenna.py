@@ -11,6 +11,7 @@ class Antenna:
     __Polarizations = [AntennaCommon.Rfdn_h_pol, AntennaCommon.Rfdn_v_pol]
 
     def __init__(self):
+        self.__logger = logging.getLogger('Antenna')
         self.__json_rfdn = None
         self.__coupling_matrix = None
         self.__quantity_rows = 0
@@ -37,6 +38,8 @@ class Antenna:
         :param filename: filename where the antenna model is written
         :return:
         """
+        self.__logger.debug('Initializing antenna')
+
         with open(filename + AntennaCommon.Rfdn) as f:
             self.__json_rfdn = json.load(f)
         with open(filename + AntennaCommon.Front_panel) as f:
@@ -44,6 +47,7 @@ class Antenna:
 
         self.__coupling_matrix = front_panel[AntennaCommon.Front_panel_coupling]
         self.__quantity_rows, self.__quantity_columns = front_panel[AntennaCommon.Front_panel_size]
+        self.__logger.debug('Antenna shape: %s x %s', self.__quantity_rows, self.__quantity_columns)
 
         (self.__matrix_distances, _) = AntennaCommon.calculate_distances_between_rms(self.__quantity_rows,
                                                                                      self.__quantity_columns,
@@ -101,6 +105,12 @@ class Antenna:
                                                                                           f(rm_pos))), child_param)]
                 for rm_pos, child_param in children]
 
+    def __format_gain_paths(self, t_paths):
+        s_paths = [AntennaCommon.t2s_parameters(matrix[1]) for matrix in t_paths]
+        paths = [s_paths[i:i+self.__quantity_columns] for i in range(0, len(s_paths), self.__quantity_columns)]
+        self.__logger.debug("Paths formatted: %s", paths)
+        return paths
+
     def get_gain_paths(self, pol_mode, complete=True):
         """
         :keyword parameters:
@@ -113,11 +123,9 @@ class Antenna:
             raise Exception("polarization {0} is not a valid mode", pol_mode)
 
         modes = AntennaCommon.parse_polarization_mode(pol_mode)
+        self.__logger.debug('Polarization modes: %s', modes)
 
-        f = lambda x: [AntennaCommon.t2s_parameters(matrix[1]) for matrix in x]
-        format_list = lambda x: list(map(lambda y: x[self.__quantity_columns * y: self.__quantity_columns * (y+1)],
-                                         range(self.__quantity_rows)))
-        return [format_list(f(self.__get_attenuation_paths(self.__json_rfdn[mode[1]], mode[0], complete))) for mode in modes]
+        return [self.__format_gain_paths(self.__get_attenuation_paths(self.__json_rfdn[mode[1]], mode[0], complete)) for mode in modes]
 
     def get_mutual_coupling_front_panel(self):
         """

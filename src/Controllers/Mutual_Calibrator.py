@@ -3,11 +3,13 @@ import Controllers.Antenna_Calibrator as calibrator
 import Utilities.Antenna_Common as common
 import Controllers.Matrix_Calibrator_builder as MatrixBuilder
 import itertools
+import logging
 
 
 class MutualCalibrator(calibrator.AntennaCalibrator):
     def __init__(self, input_power, input_phase, row_steering, column_steering, dist_rows, dist_columns, filename):
         super(MutualCalibrator, self).__init__(input_power, input_phase, dist_rows, dist_columns, filename)
+        self.__logger = logging.getLogger('Mutual')
 
         self.__trm_setting = common.obtain_shift_phases(column_steering, row_steering,
                                                                self._antenna.quantity_columns,
@@ -50,6 +52,7 @@ class MutualCalibrator(calibrator.AntennaCalibrator):
         self._rx_phase += phase_shift
 
     def generate_cal_paths(self, strategy, pol_mode="TxH-RxV"):
+        self.__logger.debug('Polarization mode used: %s', pol_mode)
         self._set_pol_mode(pol_mode)
 
         self.__last_cal_paths = [strategy, pol_mode]
@@ -57,12 +60,14 @@ class MutualCalibrator(calibrator.AntennaCalibrator):
         [self.__tx_network, self.__rx_network] = self._antenna.get_gain_paths(pol_mode)
 
         rows, columns = self._antenna.shape
+        self.__logger.debug('Antenna shape: %s x %s', rows, columns)
 
         f = lambda x: [[common.s2t_parameters(x[row][col]) for col in range(columns)] for row in range(rows)]
 
         tx_network = f(self.__tx_network)
         rx_network = f(self.__rx_network)
 
+        self.__logger.debug('Applying strategy')
         [b, a] = strategy(self._antenna, tx_network, self.__rm_coupling, rx_network)
 
         rand = lambda x, y: np.random.normal(x, y) if y else x
@@ -105,7 +110,10 @@ class MutualCalibrator(calibrator.AntennaCalibrator):
         #self.__fix_rx_power_and_phase()
 
     def calibrate_antenna(self, desired_tx_power, desired_tx_phase, desired_rx_power, desired_rx_phase):
+        self.__logger.debug('Calibrating antenna')
+
         self._calibrate_antenna(desired_tx_power, desired_tx_phase, desired_rx_power, desired_rx_phase)
+        self.__logger.info('Generating calibration paths')
         self.generate_cal_paths(*self.__last_cal_paths)
 
     def __change_values(self, phase, indexes, increment):

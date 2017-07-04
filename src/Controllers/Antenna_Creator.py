@@ -23,6 +23,7 @@ class AntennaCreator:
         :param row_shift: is the shift of odd antenna rows (default False)
         :return:
         """
+        self.__logger = logging.getLogger('Creator')
         self.__scattering_handler = ScatteringParameters.CableScatteringParameters()
         rm_handler = ScatteringParameters.RmScatteringParameters()
         trm_handler = ScatteringParameters.TrmScatteringParameters()
@@ -52,11 +53,13 @@ class AntennaCreator:
 
     def add_errors(self, errors):
         if not isinstance(errors, list):
-            raise Exception('errors are not well created. The variable is not a list')
+            self.__logger.exception('Inserting errors %s', errors)
+            raise Exception('Errors are not well created. The variable is not a list')
 
         if len(errors) == 0:
             return
         if [True for error in errors if len(error) != 2]:
+            self.__logger.exception('Errors content %s', errors)
             raise Exception('errors are not well created')
 
         rm_handler = ScatteringParameters.RmScatteringParameters()
@@ -77,6 +80,7 @@ class AntennaCreator:
         psc_handler.initialize(*f(AntennaCommon.Psc_error))
 
     def __build_front_panel_structure(self, filename):
+        self.__logger.debug('Building front panel structure')
         parameters = [self.__quantity_rows, self.__quantity_cols, self.__dist_rows, self.__dist_columns, self.__row_shift]
         (matrix_distances, distances) = AntennaCommon.calculate_distances_between_rms(*parameters)
 
@@ -92,19 +96,25 @@ class AntennaCreator:
         total_elements = self.__quantity_rows * self.__quantity_cols
         front_panel = np.zeros((total_elements, total_elements), dtype=complex)
 
-        for first_coordenade in keys:
-            first_idx = self.__row_col_to_index(*first_coordenade)
+        for first_coordinate in keys:
+            first_idx = self.__row_col_to_index(*first_coordinate)
+            for second_coordinate in keys:
+                self.__logger.debug('tx coordinates: %s, rx coordinates: %s', first_coordinate, second_coordinate)
+                second_idx = self.__row_col_to_index(*second_coordinate)
+                self.__logger.debug('tx index: %s, rx index: %s', first_idx, second_idx)
 
-            for second_coordenade in keys:
-                second_idx = self.__row_col_to_index(*second_coordenade)
-
-                delta = tuple(map(lambda x, y: abs(x-y), first_coordenade, second_coordenade))
+                delta = tuple(map(lambda x, y: abs(x-y), first_coordinate, second_coordinate))
+                self.__logger.debug('Delta between RE %s, which distance is %s', delta, matrix_distances[delta])
                 params = dispersion_params[matrix_distances[delta]]
+                self.__logger.debug('Parameters matrix: %s', params)
 
                 front_panel[first_idx, first_idx] = params[0][0]
                 front_panel[first_idx, second_idx] = params[0][1]
                 front_panel[second_idx, first_idx] = params[1][0]
                 front_panel[second_idx, second_idx] = params[1][1]
+                self.__logger.debug('Front panel: [[%s, %s],[%s, %s]]\n', front_panel[first_idx, first_idx],
+                                    front_panel[first_idx, second_idx], front_panel[second_idx, first_idx],
+                                    front_panel[second_idx, second_idx])
 
         antenna = {AntennaCommon.Front_panel_size: [self.__quantity_rows, self.__quantity_cols], 
                    AntennaCommon.Front_panel_coupling: np.asarray(front_panel, dtype='str').tolist()}

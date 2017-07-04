@@ -2,7 +2,7 @@ __author__ = 'fsoler'
 
 import Model.Antenna as Antenna
 import Utilities.Antenna_Common as common
-
+import logging
 import numpy as np
 from abc import ABCMeta, abstractmethod
 
@@ -129,25 +129,38 @@ def obtain_submatrix(matrix, ix1, ix2):
     return np.matrix([[it11, it12],[it21, it22]])
 
 
+def obtain_s_parameters(antenna, tx_network, rm_coupling, rx_network, tx_row, tx_col, rx_row, rx_col, logger):
+    logger.debug('tx coordinates: (%s, %s), rx coordinates: (%s, %s)', tx_row, tx_col, rx_row, rx_col)
+    coupling_matrix = obtain_submatrix(rm_coupling, antenna.row_col_to_index(tx_row, tx_col), 
+                                       antenna.row_col_to_index(rx_row, rx_col))
+    logger.debug('tx network parameters %s', tx_network[tx_row][tx_col].tolist())
+    logger.debug('coupling network s parameters %s', coupling_matrix.tolist())
+    logger.debug('rx network parameters %s\n', rx_network[rx_row][rx_col].tolist())
+    return common.t2s_parameters(tx_network[tx_row][tx_col] * common.s2t_parameters(coupling_matrix) * rx_network[rx_row][rx_col])
+
+
 def every_one_to_one_path_strategy(antenna, tx_network, rm_coupling, rx_network):
     """
     This strategy calculates every path that unify every RM. The configuration is use one in transmission and one in
     reception mode at time.
     :return:
     """
+    logger = logging.getLogger('Strategy')
     rows, columns = antenna.shape
+    logger.debug('Antenna shape: %s x %s', rows, columns)
+
     rowrange = range(rows)
     colrange = range(columns)
 
     s2t = lambda x: common.s2t_parameters(x)
     t2s = lambda x: common.t2s_parameters(x)
 
-    g = lambda tx_row, tx_col, rx_row, rx_col: t2s(tx_network[tx_row][tx_col] *
-                                                   s2t(obtain_submatrix(rm_coupling, 
-                                                                        antenna.row_col_to_index(tx_row, tx_col),
-                                                                        antenna.row_col_to_index(rx_row, rx_col))) *
-                                                   rx_network[rx_row][rx_col])
-    out = [[g(tx_row, tx_col, rx_row, rx_col),
+    # g = lambda tx_row, tx_col, rx_row, rx_col: t2s(tx_network[tx_row][tx_col] *
+    #                                                s2t(obtain_submatrix(rm_coupling, 
+    #                                                                     antenna.row_col_to_index(tx_row, tx_col),
+    #                                                                     antenna.row_col_to_index(rx_row, rx_col))) *
+    #                                                rx_network[rx_row][rx_col])
+    out = [[obtain_s_parameters(antenna, tx_network, rm_coupling, rx_network, tx_row, tx_col, rx_row, rx_col, logger),
             (antenna.row_col_to_index(tx_row, tx_col),
              antenna.row_col_to_index(rx_row, rx_col))] for rx_row in rowrange for rx_col in colrange
            for tx_col in colrange for tx_row in rowrange 
