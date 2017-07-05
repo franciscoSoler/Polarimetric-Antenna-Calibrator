@@ -69,6 +69,22 @@ class Antenna:
     def get_qtty_antennas(self):
         return self.__get_qtty_antennas(next(iter(self.__json_rfdn.values())))
 
+    def __get_s2p(self, component, sxp, mode, idx):
+        # self.__logger.debug('component: %s, sxp: %s, mode: %s, idx: %s', component, sxp, mode, idx)
+        if AntennaCommon.is_cable(component):
+            fir_p = 0 if mode == AntennaCommon.Transmission else 1
+            sec_p = 1 if mode == AntennaCommon.Transmission else 0
+        elif mode == AntennaCommon.Reception:
+            fir_p = 1 if AntennaCommon.is_circulator(component) else 2 if AntennaCommon.is_trm(component) else idx + 1
+            sec_p = 2 if AntennaCommon.is_circulator(component) else 0
+        else:
+            fir_p = 0
+            sec_p = idx + 1
+
+        s2p = [[sxp[fir_p][fir_p], sxp[fir_p][sec_p]], [sxp[sec_p][fir_p], sxp[sec_p][sec_p]]]
+        # self.__logger.debug('s2p to return: %s', s2p)
+        return np.matrix(s2p)
+
     def __get_attenuation_paths(self, structure, mode, complete, fix_s_param=False):
         """
 
@@ -76,11 +92,12 @@ class Antenna:
         :param mode: is Transmission or Reception, used to determine which sij must use for TRM
         :return:
         """
+        # self.__logger.debug('entering get attenuation paths')
         if type(structure) is not dict:
             return [[structure, np.identity(2)]]
 
         component, value = list(structure.items())[0]
-
+        # self.__logger.debug('component: %s, sParams: %s', component, value[AntennaCommon.SParams])
         children = []
         if AntennaCommon.is_psc(component):
             [children.extend(self.__get_attenuation_paths(extreme, mode, complete, fix_s_param)) for extreme in value[AntennaCommon.Extreme]]
@@ -101,15 +118,16 @@ class Antenna:
             parameters = [[0, 0, 1], [1, 0, 0], [0, 1, 0]] if AntennaCommon.is_circulator(component) else [[0, 1], [1, 0]]
         build_cascade = lambda x, y: x * y if mode == AntennaCommon.Transmission else y * x
 
-        return [[rm_pos, build_cascade(AntennaCommon.s2t_parameters(AntennaCommon.get_s2p(component, parameters, mode,
+        return [[rm_pos, build_cascade(AntennaCommon.s2t_parameters(self.__get_s2p(component, parameters, mode,
                                                                                           f(rm_pos))), child_param)]
                 for rm_pos, child_param in children]
 
     def __format_gain_paths(self, t_paths):
+        self.__logger.debug('Formatting gain paths')
         s_paths = [AntennaCommon.t2s_parameters(matrix[1]) for matrix in t_paths]
-        paths = [s_paths[i:i+self.__quantity_columns] for i in range(0, len(s_paths), self.__quantity_columns)]
-        self.__logger.debug("Paths formatted: %s", paths)
-        return paths
+        # paths = [s_paths[i:i+self.__quantity_columns] for i in range(0, len(s_paths), self.__quantity_columns)]
+        self.__logger.debug('Paths formatted: %s', [list(map(np.abs, s_paths[i:i+self.__quantity_columns])) for i in range(0, len(s_paths), self.__quantity_columns)])
+        return [s_paths[i:i+self.__quantity_columns] for i in range(0, len(s_paths), self.__quantity_columns)]
 
     def get_gain_paths(self, pol_mode, complete=True):
         """

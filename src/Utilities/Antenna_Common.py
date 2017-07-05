@@ -3,6 +3,7 @@ import numpy as np
 import math
 import cmath
 import enum
+import ast
 
 Front_panel = '_panel'
 Rfdn = '_rfdn'
@@ -118,7 +119,8 @@ def get_qtty_output_ports(component):
 def get_rm_position(component):
     if not is_rm(component):
         raise Exception("the component should be a RM")
-    return eval(re.match(Rm + "(.*)", component).group(1))
+
+    return ast.literal_eval(re.match(Rm + " (.*)", component).group(1))
 
 
 def get_qtty_ports(component):
@@ -148,21 +150,6 @@ def s2t_parameters(s_matrix):
 
 def t2s_parameters(t_matrix):
     return t2s_elements(*np.array(t_matrix).reshape(-1,).tolist())
-
-
-def get_s2p(component, sxp_matrix, mode, idx):
-    if is_cable(component):
-        fir_p = 0 if mode == Transmission else 1
-        sec_p = 1 if mode == Transmission else 0
-    elif mode == Reception:
-        fir_p = 1 if is_circulator(component) else 2 if is_trm(component) else idx + 1
-        sec_p = 2 if is_circulator(component) else 0
-    else:
-        fir_p = 0
-        sec_p = idx + 1
-
-    return np.matrix([[sxp_matrix[fir_p][fir_p], sxp_matrix[fir_p][sec_p]], [sxp_matrix[sec_p][fir_p],
-                                                                             sxp_matrix[sec_p][sec_p]]])
 
 
 def db2v(decibel):
