@@ -13,6 +13,7 @@ class AntennaCalibrator(object):
 
     def __init__(self, input_power, input_phase, dist_rows, dist_columns,
                  filename="antenna"):
+        self.__logger = logging.getLogger('AntennaCalibrator')
         self._antenna = Antenna.Antenna()
         self._antenna.initialize(dist_rows, dist_columns, filename)
 
@@ -53,6 +54,8 @@ class AntennaCalibrator(object):
         rx_shift = common.pol2rec(common.db2v(desired_rx_power - self._rx_power),
                                          desired_rx_phase - self._rx_phase)
 
+        self.__logger.debug('Tx shift to correct %s', tx_shift)
+        # self.__logger.debug('Rx shift to correct %s', rx_shift)
         modes = common.parse_polarization_mode(self._pol_mode)
         self._antenna.change_trm_tx_params(tx_shift, modes[0][1])
         self._antenna.change_trm_rx_params(rx_shift, modes[1][1])
@@ -131,18 +134,23 @@ def obtain_submatrix(matrix, ix1, ix2):
 
 def obtain_s_parameters(antenna, tx_network, rm_coupling, rx_network, tx_row, tx_col, rx_row, rx_col, logger):
     logger.debug('tx coordinates: (%s, %s), rx coordinates: (%s, %s)', tx_row, tx_col, rx_row, rx_col)
-    coupling_matrix = obtain_submatrix(rm_coupling, antenna.row_col_to_index(tx_row, tx_col), 
-                                       antenna.row_col_to_index(rx_row, rx_col))
+    coupling_matrix = common.s2t_parameters(obtain_submatrix(rm_coupling, antenna.row_col_to_index(tx_row, tx_col),
+                                            antenna.row_col_to_index(rx_row, rx_col)))
+
+    tx_t_matrix = common.s2t_parameters(tx_network[tx_row][tx_col])
+    rx_t_matrix = common.s2t_parameters(rx_network[tx_row][tx_col])
+
     logger.debug('tx network parameters %s', tx_network[tx_row][tx_col].tolist())
-    logger.debug('coupling network s parameters %s', coupling_matrix.tolist())
-    logger.debug('rx network parameters %s\n', rx_network[rx_row][rx_col].tolist())
-    return common.t2s_parameters(tx_network[tx_row][tx_col] * common.s2t_parameters(coupling_matrix) * rx_network[rx_row][rx_col])
+    logger.debug('coupling network s parameters %s', common.t2s_parameters(coupling_matrix).tolist())
+    logger.debug('rx network parameters %s', rx_network[rx_row][rx_col].tolist())
+    logger.debug('path parameters %s, index (%s, %s)\n', common.t2s_parameters(tx_t_matrix * coupling_matrix * rx_t_matrix).tolist(), antenna.row_col_to_index(tx_row, tx_col), antenna.row_col_to_index(rx_row, rx_col))
+    return common.t2s_parameters(tx_t_matrix * coupling_matrix * rx_t_matrix)
 
 
 def every_one_to_one_path_strategy(antenna, tx_network, rm_coupling, rx_network):
     """
     This strategy calculates every path that unify every RM. The configuration is use one in transmission and one in
-    reception mode at time.
+    reception mode at time. Every input is an s parameter.
     :return:
     """
     logger = logging.getLogger('Strategy')
@@ -152,8 +160,8 @@ def every_one_to_one_path_strategy(antenna, tx_network, rm_coupling, rx_network)
     rowrange = range(rows)
     colrange = range(columns)
 
-    s2t = lambda x: common.s2t_parameters(x)
-    t2s = lambda x: common.t2s_parameters(x)
+    # s2t = lambda x: common.s2t_parameters(x)
+    # t2s = lambda x: common.t2s_parameters(x)
 
     # g = lambda tx_row, tx_col, rx_row, rx_col: t2s(tx_network[tx_row][tx_col] *
     #                                                s2t(obtain_submatrix(rm_coupling, 
@@ -168,9 +176,9 @@ def every_one_to_one_path_strategy(antenna, tx_network, rm_coupling, rx_network)
 
     half_row = rows // 2
     half_col= columns // 2
-    unique_path = [[t2s(tx_network[half_row][half_col]), (antenna.row_col_to_index(half_row, half_col), None)],
-                   [t2s(rx_network[half_row][half_col]), (None, antenna.row_col_to_index(half_row, half_col))]]
-
+    unique_path = [[tx_network[half_row][half_col], (antenna.row_col_to_index(half_row, half_col), None)],
+                   [rx_network[half_row][half_col], (None, antenna.row_col_to_index(half_row, half_col))]]
+    logger.debug(list(zip(*(out + unique_path))))
     return list(zip(*(out + unique_path)))
 
 

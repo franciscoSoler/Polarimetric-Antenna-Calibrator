@@ -24,7 +24,7 @@ class MutualCalibrator(calibrator.AntennaCalibrator):
         tiny.set_successor(MatrixBuilder.DefaultBuilder())
         double.set_successor(tiny)
         cross.set_successor(double)
-        self.__matrix_builder.set_successor(cross)
+        # self.__matrix_builder.set_successor(cross)
 
         self.__rm_coupling = self._antenna.get_mutual_coupling_front_panel()
         self.__tx_network = None
@@ -62,13 +62,13 @@ class MutualCalibrator(calibrator.AntennaCalibrator):
         rows, columns = self._antenna.shape
         self.__logger.debug('Antenna shape: %s x %s', rows, columns)
 
-        f = lambda x: [[common.s2t_parameters(x[row][col]) for col in range(columns)] for row in range(rows)]
+        # f = lambda x: [[common.s2t_parameters(x[row][col]) for col in range(columns)] for row in range(rows)]
 
-        tx_network = f(self.__tx_network)
-        rx_network = f(self.__rx_network)
+        # tx_network = f(self.__tx_network)
+        # rx_network = f(self.__rx_network)
 
         self.__logger.debug('Applying strategy')
-        [b, a] = strategy(self._antenna, tx_network, self.__rm_coupling, rx_network)
+        [b, a] = strategy(self._antenna, self.__tx_network, self.__rm_coupling, self.__rx_network)
 
         rand = lambda x, y: np.random.normal(x, y) if y else x
         f = lambda x: x * common.pol2rec(common.db2v(rand(self._input_power, self._input_delta_power)),
@@ -97,12 +97,11 @@ class MutualCalibrator(calibrator.AntennaCalibrator):
         self._tx_power = least_squares(a, tx_gain)
         self._tx_phase = format_phase(least_squares(a, self.__correct_phase(a, tx_phase)))
 
-        """
-        print(a)
-        print(tx_phase)
-        print(format_phase(tx_phase))
-        print(common.rad2deg(least_squares(a, format_phase(tx_phase))))
-        """
+        # print(a)
+        # print(tx_phase)
+        # print(format_phase(tx_phase))
+        # print(common.rad2deg(least_squares(a, format_phase(tx_phase))))
+
         a, rx_gain, rx_phase = self.__matrix_builder.get_rx_matrix()
         self._rx_power = least_squares(a, rx_gain)
         self._rx_phase = format_phase(least_squares(a, self.__correct_phase(a, rx_phase)))
@@ -112,9 +111,13 @@ class MutualCalibrator(calibrator.AntennaCalibrator):
     def calibrate_antenna(self, desired_tx_power, desired_tx_phase, desired_rx_power, desired_rx_phase):
         self.__logger.debug('Calibrating antenna')
 
+        self.__logger.debug('Tx gain before calibration: %s', self.get_transmission_power())
+
         self._calibrate_antenna(desired_tx_power, desired_tx_phase, desired_rx_power, desired_rx_phase)
         self.__logger.info('Generating calibration paths')
         self.generate_cal_paths(*self.__last_cal_paths)
+        self.__logger.debug('Tx gain after calibration: %s', self.get_transmission_power())
+        self.__logger.info('Calibration paths created')
 
     def __change_values(self, phase, indexes, increment):
         for idx in indexes:
