@@ -54,9 +54,9 @@ class MyTestCase(unittest.TestCase):
         quantity_rows = 1
         quantity_columns = 3
         equations = dict([
-            ((0, 0), 20), ((0, 1), 18), ((0, 2), 18),
-            ((1, 0), 19), ((1, 1), 20), ((1, 2), 18),
-            ((2, 0), 18), ((2, 1), 19), ((2, 2), 20),
+            ((0, 1), 18), ((0, 2), 18),
+            ((1, 0), 19), ((1, 2), 18),
+            ((2, 0), 18), ((2, 1), 19),
             ((0, None), 10)])
         self.__create_antenna(quantity_rows, quantity_columns, self.separation)
         calibrator = self.__initialize_calibrator(MatCalBuilder.LinearBuilder(), equations)
@@ -76,10 +76,10 @@ class MyTestCase(unittest.TestCase):
         quantity_rows = 2
         quantity_columns = 2
         equations = dict([
-            ((0, 0), 20), ((0, 1), 19), ((0, 2), 18), ((0, 3), 17),
-            ((1, 0), 19), ((1, 1), 20), ((1, 2), 19), ((1, 3), 18),
-            ((2, 0), 18), ((2, 1), 19), ((2, 2), 20), ((2, 3), 19),
-            ((3, 0), 17), ((3, 1), 18), ((3, 2), 19), ((3, 3), 20),
+            ((0, 1), 19), ((0, 2), 18), ((0, 3), 17),
+            ((1, 0), 19), ((1, 2), 19), ((1, 3), 18),
+            ((2, 0), 18), ((2, 1), 19), ((2, 3), 19),
+            ((3, 0), 17), ((3, 1), 18), ((3, 2), 19),
             ((0, None), 10)])
         self.__create_antenna(quantity_rows, quantity_columns, self.separation)
         calibrator = self.__initialize_calibrator(MatCalBuilder.CrossBuilder(), equations)
@@ -94,6 +94,9 @@ class MyTestCase(unittest.TestCase):
         np.testing.assert_equal(rx_phase, [0, 0, 0, 0])
 
     def test_the_tiny_equations_are_correct(self):
+        """
+        DEPRECATED
+        """
         quantity_rows = 2
         quantity_columns = 2
         equations = dict([
@@ -120,10 +123,10 @@ class MyTestCase(unittest.TestCase):
         quantity_rows = 2
         quantity_columns = 2
         equations = dict([
-            ((0, 0), 20), ((0, 1), 19), ((0, 2), 18), ((0, 3), 17),
-            ((1, 0), 19), ((1, 1), 20), ((1, 2), 19), ((1, 3), 18),
-            ((2, 0), 18), ((2, 1), 19), ((2, 2), 20), ((2, 3), 19),
-            ((3, 0), 17), ((3, 1), 18), ((3, 2), 19), ((3, 3), 20),
+            ((0, 1), 19), ((0, 2), 18), ((0, 3), 17),
+            ((1, 0), 19), ((1, 2), 19), ((1, 3), 18),
+            ((2, 0), 18), ((2, 1), 19), ((2, 3), 19),
+            ((3, 0), 17), ((3, 1), 18), ((3, 2), 19),
             ((0, None), 10), ((None, 0), 10)])
         self.__create_antenna(quantity_rows, quantity_columns, self.separation)
         calibrator = self.__initialize_calibrator(MatCalBuilder.DefaultBuilder(), equations)
