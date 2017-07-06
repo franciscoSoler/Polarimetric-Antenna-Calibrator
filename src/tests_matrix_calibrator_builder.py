@@ -6,10 +6,10 @@ import glob
 
 import numpy as np
 
-import src.Model.Antenna as Antenna
-import src.Utilities.Antenna_Common as AntennaCommon
-import src.Controllers.Antenna_Creator as RFDNCreator
-import src.Controllers.Matrix_Calibrator_builder as MatCalBuilder
+import Model.Antenna as Antenna
+import Utilities.Antenna_Common as AntennaCommon
+import Controllers.Antenna_Creator as RFDNCreator
+import Controllers.Matrix_Calibrator_builder as MatCalBuilder
 
 
 class MyTestCase(unittest.TestCase):
@@ -89,7 +89,7 @@ class MyTestCase(unittest.TestCase):
         np.testing.assert_equal(tx_gain, [f(19) - f(18), f(19) - f(18), f(19) - f(18), f(19) - f(18)])
         np.testing.assert_equal(tx_phase, [0, 0, 0, 0])
 
-        a, rx_gain, rx_phase = calibrator.get_tx_matrix()
+        a, rx_gain, rx_phase = calibrator.get_rx_matrix()
         np.testing.assert_equal(rx_gain, [f(19) - f(18), f(19) - f(18), f(19) - f(18), f(19) - f(18)])
         np.testing.assert_equal(rx_phase, [0, 0, 0, 0])
 
@@ -109,7 +109,7 @@ class MyTestCase(unittest.TestCase):
         np.testing.assert_equal(tx_gain, [0, 0, 0, 0])
         np.testing.assert_equal(tx_phase, [0, 0, 0, 0])
 
-        a, rx_gain, rx_phase = calibrator.get_tx_matrix()
+        a, rx_gain, rx_phase = calibrator.get_rx_matrix()
         np.testing.assert_equal(a, [[2, 0, -2, 0], [0, 2, 0, -2], [2, -2, 0, 0], [0, 0, 2, -2]])
         np.testing.assert_equal(rx_gain, [0, 0, 0, 0])
         np.testing.assert_equal(rx_phase, [0, 0, 0, 0])
@@ -124,7 +124,7 @@ class MyTestCase(unittest.TestCase):
             ((1, 0), 19), ((1, 1), 20), ((1, 2), 19), ((1, 3), 18),
             ((2, 0), 18), ((2, 1), 19), ((2, 2), 20), ((2, 3), 19),
             ((3, 0), 17), ((3, 1), 18), ((3, 2), 19), ((3, 3), 20),
-            ((0, None), 10)])
+            ((0, None), 10), ((None, 0), 10)])
         self.__create_antenna(quantity_rows, quantity_columns, self.separation)
         calibrator = self.__initialize_calibrator(MatCalBuilder.DefaultBuilder(), equations)
         a, tx_gain, tx_phase = calibrator.get_tx_matrix()
@@ -132,7 +132,7 @@ class MyTestCase(unittest.TestCase):
         np.testing.assert_equal(tx_gain, [f(10)])
         np.testing.assert_equal(tx_phase, [0])
 
-        a, rx_gain, rx_phase = calibrator.get_tx_matrix()
+        a, rx_gain, rx_phase = calibrator.get_rx_matrix()
         np.testing.assert_equal(a, [[1, 0, 0, 0]])
         np.testing.assert_equal(rx_gain, [f(10)])
         np.testing.assert_equal(rx_phase, [0])
@@ -169,7 +169,7 @@ class MyTestCase(unittest.TestCase):
         rm = [AntennaCommon.Rm, []]
 
         sequence_items = [cable1, psc, cable2, trm, circulator, cable3, rm]
-        creator = RFDNCreator.AntennaCreator(quantity_rows, separation, separation)
+        creator = RFDNCreator.AntennaCreator(quantity_rows, quantity_columns, separation, separation)
         creator.create_structure(self.filename, sequence_items, row_steering, column_steering)
         self.antenna = Antenna.Antenna()
         self.antenna.initialize(separation, separation, self.filename)
