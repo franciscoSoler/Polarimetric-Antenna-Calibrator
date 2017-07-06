@@ -152,6 +152,7 @@ def every_one_to_one_path_strategy(antenna, tx_network, rm_coupling, rx_network)
     This strategy calculates every path that unify every RM. The configuration is use one in transmission and one in
     reception mode at time. Every input is an s parameter.
     :return:
+    a tuple with two contents, the first one is a tuple of gain paths and the second a list of transmission/reception of each gain path.
     """
     logger = logging.getLogger('Strategy')
     rows, columns = antenna.shape
@@ -160,14 +161,6 @@ def every_one_to_one_path_strategy(antenna, tx_network, rm_coupling, rx_network)
     rowrange = range(rows)
     colrange = range(columns)
 
-    # s2t = lambda x: common.s2t_parameters(x)
-    # t2s = lambda x: common.t2s_parameters(x)
-
-    # g = lambda tx_row, tx_col, rx_row, rx_col: t2s(tx_network[tx_row][tx_col] *
-    #                                                s2t(obtain_submatrix(rm_coupling, 
-    #                                                                     antenna.row_col_to_index(tx_row, tx_col),
-    #                                                                     antenna.row_col_to_index(rx_row, rx_col))) *
-    #                                                rx_network[rx_row][rx_col])
     out = [[obtain_s_parameters(antenna, tx_network, rm_coupling, rx_network, tx_row, tx_col, rx_row, rx_col, logger),
             (antenna.row_col_to_index(tx_row, tx_col),
              antenna.row_col_to_index(rx_row, rx_col))] for rx_row in rowrange for rx_col in colrange
