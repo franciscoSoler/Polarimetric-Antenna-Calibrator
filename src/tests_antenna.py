@@ -161,20 +161,32 @@ class TestAntenna(unittest.TestCase):
 
     def test_gain_change(self):
         rx_h = self.antenna.get_gain_paths("RxH")
+        rx_v = self.antenna.get_gain_paths("RxV")
+        tx_h = self.antenna.get_gain_paths("TxH")
         tx_v = self.antenna.get_gain_paths("TxV")
         shift = 2
         att_shifts = np.matrix([[shift]* self.quantity_columns] * self.quantity_rows)
-        
+
         self.antenna.change_trm_tx_params(att_shifts, "vPolarization")
         self.antenna.change_trm_rx_params(att_shifts, "hPolarization")
 
-        new_rx_h = self.antenna.get_gain_paths("RxH")
         new_tx_v = self.antenna.get_gain_paths("TxV")
+        new_rx_h = self.antenna.get_gain_paths("RxH")
 
-        for row in range(self.quantity_rows):
-            for col in range(self.quantity_columns):
-                np.testing.assert_equal(new_tx_v[0][row][col][1, 0], tx_v[0][row][col][1, 0] * shift)
-                np.testing.assert_equal(new_rx_h[0][row][col][1, 0], rx_h[0][row][col][1, 0] * shift)
+        np.testing.assert_equal(new_tx_v[0][:, :, 1, 0], tx_v[0][:, :, 1, 0] * shift)
+        np.testing.assert_equal(new_rx_h[0][:, :, 1, 0], rx_h[0][:, :, 1, 0] * shift)
+
+        shift = 4
+        att_shifts = np.matrix([[shift]* self.quantity_columns] * self.quantity_rows)
+
+        self.antenna.change_trm_tx_params(att_shifts, "hPolarization")
+        self.antenna.change_trm_rx_params(att_shifts, "vPolarization")
+
+        new_tx_h = self.antenna.get_gain_paths("TxH")
+        new_rx_v = self.antenna.get_gain_paths("RxV")
+
+        np.testing.assert_equal(new_tx_h[0][:, :, 1, 0], tx_h[0][:, :, 1, 0] * shift)
+        np.testing.assert_equal(new_rx_v[0][:, :, 1, 0], rx_v[0][:, :, 1, 0] * shift)
 
     def test_the_cross_gain_pol_doesnt_change_when_a_gain_change_is_performed(self):
         rx_h = self.antenna.get_gain_paths("RxH")
