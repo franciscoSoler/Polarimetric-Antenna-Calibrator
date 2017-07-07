@@ -20,11 +20,9 @@ class MutualCalibrator(calibrator.AntennaCalibrator):
         self.__matrix_builder = MatrixBuilder.LinearBuilder()
         cross = MatrixBuilder.CrossBuilder()
         double = MatrixBuilder.DoubleBuilder()
-        tiny = MatrixBuilder.TinyBuilder()
-        tiny.set_successor(MatrixBuilder.DefaultBuilder())
-        double.set_successor(tiny)
+        double.set_successor(MatrixBuilder.DefaultBuilder())
         cross.set_successor(double)
-        # self.__matrix_builder.set_successor(cross)
+        self.__matrix_builder.set_successor(cross)
 
         self.__rm_coupling = self._antenna.get_mutual_coupling_front_panel()
         self.__tx_network = None

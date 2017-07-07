@@ -171,6 +171,8 @@ def every_one_to_one_path_strategy(antenna, tx_network, rm_coupling, rx_network)
     half_row = rows // 2
     half_col= columns // 2
     unique_path = [[tx_network[half_row, half_col], (antenna.row_col_to_index(half_row, half_col), None)],
+                   [tx_network[half_row, half_col - 1], (antenna.row_col_to_index(half_row, half_col - 1), None)],
+                   [tx_network[half_row, half_col - 1], (None, antenna.row_col_to_index(half_row, half_col - 1))],
                    [rx_network[half_row, half_col], (None, antenna.row_col_to_index(half_row, half_col))]]
     logger.debug(list(zip(*(out + unique_path))))
     return list(zip(*(out + unique_path)))
