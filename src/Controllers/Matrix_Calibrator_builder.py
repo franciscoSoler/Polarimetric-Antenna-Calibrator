@@ -222,7 +222,9 @@ class AsymmetricalBuilder(MatrixCalibratorBuilder):
 
 
 class TinyBuilder(MatrixCalibratorBuilder):
-
+    """
+    DEPRECATED
+    """
     def __init__(self):
         super(TinyBuilder, self).__init__()
 
