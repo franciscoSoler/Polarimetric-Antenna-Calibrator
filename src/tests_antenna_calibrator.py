@@ -20,7 +20,7 @@ class MyTestCase(unittest.TestCase):
         self.power = 20
         self.phase = 0
         self.separation = 1
-        self.row_steering = 0
+        self.row_steering = 30
         self.column_steering = 0
         self.rows = 3
         self.cols = 2
@@ -29,13 +29,31 @@ class MyTestCase(unittest.TestCase):
                                                              self.filename)
 
     def test_the_antenna_retrieve_the_correct_cal_paths(self):
+        antenna = Antenna.Antenna()
+        antenna.initialize(self.separation, self.separation, self.filename)
+
+        [tx_network, rx_network] = antenna.get_gain_paths('TxH-RxV')
+        coupling = antenna.get_mutual_coupling_front_panel()
+
         cal = self.calibrator.generate_cal_paths(AntennaCal.every_one_to_one_path_strategy)
-        sys.stdout.write('\ncal paths {}\n'.format(list(cal.keys())))
-        sys.stdout.write('\nvalues {}\n'.format(list(cal.values())))
-        sys.stdout.write('\nphase paths {}\n'.format(np.angle(list(cal.values()), deg=True)))
-        # todo correct this strategies
-        # print(self.calibrator.generate_cal_paths(AntennaCalibrator.strategy_2))
-        # print(self.calibrator.generate_cal_paths(AntennaCalibrator.strategy_3))
+        # sys.stdout.write('\ncal paths {}\n'.format(list(cal.keys())))
+        # sys.stdout.write('\nvalues {}\n'.format(list(cal.values())))
+        # sys.stdout.write('\nphase paths {}\n'.format(np.angle(list(cal.values()), deg=True)))
+
+        for path in cal.keys():
+            if path[0] is None:
+                rx_index = antenna.index_to_row_col(path[1])
+                np.testing.assert_almost_equal(cal[path], rx_network[rx_index[0], rx_index[1], 1, 0] * common.db2v(self.power))
+            elif path[1] is None:
+                tx_index = antenna.index_to_row_col(path[0])
+                np.testing.assert_almost_equal(cal[path], tx_network[tx_index[0], tx_index[1], 1, 0] * common.db2v(self.power))
+            else:
+                tx_index = antenna.index_to_row_col(path[0])
+                rx_index = antenna.index_to_row_col(path[1])
+                tx_t_matrix = common.s2t_parameters(tx_network[tx_index[0], tx_index[1]])
+                rx_t_matrix = common.s2t_parameters(rx_network[rx_index[0], rx_index[1]])
+                coupling_matrix = common.s2t_parameters(AntennaCal.obtain_submatrix(coupling, *path))
+                np.testing.assert_almost_equal(cal[path], common.t2s_parameters(tx_t_matrix * coupling_matrix * rx_t_matrix)[1, 0] * common.db2v(self.power))
 
     def test_antenna_calibrator_retrieve_the_correct_gain(self):
         antenna = Antenna.Antenna()
@@ -104,7 +122,6 @@ class MyTestCase(unittest.TestCase):
         desired_shift_power = np.abs(desired_gain) - np.abs(network[:, :, 1, 0])
         desired_shift_phase = np.angle(desired_gain, deg=True) - np.angle(network[:, :, 1, 0], deg=True)
         return desired_shift_power, desired_shift_phase
-
 
     def __s2t(self, param):
         return common.s2t_parameters(param)
