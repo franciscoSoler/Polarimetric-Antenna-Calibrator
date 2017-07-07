@@ -60,11 +60,6 @@ class MutualCalibrator(calibrator.AntennaCalibrator):
         rows, columns = self._antenna.shape
         self.__logger.debug('Antenna shape: %s x %s', rows, columns)
 
-        # f = lambda x: [[common.s2t_parameters(x[row][col]) for col in range(columns)] for row in range(rows)]
-
-        # tx_network = f(self.__tx_network)
-        # rx_network = f(self.__rx_network)
-
         self.__logger.debug('Applying strategy')
         [b, a] = strategy(self._antenna, self.__tx_network, self.__rm_coupling, self.__rx_network)
 

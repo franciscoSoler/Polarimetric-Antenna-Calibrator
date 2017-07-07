@@ -25,7 +25,7 @@ class MyTestCase(unittest.TestCase):
         self.rows = 3
         self.cols = 2
         self.__create_antenna(self.rows, self.cols, self.separation)
-        self.calibrator = AntennaCalibrator.MutualCalibrator(self.power, self.phase, self.column_steering, self.row_steering, self.separation, self.separation,
+        self.calibrator = AntennaCalibrator.MutualCalibrator(self.power, self.phase, self.row_steering, self.column_steering, self.separation, self.separation,
                                                              self.filename)
 
     def test_the_antenna_retrieve_the_correct_cal_paths(self):
@@ -64,7 +64,7 @@ class MyTestCase(unittest.TestCase):
         self.calibrator.generate_cal_paths(AntennaCal.every_one_to_one_path_strategy)
         tx_power, tx_phase = self.calibrator.get_transmission_power()
 
-        np.testing.assert_almost_equal(tx_power, np.abs(tx_network[:, :, 1, 0]))
+        np.testing.assert_almost_equal(tx_power, common.v2db(np.abs(tx_network[:, :, 1, 0]) * common.db2v(self.power)))
         np.testing.assert_almost_equal(tx_phase, np.angle(tx_network[:, :, 1, 0], deg=True))
 
         rx_power, rx_phase = self.calibrator.get_reception_power()
@@ -82,12 +82,15 @@ class MyTestCase(unittest.TestCase):
         desired_power = 0
         desired_shift_power, desired_shift_phase = self.__get_desired_shifts(desired_power, rx_network)
 
+        rx_power, rx_phase = self.calibrator.get_reception_power()
+        np.testing.assert_almost_equal(rx_power, common.v2db(rx_network[: ,: , 1, 0]))
+
         rx_power_shift, rx_phase_shift = self.calibrator.get_rx_signal_shifts(desired_power)
         np.testing.assert_almost_equal(rx_power_shift, desired_shift_power)
         np.testing.assert_almost_equal(rx_phase_shift, desired_shift_phase)
 
         desired_power = 20
-        desired_shift_power, desired_shift_phase = self.__get_desired_shifts(desired_power, tx_network)
+        desired_shift_power, desired_shift_phase = self.__get_desired_shifts(desired_power, tx_network * common.db2v(self.power))
 
         tx_power_shift, tx_phase_shift = self.calibrator.get_tx_signal_shifts(desired_power)
         np.testing.assert_almost_equal(tx_power_shift, desired_shift_power)
@@ -119,7 +122,7 @@ class MyTestCase(unittest.TestCase):
                 np.testing.assert_almost_equal(gains[i], common.t2s_parameters(tx_t_matrix * coupling_matrix * rx_t_matrix))
 
     def __get_desired_shifts(self, desired_gain, network):
-        desired_shift_power = np.abs(desired_gain) - np.abs(network[:, :, 1, 0])
+        desired_shift_power = np.abs(desired_gain) - common.v2db(np.abs(network[:, :, 1, 0]))
         desired_shift_phase = np.angle(desired_gain, deg=True) - np.angle(network[:, :, 1, 0], deg=True)
         return desired_shift_power, desired_shift_phase
 
