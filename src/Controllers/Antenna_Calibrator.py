@@ -137,12 +137,12 @@ def obtain_s_parameters(antenna, tx_network, rm_coupling, rx_network, tx_row, tx
     coupling_matrix = common.s2t_parameters(obtain_submatrix(rm_coupling, antenna.row_col_to_index(tx_row, tx_col),
                                             antenna.row_col_to_index(rx_row, rx_col)))
 
-    tx_t_matrix = common.s2t_parameters(tx_network[tx_row][tx_col])
-    rx_t_matrix = common.s2t_parameters(rx_network[tx_row][tx_col])
+    tx_t_matrix = common.s2t_parameters(tx_network[tx_row, tx_col])
+    rx_t_matrix = common.s2t_parameters(rx_network[rx_row, rx_col])
 
-    logger.debug('tx network parameters %s', tx_network[tx_row][tx_col].tolist())
+    logger.debug('tx network parameters %s', tx_network[tx_row, tx_col].tolist())
     logger.debug('coupling network s parameters %s', common.t2s_parameters(coupling_matrix).tolist())
-    logger.debug('rx network parameters %s', rx_network[rx_row][rx_col].tolist())
+    logger.debug('rx network parameters %s', rx_network[rx_row, rx_col].tolist())
     logger.debug('path parameters %s, index (%s, %s)\n', common.t2s_parameters(tx_t_matrix * coupling_matrix * rx_t_matrix).tolist(), antenna.row_col_to_index(tx_row, tx_col), antenna.row_col_to_index(rx_row, rx_col))
     return common.t2s_parameters(tx_t_matrix * coupling_matrix * rx_t_matrix)
 
@@ -152,7 +152,8 @@ def every_one_to_one_path_strategy(antenna, tx_network, rm_coupling, rx_network)
     This strategy calculates every path that unify every RM. The configuration is use one in transmission and one in
     reception mode at time. Every input is an s parameter.
     :return:
-    a tuple with two contents, the first one is a tuple of gain paths and the second a list of transmission/reception of each gain path.
+    a tuple with two contents, the first one is a tuple of gain paths and the second a list of transmission/reception
+    of each gain path in volts.
     """
     logger = logging.getLogger('Strategy')
     rows, columns = antenna.shape
@@ -169,8 +170,8 @@ def every_one_to_one_path_strategy(antenna, tx_network, rm_coupling, rx_network)
 
     half_row = rows // 2
     half_col= columns // 2
-    unique_path = [[tx_network[half_row][half_col], (antenna.row_col_to_index(half_row, half_col), None)],
-                   [rx_network[half_row][half_col], (None, antenna.row_col_to_index(half_row, half_col))]]
+    unique_path = [[tx_network[half_row, half_col], (antenna.row_col_to_index(half_row, half_col), None)],
+                   [rx_network[half_row, half_col], (None, antenna.row_col_to_index(half_row, half_col))]]
     logger.debug(list(zip(*(out + unique_path))))
     return list(zip(*(out + unique_path)))
 
