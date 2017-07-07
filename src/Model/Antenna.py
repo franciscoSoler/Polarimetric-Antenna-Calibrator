@@ -124,9 +124,11 @@ class Antenna:
 
     def __format_gain_paths(self, t_paths):
         self.__logger.debug('Formatting gain paths')
-        s_paths = np.array([AntennaCommon.t2s_parameters(matrix[1]) for matrix in t_paths]).reshape(self.__quantity_rows, self.__quantity_columns, 2, 2)
+
+        s_paths = np.array([AntennaCommon.t2s_parameters(matrix[1]) for matrix in t_paths])
         self.__logger.debug('Paths formatted: %s', s_paths)
-        return s_paths
+
+        return s_paths.reshape(self.__quantity_rows, self.__quantity_columns, 2, 2)
 
     def get_gain_paths(self, pol_mode, complete=True):
         """
